@@ -6,33 +6,112 @@
 
     <include layout="@layout/actionbar" />
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@id/load_more_list_view_ptr_frame"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_small"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_small">
+
+            <EditText
+                android:id="@+id/et_career"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:hint="输入关键字/职位/公司搜索" />
+
+            <ImageButton
+                android:id="@+id/ib_clear"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_clear"
+                android:visibility="invisible" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_search"
+                android:layout_width="wrap_content"
+                android:layout_height="30dip"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:background="@drawable/button_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingRight="@dimen/padding_small">
+
+                <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:background="@mipmap/fdj28" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:text="搜索"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_small"
+            android:background="@color/bg_color" />
+
+        <cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView
+            android:id="@+id/etv_career"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"></cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView>
+
+        <View style="@style/line" />
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
-            android:id="@id/load_more_list_view_container"
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@id/load_more_list_view_ptr_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff">
+            android:layout_height="match_parent">
 
-            <ListView
-                android:id="@id/list_view"
+            <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
+                android:id="@id/load_more_list_view_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:listSelector="@android:color/transparent"
-                android:scrollbarStyle="outsideOverlay" />
+                android:background="#ffffff">
 
-        </in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer>
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+                <ListView
+                    android:id="@id/list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbarStyle="outsideOverlay" />
 
-    <cn.goodjobs.common.view.empty.EmptyLayout
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="invisible"></cn.goodjobs.common.view.empty.EmptyLayout>
+            </in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer>
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+        <cn.goodjobs.common.view.empty.EmptyLayout
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"></cn.goodjobs.common.view.empty.EmptyLayout>
+    </RelativeLayout>
 
 </LinearLayout>

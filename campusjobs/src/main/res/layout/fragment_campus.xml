@@ -29,33 +29,18 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_small"
-                    android:background="@drawable/edittext_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/padding_small">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:enabled="false"
-                        android:hint="请输入职位/企业关键词" />
-
-                    <Button
-                        android:id="@+id/btnSearch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dip"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:background="@drawable/button_bg"
-                        android:text="搜索"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_default" />
-                </LinearLayout>
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip"
+                    android:background="@null"
+                    android:drawableLeft="@mipmap/fdj28_grey"
+                    android:focusable="false"
+                    android:hint="输入关键字/职位/公司搜索"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:singleLine="true"
+                    android:textColorHint="@color/light_color"
+                    android:textSize="@dimen/text_small" />
 
                 <View style="@style/line" />
 
@@ -96,12 +81,12 @@
                     android:background="@color/topbar_bg" />
 
 
-                <ListView
+                <cn.goodjobs.common.view.MyListView
+                    android:id="@+id/lv_campus"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/padding_small">
+                    android:layout_height="match_parent">
 
-                </ListView>
+                </cn.goodjobs.common.view.MyListView>
             </LinearLayout>
 
         </LinearLayout>

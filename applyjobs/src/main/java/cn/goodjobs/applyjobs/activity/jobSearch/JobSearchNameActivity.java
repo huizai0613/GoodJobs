@@ -60,10 +60,7 @@ import cn.goodjobs.common.view.SegmentView;
 import cn.goodjobs.common.view.stickylistheaders.ExpandableStickyListHeadersListView;
 import cz.msebera.android.httpclient.Header;
 
-/**
- * Created by zhuli on 2015/12/18.
- * 资讯详情
- */
+
 public class JobSearchNameActivity extends BaseActivity implements SegmentView.onSegmentViewClickListener, UpdateDataTaskUtils.OnGetDiscussSearchHistoryListener
 {
     private MyLocation myLocation;

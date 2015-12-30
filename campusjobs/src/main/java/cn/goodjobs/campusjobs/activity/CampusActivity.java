@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import cn.goodjobs.campusjobs.R;
 import cn.goodjobs.campusjobs.fragment.CampusFragment;
 import cn.goodjobs.campusjobs.fragment.CareerTalkFragment;
+import cn.goodjobs.campusjobs.fragment.SJobFairFragment;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseFragmentPagerAdapter;
 import cn.goodjobs.common.constants.Constant;
+import cn.goodjobs.common.fragemnt.PersonalCenterFragment;
 import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
@@ -39,15 +41,6 @@ public class CampusActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
-//        if (StringUtil.isEmpty(defaultModule)) {
-//            AlertDialogUtil.show(this, R.string.app_name, "您尚未设置默认显示模块，是否设置当前模块为默认显示的模块？", true, "设置", "取消", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.ApplyJobs.toString());
-//                }
-//            }, null);
-//        }
     }
 
     @Override
@@ -72,10 +65,8 @@ public class CampusActivity extends BaseActivity {
         fragmentList = new ArrayList<Fragment>();
         fragmentList.add(new CampusFragment());
         fragmentList.add(new CareerTalkFragment());
-//        fragmentList.add(new InfoCenterFragment());
-//        fragmentList.add(new PersonalCenterFragment());
-//        fragmentList.add(new JobSearchFragment());
-//        fragmentList.add(new InfoCenterFragment());
+        fragmentList.add(new SJobFairFragment());
+        fragmentList.add(new PersonalCenterFragment());
         BaseFragmentPagerAdapter fragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager());
         fragmentPagerAdapter.fragmentList = fragmentList;
         viewPager.setAdapter(fragmentPagerAdapter);
