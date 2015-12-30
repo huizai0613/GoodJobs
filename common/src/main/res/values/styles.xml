@@ -1,0 +1,89 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <!-- 设置文本默认颜色和字体大小 -->
+        <item name="android:textColor">@color/main_color</item>
+        <item name="android:textSize">@dimen/text_default</item>
+    </style>
+    <!--默认线-->
+    <style name="line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+    <!--职位详情-->
+    <style name="job_detail_tv">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">30dip</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+
+    <style name="listitem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/line_color</item>
+    </style>
+
+    <!-- 向右的可以点击的箭头样式 -->
+    <style name="right_arrow" parent="right_arrow_base">
+        <item name="android:layout_marginRight">@dimen/padding_small</item>
+    </style>
+
+    <style name="right_arrow_base">
+        <item name="android:layout_width">18dip</item>
+        <item name="android:layout_height">18dip</item>
+        <item name="android:src">@drawable/icon_arrow</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+    <!--ExpandTabView使用-->
+    <style name="PopupWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <item name="android:windowExitAnimation">@anim/pophidden_anim</item>
+    </style>
+
+    <!-- 加载滚动条样式 -->
+    <style name="loading">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDrawable">@drawable/progressloading</item>
+        <item name="android:indeterminateDuration">1000</item>
+        <item name="android:indeterminateOnly">true</item>
+    </style>
+
+    // dialog使用
+
+    <style name="Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/bg_color</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="Custom_Progress" parent="@android:style/Theme.Dialog" type="text/css">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="MultiMenuAnimation">
+        <item name="android:windowEnterAnimation">@anim/multi_menu_show</item>
+        <item name="android:windowExitAnimation">@anim/multi_menu_hide</item>
+    </style>
+
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/image_menushow</item>
+        <item name="android:windowExitAnimation">@anim/image_menuhide</item>
+    </style>
+</resources>

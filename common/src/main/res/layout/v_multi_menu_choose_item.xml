@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/expand_tab_item_height"
+          android:layout_marginRight="20dip"
+          android:background="@drawable/choose_first_level_item_selector"
+          android:gravity="center_vertical"
+          android:paddingLeft="10dp"
+          android:textColor="@color/black"
+          android:textSize="@dimen/font_size_14">
+
+</TextView>

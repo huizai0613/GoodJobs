@@ -1,0 +1,183 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/actionbar"/>
+
+    <cn.goodjobs.common.view.ExpandTab.ExpandTabView
+        android:id="@+id/mExView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </cn.goodjobs.common.view.ExpandTab.ExpandTabView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_default"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:text="关键字"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/text_default"/>
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_small"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:textColor="@color/main_color"
+                    android:background="@color/transparent"
+                    android:textColorHint="@color/light_color"
+                    android:hint="请输入关键字"
+                    android:padding="4dip"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:text="搜索类型"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/text_default"/>
+
+                <View
+                    android:layout_marginRight="8dip"
+                    android:layout_marginLeft="8dip"
+                    android:layout_width="0.5dip"
+                    android:layout_height="14dip"
+                    android:background="@color/black"/>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:checkedButton="@+id/rb1">
+                    <RadioButton
+                        android:id="@+id/rb1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全文"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/text_default"
+                        android:clickable="true"
+                        />
+                    <RadioButton
+                        android:id="@+id/rb2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="职位名"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/text_default"
+                        />
+                    <RadioButton
+                        android:id="@+id/rb3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="公司名"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/text_default"
+                        />
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <View style="@style/line"/>
+
+            <cn.goodjobs.common.view.searchItem.SearchItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                listitem:tvtitle="工作地点"
+                listitem:text="合肥">
+            </cn.goodjobs.common.view.searchItem.SearchItemView>
+
+            <View
+                style="@style/line"/>
+
+            <cn.goodjobs.common.view.searchItem.SearchItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                listitem:tvtitle="求职岗位"
+                listitem:text="不限">
+            </cn.goodjobs.common.view.searchItem.SearchItemView>
+
+            <View style="@style/line"/>
+
+            <cn.goodjobs.common.view.searchItem.SearchItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                listitem:tvtitle="行业类别"
+                listitem:text="不限">
+            </cn.goodjobs.common.view.searchItem.SearchItemView>
+
+            <View style="@style/line"/>
+
+            <cn.goodjobs.common.view.searchItem.SearchItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                listitem:tvtitle="薪资要求"
+                listitem:text="不限">
+            </cn.goodjobs.common.view.searchItem.SearchItemView>
+
+            <View style="@style/line"/>
+
+            <cn.goodjobs.common.view.searchItem.SearchItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                listitem:tvtitle="工作经验"
+                listitem:text="不限">
+            </cn.goodjobs.common.view.searchItem.SearchItemView>
+
+            <View style="@style/line"/>
+
+            <cn.goodjobs.common.view.searchItem.SearchItemView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                listitem:tvtitle="学历要求"
+                listitem:text="不限">
+            </cn.goodjobs.common.view.searchItem.SearchItemView>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_small"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:text="搜索"
+                android:background="@drawable/blue_round_bg"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_large" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

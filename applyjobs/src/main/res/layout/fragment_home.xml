@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/topbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 广告位  -->
+            <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+                android:visibility="gone"
+                android:id="@+id/adViewPager"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/main_banner_height"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/padding_small"
+                    android:padding="@dimen/padding_small"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/edittext_bg">
+                    <ImageView
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@mipmap/fdj28_grey"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="输入关键字/职位/a公司搜索"
+                        android:enabled="false"
+                        android:background="@color/transparent"/>
+
+                    <ImageButton
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@drawable/icon_clear"
+                        android:background="@color/transparent"
+                        android:scaleType="fitCenter"/>
+                </LinearLayout>
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:id="@+id/item_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:containAll="true"
+                    listitem:hint="定位中..."
+                    listitem:singleSelected="false"
+                    listitem:source="jobloc_pro;jobloc_city"
+                    listitem:tvtitle="工作地点"/>
+
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:containAll="true"
+                    listitem:hint="选择职位类别"
+                    listitem:singleSelected="false"
+                    listitem:source="jobfunc_l1;jobfunc_l2"
+                    listitem:showLine="false"
+                    listitem:tvtitle="职位类别"/>
+                <View style="@style/line"/>
+                <Button
+                    android:id="@+id/btnSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_margin="@dimen/padding_default"
+                    android:background="@drawable/button_bg"
+                    android:text="搜索"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

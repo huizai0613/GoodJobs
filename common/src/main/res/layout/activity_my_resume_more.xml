@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemShijian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="实践经历"
+            listitem:hint="不完整"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemPeixun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="培训经历"
+            listitem:hint="不完整"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="语言能力"
+            listitem:hint="不完整"
+            listitem:showLine="false"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+</LinearLayout>

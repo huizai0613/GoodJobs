@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white">
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemStarttime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="开始时间"
+                    listitem:hint="请选择任职开始时间"
+                    listitem:important="visible"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemEndtime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="结束时间"
+                    listitem:hint="请选择任职结束时间"
+                    listitem:important="visible"/>
+                <cn.goodjobs.common.view.searchItem.InputItemView
+                    android:id="@+id/itemCompanyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="所在公司"
+                    listitem:important="visible"
+                    listitem:hint="请输入所在公司名称"/>
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:id="@+id/itemIndtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="所属行业"
+                    listitem:hint="请选择所属行业"
+                    listitem:source="indtype"
+                    listitem:important="visible"/>
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:id="@+id/itemCorpkind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="公司性质"
+                    listitem:hint="请选择公司性质"
+                    listitem:source="corpkind"
+                    listitem:important="visible"/>
+                <cn.goodjobs.common.view.searchItem.InputItemView
+                    android:id="@+id/itemDepart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="所在部门"
+                    listitem:important="visible"
+                    listitem:hint="请输入所在部门"/>
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:id="@+id/itemJobfunc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="担任职位"
+                    listitem:hint="请选择担任职位"
+                    listitem:source="jobfunc_l1;jobfunc_l2"
+                    listitem:important="visible" />
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemJobDes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="工作描述"
+                    listitem:hint="请输入工作描述"
+                    listitem:important="visible"
+                    listitem:showLine="false"/>
+                <View style="@style/line"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/padding_default"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_default"
+                android:background="@drawable/button_bg"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

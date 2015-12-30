@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemBasicInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="个人信息"
+            listitem:hint="不完整"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemEducate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="教育经历"
+            listitem:hint="不完整"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemWork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="工作经历"
+            listitem:hint="不完整"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemWill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="求职意向"
+            listitem:hint="不完整"
+            listitem:showLine="false"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnMore"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@drawable/list_item_bg"
+        android:textColor="@color/topbar_bg"
+        android:textSize="@dimen/text_default"
+        android:text="填写更多内容"/>
+
+</LinearLayout>

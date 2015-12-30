@@ -1,0 +1,17 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ListView
+        android:id="@+id/lv_single_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:cacheColorHint="@color/no_color"
+        android:divider="@color/line_color"
+        android:dividerHeight="1px"
+        android:scrollbars="none"></ListView>
+
+</merge>

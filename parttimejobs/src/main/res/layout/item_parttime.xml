@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_partJob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="会议兼职"
+        android:padding="@dimen/padding_small"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/text_default" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/padding_small"
+            android:layout_width="21dip"
+            android:layout_height="21dip"
+            android:background="@drawable/icon_arrow"/>
+
+        <TextView
+            android:id="@+id/tv_partContent"
+            android:layout_toLeftOf="@id/iv_arrow"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="修正休养堂"
+            android:paddingLeft="@dimen/padding_small"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_apply"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="待遇："
+            android:paddingLeft="@dimen/padding_small"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_partDate"
+            android:layout_marginRight="@dimen/padding_large"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2015-12-21"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_partSalary"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_apply"
+            android:layout_toLeftOf="@+id/tv_partDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="100元/天"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="@dimen/padding_small"
+        style="@style/line"/>
+
+
+</LinearLayout>

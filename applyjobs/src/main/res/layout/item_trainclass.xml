@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_classname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_default"
+            android:textColor="@color/main_color"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:text="国家人力资源管理师一级"
+            android:padding="@dimen/padding_small" />
+        <TextView
+            android:id="@+id/tv_classplace"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_default"
+            android:textColor="@color/main_color"
+            android:layout_marginRight="@dimen/padding_small"
+            android:text="芜湖校第40期"
+            android:padding="@dimen/padding_small" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_classtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_default"
+            android:textColor="@color/main_color"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:text="2016-2-27开班"
+            android:padding="@dimen/padding_small" />
+        <TextView
+            android:id="@+id/tv_classupdate"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_default"
+            android:textColor="@color/main_color"
+            android:layout_marginRight="@dimen/padding_small"
+            android:text="2016年05月"
+            android:padding="@dimen/padding_small" />
+    </RelativeLayout>
+
+    <View style="@style/line"/>
+
+</LinearLayout>

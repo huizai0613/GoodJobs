@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemRuxue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="入学时间"
+            listitem:hint="请选择入学时间"
+            listitem:important="visible"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemBiye"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="毕业时间"
+            listitem:hint="请选择毕业时间"
+            listitem:important="visible"/>
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemSchoolName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="学校名称"
+            listitem:important="visible"
+            listitem:hint="请输入学校名称"/>
+        <cn.goodjobs.common.view.searchItem.SelectorItemView
+            android:id="@+id/itemDegree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="学        历"
+            listitem:hint="请选择学历"
+            listitem:source="degree"
+            listitem:important="visible"
+            listitem:showLine="false"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/padding_default"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default"
+        android:background="@drawable/button_bg"/>
+
+</LinearLayout>

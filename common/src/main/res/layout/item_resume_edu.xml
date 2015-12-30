@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability= "blocksDescendants"
+    android:background="@drawable/list_item_bg">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_default"
+        android:textColor="@color/main_color"
+        android:text="大学"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:padding="@dimen/padding_small"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:textColor="@color/light_color"
+        android:textSize="@dimen/text_small"
+        android:text="年月他"
+        android:layout_below="@id/tvTitle"
+        android:paddingBottom="@dimen/padding_small"/>
+
+    <ImageButton
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:id="@+id/btnDel"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding_default"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon_del"
+        android:scaleType="fitCenter"
+        android:focusable = "false"
+        android:onClick="doDelete"
+        android:background="@color/transparent"/>
+
+</RelativeLayout>

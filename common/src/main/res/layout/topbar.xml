@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/topbar_height"
+    android:background="@color/topbar_bg">
+
+    <ImageButton
+        android:id="@+id/btn_left"
+        android:layout_width="110dip"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo_white"
+        android:scaleType="fitCenter"
+        android:background="@drawable/topbar_btn_bg"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small"/>
+
+    <ImageButton
+        android:id="@+id/btn_right"
+        android:layout_width="@dimen/topbar_height"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_list1"
+        android:scaleType="fitCenter"
+        android:background="@drawable/topbar_btn_bg"
+        android:padding="10dip"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/btn_left"
+        android:text="标题"
+        android:id="@+id/top_title"
+        android:textColor="@color/white"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textSize="@dimen/text_default"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        android:background="@drawable/topbar_btn_bg"
+        android:padding="@dimen/padding_small"
+        android:layout_toLeftOf="@id/btn_right">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/btn_right"
+            android:text="合肥"
+            android:id="@+id/tv_city"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textSize="@dimen/text_small"/>
+
+        <ImageView
+            android:layout_width="18dip"
+            android:layout_height="18dip"
+            android:layout_marginLeft="5dip"
+            android:src="@drawable/icon_down_white"
+            android:scaleType="fitCenter"/>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

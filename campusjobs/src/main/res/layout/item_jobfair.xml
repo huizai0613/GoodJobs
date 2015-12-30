@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_corpName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingTop="@dimen/padding_small"
+        android:text="安徽网才信息技术有限公司"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/text_default" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:text="时间："
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_pubDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:text="2015年12月14日15:00"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_small"
+            android:text="("
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_fairWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_small"
+            android:text="今天"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_small"
+            android:text=")"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:text="地点："
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_schoolAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:text="安徽大学就业洽谈室101"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:text="来源："
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_originName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:text="安徽大学就业信息网"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small">
+
+        <TextView
+            android:id="@+id/tv_fairNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:background="@drawable/fair_bg"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:text="已有2人关注"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_followHas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_default"
+            android:layout_toRightOf="@id/tv_fairNum"
+            android:background="@color/yellow"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:text="关注"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_small" />
+
+
+        <TextView
+            android:id="@+id/tv_fairClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_default"
+            android:text="171"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tv_fairClick"
+            android:src="@mipmap/view" />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/line"
+        android:layout_marginTop="@dimen/padding_small" />
+
+</LinearLayout>

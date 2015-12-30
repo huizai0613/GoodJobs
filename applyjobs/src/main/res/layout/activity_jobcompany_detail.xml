@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/window_background"
+              android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_bar"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_10"
+                android:layout_marginRight="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/com_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="中国视频娱乐网"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/com_nature_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_10">
+
+                        <TextView
+                            android:layout_width="60dip"
+                            android:layout_height="match_parent"
+                            android:text="性质"
+                            android:textColor="@color/bule_low_color"
+                            android:textSize="@dimen/font_size_14"/>
+
+                        <TextView
+                            android:id="@+id/com_nature"
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_14"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/com_num_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:background="#f9f9f9"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_10">
+
+                        <TextView
+                            android:layout_width="60dip"
+                            android:layout_height="match_parent"
+                            android:text="人数"
+                            android:textColor="@color/bule_low_color"
+                            android:textSize="@dimen/font_size_14"/>
+
+                        <TextView
+                            android:id="@+id/com_num"
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_14"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/com_industry_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_10">
+
+                        <TextView
+                            android:layout_width="60dip"
+                            android:layout_height="match_parent"
+                            android:text="行业"
+                            android:textColor="@color/bule_low_color"
+                            android:textSize="@dimen/font_size_14"/>
+
+                        <TextView
+                            android:id="@+id/com_industry"
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_14"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/com_add_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:background="#f9f9f9"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_10">
+
+                        <TextView
+                            android:layout_width="60dip"
+                            android:layout_height="match_parent"
+                            android:text="地址"
+                            android:textColor="@color/bule_low_color"
+                            android:textSize="@dimen/font_size_14"/>
+
+                        <LinearLayout
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/com_add"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/font_size_14"/>
+
+                            <TextView
+                                android:id="@+id/com_map"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dip"
+                                android:layout_weight="1"
+                                android:text=" 查看地图"
+                                android:textColor="@color/black"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/com_phone_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/space_10">
+
+                        <TextView
+                            android:layout_width="60dip"
+                            android:layout_height="match_parent"
+                            android:text="电话"
+                            android:textColor="@color/bule_low_color"
+                            android:textSize="@dimen/font_size_14"/>
+
+                        <TextView
+                            android:id="@+id/com_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_size_14"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/job_similar_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@drawable/list_item_bg"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableRight="@drawable/r_icon"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/space_15"
+                        android:text="招聘职位"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_15">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="公司介绍"
+                        android:textColor="@color/bule_low_color"
+                        android:textSize="@dimen/font_size_14"
+                        android:textStyle="bold"/>
+
+
+                    <TextView
+                        android:id="@+id/com_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:maxLines="5"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"></TextView>
+
+                    <ImageView
+                        android:id="@+id/com_updown"
+                        android:layout_width="40dip"
+                        android:layout_height="30dip"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="10dip"
+                        android:src="@drawable/companyarticle_down"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <cn.goodjobs.common.view.empty.EmptyLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"></cn.goodjobs.common.view.empty.EmptyLayout>
+    </RelativeLayout>
+</LinearLayout>

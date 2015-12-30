@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow>
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:onClick="menuClick"
+                android:tag="0"
+                android:text="掌上求职" />
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:onClick="menuClick"
+                android:tag="1"
+                android:text="校园招聘" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:onClick="menuClick"
+                android:tag="2"
+                android:text="猎头职位" />
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:onClick="menuClick"
+                android:tag="3"
+                android:text="兼职信息" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="蓝领招聘" />
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="职位推荐" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="我的简历" />
+
+            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="简历刷新" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

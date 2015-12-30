@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:layout_marginLeft="@dimen/space_15"
+        android:layout_marginRight="@dimen/space_15"
+        android:layout_marginTop="@dimen/space_15"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/search_box_et"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@color/search_boxbg"
+            android:hint="@string/hint_search_box"
+            android:imeOptions="actionSearch"/>
+
+        <Button
+            android:id="@+id/search_box_but"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_10"
+            android:layout_weight="1"
+            android:background="@drawable/button_bg"
+            android:text="@string/text_search"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_16"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/space_10"
+        android:background="@color/split_line"
+        ></View>
+
+    <cn.goodjobs.common.view.SegmentView
+        android:id="@+id/search_switch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"></cn.goodjobs.common.view.SegmentView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/topbar_bg"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/search_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_30"
+                    android:layout_marginLeft="10dip"
+                    android:gravity="center_vertical"
+                    android:text="暂无搜索历史记录"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_color"/>
+
+                <LinearLayout
+                    android:id="@+id/search_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/btn_clear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="10dp"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:padding="10dip"
+                        android:text="[清空搜索记录]"
+                        android:textColor="#5f9bf8"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/btn_finish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/btn_clear"
+                        android:background="@null"
+                        android:padding="10dip"
+                        android:text="[关闭]"
+                        android:textColor="#5f9bf8"
+                        android:textSize="15sp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+
+        <cn.goodjobs.common.view.empty.EmptyLayout
+            android:id="@+id/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</LinearLayout>

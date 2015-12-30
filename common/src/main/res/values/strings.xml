@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">新安人才网</string>
+
+    <string name="exit_app">再按一次退出应用</string>
+    <string name="net_error">您的网络开小差啦</string>
+    <string name="service_error">服务器连接中断，请稍候重试</string>
+    <string name="request_error">请求错误,再请求一次试试</string>
+    <string name="title_activity_selector">SelectorActivity</string>
+	<string name="no_data">没有符合条件的职业推荐</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="tag">tag</string>
+
+
+    <!-- Error View -->
+    <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
+    <string name="error_view_no_data">暂无相关数据</string>
+    <string name="error_view_no_data_or_delete">内容不存在或者已经删除</string>
+    <string name="error_view_loading">加载中…</string>
+    <string name="error_view_load_error_click_to_refresh">内容加载失败\r\n点击重新加载</string>
+    <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
+    <string name="tip_network_error">没有可用的网络</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_personal_list">PersonalListActivity</string>
+    <string name="title_activity_personal_apply">PersonalApplyActivity</string>
+    <string name="title_activity_personal_inbox">PersonalInboxActivity</string>
+    <string name="title_activity_my_resume">MyResumeActivity</string>
+    <string name="title_activity_my_resume_more">MyResumeMoreActivity</string>
+    <string name="title_activity_my_resume_preview">MyResumePreviewActivity</string>
+    <string name="title_activity_my_resume_base_info">MyResumeBaseInfoActivity</string>
+    <string name="title_activity_my_resume_edu">MyResumeEduActivity</string>
+    <string name="title_activity_my_resume_edu_add">MyResumeEduAddActivity</string>
+    <string name="title_activity_my_resume_work">MyResumeWorkActivity</string>
+    <string name="title_activity_text_area">TextAreaActivity</string>
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="@dimen/loading_dialog_size"
+    android:minWidth="@dimen/loading_dialog_size"
+    android:background="@drawable/loading_dialog_bg">
+
+    <ImageView
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="30dip"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_white"/>
+
+    <ProgressBar
+        android:id="@+id/loading_img"
+        android:layout_width="65dip"
+        android:layout_height="65dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="10dip"
+        android:indeterminateDrawable="@drawable/loading_animation"/>
+
+    <TextView
+        android:id="@+id/tipTextView"
+        android:layout_width="@dimen/loading_dialog_size"
+        android:layout_height="25dip"
+        android:layout_below="@id/loading_img"
+        android:textSize="@dimen/text_small"
+        android:gravity="center|bottom"
+        android:textColor="@color/white"
+        android:text="数据加载中……" />
+
+</RelativeLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_default"
+                android:layout_marginRight="@dimen/padding_default"
+                android:layout_weight="2">
+
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_width="25dip"
+                    android:layout_height="25dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@mipmap/icon_share" />
+
+                <TextView
+                    android:id="@+id/tv_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_share"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="分享"
+                    android:textColor="@color/topbar_bg"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_apply"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@drawable/button_bg"
+                    android:text="申请职位"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_collect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <ImageView
+                    android:id="@+id/iv_collect"
+                    android:layout_width="25dip"
+                    android:layout_height="25dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@mipmap/icon_collect" />
+
+                <TextView
+                    android:id="@+id/tv_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_collect"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="收藏"
+                    android:textColor="@color/topbar_bg"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line"
+            style="@style/line"
+            android:layout_above="@id/ll_bottom" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_headdetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/view_line" />
+
+    </RelativeLayout>
+
+</LinearLayout>

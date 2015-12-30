@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="black">#333333</color>
+    <color name="dialog_outside_bg">#40000000</color>
+    <color name="grey">#999999</color>
+    <color name="red">#ee2222</color>
+    <color name="yellow">#FF8822</color>
+    <color name="btn_yellow">#FF3710</color>
+    <color name="toast_bg">#99333333</color>
+
+
+    <!--分割线颜色-->
+    <color name="split_line">#ddd</color>
+    <color name="vice_text_color">#999</color>
+
+    <!-- 窗口主色调-->
+    <color name="window_background">#EBEBEB</color>
+    <color name="main_gray">#9A9A9A</color>
+
+    <!-- 搜索框背景色-->
+    <color name="search_boxbg">#eaeaea</color>
+    <color name="search_butbg_nomal">#333333</color>
+    <color name="search_butbg_press">#555555</color>
+
+
+    <!--  主要文字颜色 -->
+    <color name="main_color">#606060</color>
+    <!--  次要文字颜色 -->
+    <color name="light_color">#999999</color>
+
+    <!--  淡蓝色文字颜色 -->
+    <color name="bule_low_color">#3492e9</color>
+
+    <!--  职位详情投递简历背景颜色 -->
+    <color name="job_detail_send_nomal">#e94c0f</color>
+    <color name="job_detail_send_press">#c7410c</color>
+    <!--  职位详情收藏简历背景颜色 -->
+    <color name="job_detail_collect_nomal">#679fdb</color>
+    <color name="job_detail_collect_press">#5483b5</color>
+
+
+    <color name="bg_color">#f0f0f0</color>
+    <!--  顶部导航条背景颜色 -->
+    <color name="topbar_bg">#3492e9</color>
+    <color name="topbar_onbg">#44a2f9</color>
+
+    <color name="list_item_nornal">#ffffff</color>
+    <color name="list_item_pressed">#eeeeee</color>
+    <color name="transparent">#00000000</color>
+    <color name="topbar_pressed">#10000000</color>
+    <color name="line_color">#dedede</color>
+    <color name="bottom_gray">#aaaaaa</color>
+    <color name="bottom_gray_light">#ddaaaaaa</color>
+
+    <!--ExpandTabView使用-->
+    <color name="popup_main_background">#b0000000</color>
+    <color name="choose_eara_item_press_color">#f4f4f4</color>
+    <color name="no_color">#00000000</color>
+
+    <color name="high_light">#f60</color>
+    <color name="high_light_green">#00c15c</color>
+</resources>

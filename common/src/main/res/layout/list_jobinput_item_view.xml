@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+    
+    <TextView
+        android:id="@+id/tvNecessity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginRight="2dip"
+        android:text="*"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text_small"/>
+    
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/text_default"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/text_small"
+        android:layout_marginRight="@dimen/padding_small"
+        android:textColor="@color/main_color"
+        android:gravity="right|center_vertical"
+        android:background="@color/transparent"
+        android:textColorHint="@color/light_color"
+        android:singleLine="true"
+        android:textCursorDrawable="@null"/>
+
+    <ImageButton
+        android:id="@+id/btnClear"
+        android:layout_width="18dip"
+        android:layout_height="18dip"
+        android:src="@drawable/icon_clear"
+        android:scaleType="fitCenter"
+        android:padding="2dip"
+        android:background="@color/transparent"
+        android:layout_marginRight="@dimen/padding_small"/>
+
+
+
+</LinearLayout>

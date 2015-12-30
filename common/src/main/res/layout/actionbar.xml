@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/topbar_height"
+    android:background="@color/topbar_bg">
+
+    <ImageButton
+        android:id="@+id/btn_left"
+        android:layout_width="@dimen/topbar_height"
+        android:layout_height="match_parent"
+        android:onClick="doBack"
+        android:src="@drawable/icon_back"
+        android:scaleType="fitCenter"
+        android:background="@drawable/topbar_btn_bg"
+        android:padding="14dip"/>
+
+    <ImageButton
+        android:id="@+id/btn_right"
+        android:layout_width="@dimen/topbar_height"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:onClick="rightBtnClick"
+        android:src="@drawable/icon_back"
+        android:scaleType="fitCenter"
+        android:background="@drawable/topbar_btn_bg"
+        android:visibility="invisible"
+        android:padding="10dip"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/btn_left"
+        android:layout_toLeftOf="@id/btn_right"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="标题"
+            android:id="@+id/top_title"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:focusable="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:textSize="@dimen/text_default"/>
+
+        <TextView
+            android:id="@+id/top_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="收到3份简历"
+            android:textSize="@dimen/text_litter"
+            android:textColor="#dfdfdf"
+            android:gravity="center"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</RelativeLayout>

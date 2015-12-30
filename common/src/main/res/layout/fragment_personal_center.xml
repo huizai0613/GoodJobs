@@ -1,0 +1,210 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="112dip"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white">
+                <View style="@style/line"/>
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/myImageview"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    fresco:actualImageScaleType="focusCrop"
+                    fresco:fadeDuration="300"
+                    fresco:roundedCornerRadius="4dp"
+                    android:clickable="true"
+                    fresco:placeholderImage="@drawable/img_personal_default"
+                    android:layout_margin="@dimen/padding_default"
+                    fresco:placeholderImageScaleType="fitCenter"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dip"
+                    android:orientation="vertical"
+                    android:layout_toRightOf="@id/myImageview"
+                    android:layout_alignTop="@id/myImageview">
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/tvPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvUpdatetime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"/>
+                </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btnYanzheng"
+                    android:layout_width="70dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/yyz"
+                    android:scaleType="fitXY"
+                    android:background="@color/transparent"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+
+                <ImageButton
+                    android:id="@+id/btnRefresh"
+                    android:layout_width="70dip"
+                    android:layout_height="20dip"
+                    android:src="@drawable/sx"
+                    android:scaleType="fitXY"
+                    android:background="@color/transparent"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_alignBottom="@id/myImageview"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <View style="@style/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/padding_small">
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemJianli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="我的简历"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_jianli"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemXiaoyuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:tvtitle="我的校园"
+                    listitem:showLine="false"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_xiaoyuan"/>
+                <View style="@style/line"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/padding_small">
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemChakan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_chakan"
+                    listitem:tvtitle="谁看过我的简历"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemShenqing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_shenqing"
+                    listitem:tvtitle="职位申请记录"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemCollection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_collection"
+                    listitem:tvtitle="职位收藏夹"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_message"
+                    listitem:tvtitle="企业来信"
+                    listitem:showLine="false"/>
+                <View style="@style/line"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/padding_small">
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemSousuo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_sousuo"
+                    listitem:showLine="false"
+                    listitem:tvtitle="个人搜索器"/>
+                <View style="@style/line"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/padding_small">
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_setting"
+                    listitem:tvtitle="简历公开设置"/>
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:showHLine="false"
+                    listitem:image="@drawable/personal_center_login"
+                    listitem:tvtitle="登录信息修改"
+                    listitem:showLine="false"/>
+                <View style="@style/line"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

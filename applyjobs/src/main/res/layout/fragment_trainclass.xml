@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_marginBottom="1dip"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/padding_small"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:text="预约"
+            android:background="@drawable/blue_round_bg"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
+        <Button
+            android:id="@+id/btn_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/padding_small"
+            android:text="咨询"
+            android:background="@drawable/blue_round_bg"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large" />
+    </LinearLayout>
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:layout_above="@id/ll_bottom"
+        android:id="@id/load_more_list_view_ptr_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
+            android:id="@id/load_more_list_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff">
+
+            <ListView
+                android:id="@id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:scrollbarStyle="outsideOverlay" />
+
+        </in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+    <cn.goodjobs.common.view.empty.EmptyLayout
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+    </cn.goodjobs.common.view.empty.EmptyLayout>
+
+</RelativeLayout>

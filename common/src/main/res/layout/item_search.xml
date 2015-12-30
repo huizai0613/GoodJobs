@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:background="@drawable/list_item_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="@dimen/padding_default"
+            android:layout_height="2dip"/>
+
+        <TextView
+            android:id="@+id/tvNecessity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="2dip"
+            android:text="*"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            android:textSize="@dimen/text_small"/>
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="26dip"
+            android:layout_height="26dip"
+            android:layout_marginRight="@dimen/padding_small"
+            android:scaleType="fitXY"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_searchtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/padding_small"
+            android:text="工作地点"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default"/>
+
+        <View
+            android:id="@+id/hline"
+            android:layout_marginRight="8dip"
+            android:layout_width="0.5dip"
+            android:layout_height="14dip"
+            android:background="@color/light_color"/>
+
+        <TextView
+            android:id="@+id/tv_searchresult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="合肥"
+            android:layout_marginRight="@dimen/padding_small"
+            android:gravity="right|center_vertical"
+            android:textColor="@color/main_color"
+            android:textColorHint="@color/light_color"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_small"/>
+
+        <ImageView
+            android:id="@+id/imgArrow"
+            style="@style/right_arrow_base"
+            android:layout_marginRight="@dimen/padding_default"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_marginLeft="12dip"
+        android:layout_alignParentBottom="true"
+        style="@style/line"/>
+
+</RelativeLayout>

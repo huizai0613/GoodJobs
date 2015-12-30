@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_default"
+        android:padding="@dimen/padding_small"
+        android:background="@drawable/edittext_bg"
+        android:textSize="@dimen/text_default"
+        android:textColor="@color/main_color"
+        android:textColorHint="@color/light_color"
+        android:hint="hint"
+        android:gravity="left|top"
+        android:lines="15"/>
+
+    <Button
+        android:id="@+id/btnSure"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginRight="@dimen/padding_default"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default"
+        android:background="@drawable/button_bg"/>
+
+
+</LinearLayout>

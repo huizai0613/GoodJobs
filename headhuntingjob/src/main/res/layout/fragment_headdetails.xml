@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_jobName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/padding_default"
+                android:text="财务总监"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_large" />
+
+            <TextView
+                android:id="@+id/tv_companyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_jobName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/padding_default"
+                android:text="新安猎头"
+                android:textColor="@color/light_color"
+                android:textSize="@dimen/text_default" />
+        </RelativeLayout>
+
+        <View
+            style="@style/line"
+            android:layout_marginTop="@dimen/padding_default" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default">
+
+            <TextView
+                android:id="@+id/tv_jobSalary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/padding_default"
+                android:text="20000-29999元"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_default" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_jobSalary"
+                android:layout_marginLeft="@dimen/padding_default">
+
+                <ImageView
+                    android:id="@+id/iv_mouth"
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:layout_marginLeft="@dimen/padding_large"
+                    android:layout_marginTop="@dimen/padding_default"
+                    android:background="@mipmap/jobmouth" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:layout_marginTop="@dimen/padding_default"
+                    android:layout_toRightOf="@id/iv_mouth"
+                    android:text="月薪"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_line1"
+                android:layout_width="2dip"
+                android:layout_height="60dip"
+                android:layout_marginLeft="@dimen/padding_large"
+                android:layout_toRightOf="@id/tv_jobSalary"
+                android:background="@color/line_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_line1">
+
+                <TextView
+                    android:id="@+id/tv_workTimeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/padding_default"
+                    android:text="八年以上"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_default" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_workTimeName"
+                    android:layout_marginLeft="@dimen/padding_default">
+
+                    <ImageView
+                        android:id="@+id/iv_jingy"
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:background="@mipmap/jobjingy" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:layout_toRightOf="@id/iv_jingy"
+                        android:text="经验"
+                        android:textColor="@color/light_color"
+                        android:textSize="@dimen/text_default" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_line2"
+                    android:layout_width="2dip"
+                    android:layout_height="60dip"
+                    android:layout_marginLeft="@dimen/padding_large"
+                    android:layout_toRightOf="@id/tv_workTimeName"
+                    android:background="@color/line_color" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_toRightOf="@id/tv_line2">
+
+                    <TextView
+                        android:id="@+id/tv_cityName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:gravity="center_horizontal"
+                        android:text="六安市"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/text_default" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_cityName"
+                        android:layout_marginLeft="@dimen/padding_default">
+
+                        <ImageView
+                            android:id="@+id/iv_jobaddress"
+                            android:layout_width="20dip"
+                            android:layout_height="20dip"
+                            android:layout_marginLeft="@dimen/padding_small"
+                            android:layout_marginTop="@dimen/padding_default"
+                            android:background="@mipmap/jobadress" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="@dimen/padding_small"
+                            android:layout_marginTop="@dimen/padding_default"
+                            android:layout_toRightOf="@id/iv_jobaddress"
+                            android:text="城市"
+                            android:textColor="@color/light_color"
+                            android:textSize="@dimen/text_default" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@color/bg_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default"
+            android:text="其他要求"
+            android:textColor="@color/topbar_bg"
+            android:textSize="@dimen/text_large" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_xueli"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="学历："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+                <TextView
+                    android:id="@+id/tv_degreeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_xueli"
+                    android:text="不限"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="年龄："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+                <TextView
+                    android:id="@+id/tv_ageName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_age"
+                    android:text="不限"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="性别："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+                <TextView
+                    android:id="@+id/tv_sexName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_sex"
+                    android:text="不限"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+
+                <TextView
+                    android:id="@+id/tv_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="外语："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+                <TextView
+                    android:id="@+id/tv_LanguageName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_english"
+                    android:text="不限"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_man"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="招聘人数："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+                <TextView
+                    android:id="@+id/tv_jobOfferNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_man"
+                    android:text="不限"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@color/bg_color" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_default"
+                android:text="职位亮点"
+                android:textColor="@color/topbar_bg"
+                android:textSize="@dimen/text_large" />
+
+            <cn.goodjobs.common.view.LabelView
+                android:id="@+id/label_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_point"
+                android:layout_marginLeft="@dimen/padding_default"
+                android:layout_marginRight="@dimen/padding_default" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/padding_default"
+                android:layout_below="@id/label_details"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/bg_color" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default"
+            android:text="职位描述"
+            android:textColor="@color/topbar_bg"
+            android:textSize="@dimen/text_large" />
+
+        <TextView
+            android:id="@+id/tv_jobDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default" />
+
+    </LinearLayout>
+</ScrollView>
