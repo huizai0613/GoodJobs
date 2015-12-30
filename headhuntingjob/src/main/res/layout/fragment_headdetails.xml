@@ -20,7 +20,7 @@
                 android:layout_marginTop="@dimen/padding_default"
                 android:text="财务总监"
                 android:textColor="@color/main_color"
-                android:textSize="@dimen/text_large" />
+                android:textSize="@dimen/text_default" />
 
             <TextView
                 android:id="@+id/tv_companyName"
@@ -31,7 +31,7 @@
                 android:layout_marginTop="@dimen/padding_default"
                 android:text="新安猎头"
                 android:textColor="@color/light_color"
-                android:textSize="@dimen/text_default" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <View
@@ -50,7 +50,7 @@
                 android:layout_marginLeft="@dimen/padding_default"
                 android:text="20000-29999元"
                 android:textColor="@color/red"
-                android:textSize="@dimen/text_default" />
+                android:textSize="@dimen/text_small" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -60,8 +60,8 @@
 
                 <ImageView
                     android:id="@+id/iv_mouth"
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
+                    android:layout_width="15dip"
+                    android:layout_height="15dip"
                     android:layout_marginLeft="@dimen/padding_large"
                     android:layout_marginTop="@dimen/padding_default"
                     android:background="@mipmap/jobmouth" />
@@ -74,7 +74,7 @@
                     android:layout_toRightOf="@id/iv_mouth"
                     android:text="月薪"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
 
@@ -95,10 +95,10 @@
                     android:id="@+id/tv_workTimeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_default"
+                    android:layout_marginLeft="@dimen/padding_large"
                     android:text="八年以上"
                     android:textColor="@color/red"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -108,8 +108,8 @@
 
                     <ImageView
                         android:id="@+id/iv_jingy"
-                        android:layout_width="20dip"
-                        android:layout_height="20dip"
+                        android:layout_width="15dip"
+                        android:layout_height="15dip"
                         android:layout_marginLeft="@dimen/padding_small"
                         android:layout_marginTop="@dimen/padding_default"
                         android:background="@mipmap/jobjingy" />
@@ -122,7 +122,7 @@
                         android:layout_toRightOf="@id/iv_jingy"
                         android:text="经验"
                         android:textColor="@color/light_color"
-                        android:textSize="@dimen/text_default" />
+                        android:textSize="@dimen/text_small" />
 
                 </RelativeLayout>
 
@@ -149,7 +149,7 @@
                         android:gravity="center_horizontal"
                         android:text="六安市"
                         android:textColor="@color/red"
-                        android:textSize="@dimen/text_default" />
+                        android:textSize="@dimen/text_small" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -159,9 +159,9 @@
 
                         <ImageView
                             android:id="@+id/iv_jobaddress"
-                            android:layout_width="20dip"
-                            android:layout_height="20dip"
-                            android:layout_marginLeft="@dimen/padding_small"
+                            android:layout_width="15dip"
+                            android:layout_height="15dip"
+                            android:layout_marginLeft="@dimen/padding_large"
                             android:layout_marginTop="@dimen/padding_default"
                             android:background="@mipmap/jobadress" />
 
@@ -174,7 +174,7 @@
                             android:layout_toRightOf="@id/iv_jobaddress"
                             android:text="城市"
                             android:textColor="@color/light_color"
-                            android:textSize="@dimen/text_default" />
+                            android:textSize="@dimen/text_small" />
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -195,7 +195,7 @@
             android:padding="@dimen/padding_default"
             android:text="其他要求"
             android:textColor="@color/topbar_bg"
-            android:textSize="@dimen/text_large" />
+            android:textSize="@dimen/text_default" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -214,7 +214,7 @@
                     android:paddingLeft="@dimen/padding_default"
                     android:text="学历："
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <TextView
                     android:id="@+id/tv_degreeName"
@@ -223,7 +223,7 @@
                     android:layout_toRightOf="@id/tv_xueli"
                     android:text="不限"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
 
@@ -239,7 +239,7 @@
                     android:paddingLeft="@dimen/padding_default"
                     android:text="年龄："
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <TextView
                     android:id="@+id/tv_ageName"
@@ -248,7 +248,7 @@
                     android:layout_toRightOf="@id/tv_age"
                     android:text="不限"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
 
@@ -264,7 +264,7 @@
                     android:paddingLeft="@dimen/padding_default"
                     android:text="性别："
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <TextView
                     android:id="@+id/tv_sexName"
@@ -273,7 +273,7 @@
                     android:layout_toRightOf="@id/tv_sex"
                     android:text="不限"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -296,7 +296,7 @@
                     android:paddingLeft="@dimen/padding_default"
                     android:text="外语："
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <TextView
                     android:id="@+id/tv_LanguageName"
@@ -305,7 +305,7 @@
                     android:layout_toRightOf="@id/tv_english"
                     android:text="不限"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
 
@@ -321,7 +321,7 @@
                     android:paddingLeft="@dimen/padding_default"
                     android:text="招聘人数："
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <TextView
                     android:id="@+id/tv_jobOfferNum"
@@ -330,7 +330,7 @@
                     android:layout_toRightOf="@id/tv_man"
                     android:text="不限"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
 
@@ -355,7 +355,7 @@
                 android:padding="@dimen/padding_default"
                 android:text="职位亮点"
                 android:textColor="@color/topbar_bg"
-                android:textSize="@dimen/text_large" />
+                android:textSize="@dimen/text_default" />
 
             <cn.goodjobs.common.view.LabelView
                 android:id="@+id/label_details"
@@ -380,7 +380,7 @@
             android:padding="@dimen/padding_default"
             android:text="职位描述"
             android:textColor="@color/topbar_bg"
-            android:textSize="@dimen/text_large" />
+            android:textSize="@dimen/text_default" />
 
         <TextView
             android:id="@+id/tv_jobDetail"
@@ -388,7 +388,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_default"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
+            android:textSize="@dimen/text_small" />
 
     </LinearLayout>
 </ScrollView>

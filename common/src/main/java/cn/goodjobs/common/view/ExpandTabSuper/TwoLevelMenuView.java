@@ -33,9 +33,7 @@ public class TwoLevelMenuView extends LinearLayout implements
     public void setIsMultiCheck(boolean isMultiCheck)
     {
         this.isMultiCheck = isMultiCheck;
-        if (isMultiCheck) {
-            multiCheckMap = new HashMap<>();
-        }
+
     }
 
     // 第一级菜单数据Map中的数据为{0 : "分类1", 1: "分类2",.....},即key是分类id, value是分类名
@@ -70,25 +68,26 @@ public class TwoLevelMenuView extends LinearLayout implements
     }
 
 
+    public void setCheckMult(HashMap<String, String> multiCheckMap)
+    {
+        this.multiCheckMap = multiCheckMap;
+    }
+
     public void setValue(Map<String, String> firstLevelData,
                          Map<String, Map<String, String>> secondLevelData, String firstLevelSelcetKey, String secondLevelSelectKey, int[] firstLevelImg)
     {
 
 
-        if (isMultiCheck) {
-            if (multiCheckMap == null) {
-                multiCheckMap = new HashMap<>();
-            }
-            for (int i = 0; i < firstLevelData.size(); i++) {
-                multiCheckMap.put(i + "", "0");
-            }
-
-        }
         this.mFristLevelData = firstLevelData;
         this.firstLevelImg = firstLevelImg;
         this.mSecondLevelData = secondLevelData;
         this.mFirstLevelKey = firstLevelSelcetKey;
         this.mSecondLevelKey = secondLevelSelectKey;
+
+        if (multiCheckMap != null) {
+            this.mSecondLevelKey = multiCheckMap.get(this.mFirstLevelKey);
+        }
+
         mFirstLevelAdatper = new MultiFirstLevelMenuAdapter(getContext(),
                 firstLevelData,
                 R.drawable.choose_frist_select_bg,
@@ -112,6 +111,12 @@ public class TwoLevelMenuView extends LinearLayout implements
                         mCurrentChildData.clear();
                         mCurrentChildData.putAll(mSecondLevelData.get(key));
                         if (isMultiCheck) {
+                            if (multiCheckMap == null) {
+                                multiCheckMap = new HashMap<>();
+                                for (int i = 0; i < mFristLevelData.size(); i++) {
+                                    multiCheckMap.put(i + "", "0");
+                                }
+                            }
                             mSecondLevelAdapter.setSelectedKeyNoNotify(multiCheckMap.get(mTempFirstLevelKey));
                         } else {
                             if (!mFirstLevelKey.equals(mTempFirstLevelKey)) {

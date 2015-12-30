@@ -106,12 +106,22 @@ public class PersonalCenterFragment extends BaseFragment {
         Uri uri = Uri.parse(personalInfo.optString("pic"));
         myImageview.setImageURI(uri);
         tvUsername.setText("用  户  名：" + personalInfo.optString("username"));
-        tvPhone.setText("手  机  号："+personalInfo.optString("mb"));
+        tvPhone.setText("手  机  号：" + personalInfo.optString("mb"));
         tvUpdatetime.setText("更新时间：" + personalInfo.optString("updateTime"));
         itemChakan.setHint(personalInfo.optString("countCorpLook") + "条");
         itemShenqing.setHint(personalInfo.optString("countJobApply") + "条");
         itemCollection.setHint(personalInfo.optString("countBookmark") + "条");
         itemMessage.setHint(personalInfo.optString("countInbox") + "条");
+
+        btnYanzheng.setVisibility(View.VISIBLE);
+        btnRefresh.setVisibility(View.VISIBLE);
+        if ("0".equals(personalInfo.optString("ismb"))) {
+            btnYanzheng.setImageResource(R.drawable.wyz);
+        } else {
+            btnYanzheng.setImageResource(R.drawable.yyz);
+        }
+        itemJianli.setHint(personalInfo.optString("viewHistoryCount")+"次被浏览");
+        itemSetting.setHint(personalInfo.optString("pubLevel"));
     }
 
     @Override

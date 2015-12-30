@@ -25,6 +25,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
 
     public String sourceStr; // 数据源，多个数据源以|分隔
     public String selectorIds; //选中ids
+    private String sID;
     public boolean containAll; // 下级列表是否包含全部
     public boolean singleSelected; // 是否单选
     public int maxSelected = 5; // 默认最多选择5项
@@ -141,6 +142,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         setTag(selectorIds);
         clear();
         if (!StringUtil.isEmpty(selectorIds)) {
+            sID = selectorIds;
             if (!selectorIds.startsWith(spitStr)) {
                 selectorIds = spitStr + selectorIds;
             }
@@ -149,6 +151,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             }
         } else {
             selectorIds = "";
+            sID = "";
         }
         this.selectorIds = selectorIds;
     }
@@ -171,6 +174,9 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
 
     public String getSelectorIds()
     {
+        if (!isInit && !StringUtil.isEmpty(sID)) {
+            return sID;
+        }
         if (selectedItems == null || selectedItems.size() == 0) {
             return "";
         }

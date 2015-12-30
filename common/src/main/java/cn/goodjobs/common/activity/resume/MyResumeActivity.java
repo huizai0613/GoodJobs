@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import org.json.JSONObject;
 
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
@@ -24,6 +25,12 @@ public class MyResumeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setStatus(); // 刷新界面状态
     }
 
     @Override
@@ -54,7 +61,10 @@ public class MyResumeActivity extends BaseActivity {
         itemEducate.setOnClickListener(this);
         itemWork.setOnClickListener(this);
         itemWill.setOnClickListener(this);
+        getDataFromServer();
+    }
 
+    private void getDataFromServer() {
         LoadingDialog.showDialog(this);
         HttpUtil.post(URLS.API_CV_INDEX, this);
     }
@@ -79,19 +89,25 @@ public class MyResumeActivity extends BaseActivity {
         } else if (v.getId() == R.id.itemWork) {
             intent.setClass(this, MyResumeWorkActivity.class);
         } else if (v.getId() == R.id.itemWill) {
-            intent.setClass(this, MyResumeBaseInfoActivity.class);
+            intent.setClass(this, MyResumeWillActivity.class);
         }
-        startActivity(intent);
+        startActivityForResult(intent, 111);
     }
 
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        JSONObject jsonObject = (JSONObject) data;
-        setStatus(itemBasicInfo, jsonObject.optString("basicStatus"));
-        setStatus(itemEducate, jsonObject.optString("eduStatus"));
-        setStatus(itemWork, jsonObject.optString("workStatus"));
-        setStatus(itemWill, jsonObject.optString("willStatus"));
+        GoodJobsApp.getInstance().resumeJson = (JSONObject) data;
+        setStatus();
+    }
+
+    private void setStatus() {
+        if (GoodJobsApp.getInstance().resumeJson != null) {
+            setStatus(itemBasicInfo, GoodJobsApp.getInstance().resumeJson.optString("basicStatus"));
+            setStatus(itemEducate, GoodJobsApp.getInstance().resumeJson.optString("eduStatus"));
+            setStatus(itemWork, GoodJobsApp.getInstance().resumeJson.optString("workStatus"));
+            setStatus(itemWill, GoodJobsApp.getInstance().resumeJson.optString("willStatus"));
+        }
     }
 
     private void setStatus(SearchItemView searchItemView, String status) {
@@ -99,6 +115,14 @@ public class MyResumeActivity extends BaseActivity {
             searchItemView.setHint("完整");
         } else {
             searchItemView.setHint("不完整");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            getDataFromServer();
         }
     }
 }

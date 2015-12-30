@@ -11,9 +11,15 @@ import android.widget.RelativeLayout;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.goodjobs.common.baseclass.BaseActivity;
+import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.http.HttpUtil;
+import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.headhuntingjob.R;
 import cn.goodjobs.headhuntingjob.adapter.HeadDetailsPagerAdapter;
 
@@ -64,6 +70,8 @@ public class HeadDetailsActivity extends BaseActivity {
             recommend = (Button) findViewById(R.id.btn_recommend);
             recommend.setOnClickListener(this);
         }
+        apply = (Button) findViewById(R.id.btn_apply);
+        apply.setOnClickListener(this);
         vp = (ViewPager) findViewById(R.id.vp_headdetails);
         vp.setOffscreenPageLimit(2);
         vp.setAdapter(new HeadDetailsPagerAdapter(getSupportFragmentManager(), data));
@@ -86,12 +94,41 @@ public class HeadDetailsActivity extends BaseActivity {
             intent.putExtra("jobID", data.get(vp.getCurrentItem()));
             startActivity(intent);
         } else if (v.getId() == R.id.btn_apply) {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("jobID", data.get(vp.getCurrentItem()));
+            params.put("ft", "2");
+            LoadingDialog.showDialog(this);
+            HttpUtil.post(URLS.API_JOB_Addapply, params, this);
 
         } else if (v.getId() == R.id.rl_collect) {
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("jobID", data.get(vp.getCurrentItem()));
+            LoadingDialog.showDialog(this);
+            HttpUtil.post(URLS.API_JOB_Addfavorite, params, this);
 
         } else if (v.getId() == R.id.rl_share) {
 
         }
     }
 
+    @Override
+    public void onSuccess(String tag, Object data) {
+        super.onSuccess(tag, data);
+        if (tag.equals(URLS.API_JOB_Addapply)) {
+            TipsUtil.show(this, ((JSONObject) data).optString("message"));
+        } else if (tag.equals(URLS.API_JOB_Addfavorite)) {
+            TipsUtil.show(this, ((JSONObject) data).optString("message"));
+        }
+    }
+
+    @Override
+    public void onFailure(int statusCode, String tag) {
+        super.onFailure(statusCode, tag);
+    }
+
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage) {
+        super.onError(errorCode, tag, errorMessage);
+    }
 }

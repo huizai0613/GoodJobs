@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemStarttime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="开始时间"
+            listitem:hint="请选择开始时间"
+            listitem:important="visible"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemEndtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="结束时间"
+            listitem:hint="不选表示至今"
+            listitem:important="visible"/>
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemDanwei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="培训单位"
+            listitem:important="visible"
+            listitem:hint="请输入单位名称"/>
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemKecheng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="培训课程"
+            listitem:important="visible"
+            listitem:hint="请输入课程名称"/>
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemZhengshu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="证书名称"
+            listitem:important="visible"
+            listitem:hint="请输入证书名称"
+            listitem:showLine="false"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/padding_default"
+        android:text="保存"
+        android:onClick="doSave"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default"
+        android:background="@drawable/button_bg"/>
+
+</LinearLayout>

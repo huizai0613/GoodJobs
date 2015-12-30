@@ -5,10 +5,16 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.entity.LoginInfo;
 import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
+import cn.goodjobs.common.view.imagemenu.MainMenuEntity;
 
 /**
  * Created by 王刚 on 2015/12/14 0014.
@@ -20,6 +26,8 @@ public class GoodJobsApp extends Application
     private static GoodJobsApp instance;
     private LoginInfo loginInfo;
     private boolean isLogin; // 是否登录
+    public JSONObject resumeJson; // 我的简历状态信息
+    private List<MainMenuEntity> menuEntitys;
 
     @Override
     public void onCreate()
@@ -74,5 +82,4 @@ public class GoodJobsApp extends Application
             return false;
         }
     }
-
 }

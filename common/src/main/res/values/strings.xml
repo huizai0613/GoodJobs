@@ -32,5 +32,9 @@
     <string name="title_activity_my_resume_edu_add">MyResumeEduAddActivity</string>
     <string name="title_activity_my_resume_work">MyResumeWorkActivity</string>
     <string name="title_activity_text_area">TextAreaActivity</string>
+    <string name="title_activity_my_resume_will">MyResumeWillActivity</string>
+    <string name="title_activity_my_resume_stu">MyResumeStuActivity</string>
+    <string name="title_activity_my_resume_train">MyResumeTrainActivity</string>
+    <string name="title_activity_my_resume_lan">MyResumeLanActivity</string>
 
 </resources>

@@ -85,6 +85,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
     private String deg;
     private HashMap hashMap;
     private Map<Long, Map<String, String>> history;
+    private ArrayList<String> keyWorld = new ArrayList<>();
     int curSearchNum;
     android.os.Handler handler = new android.os.Handler()
     {
@@ -103,6 +104,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
     private String indId;
     private String wtId;
     private String degId;
+    private String searchKeyWorld;
 
     @Override
     protected int getLayoutID()
@@ -283,7 +285,8 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
             for (Map.Entry<Long, Map<String, String>> longMapEntry : msg) {
                 Map<String, String> value = longMapEntry.getValue();
                 final String searchKeyWorld = value.get("searchKeyWorld");
-                if (!StringUtil.isEmpty(searchKeyWorld)) {
+                if (!StringUtil.isEmpty(searchKeyWorld) && !keyWorld.contains(searchKeyWorld)) {
+                    keyWorld.add(searchKeyWorld);
                     isEmp = false;
                     TextView view = new TextView(this);
                     view.setText(searchKeyWorld);
@@ -309,6 +312,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
                 btnClear.setClickable(false);
                 btnClear.setTextColor(Color.parseColor("#cccccc"));
             }
+            keyWorld.clear();
         } else {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this, 30));
             layoutParams.setMargins(DensityUtil.dip2px(this, 10), 0, DensityUtil.dip2px(this, 10), 0);
@@ -336,6 +340,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         wt = intent.getStringExtra("itemWorktime");
         deg = intent.getStringExtra("itemDegree");
 
+        searchKeyWorld = intent.getStringExtra("searchKeyWorld");
         addId = intent.getStringExtra("itemAddressId");
         salId = intent.getStringExtra("itemSalaryId");
         jobId = intent.getStringExtra("itemJobfuncId");
@@ -454,6 +459,10 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
 
     public void saveSearchLock(Map<Long, Map<String, String>> saveData, Map<String, String> put)
     {
+        if (saveData == null) {
+            saveData = new HashMap<>();
+        }
+
         Set<Map.Entry<Long, Map<String, String>>> entries = saveData.entrySet();
 
         ArrayList<Long> keys = new ArrayList<>();

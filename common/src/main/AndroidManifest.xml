@@ -110,7 +110,37 @@
         <activity
             android:name=".activity.TextAreaActivity"
             android:label="@string/title_activity_text_area"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.resume.MyResumeWillActivity"
+            android:label="@string/title_activity_my_resume_will"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.resume.MyResumeStuActivity"
+            android:label="@string/title_activity_my_resume_stu"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.resume.MyResumeTrainActivity"
+            android:label="@string/title_activity_my_resume_train"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.resume.MyResumeTrainAddActivity"
+            android:label="@string/title_activity_my_resume_edu_add"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.resume.MyResumeLanActivity"
+            android:label="@string/title_activity_my_resume_lan"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.resume.MyResumeLanAddActivity"
+            android:label="@string/title_activity_my_resume_edu_add"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

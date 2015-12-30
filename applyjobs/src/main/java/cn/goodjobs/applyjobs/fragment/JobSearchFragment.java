@@ -82,7 +82,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     private String deg;
     private Button btnSearch;
     private EditText etSearch;
-    private Editable searchKeyWorld;
+    private String searchKeyWorld;
     private Map<Long, Map<String, String>> history;
 
     private View searchTitle;
@@ -596,7 +596,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
 
     private LinkedHashMap getSearchHashMap()
     {
-        searchKeyWorld = etSearch.getText();
+        searchKeyWorld = etSearch.getText().toString();
         add = itemAddress.getText();
         sal = itemSalary.getText();
         job = itemJobfunc.getText();
@@ -632,7 +632,6 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
 
     private LinkedHashMap getSearchHashMapID()
     {
-        searchKeyWorld = etSearch.getText();
         String addId = (String) itemAddress.getTag();
         String salId = (String) itemSalary.getTag();
         String jobId = (String) itemJobfunc.getTag();
@@ -641,9 +640,6 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         String degId = (String) itemDegree.getTag();
 
         LinkedHashMap hashMap = new LinkedHashMap();
-        if (!StringUtil.isEmpty(searchKeyWorld)) {
-            hashMap.put("searchKeyWorldId", searchKeyWorld);
-        }
         if (!StringUtil.isEmpty(addId)) {
             hashMap.put("itemAddressId", addId);
         }

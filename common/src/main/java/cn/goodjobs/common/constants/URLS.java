@@ -3,8 +3,7 @@ package cn.goodjobs.common.constants;
 /**
  * Created by wanggang on 2015/10/9 0009.
  */
-public class URLS
-{
+public class URLS {
     // 公共数据
     public final static String API_COMMON_META = "common/meta";  // 公共数据
     public final static String FOOTER = "Ehr/Footer";  // 企业底部公司电话和地址
@@ -62,6 +61,10 @@ public class URLS
     public final static String API_CV_SAVE_EDU = "cv/edusave";
     public final static String API_CV_EDIT_EDU = "cv/edu";
     public final static String API_CV_DEL_EDU = "cv/edudel";
+    public final static String API_CV_TRAINING = "cv/trainlist";
+    public final static String API_CV_SAVE_TRA = "cv/trainsave";
+    public final static String API_CV_EDIT_TRA = "cv/train";
+    public final static String API_CV_DEL_TRA = "cv/traindel";
 
     public final static String API_JOB_ParttimeJob = "Parttime/List";      // 兼职列表
     public final static String API_JOB_ParttimeShow = "Parttime/Show";      // 兼职详情
@@ -72,7 +75,6 @@ public class URLS
     public final static String API_JOB_Show = "Headhunt/Show";      // 悬赏详情
     public final static String API_JOB_RecommendData = "Headhunt/Recommendedit";      //悬赏招聘推荐操作加载的数据
     public final static String API_JOB_Recommendsave = "Headhunt/Recommendsave";      //悬赏招聘推荐操作
-    public final static String API_JOB_UserOutbox = "User/Outbox";      //职位申请
 
 
     public final static String API_JOB_Jobfairlist = "Campus/Jobfairlist";      //宣讲会
@@ -81,5 +83,10 @@ public class URLS
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件
+
+
+    public final static String API_JOB_Addapply = "Job/Addapply";      //职位申请
+    public final static String API_JOB_Addfavorite = "Job/Addfavorite";      //职位收藏
+    public final static String API_JOB_Jobfairfollow = "Campus/Jobfairfollow";      //宣讲会关注与取消关注
 
 }

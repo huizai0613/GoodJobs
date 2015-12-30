@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dip"
+    android:paddingLeft="12dip"
+    android:background="#ff0000">
+
+    <ImageView
+        android:layout_width="33dip"
+        android:layout_height="28dip"
+        android:src="@mipmap/img_new"
+        android:id="@+id/imgText"
+        android:layout_marginRight="5dip"
+        android:visibility="gone"
+        android:scaleType="fitXY"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="28dip"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="蓝领招聘"
+        android:layout_toRightOf="@+id/imgText"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginTop="8dip"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:text="啦啦啦啦啦啦啦啦啦啦阿拉啦"/>
+
+    <ImageView
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:src="@mipmap/full_img"
+        android:id="@+id/imageview"
+        android:padding="2dip"
+        android:scaleType="fitXY"/>
+
+</RelativeLayout>

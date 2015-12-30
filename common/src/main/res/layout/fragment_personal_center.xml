@@ -75,7 +75,8 @@
                     android:background="@color/transparent"
                     android:layout_marginRight="@dimen/padding_default"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"/>
 
                 <ImageButton
                     android:id="@+id/btnRefresh"
@@ -86,7 +87,8 @@
                     android:background="@color/transparent"
                     android:layout_marginRight="@dimen/padding_default"
                     android:layout_alignBottom="@id/myImageview"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:visibility="invisible"/>
             </RelativeLayout>
             <View style="@style/line" />
 

@@ -338,7 +338,10 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         salaryInfo = new SingleLevelMenuView(mcontext);
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
-
+        HashMap<String, String> multiCheckMap = new HashMap<>();
+        multiCheckMap.put("0", itemDegreeId);
+        multiCheckMap.put("1", itemWorktimeId);
+        moreInfo.setCheckMult(multiCheckMap);
 
         store = (TextView) findViewById(R.id.item_store);
         send = (TextView) findViewById(R.id.item_send);
@@ -377,8 +380,6 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                 startRefresh();
             }
         }, 500);
-
-
     }
 
     @Override
@@ -504,6 +505,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         }
         UpdateDataTaskUtils.selectSalaryInfo(this, this);
         UpdateDataTaskUtils.selectMoreInfo(this, this);
+
 
     }
 
