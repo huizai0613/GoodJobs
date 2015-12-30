@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 listitem:tvtitle="目前月薪"
-                listitem:source="salary"
+                listitem:source="salary_expected"
                 listitem:hint="请选择目前月薪"
                 listitem:important="invisible"/>
             <cn.goodjobs.common.view.searchItem.SearchItemView
@@ -192,12 +192,12 @@
                 listitem:showLine="false"/>
             <View style="@style/line"/>
             <Button
-                android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
                 android:layout_margin="@dimen/padding_default"
                 android:text="保存"
                 android:textColor="@color/white"
+                android:onClick="doSave"
                 android:textSize="@dimen/text_default"
                 android:background="@drawable/button_bg"/>
         </LinearLayout>

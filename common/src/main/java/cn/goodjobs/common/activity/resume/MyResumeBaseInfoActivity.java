@@ -1,5 +1,6 @@
 package cn.goodjobs.common.activity.resume;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.RadioGroup;
 import org.json.JSONObject;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.TextAreaActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DatePickerUtil;
@@ -56,6 +58,7 @@ public class MyResumeBaseInfoActivity extends BaseActivity {
         itemSalary = (SelectorItemView) findViewById(R.id.itemSalary);
         btnSave = (Button) findViewById(R.id.btnSave);
         sexGroup = (RadioGroup) findViewById(R.id.sexGroup);
+        itemKeyword.setOnClickListener(this);
 
         LoadingDialog.showDialog(this);
         HttpUtil.post(URLS.API_CV_BASIC, this);
@@ -85,6 +88,8 @@ public class MyResumeBaseInfoActivity extends BaseActivity {
         itemWorktime.setText(jsonObject.optString("fmtWorktime"));
         itemWorktime.setSelectorIds(jsonObject.optString("worktime"));
         itemSalary.setText(jsonObject.optString("fmtCurrentSalary"));
+        itemEmail.setText(jsonObject.optString("email"));
+        itemPhone.setText(jsonObject.optString("mobile  "));
         itemSalary.setSelectorIds(jsonObject.optString("currentSalary"));
         if ("女".equals(jsonObject.optString("sex"))) {
             sexGroup.check(R.id.radioWuman);
@@ -97,5 +102,31 @@ public class MyResumeBaseInfoActivity extends BaseActivity {
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v.getId() == R.id.itemKeyword) {
+            Intent intent = new Intent(this, TextAreaActivity.class);
+            intent.putExtra("title", "关键字");
+            intent.putExtra("content", itemKeyword.getText());
+            startActivityForResult(intent, 111);
+        }
+    }
+
+    public void doSave(View view) {
+        if (itemName.isEmpty() || itemHukou.isEmpty() || itemAddress.isEmpty()
+                || itemDegree.isEmpty() || itemBirthday.isEmpty() || itemWorktime.isEmpty()) {
+            return;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (RESULT_OK == resultCode) {
+            itemKeyword.setText(data.getStringExtra("content"));
+        }
     }
 }
