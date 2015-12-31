@@ -27,6 +27,7 @@ public class MyResumeWorkActivity extends BaseActivity implements AdapterView.On
     ImageButton btnRight;
     ResumeWorkAdapter resumeWorkAdapter;
     int delPosition;
+    boolean isUpdate; // 是否修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class MyResumeWorkActivity extends BaseActivity implements AdapterView.On
             JSONObject jsonObject = (JSONObject) data;
             resumeWorkAdapter.appendToList(jsonObject.optJSONArray("list"));
         } else if (tag.equals(URLS.API_CV_DEL_WEXP)) {
+            isUpdate = true;
             resumeWorkAdapter.removeItem(delPosition);
             resumeWorkAdapter.notifyDataSetChanged();
         }
@@ -102,6 +104,7 @@ public class MyResumeWorkActivity extends BaseActivity implements AdapterView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            isUpdate = true;
             getDataFromServer();
         }
     }
@@ -118,5 +121,13 @@ public class MyResumeWorkActivity extends BaseActivity implements AdapterView.On
                 HttpUtil.post(URLS.API_CV_DEL_WEXP, params, MyResumeWorkActivity.this);
             }
         }, null);
+    }
+
+    @Override
+    protected void back() {
+        if (isUpdate) {
+            setResult(RESULT_OK);
+        }
+        super.back();
     }
 }

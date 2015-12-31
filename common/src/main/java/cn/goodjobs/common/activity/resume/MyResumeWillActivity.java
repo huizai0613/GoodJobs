@@ -72,9 +72,12 @@ public class MyResumeWillActivity extends BaseActivity {
             itemWorkAddress.setSelectorIds(jsonObject.optString("workPlace"));
             itemWorkAddress.setText(jsonObject.optString("fmtWorkPlace"));
             itemSalary.setSelectorIds(jsonObject.optString("salary"));
+            itemSalary.setText(jsonObject.optString("salaryName"));
             itemIndtype.setSelectorIds(jsonObject.optString("industry"));
             itemIndtype.setText(jsonObject.optString("fmtIndustry"));
             itemCheckIn.setSelectorIds(jsonObject.optString("checkInTime"));
+            itemCheckIn.init();
+            itemCheckIn.setText(itemCheckIn.getSelectorName());
             if (houseJson0.optString("id").equals(jsonObject.optString("house"))) {
                 radioGroup.check(R.id.radio0);
             } else {
