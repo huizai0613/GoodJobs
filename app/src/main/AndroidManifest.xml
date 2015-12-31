@@ -20,6 +20,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:logo="@drawable/logo"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
 
         </activity>

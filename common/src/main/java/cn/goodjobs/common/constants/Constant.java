@@ -27,6 +27,7 @@ public class Constant {
         ApplyJobs, // 求职端模块
         Lanling, // 蓝领模块
         Xiaoyuan, // 校园招聘
+        Liepin, // 猎聘
         Jianzhi, // 兼职
     }
 }

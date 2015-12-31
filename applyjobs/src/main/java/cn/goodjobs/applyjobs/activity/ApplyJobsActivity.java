@@ -1,6 +1,5 @@
 package cn.goodjobs.applyjobs.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,12 +14,12 @@ import cn.goodjobs.applyjobs.fragment.HomeFragment;
 import cn.goodjobs.applyjobs.fragment.InfoCenterFragment;
 import cn.goodjobs.applyjobs.fragment.JobSearchFragment;
 import cn.goodjobs.common.GoodJobsApp;
+import cn.goodjobs.common.activity.GoodJobsSettingActivity;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseFragmentPagerAdapter;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.fragemnt.PersonalCenterFragment;
-import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
@@ -45,15 +44,7 @@ public class ApplyJobsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
-        if (StringUtil.isEmpty(defaultModule)) {
-            AlertDialogUtil.show(this, R.string.app_name, "您尚未设置默认显示模块，是否设置当前模块为默认显示的模块？", true, "设置", "取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.ApplyJobs.toString());
-                }
-            }, null);
-        }
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.ApplyJobs.toString()); // 保存当前模块为默认模块
     }
 
     @Override
