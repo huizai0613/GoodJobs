@@ -131,13 +131,11 @@
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_work_time"
                         style="@style/job_detail_tv"
-                        android:text="部分:合肥办事处"
                         />
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_degree"
                         style="@style/job_detail_tv"
-                        android:text="部分:合肥办事处"
                         />
 
                 </LinearLayout>
@@ -150,13 +148,11 @@
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_gender"
                         style="@style/job_detail_tv"
-                        android:text="部分:合肥办事处"
                         />
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_age"
                         style="@style/job_detail_tv"
-                        android:text="部分:合肥办事处"
                         />
 
                 </LinearLayout>
@@ -186,6 +182,7 @@
 
                 <cn.goodjobs.common.view.XCFlowLayout
                     android:id="@+id/job_bright"
+                    android:layout_marginTop="@dimen/space_10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     ></cn.goodjobs.common.view.XCFlowLayout>

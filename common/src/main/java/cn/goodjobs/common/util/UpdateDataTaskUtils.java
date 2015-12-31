@@ -29,6 +29,10 @@ public class UpdateDataTaskUtils
     public static final int MOREDATA = 2;
 
 
+    public static final String SEARCHJOB = "searchjob";
+    public static final String CAMPUSJOB = "campusJob";
+
+
     private static ExecutorService mBackgroundThreadPool;
 
     public static ExecutorService getBackgroundThreadPool()
@@ -311,7 +315,13 @@ public class UpdateDataTaskUtils
     }
 
 
-    public static void updateSearchHistory(final Context context, final Map<Long, Map<String, String>> data)
+    public static void cleanHistory(Context context, String key)
+    {
+        LsSimpleCache.get(context).remove(key);
+    }
+
+
+    public static void updateHistory(final Context context, final Map<Long, Map<String, String>> data, final String key)
     {
         getBackgroundThreadPool().execute(new Runnable()
         {
@@ -340,7 +350,7 @@ public class UpdateDataTaskUtils
                         }
                         ja.put(key + "", jb);
                     }
-                    LsSimpleCache.get(context).put("searchjob", ja);
+                    LsSimpleCache.get(context).put(key, ja);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -350,14 +360,14 @@ public class UpdateDataTaskUtils
     }
 
 
-    public static void getSearchHistory(final Context context, final OnGetDiscussSearchHistoryListener listener)
+    public static void getHistory(final Context context, final String key, final OnGetDiscussHistoryListener listener)
     {
         getBackgroundThreadPool().execute(new Runnable()
                                           {
                                               @Override
                                               public void run()
                                               {
-                                                  JSONObject history = LsSimpleCache.get(context).getAsJSONObject("searchjob");
+                                                  JSONObject history = LsSimpleCache.get(context).getAsJSONObject(key);
                                                   if (history != null) {
                                                       try {
                                                           Map<Long, Map<String, String>> result = new HashMap<Long, Map<String, String>>();
@@ -375,7 +385,7 @@ public class UpdateDataTaskUtils
                                                               result.put(StringUtil.toLong(next), r);
                                                           }
                                                           if (listener != null) {
-                                                              listener.onGetDiscussSearchHistory(result);
+                                                              listener.onGetDiscussHistory(result);
                                                           }
                                                       } catch (JSONException e) {
                                                           e.printStackTrace();
@@ -388,93 +398,9 @@ public class UpdateDataTaskUtils
         );
     }
 
-
-    public static void updateCampusSearchHistory(final Context context, final Map<Long, Map<String, String>> data)
+    public interface OnGetDiscussHistoryListener
     {
-        getBackgroundThreadPool().execute(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                while (data.size() > 10) {
-                    long lru_key = 0;
-                    long lru_time = Long.MAX_VALUE;
-                    for (Long key : data.keySet()) {
-                        if (key < lru_time) {
-                            lru_key = key;
-                            lru_time = key;
-                        }
-                    }
-                    data.remove(lru_key);
-                }
-                try {
-                    JSONObject ja = new JSONObject();
-                    int index = 0;
-                    JSONObject jb;
-                    for (Long key : data.keySet()) {
-                        jb = new JSONObject();
-                        for (Map.Entry<String, String> entries : data.get(key).entrySet()) {
-                            jb.put(entries.getKey(), entries.getValue());
-                        }
-                        ja.put(key + "", jb);
-                    }
-                    LsSimpleCache.get(context).put("campusJob", ja);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
-
-
-    public static void getCampusSearchHistory(final Context context, final OnGetDiscussSearchHistoryListener listener)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-                                          {
-                                              @Override
-                                              public void run()
-                                              {
-                                                  JSONObject history = LsSimpleCache.get(context).getAsJSONObject("campusJob");
-                                                  if (history != null) {
-                                                      try {
-                                                          Map<Long, Map<String, String>> result = new HashMap<Long, Map<String, String>>();
-                                                          Iterator<String> keys = history.keys();
-
-                                                          while (keys.hasNext()) {
-                                                              String next = keys.next();
-                                                              JSONObject o = history.getJSONObject(next);
-                                                              Iterator it = o.keys();
-                                                              Map<String, String> r = new HashMap<String, String>();
-                                                              while (it.hasNext()) {
-                                                                  String k = (String) it.next();
-                                                                  r.put(k, o.getString(k));
-                                                              }
-                                                              result.put(StringUtil.toLong(next), r);
-                                                          }
-                                                          if (listener != null) {
-                                                              listener.onGetDiscussSearchHistory(result);
-                                                          }
-                                                      } catch (JSONException e) {
-                                                          e.printStackTrace();
-                                                      }
-
-                                                  }
-                                              }
-                                          }
-
-        );
-    }
-
-
-    public interface OnGetDiscussCampusSearchHistoryListener
-    {
-        void onGetDiscussSearchHistory(Map<Long, Map<String, String>> history);
-    }
-
-    public interface OnGetDiscussSearchHistoryListener
-    {
-        void onGetDiscussSearchHistory(Map<Long, Map<String, String>> history);
+        void onGetDiscussHistory(Map<Long, Map<String, String>> history);
     }
 
     public interface OnGetDiscussCityInfoListener
