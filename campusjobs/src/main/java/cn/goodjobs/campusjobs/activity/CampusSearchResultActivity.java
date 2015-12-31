@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import cn.goodjobs.campusjobs.R;
+import cn.goodjobs.campusjobs.adapter.CmapusResultAdapter;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseListActivity;
 import cn.goodjobs.common.constants.URLS;
@@ -40,7 +41,7 @@ import cn.goodjobs.common.view.ExpandTabSuper.TwoLevelMenuView;
 /**
  * Created by zhuli on 2015/12/31.
  */
-public class CampusSearchResultActivity extends BaseListActivity implements UpdateDataTaskUtils.OnGetDiscussCityInfoListener, UpdateDataTaskUtils.OnGetDiscussSalaryInfoListener, UpdateDataTaskUtils.OnGetDiscussMoreInfoListener
+public class CampusSearchResultActivity extends BaseListActivity implements UpdateDataTaskUtils.OnGetCompanyInfoListener, UpdateDataTaskUtils.OnGetDiscussSalaryInfoListener, UpdateDataTaskUtils.OnGetDiscussMoreInfoListener
 
 {
 
@@ -56,66 +57,27 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         public void dispatchMessage(Message msg) {
             super.dispatchMessage(msg);
             switch (msg.what) {
-                case UpdateDataTaskUtils.CITYDATA:
-                    ArrayList<JSONObject> obj = (ArrayList<JSONObject>) msg.obj;
-                    values = new ArrayList<>();
-                    for (int i = 0; i < obj.size(); i++) {
+                case UpdateDataTaskUtils.COMPANYDATA:
+
+                    ArrayList<JSONObject> objs = (ArrayList<JSONObject>) msg.obj;
+                    LinkedHashMap<String, String> linkMap1 = new LinkedHashMap<String, String>();
+                    for (int i = 0; i < objs.size(); i++) {
                         try {
-                            values.add(obj.get(i).getString("name"));
+                            linkMap1.put(objs.get(i).getString("id"), objs.get(i).getString("name"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    Map<String, String> oneCate = new TreeMap<String, String>();
-                    oneCate.put("0", "地区筛选");
-                    oneCate.put("1", "附近筛选");
 
-                    twoCate = new TreeMap<String, Map<String, String>>();
-                    twoCate_one = new LinkedHashMap<String, String>();
-                    for (int i = 0; i < values.size(); i++) {
-                        twoCate_one.put(i + "", values.get(i));
-                    }
-
-                    Map<String, String> twoCate_two = new TreeMap<String, String>();
-
-                    twoCate_two.put("1000", "无法获取当前地理位置");
-                    twoCate.put("0", twoCate_one);
-                    twoCate.put("1", twoCate_two);
-                    cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
-
-                    LocationUtil.newInstance(CampusSearchResultActivity.this.getApplication()).startLoction(new MyLocationListener() {
-                        @Override
-                        public void loaction(MyLocation location) {
-                            LogUtil.info(location.toString());
-                            SharedPrefUtil.saveObjectToLoacl("location", location);
-                            myLocation = location;
-                            Map<String, String> oneCate = new TreeMap<String, String>();
-                            oneCate.put("0", "地区筛选");
-                            oneCate.put("1", "附近筛选");
-                            Map<String, String> twoCate_two = new TreeMap<String, String>();
-                            twoCate_two.put("0", "不限");
-                            twoCate_two.put("1", "500M");
-                            twoCate_two.put("2", "1000M");
-                            twoCate_two.put("3", "2000M");
-                            twoCate_two.put("4", "3000M");
-
-                            twoCate.put("1", twoCate_two);
-                            twoCate.put("0", twoCate_one);
-                            cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
-                            isLoad = true;
-                            lat = location.latitude;
-                            lng = location.longitude;
-                        }
-                    });
-
+                    companyInfo.setValue(linkMap1, corpkindId != null ? corpkindId : "");
 
                     break;
                 case UpdateDataTaskUtils.SALARYDATA:
-                    ArrayList<JSONObject> objs = (ArrayList<JSONObject>) msg.obj;
+                    ArrayList<JSONObject> cobjs = (ArrayList<JSONObject>) msg.obj;
                     LinkedHashMap<String, String> linkMap = new LinkedHashMap<String, String>();
-                    for (int i = 0; i < objs.size(); i++) {
+                    for (int i = 0; i < cobjs.size(); i++) {
                         try {
-                            linkMap.put(objs.get(i).getString("id"), objs.get(i).getString("name"));
+                            linkMap.put(cobjs.get(i).getString("id"), cobjs.get(i).getString("name"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -124,7 +86,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                     salaryInfo.setValue(linkMap, itemSalaryId != null ? itemSalaryId : "");
 
                     break;
-                case UpdateDataTaskUtils.MOREDATA:
+                case UpdateDataTaskUtils.CAMPUSMOREDATA:
                     Map<String, List<JSONObject>> objMore = (Map<String, List<JSONObject>>) msg.obj;
                     Set<Map.Entry<String, List<JSONObject>>> entries = objMore.entrySet();
 
@@ -153,47 +115,36 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
 
         }
     };
-    private TwoLevelMenuView cityInfo;
-    private SingleLevelMenuView salaryInfo;
+    private SingleLevelMenuView salaryInfo, companyInfo;
     private TwoLevelMenuView moreInfo;
-    private List<JSONObject> cityData;
+    private List<JSONObject> companyData;
     private List<JSONObject> salaryData;
     private Map<String, List<JSONObject>> moreData;
-    private MyLocation myLocation;
-    private boolean isLoad;
-    private Map<String, String> twoCate_one;
-    private ArrayList<String> values;
 
-    private boolean isCur;
     private boolean isMuCheck;
 
 
+    private String districtId;
     private String searchKeyWorld;
     private String itemAddress;
     private String itemSalary;
     private String itemJobfunc;
     private String itemIndtype;
-    private String itemWorktime;
-    private String itemDegree;
+    private String itemJobfuncId;
+    private String itemIndtypeId;
     private boolean isPro;
     private double lat, lng;
 
 
     private String itemAddressId;
-    private int dis;
     private String itemSalaryId = "";
-    private String itemJobfuncId;
-    private String itemIndtypeId;
     private String corpkindId;
     private String jobTypeId;
-    private String itemWorktimeId;
     private String itemDegreeId;
 
     private TextView store;
     private TextView send;
     private LinearLayout bottomBar;
-    private String searchName;
-    private String searchID;
 
 
     @Override
@@ -214,53 +165,21 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
             }
         });
 
-
-        //区域选择
-        cityInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener() {
+        companyInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
             @Override
-            public void onSelected(String firstLevelKey, String secondLevelKey, String showString) {
-                if (firstLevelKey.equals("0")) {
-                    isCur = false;
-                    if (isPro && !secondLevelKey.equals("0")) {
-                        UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), CampusSearchResultActivity.this);
-                        isPro = false;
-                    }
-                    itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
-                } else {
-                    isCur = true;
-                    int i = Integer.parseInt(secondLevelKey);
-                    switch (i) {
-                        case 0:
-                            dis = 0;
-                            break;
-                        case 1:
-                            dis = 500;
-                            break;
-                        case 2:
-                            dis = 1000;
-                            break;
-                        case 3:
-                            dis = 2000;
-                            break;
-                        case 4:
-                            dis = 3000;
-                            break;
-                    }
-                }
-                etvMenu.setTitle(showString, 0);
+            public void onSelected(String selectedKey, String showString) {
+                corpkindId = selectedKey;
+                etvMenu.setTitle(showString, 1);
                 startRefresh();
             }
-
-            @Override
-            public void onSelectedMuilt(HashMap<String, String> muiltMap) {
-            }
         });
-        //区域薪资
+
+        //薪资
         salaryInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 itemSalaryId = selectedKey;
-                etvMenu.setTitle(showString, 1);
+                etvMenu.setTitle(showString, 0);
                 startRefresh();
             }
         });
@@ -283,13 +202,14 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         itemDegreeId = entry.getValue();
                     }
                     if (key.equals("1")) {
-                        itemWorktimeId = entry.getValue();
-                    }
-                    if (key.equals("2")) {
                         jobTypeId = entry.getValue();
                     }
-                    if (key.equals("3")) {
-                        corpkindId = entry.getValue();
+                    if (key.equals("2")) {
+                        if (isPro) {
+                            itemAddressId = entry.getValue();
+                        } else {
+                            districtId = entry.getValue();
+                        }
                     }
                 }
                 isMuCheck = true;
@@ -301,20 +221,16 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
 
     @Override
     protected void initWeight() {
-        mAdapter = new JobSearchResultAdapter(this);
-        ((JobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
+        mAdapter = new CmapusResultAdapter(this);
+        ((CmapusResultAdapter) mAdapter).setCmapusResultAdapter(this);
         initList();
         etvMenu = (ExpandTabView) findViewById(R.id.etv_menu);
         bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
 
-        cityInfo = new TwoLevelMenuView(mcontext);
+        companyInfo = new SingleLevelMenuView(mcontext);
         salaryInfo = new SingleLevelMenuView(mcontext);
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
-        HashMap<String, String> multiCheckMap = new HashMap<>();
-        multiCheckMap.put("0", itemDegreeId);
-        multiCheckMap.put("1", itemWorktimeId);
-        moreInfo.setCheckMult(multiCheckMap);
 
         store = (TextView) findViewById(R.id.item_store);
         send = (TextView) findViewById(R.id.item_send);
@@ -329,13 +245,13 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
 
 
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("区域筛选");
         strings.add(StringUtil.isEmpty(itemSalary) ? "薪资要求" : itemSalary);
+        strings.add("企业性质");
         strings.add("更多筛选");
 
         ArrayList<View> views = new ArrayList<>();
-        views.add(cityInfo);
         views.add(salaryInfo);
+        views.add(companyInfo);
         views.add(moreInfo);
 
         ArrayList<Integer> integers = new ArrayList<Integer>();
@@ -358,29 +274,16 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
 
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
+        Object.put("jobFrom", "2");
 
-        if (page != 1)
-            Object.put("cepage", page);
 
         {
             if (!StringUtil.isEmpty(searchKeyWorld))//关键字
                 Object.put("keyword", searchKeyWorld);
         }
 
-        if (isCur) {
-            if (dis != 0)//地址
-                Object.put("radius", dis);
-
-            if (lat != 0)//地址
-                Object.put("lat", lat);
-
-            if (lng != 0)//地址
-                Object.put("lng", lng);
-
-        } else {
-            if (!StringUtil.isEmpty(itemAddressId))//地址
-                Object.put("jobcity", itemAddressId);
-        }
+        if (!StringUtil.isEmpty(itemAddressId))//地址
+            Object.put("jobCity", itemAddressId);
 
         if (!StringUtil.isEmpty(itemIndtypeId))//行业
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
@@ -391,26 +294,17 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         if (!StringUtil.isEmpty(itemSalaryId))//薪资
             Object.put("salary", itemSalaryId);
 
-        if (!StringUtil.isEmpty(itemWorktimeId))//工作时间
-            Object.put("worktime", itemWorktimeId);
-
         if (!StringUtil.isEmpty(itemDegreeId))//学历
             Object.put("degree", itemDegreeId);
 
         if (!StringUtil.isEmpty(jobTypeId))//工作性质
             Object.put("jobType", jobTypeId);
 
-        if (!StringUtil.isEmpty(corpkindId))//企业性质
-            Object.put("corpkind", corpkindId);
-
-        if (!StringUtil.isEmpty(searchName))//搜索器名称
-            Object.put("searchName", searchName);
-
-        if (!StringUtil.isEmpty(searchID))//搜索器ID
-            Object.put("searchID", searchID);
+        if (!StringUtil.isEmpty(jobTypeId))//区域
+            Object.put("district", districtId);
 
 
-        HttpUtil.post(URLS.API_JOB_JobList, Object, this);
+        HttpUtil.post(URLS.API_JOB_CampusJoblist, Object, this);
     }
 
 
@@ -447,41 +341,30 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     protected void initData() {
         searchKeyWorld = getIntent().getStringExtra("searchKeyWorld");
         itemAddress = getIntent().getStringExtra("itemAddress");
-        itemSalary = getIntent().getStringExtra("itemSalary");
         itemJobfunc = getIntent().getStringExtra("itemJobfunc");
         itemIndtype = getIntent().getStringExtra("itemIndtype");
-        itemWorktime = getIntent().getStringExtra("itemWorktime");
-        itemDegree = getIntent().getStringExtra("itemDegree");
 
         itemAddressId = getIntent().getStringExtra("itemAddressId");
-        itemSalaryId = getIntent().getStringExtra("itemSalaryId");
         itemJobfuncId = getIntent().getStringExtra("itemJobfuncId");
         itemIndtypeId = getIntent().getStringExtra("itemIndtypeId");
-        itemWorktimeId = getIntent().getStringExtra("itemWorktimeId");
-        itemDegreeId = getIntent().getStringExtra("itemDegreeId");
-        searchName = getIntent().getStringExtra("searchName");
-        searchID = getIntent().getStringExtra("searchID");
 
         if (!StringUtil.isEmpty(itemAddressId) && itemAddressId.startsWith("-1")) {
-            UpdateDataTaskUtils.selectProInfo(this, itemAddress, this);
             isPro = true;
         } else {
             isPro = false;
-            UpdateDataTaskUtils.selectCityInfo(this, itemAddress, this);
         }
         UpdateDataTaskUtils.selectSalaryInfo(this, this);
-        UpdateDataTaskUtils.selectMoreInfo(this, this);
-
-
+        UpdateDataTaskUtils.selectCompanyData(this, this);
+        UpdateDataTaskUtils.selectCompusInfo(this, isPro, itemAddressId, this);
     }
 
     @Override
-    public void onGetDiscussCityInfo(List<JSONObject> cityData, int CityId) {
+    public void onGetCompanyInfo(List<JSONObject> CompanyData) {
         Message message = new Message();
-        message.what = UpdateDataTaskUtils.CITYDATA;
-        message.obj = cityData;
-        itemAddressId = CityId + "";
-        this.cityData = cityData;
+        message.what = UpdateDataTaskUtils.COMPANYDATA;
+        message.obj = CompanyData;
+        corpkindId = corpkindId + "";
+        this.companyData = companyData;
         handler.sendMessage(message);
     }
 
@@ -497,7 +380,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     @Override
     public void onGetDiscussMoreInfo(Map<String, List<JSONObject>> MoreData) {
         Message message = new Message();
-        message.what = UpdateDataTaskUtils.MOREDATA;
+        message.what = UpdateDataTaskUtils.CAMPUSMOREDATA;
         message.obj = MoreData;
         this.moreData = MoreData;
         handler.sendMessage(message);
@@ -512,7 +395,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        ArrayList<Integer> checkPosition = ((JobSearchResultAdapter) mAdapter).getCheckPosition();
+        ArrayList<Integer> checkPosition = ((CmapusResultAdapter) mAdapter).getCheckPosition();
         List<JSONObject> list = mAdapter.getList();
         StringBuilder builder = new StringBuilder();
 
@@ -578,4 +461,5 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
             });
         }
     }
+
 }

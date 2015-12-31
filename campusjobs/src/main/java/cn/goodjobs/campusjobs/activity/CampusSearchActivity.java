@@ -68,9 +68,9 @@ public class CampusSearchActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        UpdateDataTaskUtils.getCampusSearchHistory(this, new UpdateDataTaskUtils.OnGetDiscussSearchHistoryListener() {
+        UpdateDataTaskUtils.getHistory(this, UpdateDataTaskUtils.CAMPUSJOB, new UpdateDataTaskUtils.OnGetDiscussHistoryListener() {
             @Override
-            public void onGetDiscussSearchHistory(Map<Long, Map<String, String>> history) {
+            public void onGetDiscussHistory(Map<Long, Map<String, String>> history) {
                 CampusSearchActivity.this.history = history;
 
                 List<Map.Entry<Long, Map<String, String>>> infoIds =
@@ -171,7 +171,7 @@ public class CampusSearchActivity extends BaseActivity {
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateCampusSearchHistory(this, saveData);
+        UpdateDataTaskUtils.updateHistory(this, saveData, UpdateDataTaskUtils.CAMPUSJOB);
     }
 
 

@@ -22,11 +22,12 @@ import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 /**
  * Created by yexiangyu on 15/12/23.
  */
-public class UpdateDataTaskUtils
-{
+public class UpdateDataTaskUtils {
     public static final int CITYDATA = 0;
     public static final int SALARYDATA = 1;
     public static final int MOREDATA = 2;
+    public static final int COMPANYDATA = 3;
+    public static final int CAMPUSMOREDATA = 4;
 
 
     public static final String SEARCHJOB = "searchjob";
@@ -35,8 +36,7 @@ public class UpdateDataTaskUtils
 
     private static ExecutorService mBackgroundThreadPool;
 
-    public static ExecutorService getBackgroundThreadPool()
-    {
+    public static ExecutorService getBackgroundThreadPool() {
 
         if (mBackgroundThreadPool == null) {
             mBackgroundThreadPool = Executors.newFixedThreadPool(3);
@@ -53,13 +53,10 @@ public class UpdateDataTaskUtils
      * @param pro
      * @param listener
      */
-    public static void selectProInfo(final Context context, final String pro, final OnGetDiscussCityInfoListener listener)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-                                          {
+    public static void selectProInfo(final Context context, final String pro, final OnGetDiscussCityInfoListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
                                               @Override
-                                              public void run()
-                                              {
+                                              public void run() {
                                                   JSONArray cityObject = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCPRO);
                                                   JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
                                                   int cityId = 0;
@@ -129,13 +126,10 @@ public class UpdateDataTaskUtils
      * @param city
      * @param listener
      */
-    public static void selectCityInfo(final Context context, final String city, final OnGetDiscussCityInfoListener listener)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-        {
+    public static void selectCityInfo(final Context context, final String city, final OnGetDiscussCityInfoListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 JSONObject cityObject = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
                 JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCDISTRICT);
                 int cityId = 0;
@@ -202,13 +196,10 @@ public class UpdateDataTaskUtils
     }
 
 
-    public static void selectMoreInfo(final Context context, final OnGetDiscussMoreInfoListener listener)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-        {
+    public static void selectMoreInfo(final Context context, final OnGetDiscussMoreInfoListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 try {
                     JSONArray workArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.WORKTIME);
                     JSONArray jobArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBTYPE);
@@ -281,13 +272,10 @@ public class UpdateDataTaskUtils
 
     }
 
-    public static void selectSalaryInfo(final Context context, final OnGetDiscussSalaryInfoListener listener)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-        {
+    public static void selectSalaryInfo(final Context context, final OnGetDiscussSalaryInfoListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 try {
                     JSONArray salaryArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.SALARY);
                     ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
@@ -315,19 +303,15 @@ public class UpdateDataTaskUtils
     }
 
 
-    public static void cleanHistory(Context context, String key)
-    {
+    public static void cleanHistory(Context context, String key) {
         LsSimpleCache.get(context).remove(key);
     }
 
 
-    public static void updateHistory(final Context context, final Map<Long, Map<String, String>> data, final String key)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-        {
+    public static void updateHistory(final Context context, final Map<Long, Map<String, String>> data, final String key) {
+        getBackgroundThreadPool().execute(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 while (data.size() > 5) {
                     long lru_key = 0;
                     long lru_time = Long.MAX_VALUE;
@@ -360,13 +344,10 @@ public class UpdateDataTaskUtils
     }
 
 
-    public static void getHistory(final Context context, final String key, final OnGetDiscussHistoryListener listener)
-    {
-        getBackgroundThreadPool().execute(new Runnable()
-                                          {
+    public static void getHistory(final Context context, final String key, final OnGetDiscussHistoryListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
                                               @Override
-                                              public void run()
-                                              {
+                                              public void run() {
                                                   JSONObject history = LsSimpleCache.get(context).getAsJSONObject(key);
                                                   if (history != null) {
                                                       try {
@@ -398,23 +379,159 @@ public class UpdateDataTaskUtils
         );
     }
 
-    public interface OnGetDiscussHistoryListener
-    {
+
+    public static void selectCompanyData(final Context context, final OnGetCompanyInfoListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONArray corptypeArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.CORPKIND);
+
+                    ArrayList<JSONObject> corptypebjects = new ArrayList<JSONObject>();
+                    for (int i = 0; i < corptypeArray.length(); i++) {
+                        if (corptypeArray.optJSONObject(i).optString("name").equals("不限") || corptypeArray.optJSONObject(i).optString("name").equals("全部")) {
+                            continue;
+                        }
+                        corptypebjects.add(corptypeArray.optJSONObject(i));
+                    }
+                    JSONObject jsoncorptypeObject = new JSONObject();
+                    jsoncorptypeObject.put("name", "不限");
+                    jsoncorptypeObject.put("id", 0);
+                    corptypebjects.add(0, jsoncorptypeObject);
+
+                    if (listener != null)
+                        listener.onGetCompanyInfo(corptypebjects);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+
+    public static void selectCompusInfo(final Context context, final boolean isPro, final String pro, final OnGetDiscussMoreInfoListener listener) {
+        getBackgroundThreadPool().execute(new Runnable() {
+                                              @Override
+                                              public void run() {
+                                                  try {
+                                                      JSONArray jobArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBTYPE);
+                                                      JSONArray degreeArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.DEGREE);
+
+                                                      ArrayList<JSONObject> corpkindbjects = new ArrayList<JSONObject>();
+                                                      for (int i = 0; i < jobArray.length(); i++) {
+                                                          if (jobArray.optJSONObject(i).optString("name").equals("不限") || jobArray.optJSONObject(i).optString("name").equals("全部")) {
+                                                              continue;
+                                                          }
+                                                          corpkindbjects.add(jobArray.optJSONObject(i));
+                                                      }
+                                                      JSONObject jsonCroObject = new JSONObject();
+                                                      jsonCroObject.put("name", "不限");
+                                                      jsonCroObject.put("id", 0);
+                                                      corpkindbjects.add(0, jsonCroObject);
+
+
+                                                      ArrayList<JSONObject> degreebjects = new ArrayList<JSONObject>();
+                                                      for (int i = 0; i < degreeArray.length(); i++) {
+                                                          if (degreeArray.optJSONObject(i).optString("name").equals("不限") || degreeArray.optJSONObject(i).optString("name").equals("全部")) {
+                                                              continue;
+                                                          }
+                                                          degreebjects.add(degreeArray.optJSONObject(i));
+                                                      }
+                                                      JSONObject jsondegreeObject = new JSONObject();
+                                                      jsondegreeObject.put("name", "不限");
+                                                      jsondegreeObject.put("id", 0);
+                                                      degreebjects.add(0, jsondegreeObject);
+
+
+                                                      LinkedHashMap<String, List<JSONObject>> linkedHashMap = new LinkedHashMap();
+
+
+                                                      ArrayList<JSONObject> jsonObjects = new ArrayList<>();
+
+                                                      if (isPro) {
+
+                                                          JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
+
+                                                          JSONObject jsonObject = new JSONObject();
+                                                          JSONArray jsonArray = object.getJSONArray(pro.split("#")[1]);
+                                                          if (jsonArray != null) {
+                                                              for (int i = 0; i < jsonArray.length(); i++) {
+                                                                  if (jsonArray.getJSONObject(i).getString("name").equals("不限") || jsonArray.getJSONObject(i).getString("name").equals("全部")) {
+                                                                      continue;
+                                                                  }
+                                                                  jsonObjects.add(jsonArray.getJSONObject(i));
+                                                              }
+                                                          }
+                                                          try {
+                                                              jsonObject.put("name", "不限");
+                                                              jsonObject.put("id", 0);
+                                                              jsonObjects.add(0, jsonObject);
+                                                          } catch (JSONException e) {
+                                                              e.printStackTrace();
+                                                          }
+                                                      } else {
+                                                          JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCDISTRICT);
+
+                                                          JSONObject jsonObject = new JSONObject();
+                                                          JSONArray jsonArray = object.getJSONArray(pro);
+                                                          if (jsonArray != null) {
+                                                              for (int i = 0; i < jsonArray.length(); i++) {
+                                                                  if (jsonArray.getJSONObject(i).getString("name").equals("不限") || jsonArray.getJSONObject(i).getString("name").equals("全部")) {
+                                                                      continue;
+                                                                  }
+                                                                  jsonObjects.add(jsonArray.getJSONObject(i));
+                                                              }
+                                                          }
+                                                          try {
+                                                              jsonObject.put("name", "不限");
+                                                              jsonObject.put("id", 0);
+                                                              jsonObjects.add(0, jsonObject);
+                                                          } catch (JSONException e) {
+                                                              e.printStackTrace();
+                                                          }
+
+                                                      }
+
+
+                                                      linkedHashMap.put("学历要求", degreebjects);
+                                                      linkedHashMap.put("工作性质", corpkindbjects);
+                                                      linkedHashMap.put("区域筛选", jsonObjects);
+
+                                                      if (listener != null)
+                                                          listener.onGetDiscussMoreInfo(linkedHashMap);
+                                                  } catch (
+                                                          JSONException e
+                                                          )
+
+                                                  {
+                                                      e.printStackTrace();
+                                                  }
+                                              }
+                                          }
+
+        );
+
+    }
+
+    public interface OnGetDiscussHistoryListener {
         void onGetDiscussHistory(Map<Long, Map<String, String>> history);
     }
 
-    public interface OnGetDiscussCityInfoListener
-    {
+    public interface OnGetDiscussCityInfoListener {
         void onGetDiscussCityInfo(List<JSONObject> cityData, int CityId);
     }
 
-    public interface OnGetDiscussSalaryInfoListener
-    {
+    public interface OnGetDiscussSalaryInfoListener {
         void onGetDiscussSalaryInfo(List<JSONObject> salaryData);
     }
 
-    public interface OnGetDiscussMoreInfoListener
-    {
+    public interface OnGetCompanyInfoListener {
+        void onGetCompanyInfo(List<JSONObject> CompanyData);
+    }
+
+    public interface OnGetDiscussMoreInfoListener {
         void onGetDiscussMoreInfo(Map<String, List<JSONObject>> MoreData);
     }
+
 }

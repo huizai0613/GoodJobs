@@ -28,6 +28,18 @@
             android:name=".activity.CampusSearchResultActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.CampusCompanyDetailsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.CampusDetailsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.CampusSimilarActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 
