@@ -48,7 +48,7 @@
                 android:id="@+id/iv_search"
                 android:layout_width="20dip"
                 android:layout_height="20dip"
-                android:background="@mipmap/fdj28" />
+                android:background="@mipmap/" />
 
             <TextView
                 android:layout_width="wrap_content"
