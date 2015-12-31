@@ -15,7 +15,7 @@ import java.util.List;
 public class XCFlowLayout extends ViewGroup
 {
 
-    private static final int MAX_LINE = 2;
+    private static final int MAX_LINE = 100;
 
     public int showLines = 0;
     //存储所有子View

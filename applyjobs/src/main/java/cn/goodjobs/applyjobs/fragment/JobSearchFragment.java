@@ -61,7 +61,7 @@ import cn.goodjobs.common.view.searchItem.SelectorItemView;
 /**
  * 职位搜索
  */
-public class JobSearchFragment extends BaseFragment implements SegmentView.onSegmentViewClickListener, UpdateDataTaskUtils.OnGetDiscussSearchHistoryListener
+public class JobSearchFragment extends BaseFragment implements SegmentView.onSegmentViewClickListener, UpdateDataTaskUtils.OnGetDiscussHistoryListener
 {
     boolean isLoad; // fragment是否已经加载
     private SelectorItemView itemAddress;
@@ -444,7 +444,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     public void onResume()
     {
         super.onResume();
-        UpdateDataTaskUtils.getSearchHistory(getActivity(), this);
+        UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
         LogUtil.info("JobSearchFragment------onResume");
         if (isRefresh) {
             getSearchData();
@@ -674,7 +674,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         LogUtil.info("JobSearchFragment----setUserVisibleHint:" + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !isLoad) {
-            UpdateDataTaskUtils.getSearchHistory(getActivity(), this);
+            UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
             LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
             {
                 @Override
@@ -729,12 +729,12 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateSearchHistory(getActivity(), saveData);
+        UpdateDataTaskUtils.updateHistory(getActivity(), saveData, UpdateDataTaskUtils.SEARCHJOB);
     }
 
 
     @Override
-    public void onGetDiscussSearchHistory(Map<Long, Map<String, String>> history)
+    public void onGetDiscussHistory(Map<Long, Map<String, String>> history)
     {
         this.history = history;
 

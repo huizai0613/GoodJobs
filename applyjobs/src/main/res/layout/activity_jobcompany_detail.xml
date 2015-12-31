@@ -149,8 +149,7 @@
                             <TextView
                                 android:id="@+id/com_add"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dip"
-                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
                                 android:textColor="@color/black"
@@ -159,8 +158,9 @@
                             <TextView
                                 android:id="@+id/com_map"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dip"
-                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:paddingBottom="@dimen/space_5"
+                                android:paddingTop="@dimen/space_5"
                                 android:text=" 查看地图"
                                 android:textColor="@color/black"/>
 

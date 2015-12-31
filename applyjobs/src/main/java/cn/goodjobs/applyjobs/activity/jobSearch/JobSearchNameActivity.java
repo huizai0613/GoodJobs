@@ -61,7 +61,7 @@ import cn.goodjobs.common.view.stickylistheaders.ExpandableStickyListHeadersList
 import cz.msebera.android.httpclient.Header;
 
 
-public class JobSearchNameActivity extends BaseActivity implements SegmentView.onSegmentViewClickListener, UpdateDataTaskUtils.OnGetDiscussSearchHistoryListener
+public class JobSearchNameActivity extends BaseActivity implements SegmentView.onSegmentViewClickListener, UpdateDataTaskUtils.OnGetDiscussHistoryListener
 {
     private MyLocation myLocation;
     private EditText searchBoxET;
@@ -163,7 +163,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
                     HttpUtil.post(URLS.API_JOB_SearchChextended, last + "", requestParams, JobSearchNameActivity.this);
                 } else {
                     //没有关键字,显示搜索历史
-                    UpdateDataTaskUtils.getSearchHistory(mcontext, JobSearchNameActivity.this);
+                    UpdateDataTaskUtils.getHistory(mcontext, UpdateDataTaskUtils.SEARCHJOB, JobSearchNameActivity.this);
                 }
             }
         });
@@ -391,7 +391,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
     {
         super.onResume();
         if (searchBoxET.getText().length() <= 0) {
-            UpdateDataTaskUtils.getSearchHistory(mcontext, this);
+            UpdateDataTaskUtils.getHistory(mcontext, UpdateDataTaskUtils.SEARCHJOB, this);
         }
 
     }
@@ -413,18 +413,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
 
 
         } else if (i == R.id.btn_clear) {//点击清除历史记录
-
-            Set<Map.Entry<Long, Map<String, String>>> entries = history.entrySet();
-            ArrayList<Long> longs = new ArrayList<>();
-            for (Map.Entry<Long, Map<String, String>> entry : entries) {
-                if (!StringUtil.isEmpty(entry.getValue().get("searchKeyWorld"))) {
-                    longs.add(entry.getKey());
-                }
-            }
-            for (Long aLong : longs) {
-                history.remove(aLong);
-            }
-            UpdateDataTaskUtils.updateSearchHistory(mcontext, history);
+            UpdateDataTaskUtils.cleanHistory(mcontext, UpdateDataTaskUtils.SEARCHJOB);
             refreshHistory(null);
         } else if (i == R.id.btn_finish) {//点击关闭界面
             back();
@@ -482,12 +471,12 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateSearchHistory(mcontext, saveData);
+        UpdateDataTaskUtils.updateHistory(mcontext, saveData, UpdateDataTaskUtils.SEARCHJOB);
     }
 
 
     @Override
-    public void onGetDiscussSearchHistory(Map<Long, Map<String, String>> history)
+    public void onGetDiscussHistory(Map<Long, Map<String, String>> history)
     {
         this.history = history;
 
