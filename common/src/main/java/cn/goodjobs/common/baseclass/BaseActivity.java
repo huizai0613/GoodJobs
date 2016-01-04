@@ -1,6 +1,7 @@
 package cn.goodjobs.common.baseclass;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBar;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.GoodJobsSettingActivity;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.TipsUtil;
@@ -98,6 +100,14 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     public void doBack(View view)
     {
         back();
+    }
+
+    /**
+     * 跳转到系统设置界面
+     */
+    public void toSetting(View view) {
+        Intent intent = new Intent(this, GoodJobsSettingActivity.class);
+        startActivity(intent);
     }
 
     protected void back()

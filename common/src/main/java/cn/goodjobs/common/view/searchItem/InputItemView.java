@@ -155,4 +155,9 @@ public class InputItemView extends CombinedBaseView{
         }
         return StringUtil.isEmpty(getText());
     }
+
+    public void setEditable(boolean editable) {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        editText.setEnabled(editable);
+    }
 }

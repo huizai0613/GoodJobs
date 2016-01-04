@@ -88,6 +88,8 @@ public class MyResumeWorkAddActivity extends BaseActivity {
             itemCompanyName.setText(jsonObject.optString("company"));
             itemJobfunc.setText(jsonObject.optString("jobCNName"));
             itemDepart.setText(jsonObject.optString("department"));
+            itemIndtype.setText(jsonObject.optString("industryName"));
+            itemCorpkind.setText(jsonObject.optString("comTypeName"));
             itemIndtype.setSelectorIds(jsonObject.optString("industry"));
             itemCorpkind.setSelectorIds(jsonObject.optString("comType"));
             itemJobfunc.setSelectorIds(jsonObject.optString("jobName"));

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.goodjobs.common.baseclass.BaseActivity;
+import cn.goodjobs.common.constants.Constant;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.headhuntingjob.R;
 import cn.goodjobs.headhuntingjob.adapter.HeadViewpagerAdapter;
 import cn.goodjobs.headhuntingjob.fragment.HeadFragment;
@@ -28,6 +30,7 @@ public class HeadHuntingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Liepin.toString()); // 保存当前模块为默认模块
     }
 
     @Override

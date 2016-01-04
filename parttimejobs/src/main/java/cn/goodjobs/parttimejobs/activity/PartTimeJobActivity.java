@@ -18,11 +18,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import cn.goodjobs.common.baseclass.BaseListActivity;
+import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView;
 import cn.goodjobs.common.view.ExpandTabSuper.SingleLevelMenuView;
 import cn.goodjobs.common.view.empty.EmptyLayout;
@@ -46,6 +48,7 @@ public class PartTimeJobActivity extends BaseListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Jianzhi.toString()); // 保存当前模块为默认模块
         initView();
         mAdapter = new PartTimeJobAdapter(this);
         initList();

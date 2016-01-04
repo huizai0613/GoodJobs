@@ -8,12 +8,15 @@ import android.widget.RadioGroup;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.activity.TextAreaActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DatePickerUtil;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.InputItemView;
@@ -67,7 +70,13 @@ public class MyResumeBaseInfoActivity extends BaseActivity {
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        setDataToView((JSONObject) data);
+        if (tag.equals(URLS.API_CV_BASIC)) {
+            setDataToView((JSONObject) data);
+        } else if (tag.equals(URLS.API_CV_BASICSAVE)) {
+            TipsUtil.show(this, ((JSONObject) data).optString("message"));
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 
     private void setDataToView(JSONObject jsonObject) {
@@ -75,21 +84,17 @@ public class MyResumeBaseInfoActivity extends BaseActivity {
         itemBirthday.setText(jsonObject.optString("birthday"));
         new DatePickerUtil(this, itemBirthday, "yyyy-MM-dd", jsonObject.optString("birthday"));
         itemHukou.setText(jsonObject.optString("nCityName"));
-        itemHukou.setSelectorIds(jsonObject.optString("nCity"));
-        if (!StringUtil.isEmpty(jsonObject.optString("netIDName"))) {
-            itemAddress.setText(jsonObject.optString("cityName") + " " + jsonObject.optString("netIDName"));
-            itemAddress.setSelectorIds(jsonObject.optString("netID"));
-        } else if (!StringUtil.isEmpty(jsonObject.optString("cityName"))) {
-            itemAddress.setText(jsonObject.optString("cityName"));
-            itemAddress.setSelectorIds(jsonObject.optString("city"));
-        }
+        itemHukou.setSelectorIds(jsonObject.optString("nCityID"));
+        itemAddress.setText(jsonObject.optString("cityName"));
+        itemAddress.setSelectorIds(jsonObject.optString("cityID"));
         itemDegree.setText(jsonObject.optString("fmtDegree"));
         itemDegree.setSelectorIds(jsonObject.optString("degree"));
         itemWorktime.setText(jsonObject.optString("fmtWorktime"));
         itemWorktime.setSelectorIds(jsonObject.optString("worktime"));
         itemSalary.setText(jsonObject.optString("fmtCurrentSalary"));
         itemEmail.setText(jsonObject.optString("email"));
-        itemPhone.setText(jsonObject.optString("mobile  "));
+        itemPhone.setHint(jsonObject.optString("mobile"));
+        itemPhone.setEditable(false);
         itemSalary.setSelectorIds(jsonObject.optString("currentSalary"));
         if ("女".equals(jsonObject.optString("sex"))) {
             sexGroup.check(R.id.radioWuman);
@@ -120,6 +125,24 @@ public class MyResumeBaseInfoActivity extends BaseActivity {
                 || itemDegree.isEmpty() || itemBirthday.isEmpty() || itemWorktime.isEmpty()) {
             return;
         }
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("realname", itemName.getText());
+        if (sexGroup.getCheckedRadioButtonId() == R.id.radioWuman) {
+            params.put("sex", "女");
+        } else {
+            params.put("sex", "男");
+        }
+        params.put("realname", itemName.getText());
+        params.put("birthday", itemBirthday.getText());
+        params.put("nCityID", itemHukou.getSelectorIds());
+        params.put("cityID", itemAddress.getSelectorIds());
+        params.put("degree", itemDegree.getSelectorIds());
+        params.put("worktime", itemWorktime.getSelectorIds());
+        params.put("currentSalary", itemSalary.getSelectorIds());
+        params.put("email", itemEmail.getText());
+        params.put("interests", itemKeyword.getText());
+        LoadingDialog.showDialog(this);
+        HttpUtil.post(URLS.API_CV_BASICSAVE, params, this);
     }
 
     @Override

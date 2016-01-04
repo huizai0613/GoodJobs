@@ -349,11 +349,11 @@ public class UpdateDataTaskUtils {
                                               @Override
                                               public void run() {
                                                   JSONObject history = LsSimpleCache.get(context).getAsJSONObject(key);
+                                                  Map<Long, Map<String, String>> result = new HashMap<Long, Map<String, String>>();
                                                   if (history != null) {
                                                       try {
-                                                          Map<Long, Map<String, String>> result = new HashMap<Long, Map<String, String>>();
-                                                          Iterator<String> keys = history.keys();
 
+                                                          Iterator<String> keys = history.keys();
                                                           while (keys.hasNext()) {
                                                               String next = keys.next();
                                                               JSONObject o = history.getJSONObject(next);
@@ -372,6 +372,10 @@ public class UpdateDataTaskUtils {
                                                           e.printStackTrace();
                                                       }
 
+                                                  }else{
+                                                      if (listener != null) {
+                                                          listener.onGetDiscussHistory(result);
+                                                      }
                                                   }
                                               }
                                           }

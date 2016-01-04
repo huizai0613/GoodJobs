@@ -36,5 +36,6 @@
     <string name="title_activity_my_resume_stu">MyResumeStuActivity</string>
     <string name="title_activity_my_resume_train">MyResumeTrainActivity</string>
     <string name="title_activity_my_resume_lan">MyResumeLanActivity</string>
+    <string name="title_activity_good_jobs_setting">GoodJobsSettingActivity</string>
 
 </resources>

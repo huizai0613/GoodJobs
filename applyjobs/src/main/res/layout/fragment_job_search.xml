@@ -1,25 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:listitem="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+              xmlns:listitem="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_color"
+              android:orientation="vertical">
 
-    <include layout="@layout/actionbar" />
+    <include layout="@layout/actionbar"/>
 
-    <EditText
-        android:id="@+id/etSearch"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:background="@null"
-        android:drawableLeft="@mipmap/fdj28_grey"
-        android:focusable="false"
-        android:hint="输入关键字/职位/公司搜索"
-        android:paddingLeft="@dimen/padding_small"
-        android:singleLine="true"
-        android:textColorHint="@color/light_color"
-        android:textSize="@dimen/text_small" />
+        android:layout_height="40dip">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:background="@null"
+            android:drawableLeft="@mipmap/fdj28_grey"
+            android:focusable="false"
+            android:hint="输入关键字/职位/公司搜索"
+            android:paddingLeft="@dimen/padding_small"
+            android:singleLine="true"
+            android:textColorHint="@color/light_color"
+            android:textSize="@dimen/text_small"/>
+
+        <ImageView
+            android:id="@+id/clean"
+            android:padding="@dimen/space_10"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_clear"/>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +50,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <View style="@style/line" />
+                <View style="@style/line"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_address"
@@ -47,7 +61,7 @@
                     listitem:hint="定位中..."
                     listitem:singleSelected="true"
                     listitem:source="jobloc_pro;jobloc_city"
-                    listitem:tvtitle="工作地点" />
+                    listitem:tvtitle="工作地点"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_jobfunc"
@@ -58,18 +72,18 @@
                     listitem:hint="选择求职岗位"
                     listitem:singleSelected="false"
                     listitem:source="jobfunc_l1;jobfunc_l2"
-                    listitem:tvtitle="求职岗位" />
+                    listitem:tvtitle="求职岗位"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_indtype"
                     android:layout_width="match_parent"
-                    listitem:containAll="true"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    listitem:containAll="true"
                     listitem:hint="选择求职行业"
                     listitem:singleSelected="false"
                     listitem:source="indtype"
-                    listitem:tvtitle="求职行业" />
+                    listitem:tvtitle="求职行业"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_salary"
@@ -80,33 +94,33 @@
                     listitem:hint="选择薪资要求"
                     listitem:singleSelected="true"
                     listitem:source="salary"
-                    listitem:tvtitle="薪资要求" />
+                    listitem:tvtitle="薪资要求"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_worktime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    listitem:hint="选择工作经验"
                     listitem:containAll="true"
+                    listitem:hint="选择工作经验"
                     listitem:showLine="true"
                     listitem:singleSelected="true"
                     listitem:source="worktime"
-                    listitem:tvtitle="工作经验" />
+                    listitem:tvtitle="工作经验"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_degree"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    listitem:hint="选择学历"
                     listitem:containAll="true"
+                    listitem:hint="选择学历"
                     listitem:showLine="false"
                     listitem:singleSelected="true"
                     listitem:source="degree"
-                    listitem:tvtitle="学历要求" />
+                    listitem:tvtitle="学历要求"/>
 
-                <View style="@style/line" />
+                <View style="@style/line"/>
             </LinearLayout>
 
             <LinearLayout
@@ -161,7 +175,7 @@
                 android:background="@drawable/button_bg"
                 android:text="搜索"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_default" />
+                android:textSize="@dimen/text_default"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -174,7 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"></cn.goodjobs.common.view.SegmentView>
 
-                <View style="@style/line" />
+                <View style="@style/line"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -205,14 +219,14 @@
                             android:paddingTop="20dip"
                             android:text="请先登录"
                             android:textColor="@color/bule_low_color"
-                            android:visibility="gone" />
+                            android:visibility="gone"/>
                     </LinearLayout>
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="20dip" />
+                    android:layout_marginTop="20dip"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

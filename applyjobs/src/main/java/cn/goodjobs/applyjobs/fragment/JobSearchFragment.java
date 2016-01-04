@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -95,6 +96,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     private String searchName = "";
     private int curSearchPosition;
     private boolean isRefresh;
+    private View clean;
 
 
     @Subscriber(tag = URLS.JOB_search_login)
@@ -395,11 +397,6 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         View view = inflater.inflate(R.layout.fragment_job_search, container, false);
         initView(view);
 
-        if (GoodJobsApp.getInstance().isLogin()) {
-            //如果登陆获取搜索器
-            getSearchData();
-        }
-
 
         return view;
     }
@@ -473,11 +470,11 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                 } else {
                     butLogin.setVisibility(View.GONE);
                     addSearchBox.setVisibility(View.VISIBLE);
+                    if (searchList == null) {
+                        getSearchData();
+                    }
                 }
 
-                if (searchList == null) {
-                    getSearchData();
-                }
 
                 break;
         }
@@ -495,6 +492,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         searchHeistoryLogin = (LinearLayout) view.findViewById(R.id.search_heistory_login);
         butLogin = (TextView) view.findViewById(R.id.but_login);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
+        clean = view.findViewById(R.id.clean);
         btnSearch = (Button) view.findViewById(R.id.btnSearch);
 
         addSearchBox = view.findViewById(R.id.add_search_box);
@@ -508,6 +506,38 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             {
                 searchContent.setVisibility(isChecked ? View.VISIBLE : View.GONE);
                 searchTitle.setVisibility(isChecked ? View.GONE : View.VISIBLE);
+            }
+        });
+
+        clean.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                etSearch.setText("");
+            }
+        });
+        etSearch.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                if (s.length() > 0) {
+                    clean.setVisibility(View.VISIBLE);
+                } else {
+                    clean.setVisibility(View.GONE);
+                }
+
             }
         });
 

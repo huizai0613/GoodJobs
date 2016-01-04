@@ -26,6 +26,7 @@ public class MyResumeEduActivity extends BaseActivity implements AdapterView.OnI
     ImageButton btnRight;
     ResumeEduAdapter resumeEduAdapter;
     int delPosition;
+    boolean isUpdate; // 是否修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class MyResumeEduActivity extends BaseActivity implements AdapterView.OnI
             JSONObject jsonObject = (JSONObject) data;
             resumeEduAdapter.appendToList(jsonObject.optJSONArray("list"));
         } else if (tag.equals(URLS.API_CV_DEL_EDU)) {
+            isUpdate = true;
             resumeEduAdapter.removeItem(delPosition);
             resumeEduAdapter.notifyDataSetChanged();
         }
@@ -101,6 +103,7 @@ public class MyResumeEduActivity extends BaseActivity implements AdapterView.OnI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            isUpdate = true;
             getDataFromServer();
         }
     }
@@ -117,5 +120,13 @@ public class MyResumeEduActivity extends BaseActivity implements AdapterView.OnI
                 HttpUtil.post(URLS.API_CV_DEL_EDU, params, MyResumeEduActivity.this);
             }
         }, null);
+    }
+
+    @Override
+    protected void back() {
+        if (isUpdate) {
+            setResult(RESULT_OK);
+        }
+        super.back();
     }
 }

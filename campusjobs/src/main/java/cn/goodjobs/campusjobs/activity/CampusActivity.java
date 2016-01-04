@@ -41,6 +41,7 @@ public class CampusActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Xiaoyuan.toString()); // 保存当前模块为默认模块
     }
 
     @Override
