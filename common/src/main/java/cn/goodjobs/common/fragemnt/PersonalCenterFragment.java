@@ -14,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.json.JSONObject;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.personalcenter.ResumeOpenSettingActivity;
 import cn.goodjobs.common.activity.resume.MyResumeActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalApplyActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalInboxActivity;
@@ -142,6 +143,8 @@ public class PersonalCenterFragment extends BaseFragment {
             intent.setClass(getActivity(), PersonalInboxActivity.class);
         } else if (v.getId() == R.id.itemJianli) {
             intent.setClass(getActivity(), MyResumeActivity.class);
+        } else if (v.getId() == R.id.itemSetting) {
+            intent.setClass(getActivity(), ResumeOpenSettingActivity.class);
         } else {
             intent.setClass(getActivity(), PersonalLookActivity.class);
         }

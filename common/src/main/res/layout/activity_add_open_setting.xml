@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_default"
+        android:background="@drawable/edittext_bg"
+        android:padding="@dimen/padding_small"
+        android:textSize="@dimen/text_default"
+        android:textColor="@color/main_color"
+        android:hint="请输入屏蔽企业名称"/>
+
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginRight="@dimen/padding_default"
+        android:background="@drawable/button_bg"
+        android:text="搜索"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default" />
+
+    <LinearLayout
+        android:id="@+id/hideLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_default"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/tvTips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_small"
+            android:textColor="@color/light_color"
+            android:text="搜索结果如下，请选择符合条件的公司进行添加，超过最大限额（20）的记录将被忽略"/>
+        <ScrollView
+            android:id="@+id/resultScroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <cn.goodjobs.common.view.MyListView
+                    android:id="@+id/myListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:listSelector="@color/transparent"
+                    android:cacheColorHint="@color/transparent"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:divider="@color/line_color"
+                    android:dividerHeight="@dimen/line_height"/>
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dip"
+                    android:layout_marginTop="@dimen/padding_default"
+                    android:background="@drawable/button_bg"
+                    android:text="保存"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -30,6 +30,7 @@ public class MyResumeTrainActivity extends BaseActivity implements AdapterView.O
     ImageButton btnRight;
     ResumeTrainAdapter resumeTrainAdapter;
     int delPosition;
+    boolean isUpdate; // 是否修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MyResumeTrainActivity extends BaseActivity implements AdapterView.O
             JSONObject jsonObject = (JSONObject) data;
             resumeTrainAdapter.appendToList(jsonObject.optJSONArray("list"));
         } else if (tag.equals(URLS.API_CV_DEL_TRA)) {
+            isUpdate = true;
             resumeTrainAdapter.removeItem(delPosition);
             resumeTrainAdapter.notifyDataSetChanged();
         }
@@ -105,6 +107,7 @@ public class MyResumeTrainActivity extends BaseActivity implements AdapterView.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            isUpdate = true;
             getDataFromServer();
         }
     }
@@ -121,5 +124,13 @@ public class MyResumeTrainActivity extends BaseActivity implements AdapterView.O
                 HttpUtil.post(URLS.API_CV_DEL_TRA, params, MyResumeTrainActivity.this);
             }
         }, null);
+    }
+
+    @Override
+    protected void back() {
+        if (isUpdate) {
+            setResult(RESULT_OK);
+        }
+        super.back();
     }
 }

@@ -27,6 +27,7 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
     ImageButton btnRight;
     ResumeStuAdapter rsesumeStuAdapter;
     int delPosition;
+    boolean isUpdate; // 是否修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
     private void getDataFromServer() {
         rsesumeStuAdapter.clear();
         LoadingDialog.showDialog(this);
-        HttpUtil.post(URLS.API_CV_EDUCATION, this);
+        HttpUtil.post(URLS.API_CV_STULIST, this);
     }
 
     @Override
@@ -72,10 +73,11 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        if (tag.equals(URLS.API_CV_EDUCATION)) {
+        if (tag.equals(URLS.API_CV_STULIST)) {
             JSONObject jsonObject = (JSONObject) data;
             rsesumeStuAdapter.appendToList(jsonObject.optJSONArray("list"));
-        } else if (tag.equals(URLS.API_CV_DEL_EDU)) {
+        } else if (tag.equals(URLS.API_CV_DEL_STU)) {
+            isUpdate = true;
             rsesumeStuAdapter.removeItem(delPosition);
             rsesumeStuAdapter.notifyDataSetChanged();
         }
@@ -85,7 +87,7 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
     public void onClick(View v) {
         super.onClick(v);
         if (v.getId() == R.id.btn_right) {
-            Intent intent = new Intent(this, MyResumeEduAddActivity.class);
+            Intent intent = new Intent(this, MyResumeStuAddActivity.class);
             startActivityForResult(intent, 111);
         }
     }
@@ -93,8 +95,8 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         JSONObject jsonObject = rsesumeStuAdapter.getItem(position);
-        Intent intent = new Intent(this, MyResumeEduAddActivity.class);
-        intent.putExtra("eduID", jsonObject.optString("eduID"));
+        Intent intent = new Intent(this, MyResumeStuAddActivity.class);
+        intent.putExtra("pracID", jsonObject.optString("pracID"));
         startActivityForResult(intent, 111);
     }
 
@@ -102,6 +104,7 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            isUpdate = true;
             getDataFromServer();
         }
     }
@@ -113,10 +116,18 @@ public class MyResumeStuActivity extends BaseActivity implements AdapterView.OnI
             public void onClick(DialogInterface dialog, int which) {
                 JSONObject jsonObject = rsesumeStuAdapter.getItem(delPosition);
                 HashMap<String, Object> params = new HashMap<String, Object>();
-                params.put("eduID", jsonObject.optString("eduID"));
+                params.put("pracID", jsonObject.optString("pracID"));
                 LoadingDialog.showDialog(MyResumeStuActivity.this);
-                HttpUtil.post(URLS.API_CV_DEL_EDU, params, MyResumeStuActivity.this);
+                HttpUtil.post(URLS.API_CV_DEL_STU, params, MyResumeStuActivity.this);
             }
         }, null);
+    }
+
+    @Override
+    protected void back() {
+        if (isUpdate) {
+            setResult(RESULT_OK);
+        }
+        super.back();
     }
 }

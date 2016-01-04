@@ -68,7 +68,7 @@ public class MyResumeMoreActivity extends BaseActivity {
         if (v.getId() == R.id.btn_right) {
             intent.setClass(this, MyResumePreviewActivity.class);
         } else if (v.getId() == R.id.itemShijian) {
-            intent.setClass(this, MyResumePreviewActivity.class);
+            intent.setClass(this, MyResumeStuActivity.class);
         } else if (v.getId() == R.id.itemPeixun) {
             intent.setClass(this, MyResumeTrainActivity.class);
         } else if (v.getId() == R.id.itemLanguage) {

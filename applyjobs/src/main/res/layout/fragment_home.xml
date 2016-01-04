@@ -45,8 +45,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="输入关键字/职位/a公司搜索"
+                        android:hint="输入关键字/职位/公司搜索"
                         android:enabled="false"
+                        android:textSize="@dimen/text_small"
                         android:background="@color/transparent"/>
 
                     <ImageButton
@@ -54,7 +55,8 @@
                         android:layout_height="20dip"
                         android:src="@drawable/icon_clear"
                         android:background="@color/transparent"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter"
+                        android:visibility="invisible"/>
                 </LinearLayout>
                 <View style="@style/line"/>
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
@@ -88,6 +90,51 @@
                     android:text="搜索"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_default"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/historyLayout"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:paddingBottom="@dimen/padding_default"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:textColor="@color/main_color"
+                        android:text="搜索记录："/>
+                    <TextView
+                        android:id="@+id/tvHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:textColor="@color/topbar_bg"
+                        android:clickable="true"
+                        android:text="合肥+互联网"/>
+                </LinearLayout>
+                <View style="@style/line"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <View style="@style/line"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dip"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#FFF2E3">
+                    </RelativeLayout>
+                </LinearLayout>
+                <View style="@style/line"/>
             </LinearLayout>
 
         </LinearLayout>

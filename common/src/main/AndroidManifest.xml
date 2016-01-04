@@ -119,6 +119,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activity.resume.MyResumeStuAddActivity"
+            android:label="@string/title_activity_my_resume_edu_add"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activity.resume.MyResumeTrainActivity"
             android:label="@string/title_activity_my_resume_train"
             android:screenOrientation="portrait" >
@@ -140,7 +145,22 @@
         </activity>
         <activity
             android:name=".activity.GoodJobsSettingActivity"
-            android:label="@string/title_activity_good_jobs_setting" >
+            android:label="@string/title_activity_good_jobs_setting"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.ResumeOpenSettingActivity"
+            android:label="@string/title_activity_resume_open_setting"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.AddOpenSettingActivity"
+            android:label="@string/title_activity_add_open_setting"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

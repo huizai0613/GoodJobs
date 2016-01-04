@@ -1,7 +1,10 @@
 package cn.goodjobs.applyjobs.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.SystemClock;
@@ -18,10 +21,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -33,6 +39,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Handler;
@@ -44,6 +51,7 @@ import cn.goodjobs.common.AndroidBUSBean;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.LogUtil;
@@ -53,6 +61,7 @@ import cn.goodjobs.common.util.UpdateDataTaskUtils;
 import cn.goodjobs.common.util.bdlocation.LocationUtil;
 import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.bdlocation.MyLocationListener;
+import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.SegmentView;
@@ -253,8 +262,6 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     {
         searchHeistoryLogin.removeAllViews();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(DensityUtil.dip2px(getActivity(), 10), 0, DensityUtil.dip2px(getActivity(), 10), 0);
-        LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
         StringBuilder builder = new StringBuilder();
 
         if (jsonArray.length() <= 0) {
@@ -273,119 +280,166 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         for (int i = 0; i < jsonArray.length(); i++) {
             final int j = i;
             final JSONObject jsonObject = jsonArray.optJSONObject(i);
-            TextView view = new TextView(getActivity());
-            builder.delete(0, builder.length());
 
-            builder.append(StringUtil.isEmpty(jsonObject.optString("searchName")) ? "" : jsonObject.optString("searchName") + " : ");
-            builder.append(StringUtil.isEmpty(jsonObject.optString("workplaceSelectedName")) ? "" : jsonObject.optString("workplaceSelectedName") + " + ");
-            builder.append(StringUtil.isEmpty(jsonObject.optString("functionSelectedName")) ? "" : jsonObject.optString("functionSelectedName") + " + ");
-            builder.append(StringUtil.isEmpty(jsonObject.optString("industrySelectedName")) ? "" : jsonObject.optString("industrySelectedName") + " + ");
-            builder.append(StringUtil.isEmpty(jsonObject.optString("salarySelecetdName")) ? "" : jsonObject.optString("salarySelecetdName") + " + ");
-            builder.append(StringUtil.isEmpty(jsonObject.optString("workTimeSelecetdName")) ? "" : jsonObject.optString("workTimeSelecetdName") + " + ");
-            builder.append(StringUtil.isEmpty(jsonObject.optString("degreeSelectedName")) ? "" : jsonObject.optString("degreeSelectedName") + " + ");
+            if (jsonObject != null) {
+                builder.delete(0, builder.length());
+                builder.append(StringUtil.isEmpty(jsonObject.optString("searchName")) ? "" : jsonObject.optString("searchName") + " : ");
+                builder.append(StringUtil.isEmpty(jsonObject.optString("workplaceSelectedName")) ? "" : jsonObject.optString("workplaceSelectedName") + " + ");
+                builder.append(StringUtil.isEmpty(jsonObject.optString("functionSelectedName")) ? "" : jsonObject.optString("functionSelectedName") + " + ");
+                builder.append(StringUtil.isEmpty(jsonObject.optString("industrySelectedName")) ? "" : jsonObject.optString("industrySelectedName") + " + ");
+                builder.append(StringUtil.isEmpty(jsonObject.optString("salarySelecetdName")) ? "" : jsonObject.optString("salarySelecetdName") + " + ");
+                builder.append(StringUtil.isEmpty(jsonObject.optString("workTimeSelecetdName")) ? "" : jsonObject.optString("workTimeSelecetdName") + " + ");
+                builder.append(StringUtil.isEmpty(jsonObject.optString("degreeSelectedName")) ? "" : jsonObject.optString("degreeSelectedName") + " + ");
 
-            if (builder.length() == 0) {
-                continue;
-            }
-            CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
-            view.setPadding(0, 20, 0, 20);
-            view.setSingleLine();
-            view.setEllipsize(TextUtils.TruncateAt.END);
-            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            view.setText(charSequence);
-            view.setBackgroundResource(R.drawable.list_item_bg);
-            view.setGravity(Gravity.CENTER_VERTICAL);
-            searchHeistoryLogin.addView(view, layoutParams);
-            final int finalI = i;
-            view.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    //填补条件
-                    int itemAddressId = jsonObject.optInt("workplaceSelected");
-                    String itemAddressS = jsonObject.optString("workplaceSelectedName");
-                    String searchKeyWorld = jsonObject.optString("jobKeyEntered");
-
-                    String itemJobfuncId = jsonObject.optString("functionSelected");
-                    String itemIndtypeId = jsonObject.optString("industrySelected");
-                    int itemSalaryId = jsonObject.optInt("salarySelecetd");
-                    int itemWorktimeId = jsonObject.optInt("workTimeSelecetd");
-                    int itemDegreeId = jsonObject.optInt("degreeSelected");
-
-
-                    String itemJobfuncStr = jsonObject.optString("functionSelectedName");
-                    String itemIndtypeStr = jsonObject.optString("industrySelectedName");
-                    String itemSalaryStr = jsonObject.optString("salarySelecetdName");
-                    String itemWorktimeStr = jsonObject.optString("workTimeSelecetdName");
-                    String itemDegreeStr = jsonObject.optString("degreeSelectedName");
-
-                    if (itemAddressId != 0) {
-                        itemAddress.setSelectorIds(itemAddressId + "");
-                        itemAddress.setText(itemAddressS);
-                    } else {
-                        itemAddress.setSelectorIds("");
-                        itemAddress.setText(itemAddressS);
-                    }
-
-                    if (!StringUtil.isEmpty(itemJobfuncStr)) {
-                        itemJobfunc.setSelectorIds(itemJobfuncId);
-                        itemJobfunc.setText(itemJobfuncStr);
-                    } else {
-                        itemJobfunc.setSelectorIds("");
-                        itemJobfunc.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemIndtypeStr)) {
-                        itemIndtype.setSelectorIds(itemIndtypeId);
-                        itemIndtype.setText(itemIndtypeStr);
-                    } else {
-                        itemIndtype.setSelectorIds("");
-                        itemIndtype.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemSalaryStr)) {
-                        itemSalary.setSelectorIds(itemSalaryId + "");
-                        itemSalary.setText(itemSalaryStr);
-                    } else {
-                        itemSalary.setSelectorIds("");
-                        itemSalary.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemWorktimeStr)) {
-                        itemWorktime.setSelectorIds(itemWorktimeId + "");
-                        itemWorktime.setText(itemWorktimeStr);
-                    } else {
-                        itemWorktime.setSelectorIds("");
-                        itemWorktime.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemDegreeStr)) {
-                        itemDegree.setSelectorIds(itemDegreeId + "");
-                        itemDegree.setText(itemDegreeStr);
-                    } else {
-                        itemDegree.setSelectorIds("");
-                        itemDegree.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(searchKeyWorld)) {
-                        etSearch.setText(searchKeyWorld);
-                    } else {
-                        etSearch.setText("");
-                    }
-
-                    curSearchPosition = j;
-                    searchName = jsonObject.optString("searchName");
-                    searchContent.setText(searchName);
-                    searchId = jsonObject.optInt("searchID") + "";
+                if (builder.length() == 0) {
+                    continue;
                 }
-            });
-            View line = new View(getActivity());
-            line.setBackgroundResource(R.color.line_color);
-            searchHeistoryLogin.addView(line, lineParams);
+                CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
+
+                View inflate = View.inflate(getActivity(), R.layout.item_user_search, null);
+                TextView itemContent = (TextView) inflate.findViewById(R.id.item_content);
+                View itemClean = inflate.findViewById(R.id.item_clean);
+                itemContent.setText(charSequence);
+
+                searchHeistoryLogin.addView(inflate, layoutParams);
+                final int finalI = i;
+
+                itemClean.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        //删除搜索器
+
+                        AlertDialogUtil.show(getActivity(), R.string.app_name, "您确定删除这个搜索器么？", true, "确定", "取消", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                HashMap<String, Object> param = new HashMap<String, Object>();
+                                param.put("searchID", jsonObject.optInt("searchID"));
+                                HttpUtil.post(URLS.API_JOB_Searcherdel, param, new HttpResponseHandler()
+                                {
+                                    @Override
+                                    public void onFailure(int statusCode, String tag)
+                                    {
+                                    }
+
+                                    @Override
+                                    public void onSuccess(String tag, Object data)
+                                    {
+                                        try {
+                                            searchList.put(j, null);
+                                            disPlayerUserSearchUI(searchList);
+//                                    getSearchData();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(int errorCode, String tag, String errorMessage)
+                                    {
+                                    }
+
+                                    @Override
+                                    public void onProgress(String tag, int progress)
+                                    {
+
+                                    }
+                                });
+                            }
+                        }, null);
+
+                    }
+                });
+
+                itemContent.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        //填补条件
+                        int itemAddressId = jsonObject.optInt("workplaceSelected");
+                        String itemAddressS = jsonObject.optString("workplaceSelectedName");
+                        String searchKeyWorld = jsonObject.optString("jobKeyEntered");
+
+                        String itemJobfuncId = jsonObject.optString("functionSelected");
+                        String itemIndtypeId = jsonObject.optString("industrySelected");
+                        int itemSalaryId = jsonObject.optInt("salarySelecetd");
+                        int itemWorktimeId = jsonObject.optInt("workTimeSelecetd");
+                        int itemDegreeId = jsonObject.optInt("degreeSelected");
+
+
+                        String itemJobfuncStr = jsonObject.optString("functionSelectedName");
+                        String itemIndtypeStr = jsonObject.optString("industrySelectedName");
+                        String itemSalaryStr = jsonObject.optString("salarySelecetdName");
+                        String itemWorktimeStr = jsonObject.optString("workTimeSelecetdName");
+                        String itemDegreeStr = jsonObject.optString("degreeSelectedName");
+
+                        if (itemAddressId != 0) {
+                            itemAddress.setSelectorIds(itemAddressId + "");
+                            itemAddress.setText(itemAddressS);
+                        } else {
+                            itemAddress.setSelectorIds("");
+                            itemAddress.setText(itemAddressS);
+                        }
+
+                        if (!StringUtil.isEmpty(itemJobfuncStr)) {
+                            itemJobfunc.setSelectorIds(itemJobfuncId);
+                            itemJobfunc.setText(itemJobfuncStr);
+                        } else {
+                            itemJobfunc.setSelectorIds("");
+                            itemJobfunc.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemIndtypeStr)) {
+                            itemIndtype.setSelectorIds(itemIndtypeId);
+                            itemIndtype.setText(itemIndtypeStr);
+                        } else {
+                            itemIndtype.setSelectorIds("");
+                            itemIndtype.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemSalaryStr)) {
+                            itemSalary.setSelectorIds(itemSalaryId + "");
+                            itemSalary.setText(itemSalaryStr);
+                        } else {
+                            itemSalary.setSelectorIds("");
+                            itemSalary.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemWorktimeStr)) {
+                            itemWorktime.setSelectorIds(itemWorktimeId + "");
+                            itemWorktime.setText(itemWorktimeStr);
+                        } else {
+                            itemWorktime.setSelectorIds("");
+                            itemWorktime.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemDegreeStr)) {
+                            itemDegree.setSelectorIds(itemDegreeId + "");
+                            itemDegree.setText(itemDegreeStr);
+                        } else {
+                            itemDegree.setSelectorIds("");
+                            itemDegree.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(searchKeyWorld)) {
+                            etSearch.setText(searchKeyWorld);
+                        } else {
+                            etSearch.setText("");
+                        }
+
+                        curSearchPosition = j;
+                        searchName = jsonObject.optString("searchName");
+                        searchContent.setText(searchName);
+                        searchId = jsonObject.optInt("searchID") + "";
+                    }
+                });
+            }
+
         }
-
-
     }
 
 
