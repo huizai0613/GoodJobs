@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <View style="@style/line"/>
+            <RadioButton
+                android:id="@+id/radio0"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/list_item_height"
+                android:text="对所有开放"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/main_color"/>
+            <View style="@style/line"/>
+            <RadioButton
+                android:id="@+id/radio1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/list_item_height"
+                android:text="对部分开放"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/main_color"/>
+            <View style="@style/line"/>
+            <LinearLayout
+                android:id="@+id/hideLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/bg_color"
+                android:visibility="gone">
+                <TextView
+                    android:onClick="doAdd"
+                    android:clickable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    android:textColor="@color/topbar_bg"
+                    android:textSize="@dimen/text_small"
+                    android:text="+新增屏蔽公司"
+                    android:background="@drawable/list_item_bg"/>
+                <View style="@style/line"/>
+                <cn.goodjobs.common.view.MyListView
+                    android:id="@+id/myListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:listSelector="@color/transparent"
+                    android:cacheColorHint="@color/transparent"
+                    android:divider="@color/line_color"
+                    android:dividerHeight="@dimen/line_height"/>
+            </LinearLayout>
+            <RadioButton
+                android:id="@+id/radio2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="完全隐藏"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/main_color"/>
+            <View style="@style/line"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/light_color"
+                android:background="@color/bg_color"
+                android:text="完全隐藏的时间上限为一年（从您设置的时间起）"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/bg_color">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_margin="@dimen/padding_default"
+                    android:text="保存"
+                    android:onClick="doSave"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default"
+                    android:background="@drawable/button_bg"/>
+            </LinearLayout>
+        </RadioGroup>
+    </ScrollView>
+
+</LinearLayout>

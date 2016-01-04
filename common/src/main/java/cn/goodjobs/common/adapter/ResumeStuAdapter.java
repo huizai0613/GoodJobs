@@ -36,8 +36,8 @@ public class ResumeStuAdapter extends JsonArrayAdapterBase<JSONObject> {
         }
         JSONObject jsonObject = getItem(position);
         viewHolder.btnDel.setTag(position);
-//        viewHolder.tvTitle.setText(jsonObject.optString("school"));
-//        viewHolder.tvContent.setText(jsonObject.optString("edutime") + "    " + jsonObject.optString("degreeName"));
+        viewHolder.tvTitle.setText(jsonObject.optString("practime"));
+        viewHolder.tvContent.setText(jsonObject.optString("expType") + "，" + jsonObject.optString("expName"));
         return convertView;
     }
 

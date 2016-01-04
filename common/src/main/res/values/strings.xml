@@ -37,5 +37,7 @@
     <string name="title_activity_my_resume_train">MyResumeTrainActivity</string>
     <string name="title_activity_my_resume_lan">MyResumeLanActivity</string>
     <string name="title_activity_good_jobs_setting">GoodJobsSettingActivity</string>
+    <string name="title_activity_resume_open_setting">ResumeOpenSettingActivity</string>
+    <string name="title_activity_add_open_setting">AddOpenSettingActivity</string>
 
 </resources>
