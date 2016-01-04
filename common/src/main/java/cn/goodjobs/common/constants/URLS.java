@@ -67,6 +67,14 @@ public class URLS
     public final static String API_CV_SAVE_TRA = "cv/trainsave";
     public final static String API_CV_EDIT_TRA = "cv/train";
     public final static String API_CV_DEL_TRA = "cv/traindel";
+    public final static String API_CV_STULIST = "cv/praclist";
+    public final static String API_CV_SAVE_STU = "cv/pracsave";
+    public final static String API_CV_EDIT_STU = "cv/prac";
+    public final static String API_CV_DEL_STU = "cv/pracdel";
+    public final static String API_USER_OPENSET = "user/openset";
+    public final static String API_USER_OPENADD = "user/openadd";
+    public final static String API_USER_OPENSEARCH = "user/opensearch";
+    public final static String API_USER_OPENDEL = "user/opendel";
 
     public final static String API_JOB_ParttimeJob = "Parttime/List";      // 兼职列表
     public final static String API_JOB_ParttimeShow = "Parttime/Show";      // 兼职详情

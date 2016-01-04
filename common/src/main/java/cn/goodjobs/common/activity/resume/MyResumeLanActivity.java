@@ -30,6 +30,7 @@ public class MyResumeLanActivity extends BaseActivity implements AdapterView.OnI
     ImageButton btnRight;
     ResumeLanAdapter rsesumeLanAdapter;
     int delPosition;
+    boolean isUpdate; // 是否修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MyResumeLanActivity extends BaseActivity implements AdapterView.OnI
             JSONObject jsonObject = (JSONObject) data;
             rsesumeLanAdapter.appendToList(jsonObject.optJSONArray("list"));
         } else if (tag.equals(URLS.API_CV_DEL_LAN)) {
+            isUpdate = true;
             rsesumeLanAdapter.removeItem(delPosition);
             rsesumeLanAdapter.notifyDataSetChanged();
         }
@@ -105,6 +107,7 @@ public class MyResumeLanActivity extends BaseActivity implements AdapterView.OnI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            isUpdate = true;
             getDataFromServer();
         }
     }
@@ -121,5 +124,13 @@ public class MyResumeLanActivity extends BaseActivity implements AdapterView.OnI
                 HttpUtil.post(URLS.API_CV_DEL_LAN, params, MyResumeLanActivity.this);
             }
         }, null);
+    }
+
+    @Override
+    protected void back() {
+        if (isUpdate) {
+            setResult(RESULT_OK);
+        }
+        super.back();
     }
 }
