@@ -1,5 +1,6 @@
 package cn.goodjobs.campusjobs.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
@@ -48,6 +49,7 @@ public class CampusSearchActivity extends BaseActivity {
     private String ind;
     private String searchKeyWorld;
     private Button btnSearch;
+    private TextView tvClear;
 
 
     @Override
@@ -93,6 +95,8 @@ public class CampusSearchActivity extends BaseActivity {
         setTopTitle("职位搜索");
         btnSearch = (Button) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(this);
+        tvClear = (TextView) findViewById(R.id.tv_clear);
+        tvClear.setOnClickListener(this);
         searchHeistory = (LinearLayout) findViewById(R.id.search_heistory);
         itemAddress = (SelectorItemView) findViewById(R.id.item_address);
         itemJobfunc = (SelectorItemView) findViewById(R.id.item_jobfunc);
@@ -145,6 +149,10 @@ public class CampusSearchActivity extends BaseActivity {
             LinkedHashMap searchHashMap = getSearchHashMap();
             saveSearchLock(history, searchHashMap);
             JumpViewUtil.openActivityAndParam(this, CampusSearchResultActivity.class, searchHashMap);
+        } else if (i == R.id.tv_clear) {
+            tvClear.setVisibility(View.GONE);
+            UpdateDataTaskUtils.cleanHistory(this, UpdateDataTaskUtils.CAMPUSJOB);
+            disPlayerSearchUI(null);
         }
     }
 
@@ -172,7 +180,7 @@ public class CampusSearchActivity extends BaseActivity {
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateHistory(this, saveData, UpdateDataTaskUtils.CAMPUSJOB);
+        UpdateDataTaskUtils.updateHistory(mcontext, saveData, UpdateDataTaskUtils.CAMPUSJOB);
     }
 
 
@@ -235,85 +243,101 @@ public class CampusSearchActivity extends BaseActivity {
     //近期搜索记录展示
     private void disPlayerSearchUI(List<Map.Entry<Long, Map<String, String>>> obj) {
         searchHeistory.removeAllViews();
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(DensityUtil.dip2px(this, 10), 0, DensityUtil.dip2px(this, 10), 0);
-        LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Long, Map<String, String>> longMapEntry : obj) {
-            final Map<String, String> value = longMapEntry.getValue();
-            TextView view = new TextView(this);
+        if (obj != null) {
+            tvClear.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(DensityUtil.dip2px(this, 10), 0, DensityUtil.dip2px(this, 10), 0);
+            LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<Long, Map<String, String>> longMapEntry : obj) {
+                final Map<String, String> value = longMapEntry.getValue();
+                TextView view = new TextView(this);
 
-            builder.delete(0, builder.length());
+                builder.delete(0, builder.length());
 
-            builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemIndtype")) ? "" : value.get("itemIndtype") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemIndtype")) ? "" : value.get("itemIndtype") + " + ");
 
-            if (builder.length() == 0) {
-                continue;
+                if (builder.length() == 0) {
+                    continue;
+                }
+                CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
+                view.setPadding(0, 20, 0, 20);
+                view.setSingleLine();
+                view.setEllipsize(TextUtils.TruncateAt.END);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                view.setText(charSequence);
+                view.setBackgroundResource(R.drawable.list_item_bg);
+                view.setGravity(Gravity.CENTER_VERTICAL);
+                searchHeistory.addView(view, layoutParams);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //填充数据
+                        String itemAddressId = value.get("itemAddressId");
+                        String itemAddressS = value.get("itemAddress");
+                        String searchKeyWorld = value.get("searchKeyWorld");
+
+                        String itemJobfuncId = value.get("itemJobfuncId");
+                        String itemIndtypeId = value.get("itemIndtypeId");
+
+
+                        String itemJobfuncStr = value.get("itemJobfunc");
+                        String itemIndtypeStr = value.get("itemIndtype");
+
+                        if (!StringUtil.isEmpty(itemAddressId)) {
+                            itemAddress.setSelectorIds(itemAddressId);
+                            itemAddress.setText(itemAddressS);
+                        } else {
+                            itemAddress.setSelectorIds("");
+                            itemAddress.setText(itemAddressS);
+                        }
+
+                        if (!StringUtil.isEmpty(itemJobfuncStr)) {
+                            itemJobfunc.setSelectorIds(itemJobfuncId);
+                            itemJobfunc.setText(itemJobfuncStr);
+                        } else {
+                            itemJobfunc.setSelectorIds("");
+                            itemJobfunc.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemIndtypeStr)) {
+                            itemIndtype.setSelectorIds(itemIndtypeId);
+                            itemIndtype.setText(itemIndtypeStr);
+                        } else {
+                            itemIndtype.setSelectorIds("");
+                            itemIndtype.setText("");
+                        }
+
+
+                        if (!StringUtil.isEmpty(searchKeyWorld)) {
+                            etSearch.setText(searchKeyWorld);
+                        } else {
+                            etSearch.setText("");
+                        }
+                    }
+                });
+                View line = new View(this);
+                line.setBackgroundResource(R.color.line_color);
+                searchHeistory.addView(line, lineParams);
             }
-            CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
+        } else {
+            tvClear.setVisibility(View.GONE);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(DensityUtil.dip2px(this, 10), 0, DensityUtil.dip2px(this, 10), 0);
+            TextView view = new TextView(this);
             view.setPadding(0, 20, 0, 20);
             view.setSingleLine();
             view.setEllipsize(TextUtils.TruncateAt.END);
             view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            view.setText(charSequence);
+            view.setText("暂无搜索记录");
             view.setBackgroundResource(R.drawable.list_item_bg);
             view.setGravity(Gravity.CENTER_VERTICAL);
             searchHeistory.addView(view, layoutParams);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //填充数据
-                    String itemAddressId = value.get("itemAddressId");
-                    String itemAddressS = value.get("itemAddress");
-                    String searchKeyWorld = value.get("searchKeyWorld");
-
-                    String itemJobfuncId = value.get("itemJobfuncId");
-                    String itemIndtypeId = value.get("itemIndtypeId");
-
-
-                    String itemJobfuncStr = value.get("itemJobfunc");
-                    String itemIndtypeStr = value.get("itemIndtype");
-
-                    if (!StringUtil.isEmpty(itemAddressId)) {
-                        itemAddress.setSelectorIds(itemAddressId);
-                        itemAddress.setText(itemAddressS);
-                    } else {
-                        itemAddress.setSelectorIds("");
-                        itemAddress.setText(itemAddressS);
-                    }
-
-                    if (!StringUtil.isEmpty(itemJobfuncStr)) {
-                        itemJobfunc.setSelectorIds(itemJobfuncId);
-                        itemJobfunc.setText(itemJobfuncStr);
-                    } else {
-                        itemJobfunc.setSelectorIds("");
-                        itemJobfunc.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemIndtypeStr)) {
-                        itemIndtype.setSelectorIds(itemIndtypeId);
-                        itemIndtype.setText(itemIndtypeStr);
-                    } else {
-                        itemIndtype.setSelectorIds("");
-                        itemIndtype.setText("");
-                    }
-
-
-                    if (!StringUtil.isEmpty(searchKeyWorld)) {
-                        etSearch.setText(searchKeyWorld);
-                    } else {
-                        etSearch.setText("");
-                    }
-                }
-            });
-            View line = new View(this);
-            line.setBackgroundResource(R.color.line_color);
-            searchHeistory.addView(line, lineParams);
         }
 
-
     }
+
 }

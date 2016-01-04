@@ -132,6 +132,22 @@
                         android:orientation="vertical"></LinearLayout>
 
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dip"
+                    android:text="[清空搜索记录]"
+                    android:textColor="#5f9bf8"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
         </LinearLayout>
