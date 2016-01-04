@@ -1,13 +1,31 @@
 package cn.goodjobs.common.baseclass;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.WebViewActivity;
+import cn.goodjobs.common.adapter.MainBanaerAdapter;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
+import cn.goodjobs.common.util.http.HttpUtil;
+import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 /**
  * Created by 王刚 on 2015/12/15 0015.
@@ -15,6 +33,9 @@ import cn.goodjobs.common.util.http.HttpResponseHandler;
 public class BaseFragment extends Fragment implements HttpResponseHandler, View.OnClickListener {
 
     protected boolean isLoad; // 界面数据是否加载
+    protected AutoScrollViewPager adViewPager;
+    protected double adScale = 4;
+    int scrollTime = 3000; // 广告3秒滚动一屏
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,5 +83,76 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     @Override
     public void onClick(View v) {
 
+    }
+
+    /**
+     * 初始化顶部广告图
+     * */
+    protected void initAd(JSONArray jsonArray) {
+        // 广告图片
+        if (jsonArray != null && jsonArray.length() > 0) {
+            int len = jsonArray.length();
+            List<SimpleDraweeView> imageList = new ArrayList<SimpleDraweeView>();
+            if (len == 2) {
+                len = 4;
+            }
+            for (int i=0;i<len;++i) {
+                final JSONObject jsonObject = jsonArray.optJSONObject(i % jsonArray.length());
+                if (jsonObject.has("width")) {
+                    adScale = jsonObject.optDouble("width") / jsonObject.optDouble("height");
+                }
+                SimpleDraweeView simpleDraweeView = (SimpleDraweeView) LayoutInflater.from(getActivity()).inflate(R.layout.simpledraweeview, null);
+                String imageUrl = jsonObject.optString("image");
+                Uri uri = Uri.parse(imageUrl);
+                if (imageUrl.endsWith(".gif") || imageUrl.endsWith(".GIF")) {
+                    DraweeController draweeController= Fresco.newDraweeControllerBuilder()
+                            .setAutoPlayAnimations(true)
+                            .setUri(uri)//设置uri
+                            .build();
+                    simpleDraweeView.setController(draweeController);
+                } else {
+                    simpleDraweeView.setImageURI(uri);
+                }
+                simpleDraweeView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                        intent.putExtra("title", jsonObject.optString("title"));
+                        intent.putExtra("url", jsonObject.optString("url"));
+                        startActivity(intent);
+                    }
+                });
+                imageList.add(simpleDraweeView);
+            }
+            final MainBanaerAdapter mainBanaerAdapter = new MainBanaerAdapter(getActivity(), imageList);
+            adViewPager.setAdapter(mainBanaerAdapter);
+            adViewPager.setInterval(scrollTime);
+            adViewPager.setCycle(true);
+            adViewPager.startAutoScroll(scrollTime);
+            adViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
+
+            LinearLayout.LayoutParams layoutParams
+                    = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (HttpUtil.getDisplayMetrics().widthPixels/adScale));
+            adViewPager.setLayoutParams(layoutParams);
+            adViewPager.setVisibility(View.VISIBLE);
+        } else {
+            adViewPager.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adViewPager != null && adViewPager.getVisibility() == View.VISIBLE) {
+            adViewPager.startAutoScroll(scrollTime);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (adViewPager != null && adViewPager.getVisibility() == View.VISIBLE) {
+            adViewPager.stopAutoScroll();
+        }
     }
 }
