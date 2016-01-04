@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.TipsUtil;
@@ -90,10 +91,14 @@ public class HeadDetailsActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_recommend) {
+            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
+                return;
             Intent intent = new Intent(this, RecommendActivity.class);
             intent.putExtra("jobID", data.get(vp.getCurrentItem()));
             startActivity(intent);
         } else if (v.getId() == R.id.btn_apply) {
+            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
+                return;
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("jobID", data.get(vp.getCurrentItem()));
             params.put("ft", "2");
@@ -101,7 +106,8 @@ public class HeadDetailsActivity extends BaseActivity {
             HttpUtil.post(URLS.API_JOB_Addapply, params, this);
 
         } else if (v.getId() == R.id.rl_collect) {
-
+            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
+                return;
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("jobID", data.get(vp.getCurrentItem()));
             LoadingDialog.showDialog(this);

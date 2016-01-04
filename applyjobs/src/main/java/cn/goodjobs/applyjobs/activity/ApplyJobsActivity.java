@@ -34,10 +34,6 @@ public class ApplyJobsActivity extends BaseActivity {
 
     private long backTime = 2000;
     private long curTime;
-<<<<<<< HEAD
-
-=======
->>>>>>> a2cb7e0564bedc0edb276c71f3f47dd4ad9871ed
 
     LinearLayout btnFooter1, btnFooter2, btnFooter3, btnFooter4, btnFooter;
     CustomViewPager viewPager;

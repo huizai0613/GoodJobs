@@ -33,6 +33,7 @@ import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.MyListView;
 import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
+import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 /**
  * Created by zhuli on 2015/12/29.
@@ -58,6 +59,7 @@ public class CampusFragment extends BaseListFragment {
         setTopTitle(view, "校园招聘");
         changeLeftBg(view, R.mipmap.icon_campus);
         lv_campus = (MyListView) view.findViewById(R.id.lv_campus);
+        adViewPager = (AutoScrollViewPager) view.findViewById(R.id.adViewPager);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
         etSearch.setOnClickListener(this);
         adapter = new CampusAdapter(getActivity());
@@ -71,7 +73,7 @@ public class CampusFragment extends BaseListFragment {
         if (isVisibleToUser) {
             if (!isSuccess) {
                 LoadingDialog.showDialog(getActivity());
-                HttpUtil.post(URLS.API_JOB_CampusIndex, null, this);
+                HttpUtil.post(URLS.API_JOB_CampusIndex, this);
             }
         }
     }
@@ -82,6 +84,7 @@ public class CampusFragment extends BaseListFragment {
         JSONObject object = (JSONObject) data;
         JSONArray array = object.optJSONArray("list");
         adapter.appendToList(array);
+        initAd(object.optJSONArray("adsList"));
         isSuccess = true;
     }
 

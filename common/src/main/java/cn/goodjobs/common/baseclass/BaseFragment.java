@@ -104,7 +104,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
 
     /**
      * 初始化顶部广告图
-     * */
+     */
     protected void initAd(JSONArray jsonArray) {
         // 广告图片
         if (jsonArray != null && jsonArray.length() > 0) {
@@ -113,7 +113,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
             if (len == 2) {
                 len = 4;
             }
-            for (int i=0;i<len;++i) {
+            for (int i = 0; i < len; ++i) {
                 final JSONObject jsonObject = jsonArray.optJSONObject(i % jsonArray.length());
                 if (jsonObject.has("width")) {
                     adScale = jsonObject.optDouble("width") / jsonObject.optDouble("height");
@@ -122,7 +122,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
                 String imageUrl = jsonObject.optString("image");
                 Uri uri = Uri.parse(imageUrl);
                 if (imageUrl.endsWith(".gif") || imageUrl.endsWith(".GIF")) {
-                    DraweeController draweeController= Fresco.newDraweeControllerBuilder()
+                    DraweeController draweeController = Fresco.newDraweeControllerBuilder()
                             .setAutoPlayAnimations(true)
                             .setUri(uri)//设置uri
                             .build();
@@ -146,10 +146,10 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
             adViewPager.setInterval(scrollTime);
             adViewPager.setCycle(true);
             adViewPager.startAutoScroll(scrollTime);
-            adViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
+            adViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_NONE);
 
             LinearLayout.LayoutParams layoutParams
-                    = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (HttpUtil.getDisplayMetrics().widthPixels/adScale));
+                    = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (HttpUtil.getDisplayMetrics().widthPixels / adScale));
             adViewPager.setLayoutParams(layoutParams);
             adViewPager.setVisibility(View.VISIBLE);
         } else {

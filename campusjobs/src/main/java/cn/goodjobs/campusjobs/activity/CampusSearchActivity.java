@@ -151,6 +151,7 @@ public class CampusSearchActivity extends BaseActivity {
             JumpViewUtil.openActivityAndParam(this, CampusSearchResultActivity.class, searchHashMap);
         } else if (i == R.id.tv_clear) {
             tvClear.setVisibility(View.GONE);
+            history.clear();
             UpdateDataTaskUtils.cleanHistory(this, UpdateDataTaskUtils.CAMPUSJOB);
             disPlayerSearchUI(null);
         }

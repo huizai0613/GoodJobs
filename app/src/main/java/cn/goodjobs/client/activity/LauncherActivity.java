@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import cn.goodjobs.applyjobs.activity.ApplyJobsActivity;
+import cn.goodjobs.campusjobs.activity.CampusActivity;
 import cn.goodjobs.client.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
@@ -17,13 +18,15 @@ import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.MetaDataUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
+import cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity;
+import cn.goodjobs.parttimejobs.activity.PartTimeJobActivity;
 
 public class LauncherActivity extends BaseActivity {
 
     Button btnSkip;
     long skipTime = 3000; // 默认停留3秒
     boolean canStart; // 是否可以进入主界面
-    long updateMetaDuration = 24*3600*1000; // 更新数据超时时间，默认1天
+    long updateMetaDuration = 24 * 3600 * 1000; // 更新数据超时时间，默认1天
     Handler mHandler;
 
     @Override
@@ -41,7 +44,7 @@ public class LauncherActivity extends BaseActivity {
                 btnSkip.setVisibility(View.INVISIBLE);
                 updateMetaData(true);
             } else {
-                if (System.currentTimeMillis()-updateTime>updateMetaDuration) {
+                if (System.currentTimeMillis() - updateTime > updateMetaDuration) {
                     // 更新超过一天
                     updateMetaData(false);
                 } else {
@@ -81,8 +84,9 @@ public class LauncherActivity extends BaseActivity {
 
     /**
      * 更新公共数据
+     *
      * @param flag 是否强制更新，更新失败处理机制
-     * */
+     */
     private void updateMetaData(final boolean flag) {
         MetaDataUtil.getInstanse().initMetaData(new MetaDataUtil.MetaDataDownloadListener() {
             @Override
@@ -124,8 +128,12 @@ public class LauncherActivity extends BaseActivity {
             } else {
                 if (defaultModule.equals(Constant.module.ApplyJobs.toString())) {
                     intent.setClass(LauncherActivity.this, ApplyJobsActivity.class);
-                } else {
-                    intent.setClass(LauncherActivity.this, ApplyJobsActivity.class);
+                } else if (defaultModule.equals(Constant.module.Xiaoyuan.toString())) {
+                    intent.setClass(LauncherActivity.this, CampusActivity.class);
+                } else if (defaultModule.equals(Constant.module.Liepin.toString())) {
+                    intent.setClass(LauncherActivity.this, HeadHuntingActivity.class);
+                } else if (defaultModule.equals(Constant.module.Jianzhi.toString())) {
+                    intent.setClass(LauncherActivity.this, PartTimeJobActivity.class);
                 }
             }
             startActivity(intent);
