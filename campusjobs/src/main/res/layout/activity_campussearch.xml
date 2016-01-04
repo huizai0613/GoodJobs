@@ -45,7 +45,8 @@
                     android:layout_height="20dip"
                     android:background="@color/transparent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_clear" />
+                    android:src="@drawable/icon_clear"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <View style="@style/line" />

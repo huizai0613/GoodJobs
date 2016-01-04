@@ -54,8 +54,9 @@ public class CampusFragment extends BaseListFragment {
         return view;
     }
 
-    private void initView(View view) {
+    public void initView(View view) {
         setTopTitle(view, "校园招聘");
+        changeLeftBg(view, R.mipmap.icon_campus);
         lv_campus = (MyListView) view.findViewById(R.id.lv_campus);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
         etSearch.setOnClickListener(this);

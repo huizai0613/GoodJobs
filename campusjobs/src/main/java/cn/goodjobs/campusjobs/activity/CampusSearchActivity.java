@@ -90,6 +90,7 @@ public class CampusSearchActivity extends BaseActivity {
 
     @Override
     protected void initWeight() {
+        setTopTitle("职位搜索");
         btnSearch = (Button) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(this);
         searchHeistory = (LinearLayout) findViewById(R.id.search_heistory);

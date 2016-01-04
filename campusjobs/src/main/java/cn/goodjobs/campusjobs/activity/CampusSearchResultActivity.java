@@ -205,7 +205,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         jobTypeId = entry.getValue();
                     }
                     if (key.equals("2")) {
-                        if (isPro) {
+                        if (isPro && !entry.getValue().equals("0")) {
                             itemAddressId = entry.getValue();
                         } else {
                             districtId = entry.getValue();
@@ -213,7 +213,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                     }
                 }
                 isMuCheck = true;
-
             }
         });
 
@@ -283,7 +282,12 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         }
 
         if (!StringUtil.isEmpty(itemAddressId))//地址
+        {
+            if (itemAddressId.startsWith("-1#")) {
+                itemAddressId = (itemAddressId.split("#"))[1];
+            }
             Object.put("jobCity", itemAddressId);
+        }
 
         if (!StringUtil.isEmpty(itemIndtypeId))//行业
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
@@ -300,7 +304,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         if (!StringUtil.isEmpty(jobTypeId))//工作性质
             Object.put("jobType", jobTypeId);
 
-        if (!StringUtil.isEmpty(jobTypeId))//区域
+        if (!StringUtil.isEmpty(districtId))//区域
             Object.put("district", districtId);
 
 

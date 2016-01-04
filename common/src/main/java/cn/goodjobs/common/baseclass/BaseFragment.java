@@ -3,7 +3,11 @@ package cn.goodjobs.common.baseclass;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.goodjobs.common.R;
@@ -44,6 +48,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     protected void setTopTitle(View view, String title) {
         TextView tvToptitle = (TextView) view.findViewById(R.id.top_title);
         tvToptitle.setText(title);
+        tvToptitle.setVisibility(View.VISIBLE);
     }
 
     // 设置副标题
@@ -58,6 +63,17 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
         ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
         backBtn.setVisibility(View.INVISIBLE);
     }
+
+    //改变左侧图片
+    protected void changeLeftBg(View view, int id) {
+        ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
+        backBtn.setImageResource(id);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(80, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.setMargins(0, 0, (int) getResources().getDimension(R.dimen.padding_small), 0);
+        backBtn.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        backBtn.setLayoutParams(params);
+    }
+
 
     @Override
     public void onClick(View v) {
