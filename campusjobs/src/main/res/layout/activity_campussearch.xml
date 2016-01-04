@@ -45,7 +45,8 @@
                     android:layout_height="20dip"
                     android:background="@color/transparent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_clear" />
+                    android:src="@drawable/icon_clear"
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <View style="@style/line" />
@@ -102,6 +103,52 @@
                 android:text="搜索"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_default" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_default"
+                    android:text="近期搜索记录"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+                <View style="@style/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/search_heistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:orientation="vertical"></LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="10dip"
+                    android:text="[清空搜索记录]"
+                    android:textColor="#5f9bf8"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

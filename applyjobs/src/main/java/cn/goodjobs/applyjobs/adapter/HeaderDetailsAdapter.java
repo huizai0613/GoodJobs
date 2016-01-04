@@ -40,7 +40,7 @@ public class HeaderDetailsAdapter extends JsonArrayAdapterBase<JSONObject> {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_jobfair_content, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_headdetails, null);
             holder.tvname = (TextView) convertView.findViewById(R.id.tv_jobfair_title);
             convertView.setTag(holder);
         } else {
@@ -48,7 +48,7 @@ public class HeaderDetailsAdapter extends JsonArrayAdapterBase<JSONObject> {
         }
         final JSONObject jsonObject = getItem(position);
         holder.tvname.setText(jsonObject.optString("newstitle"));
-        holder.tvname.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, JobNewsDetailsActivity.class);

@@ -56,7 +56,6 @@ public class CareerTalkFragment extends BaseListFragment {
         initView(view);
         mAdapter = new CareerTalkAdapter(getActivity());
         initList(view);
-        mListView.setEmptyView(emptyLayout);
         return view;
     }
 

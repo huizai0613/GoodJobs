@@ -102,5 +102,6 @@ public class URLS
     public final static String API_JOB_Jobfairfollow = "Campus/Jobfairfollow";      //宣讲会关注与取消关注
 
     public final static String API_JOB_CampusIndex = "Campus/Index";      //校园招聘首页
+    public final static String API_JOB_CampusJoblist = "Campus/Joblist";      //校园招聘搜索
 
 }

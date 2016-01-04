@@ -45,7 +45,7 @@ public class LocationUtil
         public void onReceiveLocation(final BDLocation bdLocation)
         {
             LogUtil.info("onReceiveLocation:" + bdLocation);
-            if (bdLocation != null && myLocationListener != null) {
+            if (bdLocation != null && myLocationListener != null&&bdLocation.getCity()!=null) {
                 UpdateDataTaskUtils.selectCityInfo(mContext, bdLocation.getCity(), new UpdateDataTaskUtils.OnGetDiscussCityInfoListener()
                 {
                     @Override

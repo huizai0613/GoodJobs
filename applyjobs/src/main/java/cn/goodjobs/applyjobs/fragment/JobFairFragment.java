@@ -64,9 +64,8 @@ public class JobFairFragment extends BaseFragment implements View.OnClickListene
         child_list = new ArrayList<JobFairChild>();
         lv = (ListView) view.findViewById(R.id.lv_fair);
         layout = (EmptyLayout) view.findViewById(R.id.empty_view);
-        adapter = new JobFairRecyclerAdapter(getActivity(), group_list, child_list,type);
+        adapter = new JobFairRecyclerAdapter(getActivity(), group_list, child_list, type);
         lv.setAdapter(adapter);
-        lv.setEmptyView(layout);
     }
 
     // 当fragment可见时调用,加载数据
@@ -124,7 +123,7 @@ public class JobFairFragment extends BaseFragment implements View.OnClickListene
             }
             group_list.add(group);
         }
-        if(group_list.size()==0) {
+        if (group_list.size() == 0) {
             layout.setErrorType(EmptyLayout.NODATA);
         }
         adapter.notifyDataSetChanged();

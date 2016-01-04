@@ -584,8 +584,8 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
 
     private void initView(View view)
     {
-        itemAddress = (SelectorItemView) view.findViewById(R.id.item_address);
         itemSalary = (SelectorItemView) view.findViewById(R.id.item_salary);
+        itemAddress = (SelectorItemView) view.findViewById(R.id.item_address);
         itemJobfunc = (SelectorItemView) view.findViewById(R.id.item_jobfunc);
         itemIndtype = (SelectorItemView) view.findViewById(R.id.item_indtype);
         itemWorktime = (SelectorItemView) view.findViewById(R.id.item_worktime);
