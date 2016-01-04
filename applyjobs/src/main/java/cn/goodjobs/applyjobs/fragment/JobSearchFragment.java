@@ -501,7 +501,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             getSearchData();
             isRefresh = false;
         }
-        searchCheck.setChecked(false);
+//        searchCheck.setChecked(false);
     }
 
     @Override
@@ -626,6 +626,25 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                     return;
                 }
                 LinkedHashMap hashMap = getSearchHashMap();
+
+                if (searchCheck.isChecked()) {
+                    String s = searchContent.getText().toString();
+                    if (!StringUtil.isEmpty(s)) {
+                        hashMap.put("searchName", s);
+                        if (!s.equals(searchName)) {
+                            hashMap.put("searchID", "");
+                        } else {
+                            hashMap.put("searchID", searchId);
+                        }
+                        searchContent.setText("");
+                        isRefresh = true;
+                    } else {
+                        TipsUtil.show(getContext(), "请输入搜索器名称");
+                        return;
+                    }
+                }
+
+
                 JumpViewUtil.openActivityAndParam(getContext(), JobSearchNameActivity.class, hashMap);
             }
         });
