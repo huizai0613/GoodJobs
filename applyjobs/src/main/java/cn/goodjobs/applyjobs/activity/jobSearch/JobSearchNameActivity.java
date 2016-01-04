@@ -102,6 +102,8 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
     private String wtId;
     private String degId;
     private String searchKeyWorld;
+    private String searchName;
+    private String searchID;
 
     @Override
     protected int getLayoutID()
@@ -275,6 +277,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         searchTitle.setText("搜索历史记录");
         if (msg != null && msg.size() > 0) {
             btnClear.setTextColor(Color.parseColor("#5f9bf8"));
+            btnClear.setClickable(true);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(this, 30));
             layoutParams.setMargins(DensityUtil.dip2px(this, 10), 0, DensityUtil.dip2px(this, 10), 0);
             LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
@@ -336,6 +339,8 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         ind = intent.getStringExtra("itemIndtype");
         wt = intent.getStringExtra("itemWorktime");
         deg = intent.getStringExtra("itemDegree");
+        searchName = intent.getStringExtra("searchName");
+        searchID = intent.getStringExtra("searchID");
 
         searchKeyWorld = intent.getStringExtra("searchKeyWorld");
         addId = intent.getStringExtra("itemAddressId");
@@ -349,6 +354,15 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         if (!StringUtil.isEmpty(add)) {
             hashMap.put("itemAddress", add);
         }
+
+        if (!StringUtil.isEmpty(searchName)) {
+            hashMap.put("searchName", searchName);
+        }
+
+        if (!StringUtil.isEmpty(searchID)) {
+            hashMap.put("searchID", searchID);
+        }
+
         if (!StringUtil.isEmpty(sal)) {
             hashMap.put("itemSalary", sal);
         }
@@ -410,10 +424,9 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
             //跳转到搜索列表
             hideSoftInputFromWindow();
             JumpViewUtil.openActivityAndParam(this, JobSearchResultActivity.class, hashMap);
-
-
         } else if (i == R.id.btn_clear) {//点击清除历史记录
             UpdateDataTaskUtils.cleanHistory(mcontext, UpdateDataTaskUtils.SEARCHJOB);
+            history.clear();
             refreshHistory(null);
         } else if (i == R.id.btn_finish) {//点击关闭界面
             back();
