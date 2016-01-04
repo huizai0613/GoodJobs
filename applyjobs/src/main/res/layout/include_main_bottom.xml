@@ -1,20 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dip"
+    android:layout_height="140dip"
     android:orientation="vertical"
     android:background="@color/white">
     <View style="@style/line"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_small"
         android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:onClick="bottomClick"
+            android:tag="0"
+            android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FFF2E3">
-        </RelativeLayout>
+            android:background="@color/transparent"
+            android:src="@mipmap/img_lanling"
+            android:scaleType="fitXY"/>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/padding_small">
+            <ImageButton
+                android:onClick="bottomClick"
+                android:tag="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="3"
+                android:background="@color/transparent"
+                android:src="@mipmap/img_liepin"
+                android:scaleType="fitXY"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="2"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/padding_small">
+                <ImageButton
+                    android:onClick="bottomClick"
+                    android:tag="2"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:src="@mipmap/img_xiaoyuan"
+                    android:scaleType="fitXY"/>
+                <ImageButton
+                    android:onClick="bottomClick"
+                    android:tag="3"
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:src="@mipmap/img_jianzhi"
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
     <View style="@style/line"/>
 </LinearLayout>
