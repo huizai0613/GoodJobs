@@ -32,7 +32,7 @@ public class TrainDialog extends Dialog {
     }
 
     public static class Builder {
-        private Map<String,Object> params = new HashMap<String,Object>();
+        private Map<String, Object> params = new HashMap<String, Object>();
         private Context context;
         private String title;
         private String message;
@@ -132,9 +132,9 @@ public class TrainDialog extends Dialog {
             // instantiate the dialog with the custom Theme
             final TrainDialog dialog = new TrainDialog(context, R.style.Dialog);
             final View layout = inflater.inflate(R.layout.dialog_train_layout, null);
-            final EditText t2=(EditText)layout.findViewById(R.id.t2);
-            final EditText t3=(EditText)layout.findViewById(R.id.t3);
-            final RadioGroup s0=(RadioGroup)layout.findViewById(R.id.radioGroup1);
+            final EditText t2 = (EditText) layout.findViewById(R.id.t2);
+            final EditText t3 = (EditText) layout.findViewById(R.id.t3);
+            final RadioGroup s0 = (RadioGroup) layout.findViewById(R.id.radioGroup1);
             dialog.addContentView(layout, new RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.FILL_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT));
             // set the dialog title
@@ -147,16 +147,16 @@ public class TrainDialog extends Dialog {
                     ((Button) layout.findViewById(R.id.positiveButton))
                             .setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
-                                    String raidoid="";
-                                    RadioButton radioButton = (RadioButton)layout.findViewById(s0.getCheckedRadioButtonId());
-                                    if(radioButton.getText().equals("合肥")){
-                                        raidoid="146";
-                                    }else{
-                                        raidoid="147";
+                                    String raidoid = "";
+                                    RadioButton radioButton = (RadioButton) layout.findViewById(s0.getCheckedRadioButtonId());
+                                    if (radioButton.getText().equals("合肥")) {
+                                        raidoid = "146";
+                                    } else {
+                                        raidoid = "147";
                                     }
-                                    params.put("name",t2.getText().toString());
-                                    params.put("mb",t3.getText().toString());
-                                    params.put("courseID",raidoid);
+                                    params.put("name", t2.getText().toString());
+                                    params.put("mb", t3.getText().toString());
+                                    params.put("courseID", raidoid);
                                     positiveButtonClickListener.onClick(dialog,
                                             DialogInterface.BUTTON_POSITIVE);
                                 }
