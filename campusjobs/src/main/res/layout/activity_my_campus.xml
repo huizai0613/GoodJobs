@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/padding_small">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemWangshen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="网申记录"
+            listitem:showLine="false"
+            listitem:showHLine="false"
+            listitem:image="@mipmap/img_guanzhu_wangshen"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/padding_small">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="我的通知信"
+            listitem:showLine="false"
+            listitem:showHLine="false"
+            listitem:image="@mipmap/img_guanzhu_message"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/padding_small">
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemXuanjianhui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="关注的宣讲会"
+            listitem:showHLine="false"
+            listitem:image="@mipmap/img_guanzhu_xuanjiang"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemzhaopin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="关注的招聘会"
+            listitem:showLine="false"
+            listitem:showHLine="false"
+            listitem:image="@mipmap/img_guanzhu_zhaopin"/>
+        <View style="@style/line"/>
+    </LinearLayout>
+
+</LinearLayout>

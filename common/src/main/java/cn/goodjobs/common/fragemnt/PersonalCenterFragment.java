@@ -145,6 +145,8 @@ public class PersonalCenterFragment extends BaseFragment {
             intent.setClass(getActivity(), MyResumeActivity.class);
         } else if (v.getId() == R.id.itemSetting) {
             intent.setClass(getActivity(), ResumeOpenSettingActivity.class);
+        } else if (v.getId() == R.id.itemXiaoyuan) {
+            intent.setClassName(getActivity(), "cn.goodjobs.campusjobs.activity.MyCampusActivity");
         } else {
             intent.setClass(getActivity(), PersonalLookActivity.class);
         }

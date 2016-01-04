@@ -151,4 +151,28 @@ public class ApplyJobsActivity extends BaseActivity {
             }
         }
     }
+
+    public void bottomClick(View view) {
+        int tag = Integer.parseInt(view.getTag().toString());
+        Intent intent = new Intent();
+        switch (tag) {
+            case 0:
+                // 蓝领
+                intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+                break;
+            case 1:
+                // 猎聘
+                intent.setClassName(this, "cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity");
+                break;
+            case 2:
+                // 校园
+                intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+                break;
+            case 3:
+                // 兼职
+                intent.setClassName(this, "cn.goodjobs.parttimejobs.activity.PartTimeJobActivity");
+                break;
+        }
+        startActivity(intent);
+    }
 }
