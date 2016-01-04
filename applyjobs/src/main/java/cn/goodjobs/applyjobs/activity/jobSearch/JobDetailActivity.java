@@ -70,7 +70,6 @@ public class JobDetailActivity extends BaseActivity
     class JobDetailAdapter extends FragmentStatePagerAdapter
     {
 
-
         public JobDetailAdapter(FragmentManager fm)
         {
             super(fm);
