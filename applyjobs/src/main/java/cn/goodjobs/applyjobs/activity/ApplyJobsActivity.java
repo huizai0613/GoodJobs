@@ -34,12 +34,10 @@ public class ApplyJobsActivity extends BaseActivity {
 
     private long backTime = 2000;
     private long curTime;
-    
 
     LinearLayout btnFooter1, btnFooter2, btnFooter3, btnFooter4, btnFooter;
     CustomViewPager viewPager;
     public ArrayList<Fragment> fragmentList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

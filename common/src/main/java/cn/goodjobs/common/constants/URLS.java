@@ -75,6 +75,8 @@ public class URLS
     public final static String API_USER_OPENADD = "user/openadd";
     public final static String API_USER_OPENSEARCH = "user/opensearch";
     public final static String API_USER_OPENDEL = "user/opendel";
+    public final static String API_IMG_ADS = "common/ads";
+    public final static String API_IMG_AD = "common/ad";
 
     public final static String API_JOB_ParttimeJob = "Parttime/List";      // 兼职列表
     public final static String API_JOB_ParttimeShow = "Parttime/Show";      // 兼职详情
