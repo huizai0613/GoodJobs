@@ -171,6 +171,12 @@ public class TwoLevelMenuView extends LinearLayout implements
                     }
 
                     if (isMultiCheck) {
+                        if (multiCheckMap == null) {
+                            multiCheckMap = new HashMap<>();
+                            for (int i = 0; i < mFristLevelData.size(); i++) {
+                                multiCheckMap.put(i + "", "0");
+                            }
+                        }
                         multiCheckMap.put(mFirstLevelKey, mSecondLevelKey);
                     }
 
