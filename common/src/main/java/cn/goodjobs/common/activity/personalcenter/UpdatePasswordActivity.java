@@ -35,7 +35,7 @@ public class UpdatePasswordActivity extends BaseActivity {
 
     @Override
     protected void initWeight() {
-        setTopTitle("修改用户名");
+        setTopTitle("修改密码");
         itemOldPass = (InputItemView) findViewById(R.id.itemOldPass);
         itemNewPass = (InputItemView) findViewById(R.id.itemNewPass);
         itemNewPassAgain = (InputItemView) findViewById(R.id.itemNewPassAgain);
