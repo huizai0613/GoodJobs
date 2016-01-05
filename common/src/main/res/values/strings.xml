@@ -39,5 +39,9 @@
     <string name="title_activity_good_jobs_setting">GoodJobsSettingActivity</string>
     <string name="title_activity_resume_open_setting">ResumeOpenSettingActivity</string>
     <string name="title_activity_add_open_setting">AddOpenSettingActivity</string>
+    <string name="title_activity_update_user_info">UpdateUserInfoActivity</string>
+    <string name="title_activity_update_user_name">UpdateUserNameActivity</string>
+    <string name="title_activity_update_password">UpdatePasswordActivity</string>
+    <string name="title_activity_update_mobile">UpdateMobileActivity</string>
 
 </resources>

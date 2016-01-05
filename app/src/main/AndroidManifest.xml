@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:theme="@style/AppTheme"
         android:name="cn.goodjobs.common.GoodJobsApp">
         <activity
             android:name=".activity.LauncherActivity"

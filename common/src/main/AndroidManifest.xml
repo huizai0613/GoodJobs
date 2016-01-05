@@ -151,16 +151,32 @@
         <activity
             android:name=".activity.personalcenter.ResumeOpenSettingActivity"
             android:label="@string/title_activity_resume_open_setting"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.personalcenter.AddOpenSettingActivity"
             android:label="@string/title_activity_add_open_setting"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.WebViewActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.UpdateUserInfoActivity"
+            android:label="@string/title_activity_update_user_info" >
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.UpdateUserNameActivity"
+            android:label="@string/title_activity_update_user_name" >
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.UpdatePasswordActivity"
+            android:label="@string/title_activity_update_password" >
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.UpdateMobileActivity"
+            android:label="@string/title_activity_update_mobile" >
         </activity>
     </application>
 

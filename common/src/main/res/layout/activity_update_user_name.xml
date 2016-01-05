@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white">
+
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="原用户名"/>
+
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemNewUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="新用户名"
+            listitem:hint="请输入新用户名"
+            listitem:inputtype="email"/>
+
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="密        码"
+            listitem:hint="请输入密码"
+            listitem:inputtype="password"
+            listitem:showLine="false"/>
+        <View style="@style/line"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/padding_default"
+        android:text="确认修改"
+        android:onClick="doUpdate"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default"
+        android:background="@drawable/button_bg"/>
+</LinearLayout>
+
