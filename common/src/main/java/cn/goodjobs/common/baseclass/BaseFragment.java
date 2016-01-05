@@ -6,7 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -65,6 +70,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     protected void setTopTitle(View view, String title) {
         TextView tvToptitle = (TextView) view.findViewById(R.id.top_title);
         tvToptitle.setText(title);
+        tvToptitle.setVisibility(View.VISIBLE);
     }
 
     // 设置副标题
@@ -80,6 +86,17 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
         backBtn.setVisibility(View.INVISIBLE);
     }
 
+    //改变左侧图片
+    protected void changeLeftBg(View view, int id) {
+        ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
+        backBtn.setImageResource(id);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(80, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.setMargins(0, 0, (int) getResources().getDimension(R.dimen.padding_small), 0);
+        backBtn.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        backBtn.setLayoutParams(params);
+    }
+
+
     @Override
     public void onClick(View v) {
 
@@ -87,7 +104,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
 
     /**
      * 初始化顶部广告图
-     * */
+     */
     protected void initAd(JSONArray jsonArray) {
         // 广告图片
         if (jsonArray != null && jsonArray.length() > 0) {
@@ -96,7 +113,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
             if (len == 2) {
                 len = 4;
             }
-            for (int i=0;i<len;++i) {
+            for (int i = 0; i < len; ++i) {
                 final JSONObject jsonObject = jsonArray.optJSONObject(i % jsonArray.length());
                 if (jsonObject.has("width")) {
                     adScale = jsonObject.optDouble("width") / jsonObject.optDouble("height");
@@ -105,7 +122,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
                 String imageUrl = jsonObject.optString("image");
                 Uri uri = Uri.parse(imageUrl);
                 if (imageUrl.endsWith(".gif") || imageUrl.endsWith(".GIF")) {
-                    DraweeController draweeController= Fresco.newDraweeControllerBuilder()
+                    DraweeController draweeController = Fresco.newDraweeControllerBuilder()
                             .setAutoPlayAnimations(true)
                             .setUri(uri)//设置uri
                             .build();
@@ -129,10 +146,10 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
             adViewPager.setInterval(scrollTime);
             adViewPager.setCycle(true);
             adViewPager.startAutoScroll(scrollTime);
-            adViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
+            adViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_NONE);
 
             LinearLayout.LayoutParams layoutParams
-                    = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (HttpUtil.getDisplayMetrics().widthPixels/adScale));
+                    = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) (HttpUtil.getDisplayMetrics().widthPixels / adScale));
             adViewPager.setLayoutParams(layoutParams);
             adViewPager.setVisibility(View.VISIBLE);
         } else {

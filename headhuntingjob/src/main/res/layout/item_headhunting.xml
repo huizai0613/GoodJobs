@@ -39,9 +39,9 @@
             android:id="@+id/iv_arrow"
             android:layout_width="21dip"
             android:layout_height="21dip"
-            android:layout_marginRight="@dimen/padding_small"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_small"
             android:background="@drawable/icon_arrow" />
     </RelativeLayout>
 
@@ -54,8 +54,8 @@
             android:id="@+id/tv_apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/padding_default"
             android:paddingBottom="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_default"
             android:text="发布日期："
             android:textColor="@color/light_color"
             android:textSize="@dimen/text_small" />
@@ -65,24 +65,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/padding_small"
-            android:text="2015-12-21"
             android:paddingBottom="@dimen/padding_small"
+            android:text="2015-12-21"
             android:textColor="@color/light_color"
             android:textSize="@dimen/text_small" />
 
         <TextView
             android:layout_width="1dip"
             android:layout_height="15dip"
-            android:background="@color/light_color"
-            android:layout_marginTop="@dimen/padding_small"
             android:layout_marginLeft="@dimen/padding_small"
-            android:layout_marginRight="@dimen/padding_small"/>
+            android:layout_marginRight="@dimen/padding_small"
+            android:layout_marginTop="2dip"
+            android:background="@color/light_color"
+            android:paddingBottom="@dimen/padding_small" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="工作地点："
             android:paddingBottom="@dimen/padding_small"
+            android:text="工作地点："
             android:textColor="@color/light_color"
             android:textSize="@dimen/text_small" />
 
@@ -92,11 +94,11 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="六安市"
             android:paddingBottom="@dimen/padding_small"
+            android:text="六安市"
             android:textColor="@color/light_color"
             android:textSize="@dimen/text_small" />
     </LinearLayout>
 
-    <View style="@style/line"/>
+    <View style="@style/line" />
 </LinearLayout>

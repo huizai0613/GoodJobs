@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -197,9 +198,12 @@
             android:textColor="@color/topbar_bg"
             android:textSize="@dimen/text_default" />
 
+        <View style="@style/line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -357,13 +361,18 @@
                 android:textColor="@color/topbar_bg"
                 android:textSize="@dimen/text_default" />
 
+            <View
+                style="@style/line"
+                android:layout_below="@id/tv_point" />
+
             <cn.goodjobs.common.view.LabelView
                 android:id="@+id/label_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_point"
                 android:layout_marginLeft="@dimen/padding_default"
-                android:layout_marginRight="@dimen/padding_default" />
+                android:layout_marginRight="@dimen/padding_default"
+                android:layout_marginTop="@dimen/padding_small" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -381,6 +390,8 @@
             android:text="职位描述"
             android:textColor="@color/topbar_bg"
             android:textSize="@dimen/text_default" />
+
+        <View style="@style/line" />
 
         <TextView
             android:id="@+id/tv_jobDetail"

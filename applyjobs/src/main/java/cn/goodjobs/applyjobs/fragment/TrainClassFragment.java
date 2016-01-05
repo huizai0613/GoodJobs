@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ import in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer;
  */
 public class TrainClassFragment extends BaseListFragment implements View.OnClickListener {
 
+    private LinearLayout ll_bottom;
     private EmptyLayout emptyLayout;
     private boolean isSuccess = false;
     private Button btn_order, btn_message;
@@ -69,6 +71,7 @@ public class TrainClassFragment extends BaseListFragment implements View.OnClick
     }
 
     private void initView(View view) {
+        ll_bottom = (LinearLayout) view.findViewById(R.id.ll_bottom);
         emptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
         btn_order = (Button) view.findViewById(R.id.btn_order);
         btn_message = (Button) view.findViewById(R.id.btn_message);
@@ -104,10 +107,13 @@ public class TrainClassFragment extends BaseListFragment implements View.OnClick
             JSONObject object = (JSONObject) data;
             mAdapter.appendToList(object.optJSONArray("list"));
             if (mAdapter.getCount() == 0) {
+                ll_bottom.setVisibility(View.GONE);
                 emptyLayout.setErrorType(EmptyLayout.NODATA);
+            } else {
+                ll_bottom.setVisibility(View.VISIBLE);
             }
 
-            loadMoreListViewContainer.loadMoreFinish(false, object.optInt("maxPage")>page);
+            loadMoreListViewContainer.loadMoreFinish(false, object.optInt("maxPage") > page);
             mPtrFrameLayout.refreshComplete();
         } else if (tag.equals(URLS.API_JOB_consult)) {
             Map<String, String> phone = new HashMap<String, String>();

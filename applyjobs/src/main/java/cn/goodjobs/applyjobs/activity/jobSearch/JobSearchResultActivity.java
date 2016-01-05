@@ -339,8 +339,10 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
         HashMap<String, String> multiCheckMap = new HashMap<>();
-        multiCheckMap.put("0", itemDegreeId);
-        multiCheckMap.put("1", itemWorktimeId);
+        multiCheckMap.put("0", itemDegreeId == null ? "0" : itemDegreeId);
+        multiCheckMap.put("1", itemWorktimeId == null ? "0" : itemWorktimeId);
+        multiCheckMap.put("2", jobTypeId == null ? "0" : jobTypeId);
+        multiCheckMap.put("3", corpkindId == null ? "0" : corpkindId);
         moreInfo.setCheckMult(multiCheckMap);
 
         store = (TextView) findViewById(R.id.item_store);

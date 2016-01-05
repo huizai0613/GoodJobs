@@ -8,28 +8,27 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
-         <TextView
+        <TextView
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="预约单"
-             android:padding="@dimen/padding_small"
             android:background="@color/topbar_bg"
-            android:textSize="@dimen/text_large"
+            android:gravity="center"
+            android:padding="@dimen/padding_small"
+            android:text="预约单"
             android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
             android:visibility="visible" />
 
-        <View
-            style="@style/line" />
+        <View style="@style/line" />
 
         <RelativeLayout
             android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_small" >
+            android:padding="@dimen/padding_small">
 
             <TextView
                 android:id="@+id/message"
@@ -42,10 +41,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:gravity="center_horizontal"
-                android:text="姓名"
                 android:layout_marginTop="@dimen/padding_small"
+                android:gravity="center_horizontal"
                 android:paddingTop="@dimen/padding_small"
+                android:text="姓名"
                 android:textColor="@color/main_color"
                 android:textSize="@dimen/text_default" />
 
@@ -53,11 +52,11 @@
                 android:id="@+id/t2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/t1"
                 android:layout_margin="@dimen/padding_small"
+                android:layout_toRightOf="@+id/t1"
                 android:ems="10"
                 android:hint="请输入姓名"
-                android:textSize="@dimen/text_default" >
+                android:textSize="@dimen/text_default">
 
                 <requestFocus />
             </EditText>
@@ -72,15 +71,15 @@
             android:id="@+id/s01"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_small" >
+            android:padding="@dimen/padding_small">
 
             <TextView
                 android:id="@id/t1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/padding_small"
+                android:gravity="center"
                 android:paddingTop="@dimen/padding_small"
                 android:text="手机"
                 android:textColor="@color/main_color"
@@ -90,24 +89,23 @@
                 android:id="@+id/t3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_small"
                 android:layout_toRightOf="@id/t1"
                 android:ems="10"
                 android:hint="请输入手机号"
-                android:layout_margin="@dimen/padding_small"
-                android:textColor="@color/main_color"
                 android:inputType="number"
                 android:maxLength="11"
+                android:textColor="@color/main_color"
                 android:textSize="@dimen/text_default" />
         </RelativeLayout>
 
-        <View
-            style="@style/line" />
+        <View style="@style/line" />
 
         <RelativeLayout
             android:id="@+id/s02"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_small" >
+            android:padding="@dimen/padding_small">
 
             <TextView
                 android:id="@+id/st01"
@@ -115,15 +113,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="请选择培训地点"
-                android:textSize="@dimen/text_default"
-                android:textColor="@color/main_color"/>
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default" />
 
             <RadioGroup
                 android:id="@+id/radioGroup1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/st01"
-                android:layout_marginTop="@dimen/padding_small" >
+                android:layout_marginTop="@dimen/padding_small">
 
                 <RadioButton
                     android:id="@+id/hefeiloc"
@@ -144,37 +142,40 @@
             </RadioGroup>
         </RelativeLayout>
 
-        <View
-          style="@style/line"/>
+        <View style="@style/line" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/positiveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_small"
                 android:layout_weight="1"
                 android:background="@drawable/blue_round_bg"
-                android:textColor="@color/white"
                 android:gravity="center"
-                android:layout_margin="@dimen/padding_small"
-                android:text="预约" />
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
+                android:text="预约"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/negativeButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_small"
                 android:layout_weight="1"
                 android:background="@drawable/blue_round_bg"
-                android:layout_margin="@dimen/padding_small"
-                android:textColor="@color/white"
                 android:gravity="center"
-                android:text="暂时不" />
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
+                android:text="暂时不"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 

@@ -3,6 +3,7 @@ package cn.goodjobs.applyjobs.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -144,120 +145,167 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(DensityUtil.dip2px(getActivity(), 10), 0, DensityUtil.dip2px(getActivity(), 10), 0);
         LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
-        StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Long, Map<String, String>> longMapEntry : obj) {
-            final Map<String, String> value = longMapEntry.getValue();
-            TextView view = new TextView(getActivity());
+        if (obj != null && obj.size() > 0) {
+            StringBuilder builder = new StringBuilder();
+            for (Map.Entry<Long, Map<String, String>> longMapEntry : obj) {
+                final Map<String, String> value = longMapEntry.getValue();
+                TextView view = new TextView(getActivity());
 
-            builder.delete(0, builder.length());
+                builder.delete(0, builder.length());
 
-            builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemIndtype")) ? "" : value.get("itemIndtype") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemSalary")) ? "" : value.get("itemSalary") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemWorktime")) ? "" : value.get("itemWorktime") + " + ");
-            builder.append(StringUtil.isEmpty(value.get("itemDegree")) ? "" : value.get("itemDegree") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemIndtype")) ? "" : value.get("itemIndtype") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemSalary")) ? "" : value.get("itemSalary") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemWorktime")) ? "" : value.get("itemWorktime") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemDegree")) ? "" : value.get("itemDegree") + " + ");
 
-            if (builder.length() == 0) {
-                continue;
+                if (builder.length() == 0) {
+                    continue;
+                }
+                CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
+                view.setPadding(0, 20, 0, 20);
+                view.setSingleLine();
+                view.setEllipsize(TextUtils.TruncateAt.END);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                view.setText(charSequence);
+                view.setBackgroundResource(R.drawable.list_item_bg);
+                view.setGravity(Gravity.CENTER_VERTICAL);
+                searchHeistory.addView(view, layoutParams);
+                view.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        //填充数据
+                        String itemAddressId = value.get("itemAddressId");
+                        String itemAddressS = value.get("itemAddress");
+                        String searchKeyWorld = value.get("searchKeyWorld");
+
+                        String itemJobfuncId = value.get("itemJobfuncId");
+                        String itemIndtypeId = value.get("itemIndtypeId");
+                        String itemSalaryId = value.get("itemSalaryId");
+                        String itemWorktimeId = value.get("itemWorktimeId");
+                        String itemDegreeId = value.get("itemDegreeId");
+
+
+                        String itemJobfuncStr = value.get("itemJobfunc");
+                        String itemIndtypeStr = value.get("itemIndtype");
+                        String itemSalaryStr = value.get("itemSalary");
+                        String itemWorktimeStr = value.get("itemWorktime");
+                        String itemDegreeStr = value.get("itemDegree");
+
+                        if (!StringUtil.isEmpty(itemAddressId)) {
+                            itemAddress.setSelectorIds(itemAddressId);
+                            itemAddress.setText(itemAddressS);
+                        } else {
+                            itemAddress.setSelectorIds("");
+                            itemAddress.setText(itemAddressS);
+                        }
+
+                        if (!StringUtil.isEmpty(itemJobfuncStr)) {
+                            itemJobfunc.setSelectorIds(itemJobfuncId);
+                            itemJobfunc.setText(itemJobfuncStr);
+                        } else {
+                            itemJobfunc.setSelectorIds("");
+                            itemJobfunc.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemIndtypeStr)) {
+                            itemIndtype.setSelectorIds(itemIndtypeId);
+                            itemIndtype.setText(itemIndtypeStr);
+                        } else {
+                            itemIndtype.setSelectorIds("");
+                            itemIndtype.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemSalaryStr)) {
+                            itemSalary.setSelectorIds(itemSalaryId);
+                            itemSalary.setText(itemSalaryStr);
+                        } else {
+                            itemSalary.setSelectorIds("");
+                            itemSalary.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemWorktimeStr)) {
+                            itemWorktime.setSelectorIds(itemWorktimeId);
+                            itemWorktime.setText(itemWorktimeStr);
+                        } else {
+                            itemWorktime.setSelectorIds("");
+                            itemWorktime.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemDegreeStr)) {
+                            itemDegree.setSelectorIds(itemDegreeId);
+                            itemDegree.setText(itemDegreeStr);
+                        } else {
+                            itemDegree.setSelectorIds("");
+                            itemDegree.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(searchKeyWorld)) {
+                            etSearch.setText(searchKeyWorld);
+                        } else {
+                            etSearch.setText("");
+                        }
+                    }
+                });
+                View line = new View(getActivity());
+                line.setBackgroundResource(R.color.line_color);
+                searchHeistory.addView(line, lineParams);
             }
-            CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
-            view.setPadding(0, 20, 0, 20);
-            view.setSingleLine();
-            view.setEllipsize(TextUtils.TruncateAt.END);
-            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            view.setText(charSequence);
-            view.setBackgroundResource(R.drawable.list_item_bg);
-            view.setGravity(Gravity.CENTER_VERTICAL);
-            searchHeistory.addView(view, layoutParams);
-            view.setOnClickListener(new View.OnClickListener()
+            TextView clean = new TextView(getActivity());
+            clean.setPadding(0, 20, 0, 20);
+            clean.setSingleLine();
+            clean.setEllipsize(TextUtils.TruncateAt.END);
+            clean.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            clean.setText("清除历史记录");
+            clean.setTextColor(Color.parseColor("#5f9bf8"));
+            clean.setBackgroundResource(R.drawable.list_item_bg);
+            clean.setGravity(Gravity.CENTER);
+            clean.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
-                    //填充数据
-                    String itemAddressId = value.get("itemAddressId");
-                    String itemAddressS = value.get("itemAddress");
-                    String searchKeyWorld = value.get("searchKeyWorld");
-
-                    String itemJobfuncId = value.get("itemJobfuncId");
-                    String itemIndtypeId = value.get("itemIndtypeId");
-                    String itemSalaryId = value.get("itemSalaryId");
-                    String itemWorktimeId = value.get("itemWorktimeId");
-                    String itemDegreeId = value.get("itemDegreeId");
-
-
-                    String itemJobfuncStr = value.get("itemJobfunc");
-                    String itemIndtypeStr = value.get("itemIndtype");
-                    String itemSalaryStr = value.get("itemSalary");
-                    String itemWorktimeStr = value.get("itemWorktime");
-                    String itemDegreeStr = value.get("itemDegree");
-
-                    if (!StringUtil.isEmpty(itemAddressId)) {
-                        itemAddress.setSelectorIds(itemAddressId);
-                        itemAddress.setText(itemAddressS);
-                    } else {
-                        itemAddress.setSelectorIds("");
-                        itemAddress.setText(itemAddressS);
-                    }
-
-                    if (!StringUtil.isEmpty(itemJobfuncStr)) {
-                        itemJobfunc.setSelectorIds(itemJobfuncId);
-                        itemJobfunc.setText(itemJobfuncStr);
-                    } else {
-                        itemJobfunc.setSelectorIds("");
-                        itemJobfunc.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemIndtypeStr)) {
-                        itemIndtype.setSelectorIds(itemIndtypeId);
-                        itemIndtype.setText(itemIndtypeStr);
-                    } else {
-                        itemIndtype.setSelectorIds("");
-                        itemIndtype.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemSalaryStr)) {
-                        itemSalary.setSelectorIds(itemSalaryId);
-                        itemSalary.setText(itemSalaryStr);
-                    } else {
-                        itemSalary.setSelectorIds("");
-                        itemSalary.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemWorktimeStr)) {
-                        itemWorktime.setSelectorIds(itemWorktimeId);
-                        itemWorktime.setText(itemWorktimeStr);
-                    } else {
-                        itemWorktime.setSelectorIds("");
-                        itemWorktime.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(itemDegreeStr)) {
-                        itemDegree.setSelectorIds(itemDegreeId);
-                        itemDegree.setText(itemDegreeStr);
-                    } else {
-                        itemDegree.setSelectorIds("");
-                        itemDegree.setText("");
-                    }
-
-                    if (!StringUtil.isEmpty(searchKeyWorld)) {
-                        etSearch.setText(searchKeyWorld);
-                    } else {
-                        etSearch.setText("");
-                    }
+                    UpdateDataTaskUtils.cleanHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB);
+                    history.clear();
+                    disPlayerSearchUI(null);
                 }
             });
+            searchHeistory.addView(clean, layoutParams);
+            View line = new View(getActivity());
+            line.setBackgroundResource(R.color.line_color);
+            searchHeistory.addView(line, lineParams);
+        } else {
+            TextView clean = new TextView(getActivity());
+            clean.setPadding(0, 20, 0, 20);
+            clean.setSingleLine();
+            clean.setEllipsize(TextUtils.TruncateAt.END);
+            clean.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            clean.setText("暂无历史记录");
+            clean.setBackgroundResource(R.drawable.list_item_bg);
+            clean.setGravity(Gravity.CENTER_VERTICAL);
+            clean.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    UpdateDataTaskUtils.cleanHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB);
+                    history.clear();
+                    disPlayerSearchUI(null);
+                }
+            });
+            searchHeistory.addView(clean, layoutParams);
             View line = new View(getActivity());
             line.setBackgroundResource(R.color.line_color);
             searchHeistory.addView(line, lineParams);
         }
-
-
     }
 
     //个人搜索器
+
     private void disPlayerUserSearchUI(JSONArray jsonArray)
     {
         searchHeistoryLogin.removeAllViews();
@@ -536,8 +584,8 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
 
     private void initView(View view)
     {
-        itemAddress = (SelectorItemView) view.findViewById(R.id.item_address);
         itemSalary = (SelectorItemView) view.findViewById(R.id.item_salary);
+        itemAddress = (SelectorItemView) view.findViewById(R.id.item_address);
         itemJobfunc = (SelectorItemView) view.findViewById(R.id.item_jobfunc);
         itemIndtype = (SelectorItemView) view.findViewById(R.id.item_indtype);
         itemWorktime = (SelectorItemView) view.findViewById(R.id.item_worktime);
@@ -852,7 +900,9 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             }
         });
         Message message = new Message();
-        message.obj = infoIds;
+        if (infoIds != null && infoIds.size() > 0) {
+            message.obj = infoIds;
+        }
         handler.sendMessage(message);
     }
 }
