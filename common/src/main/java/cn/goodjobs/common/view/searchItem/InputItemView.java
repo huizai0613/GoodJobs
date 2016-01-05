@@ -160,4 +160,9 @@ public class InputItemView extends CombinedBaseView{
         EditText editText = (EditText) findViewById(R.id.editText);
         editText.setEnabled(editable);
     }
+
+    public void setEditGravityLeft() {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        editText.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+    }
 }

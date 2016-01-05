@@ -1,5 +1,6 @@
 package cn.goodjobs.common.fragemnt;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,8 +14,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONObject;
 
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.activity.personalcenter.ResumeOpenSettingActivity;
+import cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity;
 import cn.goodjobs.common.activity.resume.MyResumeActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalApplyActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalInboxActivity;
@@ -35,8 +38,6 @@ public class PersonalCenterFragment extends BaseFragment {
     TextView tvUsername, tvPhone, tvUpdatetime;
     ImageButton btnYanzheng, btnRefresh;
     SearchItemView itemLogin,itemSetting, itemSousuo, itemMessage, itemCollection, itemShenqing, itemChakan, itemXiaoyuan, itemJianli;
-
-    JSONObject personalInfo;
 
     public PersonalCenterFragment() {
     }
@@ -97,32 +98,32 @@ public class PersonalCenterFragment extends BaseFragment {
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
         if (tag.equals(URLS.API_PERSON)) {
-            personalInfo = (JSONObject) data;
+            GoodJobsApp.getInstance().personalInfo = (JSONObject) data;
             setDataToView();
         }
     }
 
     // 将数据显示到界面上
     private void setDataToView() {
-        Uri uri = Uri.parse(personalInfo.optString("pic"));
+        Uri uri = Uri.parse(GoodJobsApp.getInstance().personalInfo.optString("pic"));
         myImageview.setImageURI(uri);
-        tvUsername.setText("用  户  名：" + personalInfo.optString("username"));
-        tvPhone.setText("手  机  号：" + personalInfo.optString("mb"));
-        tvUpdatetime.setText("更新时间：" + personalInfo.optString("updateTime"));
-        itemChakan.setHint(personalInfo.optString("countCorpLook") + "条");
-        itemShenqing.setHint(personalInfo.optString("countJobApply") + "条");
-        itemCollection.setHint(personalInfo.optString("countBookmark") + "条");
-        itemMessage.setHint(personalInfo.optString("countInbox") + "条");
+        tvUsername.setText("用  户  名：" + GoodJobsApp.getInstance().personalInfo.optString("username"));
+        tvPhone.setText("手  机  号：" + GoodJobsApp.getInstance().personalInfo.optString("mb"));
+        tvUpdatetime.setText("更新时间：" + GoodJobsApp.getInstance().personalInfo.optString("updateTime"));
+        itemChakan.setHint(GoodJobsApp.getInstance().personalInfo.optString("countCorpLook") + "条");
+        itemShenqing.setHint(GoodJobsApp.getInstance().personalInfo.optString("countJobApply") + "条");
+        itemCollection.setHint(GoodJobsApp.getInstance().personalInfo.optString("countBookmark") + "条");
+        itemMessage.setHint(GoodJobsApp.getInstance().personalInfo.optString("countInbox") + "条");
 
         btnYanzheng.setVisibility(View.VISIBLE);
         btnRefresh.setVisibility(View.VISIBLE);
-        if ("0".equals(personalInfo.optString("ismb"))) {
+        if ("0".equals(GoodJobsApp.getInstance().personalInfo.optString("ismb"))) {
             btnYanzheng.setImageResource(R.drawable.wyz);
         } else {
             btnYanzheng.setImageResource(R.drawable.yyz);
         }
-        itemJianli.setHint(personalInfo.optString("viewHistoryCount")+"次被浏览");
-        itemSetting.setHint(personalInfo.optString("pubLevel"));
+        itemJianli.setHint(GoodJobsApp.getInstance().personalInfo.optString("viewHistoryCount")+"次被浏览");
+        itemSetting.setHint(GoodJobsApp.getInstance().personalInfo.optString("pubLevel"));
     }
 
     @Override
@@ -147,9 +148,20 @@ public class PersonalCenterFragment extends BaseFragment {
             intent.setClass(getActivity(), ResumeOpenSettingActivity.class);
         } else if (v.getId() == R.id.itemXiaoyuan) {
             intent.setClassName(getActivity(), "cn.goodjobs.campusjobs.activity.MyCampusActivity");
+        } else if (v.getId() == R.id.itemLogin) {
+            intent.setClass(getActivity(), UpdateUserInfoActivity.class);
         } else {
             intent.setClass(getActivity(), PersonalLookActivity.class);
         }
-        startActivity(intent);
+        startActivityForResult(intent, 111);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            LoadingDialog.showDialog(getActivity());
+            HttpUtil.post(URLS.API_PERSON, this);
+        }
     }
 }

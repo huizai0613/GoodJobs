@@ -27,6 +27,7 @@ public class GoodJobsApp extends Application
     private LoginInfo loginInfo;
     private boolean isLogin; // 是否登录
     public JSONObject resumeJson; // 我的简历状态信息
+    public JSONObject personalInfo; // 用户基本信息
     private List<MainMenuEntity> menuEntitys;
 
     @Override

@@ -44,6 +44,7 @@
     <!--  顶部导航条背景颜色 -->
     <color name="topbar_bg">#3492e9</color>
     <color name="topbar_onbg">#44a2f9</color>
+    <color name="topbar_disable">#bbbbbb</color>
 
     <color name="list_item_nornal">#ffffff</color>
     <color name="list_item_pressed">#eeeeee</color>

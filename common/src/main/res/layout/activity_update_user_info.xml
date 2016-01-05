@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white">
+
+        <View style="@style/line"/>
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="修改用户名"
+            listitem:showHLine="false"/>
+
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="修改密码"
+            listitem:showHLine="false"/>
+
+        <cn.goodjobs.common.view.searchItem.SearchItemView
+            android:id="@+id/itemMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            listitem:tvtitle="修改手机号"
+            listitem:showHLine="false"
+            listitem:showLine="false"/>
+        <View style="@style/line"/>
+
+    </LinearLayout>
+</LinearLayout>
