@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@mipmap/footer4" android:state_selected="true" />
-    <item android:drawable="@mipmap/footer4a" />
+    <item android:drawable="@mipmap/campus4" android:state_selected="true" />
+    <item android:drawable="@mipmap/campus4a" />
 </selector>

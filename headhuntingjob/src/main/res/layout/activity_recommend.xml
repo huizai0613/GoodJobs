@@ -259,7 +259,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/list_item_height"
-                android:layout_gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <CheckBox
@@ -267,12 +266,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_marginRight="@dimen/padding_small" />
+                    android:layout_marginRight="@dimen/padding_small"
+                    android:layout_marginTop="@dimen/padding_small" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我已经认真阅读并完全同意《推荐人才条款》"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="我已经认真阅读并完全同意《"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/text_default" />
+
+                <TextView
+                    android:id="@+id/tv_clause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="推荐人才条款"
+                    android:textColor="@color/topbar_bg"
+                    android:textSize="@dimen/text_default" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:text="》"
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/text_default" />
             </LinearLayout>
@@ -285,6 +304,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_default"
                 android:background="@drawable/button_bg"
+                android:paddingBottom="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
                 android:text="保存"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large" />

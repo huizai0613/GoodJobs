@@ -32,9 +32,6 @@ import cn.goodjobs.common.view.BabushkaText;
 import cn.goodjobs.common.view.XCFlowLayout;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
-/**
- * Created by zhuli on 2015/12/31.
- */
 public class CampusDetailsFragment extends BaseViewPagerFragment {
 
     private BabushkaText bolong;
