@@ -3,6 +3,7 @@ package cn.goodjobs.headhuntingjob.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +12,9 @@ import java.util.List;
 
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
+import cn.goodjobs.common.util.ScreenManager;
+import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.headhuntingjob.R;
 import cn.goodjobs.headhuntingjob.adapter.HeadViewpagerAdapter;
@@ -21,6 +25,8 @@ import cn.goodjobs.headhuntingjob.fragment.HeadFragment;
  */
 public class HeadHuntingActivity extends BaseActivity {
 
+    private long backTime = 2000;
+    private long curTime;
     private Button btnHead, btnReward, btnAgency;
     private List<Button> btnList = new ArrayList<Button>();
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
@@ -117,5 +123,25 @@ public class HeadHuntingActivity extends BaseActivity {
             vp.setCurrentItem(1);
         }
     }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+        if (!StringUtil.isEmpty(defaultModule) && Constant.module.Liepin.toString().equals(defaultModule)) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (System.currentTimeMillis() - curTime > backTime) {
+                    TipsUtil.show(HeadHuntingActivity.this, R.string.exit_app);
+                    curTime = System.currentTimeMillis();
+                } else {
+                    ScreenManager.getScreenManager().popAllActivityExceptOne(this);
+                    onBackPressed();
+                }
+            }
+        } else {
+            back();
+        }
+        return true;
+    }
+
 
 }

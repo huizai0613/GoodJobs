@@ -3,6 +3,7 @@ package cn.goodjobs.parttimejobs.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -22,7 +23,9 @@ import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.LogUtil;
+import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView;
@@ -34,6 +37,8 @@ import cn.goodjobs.parttimejobs.adapter.PartTimeJobAdapter;
 
 public class PartTimeJobActivity extends BaseListActivity {
 
+    private long backTime = 2000;
+    private long curTime;
     private Map<String, String> schoolData = new LinkedHashMap<String, String>();
     private Map<String, String> dateData = new LinkedHashMap<String, String>();
     private SingleLevelMenuView dateInfo, schoolInfo;
@@ -104,14 +109,8 @@ public class PartTimeJobActivity extends BaseListActivity {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 schoolType = selectedKey;
-                Map<String, Object> params = new HashMap<String, Object>();
-                params.put("page", page);
-                params.put("ttype", schoolType);
-                params.put("ptime", runType);
-                params.put("keyword", keyword);
-                startRefresh();
                 mAdapter.clear();
-                HttpUtil.post(URLS.API_JOB_ParttimeJob, params, PartTimeJobActivity.this);
+                startRefresh();
                 etv_career.setTitle(showString, 1);
             }
         });
@@ -119,14 +118,8 @@ public class PartTimeJobActivity extends BaseListActivity {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 runType = selectedKey;
-                Map<String, Object> params = new HashMap<String, Object>();
-                params.put("page", page);
-                params.put("ttype", schoolType);
-                params.put("ptime", runType);
-                params.put("keyword", keyword);
-                startRefresh();
                 mAdapter.clear();
-                HttpUtil.post(URLS.API_JOB_ParttimeJob, params, PartTimeJobActivity.this);
+                startRefresh();
                 etv_career.setTitle(showString, 0);
             }
         });
@@ -200,16 +193,29 @@ public class PartTimeJobActivity extends BaseListActivity {
         super.onClick(v);
         if (v.getId() == R.id.ll_search) {
             keyword = et.getText().toString();
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("page", page);
-            params.put("ttype", schoolType);
-            params.put("ptime", runType);
-            params.put("keyword", keyword);
-            startRefresh();
             mAdapter.clear();
-            HttpUtil.post(URLS.API_JOB_ParttimeJob, params, this);
+            startRefresh();
         } else if (v.getId() == R.id.ib_clear) {
             et.setText("");
         }
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+        if (!StringUtil.isEmpty(defaultModule) && Constant.module.Jianzhi.toString().equals(defaultModule)) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (System.currentTimeMillis() - curTime > backTime) {
+                    TipsUtil.show(PartTimeJobActivity.this, R.string.exit_app);
+                    curTime = System.currentTimeMillis();
+                } else {
+                    ScreenManager.getScreenManager().popAllActivityExceptOne(this);
+                    onBackPressed();
+                }
+            }
+        } else {
+            back();
+        }
+        return true;
     }
 }
