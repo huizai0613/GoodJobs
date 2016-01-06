@@ -114,7 +114,7 @@ public class HeadDetailsActivity extends BaseActivity {
             HttpUtil.post(URLS.API_JOB_Addfavorite, params, this);
 
         } else if (v.getId() == R.id.rl_share) {
-
+            //分享
         }
     }
 
