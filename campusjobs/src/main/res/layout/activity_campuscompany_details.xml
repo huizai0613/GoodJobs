@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/window_background"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background"
+    android:orientation="vertical">
 
-    <include layout="@layout/actionbar"/>
+    <include layout="@layout/actionbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                     android:text="中国视频娱乐网"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_size_14"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                             android:layout_height="match_parent"
                             android:text="性质"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                         <TextView
                             android:id="@+id/com_nature"
@@ -64,7 +64,7 @@
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                     </LinearLayout>
 
@@ -82,7 +82,7 @@
                             android:layout_height="match_parent"
                             android:text="人数"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                         <TextView
                             android:id="@+id/com_num"
@@ -92,8 +92,7 @@
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"
-                            />
+                            android:textSize="@dimen/font_size_14" />
 
                     </LinearLayout>
 
@@ -110,7 +109,7 @@
                             android:layout_height="match_parent"
                             android:text="行业"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                         <TextView
                             android:id="@+id/com_industry"
@@ -120,7 +119,7 @@
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                     </LinearLayout>
 
@@ -138,7 +137,7 @@
                             android:layout_height="match_parent"
                             android:text="地址"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                         <LinearLayout
                             android:layout_width="0dip"
@@ -153,7 +152,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="2"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_14"/>
+                                android:textSize="@dimen/font_size_14" />
 
                             <TextView
                                 android:id="@+id/com_map"
@@ -162,7 +161,7 @@
                                 android:paddingBottom="@dimen/space_5"
                                 android:paddingTop="@dimen/space_5"
                                 android:text=" 查看地图"
-                                android:textColor="@color/black"/>
+                                android:textColor="@color/black" />
 
                         </LinearLayout>
 
@@ -182,7 +181,7 @@
                             android:layout_height="match_parent"
                             android:text="电话"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                         <TextView
                             android:id="@+id/com_phone"
@@ -191,7 +190,7 @@
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/font_size_14" />
 
                     </LinearLayout>
 
@@ -215,9 +214,41 @@
                         android:paddingLeft="@dimen/space_15"
                         android:text="招聘职位"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"
-                        />
+                        android:textSize="@dimen/font_size_14" />
+                </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/company_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_15">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="公司风采"
+                        android:textColor="@color/bule_low_color"
+                        android:textSize="@dimen/font_size_14"
+                        android:textStyle="bold" />
+
+                    <cn.goodjobs.common.view.CustomHScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/company_img_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"></LinearLayout>
+
+                    </cn.goodjobs.common.view.CustomHScrollView>
 
                 </LinearLayout>
 
@@ -236,7 +267,7 @@
                         android:text="公司介绍"
                         android:textColor="@color/bule_low_color"
                         android:textSize="@dimen/font_size_14"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -254,7 +285,7 @@
                         android:layout_height="30dip"
                         android:layout_gravity="center_horizontal"
                         android:padding="10dip"
-                        android:src="@drawable/companyarticle_down"/>
+                        android:src="@drawable/companyarticle_down" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

@@ -217,7 +217,42 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_size_14"
                         />
+                </LinearLayout>
 
+
+                <LinearLayout
+                    android:id="@+id/company_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_15">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="公司风采"
+                        android:textColor="@color/bule_low_color"
+                        android:textSize="@dimen/font_size_14"
+                        android:textStyle="bold"/>
+
+                    <cn.goodjobs.common.view.CustomHScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:scrollbars="none"
+                        >
+
+                        <LinearLayout
+                            android:id="@+id/company_img_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            ></LinearLayout>
+
+                    </cn.goodjobs.common.view.CustomHScrollView>
 
                 </LinearLayout>
 

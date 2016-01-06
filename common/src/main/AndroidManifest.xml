@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.goodjobs.common" >
+<manifest package="cn.goodjobs.common"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 检测网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 获取mac地址作为用户的备用唯一标识 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 获取用户手机的IMEI，用来唯一的标识用户 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 缓存资源优先存入SDcard -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 允许应用程序联网，以便向我们的服务器端发送数据 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- 这个权限用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 这个权限用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <!-- SD卡读取权限，用户写入离线定位数据 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="tQTfGUKKlGG3XtZ93PQGVbSI" />
+            android:value="tQTfGUKKlGG3XtZ93PQGVbSI"/>
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" >
+            android:process=":remote">
         </service>
 
         <activity
             android:name=".view.searchItem.SelectorActivity"
             android:label="@string/title_activity_selector"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.PersonalLookActivity"
             android:label="@string/title_activity_personal_list"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.PersonalApplyActivity"
             android:label="@string/title_activity_personal_apply"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.PersonalCollectionActivity"
@@ -58,130 +58,134 @@
         <activity
             android:name=".activity.personalcenter.PersonalInboxActivity"
             android:label="@string/title_activity_personal_inbox"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeActivity"
             android:label="@string/title_activity_my_resume"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeMoreActivity"
             android:label="@string/title_activity_my_resume_more"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumePreviewActivity"
             android:label="@string/title_activity_my_resume_preview"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeBaseInfoActivity"
             android:label="@string/title_activity_my_resume_base_info"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeEduActivity"
             android:label="@string/title_activity_my_resume_edu"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeEduAddActivity"
             android:label="@string/title_activity_my_resume_edu_add"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.LsMapActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeWorkActivity"
             android:label="@string/title_activity_my_resume_work"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeWorkAddActivity"
             android:label="@string/title_activity_my_resume_edu_add"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.TextAreaActivity"
             android:label="@string/title_activity_text_area"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeWillActivity"
             android:label="@string/title_activity_my_resume_will"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeStuActivity"
             android:label="@string/title_activity_my_resume_stu"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeStuAddActivity"
             android:label="@string/title_activity_my_resume_edu_add"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeTrainActivity"
             android:label="@string/title_activity_my_resume_train"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeTrainAddActivity"
             android:label="@string/title_activity_my_resume_edu_add"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeLanActivity"
             android:label="@string/title_activity_my_resume_lan"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.resume.MyResumeLanAddActivity"
             android:label="@string/title_activity_my_resume_edu_add"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.GoodJobsSettingActivity"
             android:label="@string/title_activity_good_jobs_setting"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.ResumeOpenSettingActivity"
             android:label="@string/title_activity_resume_open_setting"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.AddOpenSettingActivity"
             android:label="@string/title_activity_add_open_setting"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.WebViewActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdateUserInfoActivity"
-            android:label="@string/title_activity_update_user_info" >
+            android:label="@string/title_activity_update_user_info">
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdateUserNameActivity"
-            android:label="@string/title_activity_update_user_name" >
+            android:label="@string/title_activity_update_user_name">
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdatePasswordActivity"
-            android:label="@string/title_activity_update_password" >
+            android:label="@string/title_activity_update_password">
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdateMobileActivity"
-            android:label="@string/title_activity_update_mobile" >
+            android:label="@string/title_activity_update_mobile">
+        </activity>
+        <activity
+            android:name=".activity.ImagePreviewActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.PersonalInboxDetailActivity"

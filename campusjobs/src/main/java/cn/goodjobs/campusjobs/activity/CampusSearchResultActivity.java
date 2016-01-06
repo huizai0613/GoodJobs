@@ -69,7 +69,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         }
                     }
 
-                    companyInfo.setValue(linkMap1, corpkindId != null ? corpkindId : "");
+                    companyInfo.setValue(linkMap1, 0 + "");
 
                     break;
                 case UpdateDataTaskUtils.SALARYDATA:
@@ -83,7 +83,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         }
                     }
 
-                    salaryInfo.setValue(linkMap, itemSalaryId != null ? itemSalaryId : "");
+                    salaryInfo.setValue(linkMap, 0 + "");
 
                     break;
                 case UpdateDataTaskUtils.CAMPUSMOREDATA:
@@ -307,6 +307,9 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         if (!StringUtil.isEmpty(districtId))//区域
             Object.put("district", districtId);
 
+        if (!StringUtil.isEmpty(corpkindId))//企业性质
+            Object.put("corpkind", corpkindId);
+
 
         HttpUtil.post(URLS.API_JOB_CampusJoblist, Object, this);
     }
@@ -327,7 +330,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
     }
 

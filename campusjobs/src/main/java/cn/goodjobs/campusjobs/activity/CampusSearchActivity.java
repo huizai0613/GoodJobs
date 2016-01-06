@@ -84,8 +84,13 @@ public class CampusSearchActivity extends BaseActivity {
                     }
                 });
                 Message message = new Message();
+                message.what = 1;
                 message.obj = infoIds;
-                handler.sendMessage(message);
+                if (infoIds.size() == 0) {
+                    handler.sendEmptyMessage(2);
+                } else {
+                    handler.sendMessage(message);
+                }
             }
         });
     }
@@ -234,8 +239,11 @@ public class CampusSearchActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            disPlayerSearchUI((List<Map.Entry<Long, Map<String, String>>>) msg.obj);
-
+            if (msg.what == 1) {
+                disPlayerSearchUI((List<Map.Entry<Long, Map<String, String>>>) msg.obj);
+            } else if (msg.what == 2) {
+                disPlayerSearchUI(null);
+            }
         }
     };
 

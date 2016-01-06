@@ -1,5 +1,6 @@
 package cn.goodjobs.headhuntingjob.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -29,9 +31,10 @@ public class RecommendActivity extends BaseActivity {
     private ListInputItemView realName, mobile, bName, bAge, bPhone, bMobile, bEmail, bIndustry, bNowjob, bOther;
     private EditText bJobhistory;
     private RadioButton man, woman;
+    private TextView tv_clause;
     private CheckBox point;
     private Button commit;
-    private String youName, number;
+    private String youName, number, clause;
     private int id;
 
     @Override
@@ -66,6 +69,8 @@ public class RecommendActivity extends BaseActivity {
         bIndustry = (ListInputItemView) findViewById(R.id.liv_bIndustry);
         bNowjob = (ListInputItemView) findViewById(R.id.liv_bNowjob);
         bOther = (ListInputItemView) findViewById(R.id.liv_bOther);
+        tv_clause = (TextView) findViewById(R.id.tv_clause);
+        tv_clause.setOnClickListener(this);
         commit = (Button) findViewById(R.id.btn_commit);
         commit.setEnabled(false);
         commit.setOnClickListener(this);
@@ -116,6 +121,10 @@ public class RecommendActivity extends BaseActivity {
                 LoadingDialog.showDialog(this);
                 HttpUtil.post(URLS.API_JOB_Recommendsave, params, this);
             }
+        } else if (v.getId() == R.id.tv_clause) {
+            Intent intent = new Intent(this, ClauseActivity.class);
+            intent.putExtra("clause", clause);
+            startActivity(intent);
         }
     }
 
@@ -126,6 +135,7 @@ public class RecommendActivity extends BaseActivity {
             JSONObject object = (JSONObject) data;
             youName = object.optString("realName");
             number = object.optString("mobile");
+            clause = object.optString("clause");
 
             if (youName.length() != 0 && number.length() != 0) {
                 realName.setText(youName);

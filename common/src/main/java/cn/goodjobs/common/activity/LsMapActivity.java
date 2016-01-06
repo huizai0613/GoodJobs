@@ -132,7 +132,6 @@ public class LsMapActivity extends BaseActivity
 //定义用于显示该InfoWindow的坐标点
 
         LinearLayout box = new LinearLayout(mcontext);
-
         box.setOrientation(LinearLayout.VERTICAL);
         box.setBackgroundResource(R.color.white);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

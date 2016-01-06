@@ -22,7 +22,8 @@ import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 /**
  * Created by yexiangyu on 15/12/23.
  */
-public class UpdateDataTaskUtils {
+public class UpdateDataTaskUtils
+{
     public static final int CITYDATA = 0;
     public static final int SALARYDATA = 1;
     public static final int MOREDATA = 2;
@@ -36,7 +37,8 @@ public class UpdateDataTaskUtils {
 
     private static ExecutorService mBackgroundThreadPool;
 
-    public static ExecutorService getBackgroundThreadPool() {
+    public static ExecutorService getBackgroundThreadPool()
+    {
 
         if (mBackgroundThreadPool == null) {
             mBackgroundThreadPool = Executors.newFixedThreadPool(3);
@@ -47,16 +49,60 @@ public class UpdateDataTaskUtils {
 
 
     /**
+     * 获取职位分类和子分类
+     *
+     * @param context
+     * @param listener
+     */
+    public static void selectJobFun(final Context context, final OnGetDiscussJobFunListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                LinkedHashMap<JSONObject, List<JSONObject>> linkedHashMap = new LinkedHashMap<JSONObject, List<JSONObject>>();
+
+                JSONArray jobFun1Array = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBFUNCL1);
+                JSONObject jobFun2Object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBFUNCL2);
+
+
+                for (int i = 0; i < jobFun1Array.length(); i++) {
+                    JSONObject jsonObject = jobFun1Array.optJSONObject(i);
+                    ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+
+                    JSONArray is = jobFun2Object.optJSONArray(jsonObject.optInt("id") + "");
+
+                    for (int i1 = 0; i1 < is.length(); i1++) {
+                        jsonObjects.add(is.optJSONObject(i1));
+                    }
+                    linkedHashMap.put(jsonObject, jsonObjects);
+                }
+
+                if (listener != null) {
+                    listener.onGetDiscussSalaryInfo(linkedHashMap);
+                }
+
+            }
+        });
+
+    }
+
+
+    /**
      * 获取省中市资源
      *
      * @param context
      * @param pro
      * @param listener
      */
-    public static void selectProInfo(final Context context, final String pro, final OnGetDiscussCityInfoListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void selectProInfo(final Context context, final String pro, final OnGetDiscussCityInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+                                          {
                                               @Override
-                                              public void run() {
+                                              public void run()
+                                              {
                                                   JSONArray cityObject = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCPRO);
                                                   JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
                                                   int cityId = 0;
@@ -126,10 +172,13 @@ public class UpdateDataTaskUtils {
      * @param city
      * @param listener
      */
-    public static void selectCityInfo(final Context context, final String city, final OnGetDiscussCityInfoListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void selectCityInfo(final Context context, final String city, final OnGetDiscussCityInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 JSONObject cityObject = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
                 JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCDISTRICT);
                 int cityId = 0;
@@ -196,10 +245,13 @@ public class UpdateDataTaskUtils {
     }
 
 
-    public static void selectMoreInfo(final Context context, final OnGetDiscussMoreInfoListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void selectMoreInfo(final Context context, final OnGetDiscussMoreInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 try {
                     JSONArray workArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.WORKTIME);
                     JSONArray jobArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBTYPE);
@@ -272,10 +324,13 @@ public class UpdateDataTaskUtils {
 
     }
 
-    public static void selectSalaryInfo(final Context context, final OnGetDiscussSalaryInfoListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void selectSalaryInfo(final Context context, final OnGetDiscussSalaryInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 try {
                     JSONArray salaryArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.SALARY);
                     ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
@@ -303,15 +358,19 @@ public class UpdateDataTaskUtils {
     }
 
 
-    public static void cleanHistory(Context context, String key) {
+    public static void cleanHistory(Context context, String key)
+    {
         LsSimpleCache.get(context).remove(key);
     }
 
 
-    public static void updateHistory(final Context context, final Map<Long, Map<String, String>> data, final String key) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void updateHistory(final Context context, final Map<Long, Map<String, String>> data, final String key)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 while (data.size() > 5) {
                     long lru_key = 0;
                     long lru_time = Long.MAX_VALUE;
@@ -344,10 +403,13 @@ public class UpdateDataTaskUtils {
     }
 
 
-    public static void getHistory(final Context context, final String key, final OnGetDiscussHistoryListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void getHistory(final Context context, final String key, final OnGetDiscussHistoryListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+                                          {
                                               @Override
-                                              public void run() {
+                                              public void run()
+                                              {
                                                   JSONObject history = LsSimpleCache.get(context).getAsJSONObject(key);
                                                   Map<Long, Map<String, String>> result = new HashMap<Long, Map<String, String>>();
                                                   if (history != null) {
@@ -372,7 +434,7 @@ public class UpdateDataTaskUtils {
                                                           e.printStackTrace();
                                                       }
 
-                                                  }else{
+                                                  } else {
                                                       if (listener != null) {
                                                           listener.onGetDiscussHistory(result);
                                                       }
@@ -384,10 +446,13 @@ public class UpdateDataTaskUtils {
     }
 
 
-    public static void selectCompanyData(final Context context, final OnGetCompanyInfoListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void selectCompanyData(final Context context, final OnGetCompanyInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 try {
                     JSONArray corptypeArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.CORPKIND);
 
@@ -414,10 +479,13 @@ public class UpdateDataTaskUtils {
     }
 
 
-    public static void selectCompusInfo(final Context context, final boolean isPro, final String pro, final OnGetDiscussMoreInfoListener listener) {
-        getBackgroundThreadPool().execute(new Runnable() {
+    public static void selectCompusInfo(final Context context, final boolean isPro, final String pro, final OnGetDiscussMoreInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+                                          {
                                               @Override
-                                              public void run() {
+                                              public void run()
+                                              {
                                                   try {
                                                       JSONArray jobArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBTYPE);
                                                       JSONArray degreeArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.DEGREE);
@@ -518,24 +586,35 @@ public class UpdateDataTaskUtils {
 
     }
 
-    public interface OnGetDiscussHistoryListener {
+    public interface OnGetDiscussHistoryListener
+    {
         void onGetDiscussHistory(Map<Long, Map<String, String>> history);
     }
 
-    public interface OnGetDiscussCityInfoListener {
+    public interface OnGetDiscussCityInfoListener
+    {
         void onGetDiscussCityInfo(List<JSONObject> cityData, int CityId);
     }
 
-    public interface OnGetDiscussSalaryInfoListener {
+    public interface OnGetDiscussSalaryInfoListener
+    {
         void onGetDiscussSalaryInfo(List<JSONObject> salaryData);
     }
 
-    public interface OnGetCompanyInfoListener {
+    public interface OnGetDiscussJobFunListener
+    {
+        void onGetDiscussSalaryInfo(Map<JSONObject, List<JSONObject>> JobFunData);
+    }
+
+    public interface OnGetCompanyInfoListener
+    {
         void onGetCompanyInfo(List<JSONObject> CompanyData);
     }
 
-    public interface OnGetDiscussMoreInfoListener {
+    public interface OnGetDiscussMoreInfoListener
+    {
         void onGetDiscussMoreInfo(Map<String, List<JSONObject>> MoreData);
     }
+
 
 }

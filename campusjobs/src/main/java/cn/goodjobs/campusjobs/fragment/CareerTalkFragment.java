@@ -107,15 +107,8 @@ public class CareerTalkFragment extends BaseListFragment {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 schoolType = selectedKey;
-                Map<String, Object> params = new HashMap<String, Object>();
-                params.put("page", page);
-                params.put("jt", "careertalk");
-                params.put("schoolType", schoolType);
-                params.put("runType", runType);
-                params.put("keyword", keyword);
-                startRefresh();
                 mAdapter.clear();
-                HttpUtil.post(URLS.API_JOB_Jobfairlist, params, CareerTalkFragment.this);
+                startRefresh();
                 etv_career.setTitle(showString, 0);
             }
         });
@@ -123,15 +116,8 @@ public class CareerTalkFragment extends BaseListFragment {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 runType = selectedKey;
-                Map<String, Object> params = new HashMap<String, Object>();
-                params.put("page", page);
-                params.put("jt", "careertalk");
-                params.put("schoolType", schoolType);
-                params.put("runType", runType);
-                params.put("keyword", keyword);
-                startRefresh();
                 mAdapter.clear();
-                HttpUtil.post(URLS.API_JOB_Jobfairlist, params, CareerTalkFragment.this);
+                startRefresh();
                 etv_career.setTitle(showString, 1);
             }
         });
@@ -143,6 +129,10 @@ public class CareerTalkFragment extends BaseListFragment {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("page", page);
         params.put("jt", "careertalk");
+        params.put("schoolType", schoolType);
+        params.put("runType", runType);
+        params.put("keyword", keyword);
+        emptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         HttpUtil.post(URLS.API_JOB_Jobfairlist, params, this);
     }
 
@@ -161,16 +151,16 @@ public class CareerTalkFragment extends BaseListFragment {
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
         JSONObject object = (JSONObject) data;
-        initSearch(object);
+        if (!isSuccess) {
+            initSearch(object);
+        }
         mAdapter.appendToList(object.optJSONArray("list"));
         if (mAdapter.getCount() == 0) {
             emptyLayout.setErrorType(EmptyLayout.NODATA);
         }
-
         loadMoreListViewContainer.loadMoreFinish(false, object.optInt("maxPage") > page);
         mPtrFrameLayout.refreshComplete();
         isSuccess = true;
-
     }
 
     private void initSearch(JSONObject object) {
@@ -209,15 +199,8 @@ public class CareerTalkFragment extends BaseListFragment {
         super.onClick(v);
         if (v.getId() == R.id.ll_search) {
             keyword = et.getText().toString();
-            Map<String, Object> params = new HashMap<String, Object>();
-            params.put("page", page);
-            params.put("jt", "careertalk");
-            params.put("schoolType", schoolType);
-            params.put("runType", runType);
-            params.put("keyword", keyword);
-            startRefresh();
             mAdapter.clear();
-            HttpUtil.post(URLS.API_JOB_Jobfairlist, params, this);
+            startRefresh();
         } else if (v.getId() == R.id.ib_clear) {
             et.setText("");
         }

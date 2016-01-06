@@ -104,7 +104,7 @@ public class CampusActivity extends BaseActivity {
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
-        if (!StringUtil.isEmpty(defaultModule) && Constant.module.ApplyJobs.toString().equals(defaultModule)) {
+        if (!StringUtil.isEmpty(defaultModule) && Constant.module.Xiaoyuan.toString().equals(defaultModule)) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (System.currentTimeMillis() - curTime > backTime) {
                     TipsUtil.show(CampusActivity.this, R.string.exit_app);

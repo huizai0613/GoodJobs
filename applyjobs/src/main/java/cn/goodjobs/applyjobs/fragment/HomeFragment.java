@@ -62,7 +62,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             super.handleMessage(msg);
             List<Map.Entry<Long, Map<String, String>>> infoIds = (List<Map.Entry<Long, Map<String, String>>>) msg.obj;
 
-            if (infoIds != null) {
+            if (infoIds != null) { 
                 historyLayout.setVisibility(View.VISIBLE);
                 final Map<String, String> value = infoIds.get(0).getValue();
 

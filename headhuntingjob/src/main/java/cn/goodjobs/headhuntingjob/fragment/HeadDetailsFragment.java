@@ -147,6 +147,7 @@ public class HeadDetailsFragment extends BaseFragment {
         for (int i = 0; i < treatment.size(); i++) {
             TextView tview = new TextView(getActivity());
             tview.setText(treatment.get(i));
+            tview.setTextSize(14);
             tview.setTextColor(getResources().getColor(R.color.main_color));
             tview.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_labelview));
             labelView.addView(tview, lp);

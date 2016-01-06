@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity
         MainMenuEntity menuEntity = null;
 
         menuEntity = new MainMenuEntity();
-        menuEntity.color = "#ffc626";
+        menuEntity.color = "#DB6C5B";
         menuEntity.iconRes = R.mipmap.full_img;
         menuEntity.padding = DensityUtil.dip2px(this, 24);
         menuEntity.scale = 0.6f;
@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity
         menuEntity.content = "30000家企业、80000热招职位任你搜索，总有一款适合你 ";
         menuEntity.toClass = ApplyJobsActivity.class;
         menuEntity.imgW = DensityUtil.dip2px(this, 55);
-        menuEntity.imgH = DensityUtil.dip2px(this, 41);
+        menuEntity.imgH = DensityUtil.dip2px(this, 46);
         menuEntitys.add(menuEntity);
 
         menuEntity = new MainMenuEntity();
@@ -165,44 +165,43 @@ public class MainActivity extends BaseActivity
         menuEntity.padding = DensityUtil.dip2px(this, 24);
         menuEntity.scale = 0.4f;
         menuEntity.title = "蓝领招聘";
-        menuEntity.content = "普工技工、服务员、调酒师、健身教练，工作交友两不误 ";
-        menuEntity.showNew = true;
+        menuEntity.content = "站着工作，你的辛勤付出必有丰厚回报。";
         menuEntity.toClass = ApplyJobsActivity.class;
         menuEntity.imgW = DensityUtil.dip2px(this, 40);
         menuEntity.imgH = DensityUtil.dip2px(this, 66);
         menuEntitys.add(menuEntity);
 
         menuEntity = new MainMenuEntity();
-        menuEntity.color = "#01c1b2";
-        menuEntity.iconRes = R.mipmap.school_img;
-        menuEntity.padding = DensityUtil.dip2px(this, 32);
-        menuEntity.scale = 0.36f;
-        menuEntity.title = "校园招聘";
-        menuEntity.content = "海量真实的毕业生招聘岗位、最新校园宣讲会信息，就业零门槛";
-        menuEntity.toClass = CampusActivity.class;
-        menuEntity.imgW = DensityUtil.dip2px(this, 54);
-        menuEntity.imgH = DensityUtil.dip2px(this, 44);
-        menuEntitys.add(menuEntity);
-
-        menuEntity = new MainMenuEntity();
-        menuEntity.color = "#ff8c41";
+        menuEntity.color = "#7150b9";
         menuEntity.iconRes = R.mipmap.liepin_img;
         menuEntity.padding = DensityUtil.dip2px(this, 32);
         menuEntity.scale = 0.36f;
         menuEntity.title = "新安猎聘";
-        menuEntity.content = "服务中高级人才，营销、市场、技术、管理各类高端岗位";
+        menuEntity.content = "千军易得，一将难求。\n够分量，你就来这里";
         menuEntity.toClass = HeadHuntingActivity.class;
         menuEntity.imgW = DensityUtil.dip2px(this, 75);
         menuEntity.imgH = DensityUtil.dip2px(this, 45);
         menuEntitys.add(menuEntity);
 
         menuEntity = new MainMenuEntity();
-        menuEntity.color = "#87c500";
+        menuEntity.color = "#87C500";
+        menuEntity.iconRes = R.mipmap.school_img;
+        menuEntity.padding = DensityUtil.dip2px(this, 32);
+        menuEntity.scale = 0.36f;
+        menuEntity.title = "校园招聘";
+        menuEntity.content = "追逐梦想，职业生涯第一份工作从这里开始。";
+        menuEntity.toClass = CampusActivity.class;
+        menuEntity.imgW = DensityUtil.dip2px(this, 54);
+        menuEntity.imgH = DensityUtil.dip2px(this, 44);
+        menuEntitys.add(menuEntity);
+
+        menuEntity = new MainMenuEntity();
+        menuEntity.color = "#FD9B40";
         menuEntity.iconRes = R.mipmap.part_img;
         menuEntity.padding = DensityUtil.dip2px(this, 32);
         menuEntity.scale = 0.28f;
         menuEntity.title = "兼职";
-        menuEntity.content = "寒暑假兼职、各类短期工作，招聘信息人工审核安全可靠";
+        menuEntity.content = "自由灵活的“第二职业。”";
         menuEntity.toClass = PartTimeJobActivity.class;
         menuEntity.imgW = DensityUtil.dip2px(this, 45);
         menuEntity.imgH = DensityUtil.dip2px(this, 45);

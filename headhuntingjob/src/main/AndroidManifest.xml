@@ -20,6 +20,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".activity.ClauseActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"></activity>
+
 
     </application>
 
