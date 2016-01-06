@@ -498,8 +498,6 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         EventBus.getDefault().register(this);
         View view = inflater.inflate(R.layout.fragment_job_search, container, false);
         initView(view);
-
-
         return view;
     }
 
