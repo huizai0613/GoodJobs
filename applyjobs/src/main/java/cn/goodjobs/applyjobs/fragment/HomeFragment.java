@@ -147,26 +147,26 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
     public void onSuccess(String tag, Object data)
     {
         super.onSuccess(tag, data);
-//        initAd((JSONArray) data);
+        initAd((JSONArray) data);
         /** 测试代码========================     */
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject;
-        try {
-            jsonObject = new JSONObject();
-            jsonObject.put("image", "http://hd.shijue.cvidea.cn/tf/140826/2348436/53fc93183dfae9381b000001.GIF");
-            jsonObject.put("url", "http://m.goodjobs.cn/");
-            jsonObject.put("title", "test");
-            jsonArray.put(jsonObject);
-
-            jsonObject = new JSONObject();
-            jsonObject.put("image", "http://pic33.nipic.com/20131011/8636861_091803753113_2.jpg");
-            jsonObject.put("url", "http://m.goodjobs.cn/");
-            jsonObject.put("title", "test2");
-            jsonArray.put(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        initAd(jsonArray);
+//        JSONArray jsonArray = new JSONArray();
+//        JSONObject jsonObject;
+//        try {
+//            jsonObject = new JSONObject();
+//            jsonObject.put("image", "http://hd.shijue.cvidea.cn/tf/140826/2348436/53fc93183dfae9381b000001.GIF");
+//            jsonObject.put("url", "http://m.goodjobs.cn/");
+//            jsonObject.put("title", "test");
+//            jsonArray.put(jsonObject);
+//
+//            jsonObject = new JSONObject();
+//            jsonObject.put("image", "http://pic33.nipic.com/20131011/8636861_091803753113_2.jpg");
+//            jsonObject.put("url", "http://m.goodjobs.cn/");
+//            jsonObject.put("title", "test2");
+//            jsonArray.put(jsonObject);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        initAd(jsonArray);
         /** 测试代码========================     */
     }
 

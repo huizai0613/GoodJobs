@@ -9,6 +9,7 @@
             android:name=".activity.CampusActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".activity.CareerTalkDetailsActivity"
@@ -22,27 +23,47 @@
             android:name=".activity.CampusSearchActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.CampusSearchResultActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.CampusCompanyDetailsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.CampusDetailsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.CampusSimilarActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+
+        <activity
+        android:name=".activity.WangshenActivity"
+        android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.XuanjianghuiActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.ZhaopinhuiActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.MyMessageActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.MyMessageDetailActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.MyCampusActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

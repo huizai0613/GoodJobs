@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.personalcenter.PersonalCollectionActivity;
 import cn.goodjobs.common.activity.personalcenter.ResumeOpenSettingActivity;
 import cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity;
 import cn.goodjobs.common.activity.resume.MyResumeActivity;
@@ -89,9 +90,13 @@ public class PersonalCenterFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (!isLoad && isVisibleToUser) {
             isLoad = true;
-            LoadingDialog.showDialog(getActivity());
-            HttpUtil.post(URLS.API_PERSON, this);
+            getDataFromServer();
         }
+    }
+
+    public void getDataFromServer() {
+        LoadingDialog.showDialog(getActivity());
+        HttpUtil.post(URLS.API_PERSON, this);
     }
 
     @Override
@@ -134,12 +139,8 @@ public class PersonalCenterFragment extends BaseFragment {
             intent.setClass(getActivity(), PersonalLookActivity.class);
         } else if (v.getId() == R.id.itemShenqing) {
             intent.setClass(getActivity(), PersonalApplyActivity.class);
-            intent.putExtra("title", "职位申请记录");
-            intent.putExtra("url", URLS.API_USER_OUTBOX);
         } else if (v.getId() == R.id.itemCollection) {
-            intent.setClass(getActivity(), PersonalApplyActivity.class);
-            intent.putExtra("title", "收藏的职位");
-            intent.putExtra("url", URLS.API_USER_USERFAVORITE);
+            intent.setClass(getActivity(), PersonalCollectionActivity.class);
         } else if (v.getId() == R.id.itemMessage) {
             intent.setClass(getActivity(), PersonalInboxActivity.class);
         } else if (v.getId() == R.id.itemJianli) {

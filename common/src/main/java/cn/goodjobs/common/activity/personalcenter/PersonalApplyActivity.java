@@ -1,33 +1,34 @@
 package cn.goodjobs.common.activity.personalcenter;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
 import cn.goodjobs.common.R;
-import cn.goodjobs.common.adapter.PersonalApplyAdapter;
-import cn.goodjobs.common.baseclass.BaseListActivity;
+import cn.goodjobs.common.adapter.PersonalListAdapter;
 import cn.goodjobs.common.constants.URLS;
-import cn.goodjobs.common.util.http.HttpUtil;
-import cn.goodjobs.common.view.empty.EmptyLayout;
+import cn.goodjobs.common.util.TipsUtil;
 
 /**
- * 职位申请和职位收藏
+ * 职位申请
  * */
 
-public class PersonalApplyActivity extends BaseListActivity {
-
-    private EmptyLayout emptyLayout;
-    boolean hasMore; // 是否包含下一页
-
-    String title;
-    String url;
-
+public class PersonalApplyActivity extends BasePersonalListActivity implements AdapterView.OnItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        adapterRes = R.layout.item_personal_apply;
+        url = URLS.API_USER_OUTBOX;
+        delUrl = URLS.API_USER_OUTBOXDEL;
+        idKey = "mailID";
+        paramKey = "mailID";
+        resIDs = new int[]{R.id.tvJobname, R.id.tvAddress, R.id.tvCompany, R.id.tvNumber, R.id.tvTime};
+        keys = new String[]{"jobName", "memType", "corpName", "jobStatus", "sendDate"};
+        textStatus = new PersonalListAdapter.TextStatus(new String[]{"jobStatus"}, new int[]{0}, new String[]{"2"});
         super.onCreate(savedInstanceState);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -38,59 +39,20 @@ public class PersonalApplyActivity extends BaseListActivity {
     @Override
     protected void initWeight() {
         super.initWeight();
-        setTopTitle(getIntent().getStringExtra("title"));
-        url = getIntent().getStringExtra("url");
-        emptyLayout = (EmptyLayout) findViewById(R.id.empty_view);
-        mAdapter = new PersonalApplyAdapter(this);
-        initList();
-        startRefresh();
+        setTopTitle("职位申请记录");
     }
 
     @Override
-    protected void getDataFronServer() {
-        super.getDataFronServer();
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("page", page);
-        HttpUtil.post(url, params, this);
-    }
-
-    @Override
-    public void onSuccess(String tag, Object data) {
-        super.onSuccess(tag, data);
-        if (tag.equals(url)) {
-            JSONObject object = (JSONObject) data;
-            mAdapter.appendToList(object.optJSONArray("list"));
-            if (mAdapter.getCount() == 0) {
-                emptyLayout.setErrorType(EmptyLayout.NODATA);
-            }
-            hasMore = object.optInt("maxPage")>page;
-            loadMoreListViewContainer.loadMoreFinish(false, hasMore);
-            mPtrFrameLayout.refreshComplete();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
+        if ("2".equals(jsonObject.optString("jobStatus"))) {
+            Intent intent = new Intent();
+            intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobDetailActivity");
+            intent.putExtra("IDS", jsonObject.optString("jobID"));
+            startActivity(intent);
+        } else {
+            TipsUtil.show(this, "该职位已过期");
         }
     }
 
-    @Override
-    public void onFailure(int statusCode, String tag) {
-        super.onFailure(statusCode, tag);
-        if (tag.equals(url)) {
-            if (mAdapter.getCount() == 0) {
-                emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-            }
-            loadMoreListViewContainer.loadMoreFinish(false, hasMore);
-            mPtrFrameLayout.refreshComplete();
-        }
-    }
-
-    @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
-        super.onError(errorCode, tag, errorMessage);
-        if (tag.equals(url)) {
-            if (mAdapter.getCount() == 0) {
-                emptyLayout.setErrorType(EmptyLayout.NODATA);
-                emptyLayout.setErrorMessage(errorMessage);
-            }
-            loadMoreListViewContainer.loadMoreFinish(false, hasMore);
-            mPtrFrameLayout.refreshComplete();
-        }
-    }
 }

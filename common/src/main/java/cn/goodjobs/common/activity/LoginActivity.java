@@ -1,5 +1,6 @@
 package cn.goodjobs.common.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import cn.goodjobs.common.AndroidBUSBean;
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
+import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.entity.LoginInfo;
 import cn.goodjobs.common.util.StringUtil;
@@ -41,6 +43,7 @@ public class LoginActivity extends BaseActivity
 
     public static int LOGIN_REQUEST_CODE = 911;
     private String tag;
+    boolean formLogout; // 来源于退出登录
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -118,6 +121,7 @@ public class LoginActivity extends BaseActivity
         checkbox = (CheckBox) findViewById(R.id.checkbox);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         rlLogin = (RelativeLayout) findViewById(R.id.rlLogin);
+        formLogout = getIntent().getBooleanExtra("formLogout", false);
 
         if (SharedPrefUtil.getObject("loginInfo") != null) {
             // 表示已经登录过了
@@ -167,8 +171,23 @@ public class LoginActivity extends BaseActivity
         progressBar.setVisibility(View.INVISIBLE);
         SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
         SharedPrefUtil.saveDataToLoacl("isLogin", true);
-        setResult(RESULT_OK);
-
+        if (formLogout) {
+            String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+            Intent intent = new Intent();
+            if (Constant.module.ApplyJobs.toString().equals(defaultModule)) {
+                // 全职
+                intent.setClassName(this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
+            } else if (Constant.module.Xiaoyuan.toString().equals(defaultModule)) {
+                // 蓝领
+                intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+            }
+            intent.putExtra("pageIndex", 3); // 返回到个人中心
+            startActivity(intent);
+            finish();
+            return;
+        } else {
+            setResult(RESULT_OK);
+        }
         if (URLS.JOB_search_login.equals(this.tag)) {
             AndroidBUSBean androidBUSBean = new AndroidBUSBean(AndroidBUSBean.STATUSREFRESH);
             EventBus.getDefault().post(androidBUSBean, URLS.JOB_search_login);
@@ -189,8 +208,24 @@ public class LoginActivity extends BaseActivity
                     checkbox.isChecked(), System.currentTimeMillis(), "");
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
             SharedPrefUtil.saveDataToLoacl("isLogin", true);
-            setResult(RESULT_OK);
-            finish();
+            if (formLogout) {
+                String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+                Intent intent = new Intent();
+                if (Constant.module.ApplyJobs.toString().equals(defaultModule)) {
+                    // 全职
+                    intent.setClassName(this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
+                } else if (Constant.module.Lanling.toString().equals(defaultModule)) {
+                    // 蓝领
+                    intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+                }
+                intent.putExtra("pageIndex", 3); // 返回到个人中心
+                startActivity(intent);
+                finish();
+                return;
+            } else {
+                setResult(RESULT_OK);
+                finish();
+            }
         }
     }
 
@@ -223,5 +258,24 @@ public class LoginActivity extends BaseActivity
     protected void initData()
     {
         tag = getIntent().getStringExtra("tag");
+    }
+
+    @Override
+    protected void back() {
+        if (formLogout) {
+            // 登录直接返回到改模块的首页
+            String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+            Intent intent = new Intent();
+            if (Constant.module.ApplyJobs.toString().equals(defaultModule)) {
+                // 全职
+                intent.setClassName(this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
+            } else if (Constant.module.Lanling.toString().equals(defaultModule)) {
+                // 蓝领
+                intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+            }
+            startActivity(intent);
+        } else {
+            super.back();
+        }
     }
 }

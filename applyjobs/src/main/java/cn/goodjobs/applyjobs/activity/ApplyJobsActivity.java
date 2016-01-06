@@ -17,6 +17,7 @@ import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.GoodJobsSettingActivity;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
+import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.baseclass.BaseFragmentPagerAdapter;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.fragemnt.PersonalCenterFragment;
@@ -37,7 +38,7 @@ public class ApplyJobsActivity extends BaseActivity {
 
     LinearLayout btnFooter1, btnFooter2, btnFooter3, btnFooter4, btnFooter;
     CustomViewPager viewPager;
-    public ArrayList<Fragment> fragmentList;
+    public ArrayList<BaseFragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +68,11 @@ public class ApplyJobsActivity extends BaseActivity {
         viewPager = (CustomViewPager) findViewById(R.id.viewPager);
         viewPager.setCanScroll(false);
 
-        fragmentList = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<BaseFragment>();
         fragmentList.add(new HomeFragment());
         fragmentList.add(new JobSearchFragment());
         fragmentList.add(new InfoCenterFragment());
         fragmentList.add(new PersonalCenterFragment());
-        fragmentList.add(new JobSearchFragment());
-        fragmentList.add(new InfoCenterFragment());
         BaseFragmentPagerAdapter fragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager());
         fragmentPagerAdapter.fragmentList = fragmentList;
         viewPager.setAdapter(fragmentPagerAdapter);
@@ -94,6 +93,17 @@ public class ApplyJobsActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int pageIndex = intent.getIntExtra("pageIndex", 0);
+        if (pageIndex == 0) {
+            onClick(btnFooter1);
+        } else if (pageIndex == 3) {
+            onClick(btnFooter4);
+            ((PersonalCenterFragment) fragmentList.get(3)).getDataFromServer();
+        }
+    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {

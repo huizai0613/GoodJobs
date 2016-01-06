@@ -26,6 +26,7 @@ public class URLS
 
     // 登录相关
     public final static String API_PERSON_LOGIN = "user/Login"; // 登录
+    public final static String API_USER_LOGOUT = "user/logout"; // 退出登录
 
     // 个人中心
     public final static String API_PERSON = "user/index"; // 个人中心
@@ -80,6 +81,15 @@ public class URLS
     public final static String API_USER_USERNAMEEDIT = "user/changenamesave";
     public final static String API_USER_MOBILECHECK = "user/mobilechecksms";
     public final static String API_USER_MOBILECHECK1 = "user/mobilecheck";
+
+    // 我的校园
+    public final static String CAMPUS_INDEX = "user/campus"; // 我的校园首页
+    public final static String CAMPUS_OUTBOX = "user/campusoutbox"; // 网申记录列表
+    public final static String CAMPUS_TALK = "user/campuscareertalk"; // 关注的宣讲会
+    public final static String CAMPUS_FAIR = "User/Campusjobfair"; // 关注的招聘会
+    public final static String CAMPUS_MSG = "User/Campusoperation"; // 通知信列表
+    public final static String CAMPUS_MSGSHOW = "User/Campusoperationshow"; // 通知信详情
+    public final static String CAMPUS_MSGDEL = "User/Campusoperationdel"; // 通知信删除
 
     public final static String API_JOB_ParttimeJob = "Parttime/List";      // 兼职列表
     public final static String API_JOB_ParttimeShow = "Parttime/Show";      // 兼职详情

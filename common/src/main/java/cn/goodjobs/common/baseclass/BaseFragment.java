@@ -37,7 +37,7 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
  */
 public class BaseFragment extends Fragment implements HttpResponseHandler, View.OnClickListener {
 
-    protected boolean isLoad; // 界面数据是否加载
+    public boolean isLoad; // 界面数据是否加载
     protected AutoScrollViewPager adViewPager;
     protected double adScale = 4;
     int scrollTime = 3000; // 广告3秒滚动一屏

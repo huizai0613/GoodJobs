@@ -1,31 +1,34 @@
 package cn.goodjobs.common.activity.personalcenter;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import cn.goodjobs.common.R;
-import cn.goodjobs.common.adapter.PersonalLookAdapter;
-import cn.goodjobs.common.baseclass.BaseListActivity;
 import cn.goodjobs.common.constants.URLS;
-import cn.goodjobs.common.util.http.HttpUtil;
-import cn.goodjobs.common.view.LoadingDialog;
-import cn.goodjobs.common.view.empty.EmptyLayout;
+import cn.goodjobs.common.util.JumpViewUtil;
 
 /**
  * 企业查看记录
  * */
 
-public class PersonalLookActivity extends BaseListActivity {
-
-    private EmptyLayout emptyLayout;
-    boolean hasMore; // 是否包含下一页
-
+public class PersonalLookActivity extends BasePersonalListActivity implements AdapterView.OnItemClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        adapterRes = R.layout.item_personal_look;
+        url = URLS.API_USER_CORPVIEWHISTORY;
+        delUrl = URLS.API_USER_CORPVIEWHISTORYDEL;
+        idKey = "id";
+        paramKey = "mailID";
+        resIDs = new int[]{R.id.tvTitle, R.id.tvTime};
+        keys = new String[]{"corpName", "logDate"};
         super.onCreate(savedInstanceState);
+        mListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -37,57 +40,15 @@ public class PersonalLookActivity extends BaseListActivity {
     protected void initWeight() {
         super.initWeight();
         setTopTitle("企业查看记录");
-        emptyLayout = (EmptyLayout) findViewById(R.id.empty_view);
-        mAdapter = new PersonalLookAdapter(this);
-        initList();
-        startRefresh();
     }
 
     @Override
-    protected void getDataFronServer() {
-        super.getDataFronServer();
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("page", page);
-        HttpUtil.post(URLS.API_USER_CORPVIEWHISTORY, params, this);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
+        Intent intent = new Intent();
+        intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobCompanyDetailActivity");
+        intent.putExtra("corpID", jsonObject.optInt("memCorpID"));
+        startActivity(intent);
     }
 
-    @Override
-    public void onSuccess(String tag, Object data) {
-        super.onSuccess(tag, data);
-        if (tag.equals(URLS.API_USER_CORPVIEWHISTORY)) {
-            JSONObject object = (JSONObject) data;
-            mAdapter.appendToList(object.optJSONArray("list"));
-            if (mAdapter.getCount() == 0) {
-                emptyLayout.setErrorType(EmptyLayout.NODATA);
-            }
-            hasMore = object.optInt("maxPage")>page;
-            loadMoreListViewContainer.loadMoreFinish(false, hasMore);
-            mPtrFrameLayout.refreshComplete();
-        }
-    }
-
-    @Override
-    public void onFailure(int statusCode, String tag) {
-        super.onFailure(statusCode, tag);
-        if (tag.equals(URLS.API_USER_CORPVIEWHISTORY)) {
-            if (mAdapter.getCount() == 0) {
-                emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-            }
-            loadMoreListViewContainer.loadMoreFinish(false, hasMore);
-            mPtrFrameLayout.refreshComplete();
-        }
-    }
-
-    @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
-        super.onError(errorCode, tag, errorMessage);
-        if (tag.equals(URLS.API_USER_CORPVIEWHISTORY)) {
-            if (mAdapter.getCount() == 0) {
-                emptyLayout.setErrorType(EmptyLayout.NODATA);
-                emptyLayout.setErrorMessage(errorMessage);
-            }
-            loadMoreListViewContainer.loadMoreFinish(false, hasMore);
-            mPtrFrameLayout.refreshComplete();
-        }
-    }
 }

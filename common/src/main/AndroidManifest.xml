@@ -51,6 +51,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activity.personalcenter.PersonalCollectionActivity"
+            android:label="@string/title_activity_personal_apply"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activity.personalcenter.PersonalInboxActivity"
             android:label="@string/title_activity_personal_inbox"
             android:screenOrientation="portrait" >
@@ -177,6 +182,10 @@
         <activity
             android:name=".activity.personalcenter.UpdateMobileActivity"
             android:label="@string/title_activity_update_mobile" >
+        </activity>
+        <activity
+            android:name=".activity.personalcenter.PersonalInboxDetailActivity"
+            android:label="@string/title_activity_personal_inbox_detail" >
         </activity>
     </application>
 

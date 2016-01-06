@@ -33,7 +33,6 @@
                 android:textColor="@color/main_color"
                 android:textColorHint="@color/light_color"
                 android:hint="请输入用户名"
-                android:text="18656098313"
                 android:background="@color/transparent"
                 android:paddingLeft="@dimen/padding_small"/>
             <ImageButton
@@ -65,7 +64,6 @@
                 android:layout_weight="1"
                 android:id="@+id/etPassword"
                 android:hint="请输入密码"
-                android:text="wanggang0508"
                 android:textColor="@color/main_color"
                 android:textColorHint="@color/light_color"
                 android:inputType="textPassword"

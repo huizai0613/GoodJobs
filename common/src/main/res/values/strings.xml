@@ -43,5 +43,6 @@
     <string name="title_activity_update_user_name">UpdateUserNameActivity</string>
     <string name="title_activity_update_password">UpdatePasswordActivity</string>
     <string name="title_activity_update_mobile">UpdateMobileActivity</string>
+    <string name="title_activity_personal_inbox_detail">PersonalInboxDetailActivity</string>
 
 </resources>
