@@ -91,11 +91,11 @@ public class HeadDetailsActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_recommend) {
-            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
-                return;
-            Intent intent = new Intent(this, RecommendActivity.class);
-            intent.putExtra("jobID", data.get(vp.getCurrentItem()));
-            startActivity(intent);
+            if (GoodJobsApp.getInstance().checkLogin(mcontext)) {
+                Intent intent = new Intent(this, RecommendActivity.class);
+                intent.putExtra("jobID", data.get(vp.getCurrentItem()));
+                startActivity(intent);
+            }
         } else if (v.getId() == R.id.btn_apply) {
             if (!GoodJobsApp.getInstance().checkLogin(mcontext))
                 return;
