@@ -2,7 +2,6 @@ package cn.goodjobs.applyjobs.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,10 +11,8 @@ import java.util.ArrayList;
 import cn.goodjobs.applyjobs.R;
 import cn.goodjobs.applyjobs.fragment.HomeFragment;
 import cn.goodjobs.applyjobs.fragment.InfoCenterFragment;
-import cn.goodjobs.applyjobs.fragment.JobCateFragment;
 import cn.goodjobs.applyjobs.fragment.JobSearchFragment;
 import cn.goodjobs.common.GoodJobsApp;
-import cn.goodjobs.common.activity.GoodJobsSettingActivity;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
