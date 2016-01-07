@@ -81,6 +81,8 @@ public class URLS
     public final static String API_USER_USERNAMEEDIT = "user/changenamesave";
     public final static String API_USER_MOBILECHECK = "user/mobilechecksms";
     public final static String API_USER_MOBILECHECK1 = "user/mobilecheck";
+    public final static String API_USER_REGISTERSMS = "user/registersms";
+    public final static String API_USER_REGISTERNEW = "user/registerNew";
 
     // 我的校园
     public final static String CAMPUS_INDEX = "user/campus"; // 我的校园首页

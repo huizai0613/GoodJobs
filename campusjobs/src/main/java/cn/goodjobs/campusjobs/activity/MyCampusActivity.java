@@ -61,8 +61,8 @@ public class MyCampusActivity extends BaseActivity {
         JSONObject jsonObject = (JSONObject) data;
         itemWangshen.setHint(jsonObject.optString("campusOutboxNum"));
         itemMessage.setHint(jsonObject.optString("campusOperationNum"));
-        itemXuanjianhui.setHint(jsonObject.optString("campusJobNum"));
-        itemzhaopin.setHint(jsonObject.optString("campusTalkNum"));
+        itemXuanjianhui.setHint(jsonObject.optString("campusTalkNum"));
+        itemzhaopin.setHint(jsonObject.optString("campusJobNum"));
     }
 
     @Override

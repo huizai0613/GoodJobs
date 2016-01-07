@@ -46,6 +46,7 @@ public class PersonalInboxActivity extends BasePersonalListActivity implements A
         JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
         Intent intent = new Intent(this, PersonalInboxDetailActivity.class);
         intent.putExtra("mailID", jsonObject.optString("mailID"));
+        intent.putExtra("corpID", jsonObject.optString("memCorpID"));
         startActivity(intent);
     }
 }
