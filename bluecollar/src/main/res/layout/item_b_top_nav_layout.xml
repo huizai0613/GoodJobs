@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+              android:layout_height="41dip"
               android:background="@drawable/lottery_list_selector_disabled_holo_light"
               android:orientation="vertical"
     >
@@ -9,16 +9,17 @@
     <TextView
         android:id="@+id/text"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dip"
+        android:ellipsize="end"
         android:gravity="center"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
+        android:singleLine="true"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/font_size_14"
+        android:textSize="@dimen/font_size_12"
         />
 
 
     <View
-        style="@style/line"/>
-
+        style="@style/line"
+        android:background="#cccccc"
+        />
 </LinearLayout>
