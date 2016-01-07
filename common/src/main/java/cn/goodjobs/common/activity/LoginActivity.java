@@ -177,7 +177,7 @@ public class LoginActivity extends BaseActivity
             if (Constant.module.ApplyJobs.toString().equals(defaultModule)) {
                 // 全职
                 intent.setClassName(this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
-            } else if (Constant.module.Xiaoyuan.toString().equals(defaultModule)) {
+            } else if (Constant.module.Lanling.toString().equals(defaultModule)) {
                 // 蓝领
                 intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
             }
