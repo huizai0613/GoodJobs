@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import cn.goodjobs.applyjobs.activity.ApplyJobsActivity;
+import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
 import cn.goodjobs.campusjobs.activity.CampusActivity;
 import cn.goodjobs.client.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
@@ -134,6 +135,8 @@ public class LauncherActivity extends BaseActivity {
                     intent.setClass(LauncherActivity.this, HeadHuntingActivity.class);
                 } else if (defaultModule.equals(Constant.module.Jianzhi.toString())) {
                     intent.setClass(LauncherActivity.this, PartTimeJobActivity.class);
+                } else if (defaultModule.equals(Constant.module.Lanling.toString())) {
+                    intent.setClass(LauncherActivity.this, BlueCollarActivity.class);
                 }
             }
             startActivity(intent);
