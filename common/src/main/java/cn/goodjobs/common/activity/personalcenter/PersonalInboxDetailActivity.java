@@ -1,5 +1,6 @@
 package cn.goodjobs.common.activity.personalcenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -61,13 +62,16 @@ public class PersonalInboxDetailActivity extends BaseActivity {
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
         JSONObject jsonObject = (JSONObject) data;
-        tvTime.setText("收件日期："+jsonObject.optString("time"));
+        tvCorpName.setText("单位名称："+jsonObject.optString("fromComName"));
+        tvTime.setText("收件日期："+jsonObject.optString("sendDate"));
         tvTitle.setText("信件标题："+jsonObject.optString("title"));
-        tvTime.setText("收件日期："+jsonObject.optString("time"));
         tvContent.setText(Html.fromHtml(jsonObject.optString("content")));
     }
 
     public void toCrop(View view) {
-
+        Intent intent = new Intent();
+        intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobCompanyDetailActivity");
+        intent.putExtra("corpID", getIntent().getStringExtra("corpID"));
+        startActivity(intent);
     }
 }

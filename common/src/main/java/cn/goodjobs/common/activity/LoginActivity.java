@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import cn.goodjobs.common.AndroidBUSBean;
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.personalcenter.RegisterActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.constants.URLS;
@@ -39,7 +40,7 @@ public class LoginActivity extends BaseActivity
     ProgressBar progressBar;
     RelativeLayout rlLogin;
     LoginInfo loginInfo;
-    TextView textView;
+    TextView textView, btnRegister;
 
     public static int LOGIN_REQUEST_CODE = 911;
     private String tag;
@@ -107,6 +108,7 @@ public class LoginActivity extends BaseActivity
         btnClearUser.setOnClickListener(this);
         btnClearPwd.setOnClickListener(this);
         rlLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +120,7 @@ public class LoginActivity extends BaseActivity
         btnClearUser = (ImageButton) findViewById(R.id.btnClearUser);
         btnClearPwd = (ImageButton) findViewById(R.id.btnClearPwd);
         textView = (TextView) findViewById(R.id.textview);
+        btnRegister = (TextView) findViewById(R.id.btnRegister);
         checkbox = (CheckBox) findViewById(R.id.checkbox);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         rlLogin = (RelativeLayout) findViewById(R.id.rlLogin);
@@ -142,6 +145,9 @@ public class LoginActivity extends BaseActivity
             if (validate()) {
                 login();
             }
+        } else if (v.getId() == R.id.btnRegister) {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
         }
     }
 

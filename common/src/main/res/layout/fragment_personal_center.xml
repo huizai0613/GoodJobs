@@ -162,7 +162,7 @@
                 <View style="@style/line"/>
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -179,7 +179,7 @@
                     listitem:showLine="false"
                     listitem:tvtitle="个人搜索器"/>
                 <View style="@style/line"/>
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"

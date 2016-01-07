@@ -22,6 +22,9 @@ public class ZhaopinhuiActivity extends BasePersonalListActivity implements Adap
     protected void onCreate(Bundle savedInstanceState) {
         adapterRes = R.layout.item_xuanjianghui;
         url = URLS.CAMPUS_FAIR;
+        delUrl = URLS.API_JOB_Jobfairfollow;
+        idKey = "fairID";
+        paramKey = "fairID";
         resIDs = new int[]{R.id.tvTitle, R.id.tvTime, R.id.tvAddress};
         keys = new String[]{"corpName", "schoolAddress", "pubDate"};
         super.onCreate(savedInstanceState);

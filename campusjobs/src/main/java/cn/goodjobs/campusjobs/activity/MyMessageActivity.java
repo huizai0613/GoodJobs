@@ -25,7 +25,7 @@ public class MyMessageActivity extends BasePersonalListActivity implements Adapt
         idKey = "messageID";
         paramKey = "messageID";
         resIDs = new int[]{R.id.tvTitle, R.id.tvTime, R.id.tvContent, R.id.tvStatus};
-        keys = new String[]{"title", "saveDate", "corpName", "readHas"};
+        keys = new String[]{"title", "saveDate", "corpName", "readName"};
         textStatus = new PersonalListAdapter.TextStatus(new String[]{"readHas"}, new int[]{3}, new String[]{"1"});
         super.onCreate(savedInstanceState);
         mListView.setOnItemClickListener(this);
