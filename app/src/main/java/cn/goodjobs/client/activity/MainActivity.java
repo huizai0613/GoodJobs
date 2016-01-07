@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.goodjobs.applyjobs.activity.ApplyJobsActivity;
+import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
 import cn.goodjobs.campusjobs.activity.CampusActivity;
 import cn.goodjobs.client.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
@@ -166,7 +167,7 @@ public class MainActivity extends BaseActivity
         menuEntity.scale = 0.4f;
         menuEntity.title = "蓝领招聘";
         menuEntity.content = "站着工作，你的辛勤付出必有丰厚回报。";
-        menuEntity.toClass = ApplyJobsActivity.class;
+        menuEntity.toClass = BlueCollarActivity.class;
         menuEntity.imgW = DensityUtil.dip2px(this, 40);
         menuEntity.imgH = DensityUtil.dip2px(this, 66);
         menuEntitys.add(menuEntity);

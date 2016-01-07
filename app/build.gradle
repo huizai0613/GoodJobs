@@ -27,4 +27,5 @@ dependencies {
     compile project(':parttimejobs')
     compile project(':headhuntingjob')
     compile project(':campusjobs')
+    compile project(':bluecollar')
 }

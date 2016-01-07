@@ -1,1 +1,1 @@
-include ':app', ':common', ':applyjobs', ':ptr-lib', ':parttimejobs', ':headhuntingjob', ':campusjobs'
+include ':app', ':common', ':applyjobs', ':ptr-lib', ':parttimejobs', ':headhuntingjob', ':campusjobs', ':bluecollar'

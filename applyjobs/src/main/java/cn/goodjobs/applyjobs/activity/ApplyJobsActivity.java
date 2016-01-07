@@ -175,7 +175,7 @@ public class ApplyJobsActivity extends BaseActivity
         switch (tag) {
             case 0:
                 // 蓝领
-                intent.setClassName(this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+                intent.setClassName(this, "cn.goodjobs.bluecollar.activity.BlueCollarActivity");
                 break;
             case 1:
                 // 猎聘
