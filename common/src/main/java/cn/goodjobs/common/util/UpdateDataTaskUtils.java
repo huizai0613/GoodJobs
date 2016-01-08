@@ -33,6 +33,7 @@ public class UpdateDataTaskUtils
 
     public static final String SEARCHJOB = "searchjob";
     public static final String CAMPUSJOB = "campusJob";
+    public static final String BLUEJOB = "blueJob";
 
 
     private static ExecutorService mBackgroundThreadPool;

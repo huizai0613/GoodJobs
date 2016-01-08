@@ -96,9 +96,11 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         }
 
         String dataFromLoacl = SharedPrefUtil.getDataFromLoacl(getContext(), LASTSELECT);
-        if (StringUtil.isEmpty(dataFromLoacl))
-            dataFromLoacl = "0";
-        toolsViews[Integer.parseInt(dataFromLoacl)].performClick();
+        if (!StringUtil.isEmpty(dataFromLoacl)) {
+            toolsViews[Integer.parseInt(dataFromLoacl)].performClick();
+        } else {
+            changeTextColor(0);
+        }
 
     }
 
@@ -107,6 +109,8 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         @Override
         public void onClick(View v)
         {
+            changeTextColor(v.getId());
+            changeTextLocation(v.getId());
             SharedPrefUtil.saveDataToLoacl(LASTSELECT, v.getId());
             jobsPager.setCurrentItem(v.getId());
         }
