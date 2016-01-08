@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -18,12 +19,14 @@ import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
+import cn.goodjobs.common.view.VerCode;
 import cn.goodjobs.common.view.searchItem.InputItemView;
 
 public class UpdateMobileActivity extends BaseActivity {
 
-    InputItemView itemOldMobile,itemVerCode;
+    InputItemView itemOldMobile,itemVerCode, itemImgCode;
     TextView btnVerCode;
+    ImageView imgCode;
     int min = 60; // 60秒后获取验证码
     Handler mHandler;
 
@@ -48,10 +51,24 @@ public class UpdateMobileActivity extends BaseActivity {
         setTopTitle("修改手机号");
         itemOldMobile = (InputItemView) findViewById(R.id.itemOldMobile);
         itemVerCode = (InputItemView) findViewById(R.id.itemVerCode);
+        itemImgCode = (InputItemView) findViewById(R.id.itemImgCode);
         btnVerCode = (TextView) findViewById(R.id.btnVerCode);
+        imgCode = (ImageView) findViewById(R.id.imgCode);
         itemOldMobile.setEditGravityLeft();
         itemVerCode.setEditGravityLeft();
-        itemOldMobile.setText(GoodJobsApp.getInstance().personalInfo.optString("mb"));
+        itemImgCode.setEditGravityLeft();
+//        itemOldMobile.setText(GoodJobsApp.getInstance().personalInfo.optString("mb"));
+
+        changImageCode();
+    }
+
+    public void changeVerCode(View view) {
+        changImageCode();
+    }
+
+    // 变换图形验证码
+    private void changImageCode() {
+        imgCode.setImageBitmap(VerCode.getInstance().getBitmap());
     }
 
     @Override
@@ -60,11 +77,15 @@ public class UpdateMobileActivity extends BaseActivity {
     }
 
     public void getVerCode(View view) {
-        if (itemOldMobile.isEmpty()) {
+        if (itemOldMobile.isEmpty() || itemImgCode.isEmpty()) {
             return;
         }
         if (!StringUtil.isPhone(itemOldMobile.getText())) {
             TipsUtil.show(this, "您输入的手机号码格式不正确");
+            return;
+        }
+        if (itemImgCode.getText().toLowerCase().equals(VerCode.getInstance().getCode().toLowerCase())) {
+            TipsUtil.show(this, "您的图形验证码输入有误");
             return;
         }
         HashMap<String, Object> params = new HashMap<String, Object>();

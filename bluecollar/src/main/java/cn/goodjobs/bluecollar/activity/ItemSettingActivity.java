@@ -6,10 +6,11 @@ import android.view.View;
 import android.widget.Button;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
+import cn.goodjobs.common.activity.personalcenter.ResumeOpenSettingActivity;
 import cn.goodjobs.common.activity.personalcenter.UpdateMobileActivity;
 import cn.goodjobs.common.activity.personalcenter.UpdatePasswordActivity;
-import cn.goodjobs.common.activity.personalcenter.UpdateUserNameActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.TipsUtil;
@@ -23,7 +24,7 @@ import cn.goodjobs.common.view.searchItem.SearchItemView;
  */
 public class ItemSettingActivity extends BaseActivity {
 
-    SearchItemView itemPassword, itemMobile;
+    SearchItemView itemPassword, itemMobile, itemPublic;
     Button btnLogout;
     boolean isUpdate; // 是否修改
 
@@ -45,13 +46,21 @@ public class ItemSettingActivity extends BaseActivity {
     @Override
     protected void initWeight() {
         setTopTitle("设置");
+        itemPublic = (SearchItemView) findViewById(R.id.itemPublic);
         itemPassword = (SearchItemView) findViewById(R.id.itemPassword);
         itemMobile = (SearchItemView) findViewById(R.id.itemMobile);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         itemPassword.setOnClickListener(this);
+        itemPublic.setOnClickListener(this);
         itemMobile.setOnClickListener(this);
         btnLogout.setOnClickListener(this);
+
+        if (!GoodJobsApp.getInstance().isLogin()) {
+            btnLogout.setVisibility(View.INVISIBLE);
+        } else {
+            btnLogout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -71,6 +80,8 @@ public class ItemSettingActivity extends BaseActivity {
             LoadingDialog.showDialog(this);
             HttpUtil.post(URLS.API_USER_LOGOUT, this);
             return;
+        } else if (v.getId() == R.id.itemPublic) {
+            intent.setClass(this, ResumeOpenSettingActivity.class);
         }
         startActivityForResult(intent, 111);
     }
@@ -81,7 +92,6 @@ public class ItemSettingActivity extends BaseActivity {
         SharedPrefUtil.saveDataToLoacl("isLogin", false);
         TipsUtil.show(this, "" + data);
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra("formLogout", true);
         startActivityForResult(intent, 111);
         finish();
     }

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.ItemMoreActivity;
+import cn.goodjobs.bluecollar.activity.ItemResumeActivity;
 import cn.goodjobs.bluecollar.activity.ItemSettingActivity;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
@@ -138,16 +140,27 @@ public class BlueInfoCenterFragment extends BaseFragment {
     public void onClick(View v) {
         super.onClick(v);
         int i = v.getId();
+        Intent intent = new Intent();
         if (i == R.id.btn_login) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
+            intent.setClass(getActivity(), LoginActivity.class);
         } else if (i == R.id.myImageview) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
+            intent.setClass(getActivity(), LoginActivity.class);
         } else if (i == R.id.itemSetting) {
-            Intent intent = new Intent(getActivity(), ItemSettingActivity.class);
-            startActivity(intent);
+            intent.setClass(getActivity(), ItemSettingActivity.class);
+        } else if (i == R.id.itemMore) {
+            intent.setClass(getActivity(), ItemMoreActivity.class);
+        } else if (i == R.id.itemJianli) {
+            intent.setClass(getActivity(), ItemResumeActivity.class);
+        } else if (i == R.id.itemChakan) {
+            return;
+        } else if (i == R.id.itemShenqing) {
+            return;
+        } else if (i == R.id.itemCollection) {
+            return;
+        } else if (i == R.id.itemZhaoping) {
+            return;
         }
+        startActivity(intent);
     }
 
     @Override

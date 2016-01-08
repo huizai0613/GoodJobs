@@ -25,7 +25,7 @@ public class PersonalCollectionActivity extends BasePersonalListActivity impleme
         idKey = "fID";
         paramKey = "fID";
         resIDs = new int[]{R.id.tvJobname, R.id.tvAddress, R.id.tvCompany, R.id.tvStatus, R.id.tvTime};
-        keys = new String[]{"jobName", "cityName", "corpName", "jobStatus", "saveDate"};
+        keys = new String[]{"jobName", "cityName", "corpName", "applyName", "saveDate"};
         textStatus = new PersonalListAdapter.TextStatus(new String[]{"jobStatus", "corpStatus", "applyStatus"},
                 new int[]{0, 2, 3}, new String[]{"2", "2", "2"});
         super.onCreate(savedInstanceState);

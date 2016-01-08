@@ -30,6 +30,31 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
             <cn.goodjobs.common.view.searchItem.InputItemView
+                android:id="@+id/itemImgCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                listitem:tvtitle="图形码"
+                listitem:hint="请输入图形验证码"
+                listitem:inputtype="email"
+                listitem:showLine="false"/>
+
+            <ImageView
+                android:id="@+id/imgCode"
+                android:layout_width="80dip"
+                android:layout_height="35dip"
+                android:onClick="changeVerCode"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                android:layout_marginRight="@dimen/padding_small"/>
+        </LinearLayout>
+        <View style="@style/line" android:layout_marginLeft="@dimen/padding_default"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <cn.goodjobs.common.view.searchItem.InputItemView
                 android:id="@+id/itemVerCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -38,7 +38,7 @@ public class PersonalCenterFragment extends BaseFragment {
     SimpleDraweeView myImageview;
     TextView tvUsername, tvPhone, tvUpdatetime;
     ImageButton btnYanzheng, btnRefresh;
-    SearchItemView itemLogin,itemSetting, itemSousuo, itemMessage, itemCollection, itemShenqing, itemChakan, itemXiaoyuan, itemJianli;
+    SearchItemView itemLogin, itemSetting, itemMessage, itemCollection, itemShenqing, itemChakan, itemXiaoyuan, itemJianli;
 
     public PersonalCenterFragment() {
     }
@@ -64,7 +64,6 @@ public class PersonalCenterFragment extends BaseFragment {
         btnRefresh = (ImageButton) view.findViewById(R.id.btnRefresh);
         itemLogin = (SearchItemView) view.findViewById(R.id.itemLogin);
         itemSetting = (SearchItemView) view.findViewById(R.id.itemSetting);
-        itemSousuo = (SearchItemView) view.findViewById(R.id.itemSousuo);
         itemMessage = (SearchItemView) view.findViewById(R.id.itemMessage);
         itemCollection = (SearchItemView) view.findViewById(R.id.itemCollection);
         itemShenqing = (SearchItemView) view.findViewById(R.id.itemShenqing);
@@ -74,7 +73,6 @@ public class PersonalCenterFragment extends BaseFragment {
 
         itemLogin.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
-        itemSousuo.setOnClickListener(this);
         itemMessage.setOnClickListener(this);
         itemCollection.setOnClickListener(this);
         itemShenqing.setOnClickListener(this);
@@ -127,7 +125,7 @@ public class PersonalCenterFragment extends BaseFragment {
         } else {
             btnYanzheng.setImageResource(R.drawable.yyz);
         }
-        itemJianli.setHint(GoodJobsApp.getInstance().personalInfo.optString("viewHistoryCount")+"次被浏览");
+        itemJianli.setHint(GoodJobsApp.getInstance().personalInfo.optString("viewHistoryCount") + "次被浏览");
         itemSetting.setHint(GoodJobsApp.getInstance().personalInfo.optString("pubLevel"));
     }
 

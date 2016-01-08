@@ -77,7 +77,6 @@
                         fresco:placeholderImageScaleType="fitCenter"
                         fresco:roundedCornerRadius="4dp" />
 
-
                     <LinearLayout
                         android:id="@+id/ll_show"
                         android:layout_width="match_parent"

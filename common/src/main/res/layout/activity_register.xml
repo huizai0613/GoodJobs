@@ -1,0 +1,144 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white">
+
+        <View style="@style/line"/>
+
+        <cn.goodjobs.common.view.searchItem.InputItemView
+            android:id="@+id/itemOldMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            listitem:tvtitle="手机号"
+            listitem:hint="请输入手机号"
+            listitem:inputtype="number"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <cn.goodjobs.common.view.searchItem.InputItemView
+                android:id="@+id/itemImgCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                listitem:tvtitle="图形码"
+                listitem:hint="请输入图形验证码"
+                listitem:inputtype="email"
+                listitem:showLine="false"/>
+
+            <ImageView
+                android:id="@+id/imgCode"
+                android:layout_width="80dip"
+                android:layout_height="36dip"
+                android:onClick="changeVerCode"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                android:layout_marginRight="@dimen/padding_small"/>
+        </LinearLayout>
+        <View style="@style/line" android:layout_marginLeft="@dimen/padding_default"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <cn.goodjobs.common.view.searchItem.InputItemView
+                android:id="@+id/itemVerCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                listitem:tvtitle="验证码"
+                listitem:hint="请输入手机验证码"
+                listitem:inputtype="email"
+                listitem:showLine="false"/>
+
+            <TextView
+                android:id="@+id/btnVerCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取验证码"
+                android:onClick="getVerCode"
+                android:clickable="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small"
+                android:padding="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_small"
+                android:background="@drawable/button_bg"/>
+        </LinearLayout>
+
+        <View style="@style/line" android:layout_marginLeft="@dimen/padding_default"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <cn.goodjobs.common.view.searchItem.InputItemView
+                android:id="@+id/itemPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                listitem:tvtitle="密    码"
+                listitem:hint="密码不少于8位"
+                listitem:inputtype="email"
+                listitem:showLine="false"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="80dip"
+                android:layout_height="36dip"
+                android:checkedButton="@+id/radio0"
+                android:orientation="horizontal"
+                android:layout_marginRight="@dimen/padding_small"
+                android:background="@drawable/radio_blue_bg">
+                <RadioButton
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="..."
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@drawable/radio_text"
+                    android:gravity="center"
+                    android:id="@+id/radio0"
+                    android:background="@drawable/radio_left_bg"
+                    android:button="@null"/>
+                <RadioButton
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="abc"
+                    android:textSize="@dimen/text_small"
+                    android:textColor="@drawable/radio_text"
+                    android:gravity="center"
+                    android:id="@+id/radio1"
+                    android:background="@drawable/radio_right_bg"
+                    android:button="@null"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <View style="@style/line"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_margin="@dimen/padding_default"
+        android:text="注册"
+        android:onClick="doRegister"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default"
+        android:background="@drawable/button_bg"/>
+</LinearLayout>
+
