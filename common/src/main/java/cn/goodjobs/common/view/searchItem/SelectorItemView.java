@@ -194,6 +194,25 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         return sb.toString();
     }
 
+
+    public String getSelectorPraentIds()
+    {
+        if (!isInit && !StringUtil.isEmpty(sID)) {
+            return sID;
+        }
+        if (selectedItems == null || selectedItems.size() == 0) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (SelectorEntity selectorEntity : selectedItems) {
+            if (sb.length() > 0) {
+                sb.append(",");
+            }
+            sb.append(selectorEntity.parentId.split(spitStr)[1]);
+        }
+        return sb.toString();
+    }
+
     public String getSelectorName()
     {
         if (selectedItems == null || selectedItems.size() == 0) {

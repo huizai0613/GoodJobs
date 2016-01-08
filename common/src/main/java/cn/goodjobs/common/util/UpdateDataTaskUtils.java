@@ -29,6 +29,7 @@ public class UpdateDataTaskUtils
     public static final int MOREDATA = 2;
     public static final int COMPANYDATA = 3;
     public static final int CAMPUSMOREDATA = 4;
+    public static final int JOBTYPEDATA = 5;
 
 
     public static final String SEARCHJOB = "searchjob";
@@ -358,6 +359,41 @@ public class UpdateDataTaskUtils
 
     }
 
+    //岗位小类
+    public static void selectJobType(final Context context, final String cateStr, final OnGetDiscussJobTypeListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try {
+                    JSONObject salaryObject = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBFUNCL2);
+                    JSONArray jobTypeArray = salaryObject.optJSONArray(cateStr);
+                    ArrayList<JSONObject> jsonObjects = new ArrayList<JSONObject>();
+                    for (int i = 0; i < jobTypeArray.length(); i++) {
+                        if (jobTypeArray.optJSONObject(i).optString("name").equals("不限") || jobTypeArray.optJSONObject(i).optString("name").equals("全部")) {
+                            continue;
+                        }
+                        jsonObjects.add(jobTypeArray.optJSONObject(i));
+                    }
+                    JSONObject jsonSalaryObject = new JSONObject();
+                    jsonSalaryObject.put("name", "不限");
+
+                    jsonSalaryObject.put("id", 0);
+
+                    jsonObjects.add(0, jsonSalaryObject);
+
+                    if (listener != null)
+                        listener.onGetDiscussJobTypeo(jsonObjects);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
 
     public static void cleanHistory(Context context, String key)
     {
@@ -600,6 +636,11 @@ public class UpdateDataTaskUtils
     public interface OnGetDiscussSalaryInfoListener
     {
         void onGetDiscussSalaryInfo(List<JSONObject> salaryData);
+    }
+
+    public interface OnGetDiscussJobTypeListener
+    {
+        void onGetDiscussJobTypeo(List<JSONObject> jobTypeyData);
     }
 
     public interface OnGetDiscussJobFunListener

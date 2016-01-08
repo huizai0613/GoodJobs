@@ -1,4 +1,4 @@
-package cn.goodjobs.applyjobs.activity.jobSearch;
+package cn.goodjobs.bluecollar.activity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -7,25 +7,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import cn.goodjobs.applyjobs.R;
-import cn.goodjobs.applyjobs.activity.jobSearch.adapter.JobSearchResultAdapter;
-import cn.goodjobs.applyjobs.adapter.HeaderDetailsAdapter;
+import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.adapter.BlueJobSearchResultAdapter;
 import cn.goodjobs.common.GoodJobsApp;
-import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseListActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
@@ -39,18 +34,14 @@ import cn.goodjobs.common.util.bdlocation.MyLocationListener;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
-import cn.goodjobs.common.view.ExpandTab.DoubleListView;
 import cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView;
-import cn.goodjobs.common.view.ExpandTab.SingleListView;
 import cn.goodjobs.common.view.ExpandTabSuper.SingleLevelMenuView;
 import cn.goodjobs.common.view.ExpandTabSuper.TwoLevelMenuView;
-import cn.goodjobs.common.view.empty.EmptyLayout;
-import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 
 /**
  * Created by yexiangyu on 15/12/23.
  */
-public class JobSearchResultActivity extends BaseListActivity implements UpdateDataTaskUtils.OnGetDiscussCityInfoListener, UpdateDataTaskUtils.OnGetDiscussSalaryInfoListener, UpdateDataTaskUtils.OnGetDiscussMoreInfoListener
+public class BlueJobSearchResultActivity extends BaseListActivity implements UpdateDataTaskUtils.OnGetDiscussJobTypeListener, UpdateDataTaskUtils.OnGetDiscussCityInfoListener, UpdateDataTaskUtils.OnGetDiscussSalaryInfoListener, UpdateDataTaskUtils.OnGetDiscussMoreInfoListener
 
 {
 
@@ -95,7 +86,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                     twoCate.put("1", twoCate_two);
                     cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
 
-                    LocationUtil.newInstance(JobSearchResultActivity.this.getApplication()).startLoction(new MyLocationListener()
+                    LocationUtil.newInstance(BlueJobSearchResultActivity.this.getApplication()).startLoction(new MyLocationListener()
                     {
                         @Override
                         public void loaction(MyLocation location)
@@ -138,6 +129,20 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                     salaryInfo.setValue(linkMap, itemSalaryId != null ? itemSalaryId : "");
 
                     break;
+                case UpdateDataTaskUtils.JOBTYPEDATA:
+                    ArrayList<JSONObject> jobobjs = (ArrayList<JSONObject>) msg.obj;
+                    LinkedHashMap<String, String> jobMap = new LinkedHashMap<String, String>();
+                    for (int i = 0; i < jobobjs.size(); i++) {
+                        try {
+                            jobMap.put(jobobjs.get(i).getString("id"), jobobjs.get(i).getString("name"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    jobType.setValue(jobMap, itemSalaryId != null ? itemSalaryId : "");
+
+                    break;
                 case UpdateDataTaskUtils.MOREDATA:
                     Map<String, List<JSONObject>> objMore = (Map<String, List<JSONObject>>) msg.obj;
                     Set<Map.Entry<String, List<JSONObject>>> entries = objMore.entrySet();
@@ -169,6 +174,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     };
     private TwoLevelMenuView cityInfo;
     private SingleLevelMenuView salaryInfo;
+    private SingleLevelMenuView jobType;
     private TwoLevelMenuView moreInfo;
     private List<JSONObject> cityData;
     private List<JSONObject> salaryData;
@@ -179,6 +185,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     private ArrayList<String> values;
 
     private boolean isCur;
+    private boolean isMuCheck;
 
 
     private String searchKeyWorld;
@@ -207,17 +214,31 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     private LinearLayout bottomBar;
     private String searchName;
     private String searchID;
+    private String itemJobfuncPrantId;
+    private List<JSONObject> jobTypeyData;
 
 
     @Override
     protected int getLayoutID()
     {
-        return R.layout.activity_searchresult;
+        return R.layout.activity_bluesearchresult;
     }
 
     @Override
     protected void initWeightClick()
     {
+
+        etvMenu.setmOnExpandTabDismissListener(new ExpandTabView.OnExpandTabDismissListener()
+        {
+            @Override
+            public void expandTabDismiss(int position)
+            {
+                if (position == 2 && isMuCheck) {
+                    startRefresh();
+                    isMuCheck = false;
+                }
+            }
+        });
 
 
         //区域选择
@@ -229,7 +250,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                 if (firstLevelKey.equals("0")) {
                     isCur = false;
                     if (isPro && !secondLevelKey.equals("0")) {
-                        UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), JobSearchResultActivity.this);
+                        UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), BlueJobSearchResultActivity.this);
                         isPro = false;
                     }
                     itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
@@ -305,7 +326,8 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                         corpkindId = entry.getValue();
                     }
                 }
-                startRefresh();
+                isMuCheck = true;
+
             }
         });
 
@@ -314,14 +336,15 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     @Override
     protected void initWeight()
     {
-        mAdapter = new JobSearchResultAdapter(this);
-        ((JobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
+        mAdapter = new BlueJobSearchResultAdapter(this);
+        ((BlueJobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
         initList();
         etvMenu = (ExpandTabView) findViewById(R.id.etv_menu);
         bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
 
         cityInfo = new TwoLevelMenuView(mcontext);
         salaryInfo = new SingleLevelMenuView(mcontext);
+        jobType = new SingleLevelMenuView(mcontext);
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
         HashMap<String, String> multiCheckMap = new HashMap<>();
@@ -345,16 +368,19 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
         ArrayList<String> strings = new ArrayList<>();
         strings.add("区域筛选");
+        strings.add(itemJobfunc);
         strings.add(StringUtil.isEmpty(itemSalary) ? "薪资要求" : itemSalary);
         strings.add("更多筛选");
 
         ArrayList<View> views = new ArrayList<>();
         views.add(cityInfo);
+        views.add(jobType);
         views.add(salaryInfo);
         views.add(moreInfo);
 
         ArrayList<Integer> integers = new ArrayList<Integer>();
         int i = DensityUtil.dip2px(mcontext, 45);
+        integers.add(5 * i);
         integers.add(5 * i);
         integers.add(5 * i);
         integers.add(5 * i);
@@ -478,6 +504,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         itemAddressId = getIntent().getStringExtra("itemAddressId");
         itemSalaryId = getIntent().getStringExtra("itemSalaryId");
         itemJobfuncId = getIntent().getStringExtra("itemJobfuncId");
+        itemJobfuncPrantId = getIntent().getStringExtra("jobpraentId");
         itemIndtypeId = getIntent().getStringExtra("itemIndtypeId");
         itemWorktimeId = getIntent().getStringExtra("itemWorktimeId");
         itemDegreeId = getIntent().getStringExtra("itemDegreeId");
@@ -493,6 +520,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         }
         UpdateDataTaskUtils.selectSalaryInfo(this, this);
         UpdateDataTaskUtils.selectMoreInfo(this, this);
+        UpdateDataTaskUtils.selectJobType(this, itemJobfuncPrantId, this);
 
 
     }
@@ -519,6 +547,17 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
     @Override
+    public void onGetDiscussJobTypeo(List<JSONObject> jobTypeyData)
+    {
+        Message message = new Message();
+        message.what = UpdateDataTaskUtils.JOBTYPEDATA;
+        message.obj = jobTypeyData;
+        this.jobTypeyData = jobTypeyData;
+        handler.sendMessage(message);
+    }
+
+
+    @Override
     public void onGetDiscussMoreInfo(Map<String, List<JSONObject>> MoreData)
     {
         Message message = new Message();
@@ -534,12 +573,11 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         bottomBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
-
     @Override
     public void onClick(View v)
     {
         super.onClick(v);
-        ArrayList<Integer> checkPosition = ((JobSearchResultAdapter) mAdapter).getCheckPosition();
+        ArrayList<Integer> checkPosition = ((BlueJobSearchResultAdapter) mAdapter).getCheckPosition();
         List<JSONObject> list = mAdapter.getList();
         StringBuilder builder = new StringBuilder();
 
@@ -615,4 +653,5 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
             });
         }
     }
+
 }

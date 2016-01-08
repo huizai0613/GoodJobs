@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <include layout="@layout/actionbar"/>
+
+
+    <cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView
+        android:id="@+id/etv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"></cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/etv_menu"
+        android:background="@color/line_color"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_store"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="收藏"
+                android:textColor="@color/light_color"
+                android:textSize="@dimen/font_size_14"/>
+
+            <TextView
+                android:id="@+id/item_send"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/topbar_bg"
+                android:gravity="center"
+                android:text="发送简历"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18"/>
+
+        </LinearLayout>
+
+
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/load_more_list_view_ptr_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_bar">
+
+            <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
+                android:id="@+id/load_more_list_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:cacheColorHint="@color/transparent"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none"/>
+
+            </in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer>
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+        <cn.goodjobs.common.view.empty.EmptyLayout
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+    </RelativeLayout>
+</LinearLayout>

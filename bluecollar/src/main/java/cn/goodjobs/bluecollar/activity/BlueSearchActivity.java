@@ -26,6 +26,7 @@ import java.util.Set;
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
@@ -200,7 +201,7 @@ public class BlueSearchActivity extends BaseActivity
             }
             LinkedHashMap searchHashMap = getSearchHashMap();
             saveSearchLock(history, searchHashMap);
-//            JumpViewUtil.openActivityAndParam(this, CampusSearchResultActivity.class, searchHashMap);
+            JumpViewUtil.openActivityAndParam(this, BlueJobSearchResultActivity.class, searchHashMap);
         } else if (i == R.id.tv_clear) {
             tvClear.setVisibility(View.GONE);
             history.clear();
@@ -270,6 +271,7 @@ public class BlueSearchActivity extends BaseActivity
     {
         String addId = (String) itemAddress.getTag();
         String jobId = (String) itemJobfunc.getTag();
+        String jobpraentId = (String) itemJobfunc.getSelectorPraentIds();
         String indId = (String) itemBenefit.getTag();
         String salId = (String) itemSalary.getTag();
 
@@ -282,6 +284,7 @@ public class BlueSearchActivity extends BaseActivity
                 jobId = jobId.split("#")[1];
             }
             hashMap.put("itemJobfuncId", jobId);
+            hashMap.put("jobpraentId", jobpraentId);
         }
         if (!StringUtil.isEmpty(indId)) {
             hashMap.put("itemBenefitId", indId);

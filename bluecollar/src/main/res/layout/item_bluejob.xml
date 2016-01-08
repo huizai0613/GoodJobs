@@ -7,8 +7,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dip"
-        android:layout_marginLeft="@dimen/padding_small"
+        android:layout_height="100dip"
+        android:layout_marginLeft="@dimen/padding_default"
         android:layout_marginRight="@dimen/space_10"
         android:orientation="horizontal"
         android:paddingTop="@dimen/padding_small">
@@ -123,7 +123,7 @@
 
                 <ImageView
                     android:id="@+id/item_vip"
-                    android:layout_width="20dip"
+                    android:layout_width="15dip"
                     android:layout_height="15dip"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/padding_small"
@@ -139,5 +139,6 @@
 
     <View
         style="@style/line"
+        android:layout_marginLeft="@dimen/padding_default"
         ></View>
 </LinearLayout>
