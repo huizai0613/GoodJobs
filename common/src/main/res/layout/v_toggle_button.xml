@@ -19,7 +19,7 @@
         android:textColor="@drawable/choose_button_selector"
         android:textOff="@null"
         android:textOn="@null"
-        android:textSize="@dimen/font_size_14">
+        android:textSize="@dimen/text_small">
 
     </ToggleButton>
 </RelativeLayout>

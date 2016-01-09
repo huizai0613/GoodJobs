@@ -46,6 +46,7 @@ public class BlueSearchActivity extends BaseActivity
     private Map<Long, Map<String, String>> history;
     private SelectorItemView itemAddress;
     private SelectorItemView itemJobfunc;
+    private SelectorItemView itemSalary;
     private SelectorItemView itemBenefit;
     private ImageButton btnClear;
     private EditText etSearch;
@@ -57,7 +58,6 @@ public class BlueSearchActivity extends BaseActivity
     private TextView tvClear;
     private boolean isLoad;
     private MyLocation myLocation;
-    private SelectorItemView itemSalary;
     private String sal;
 
 
@@ -280,9 +280,6 @@ public class BlueSearchActivity extends BaseActivity
             hashMap.put("itemAddressId", addId);
         }
         if (!StringUtil.isEmpty(jobId)) {
-            if (jobId.startsWith("-1")) {
-                jobId = jobId.split("#")[1];
-            }
             hashMap.put("itemJobfuncId", jobId);
             hashMap.put("jobpraentId", jobpraentId);
         }

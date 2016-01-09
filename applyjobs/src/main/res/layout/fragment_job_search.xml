@@ -27,13 +27,13 @@
 
         <ImageView
             android:id="@+id/clean"
-            android:padding="@dimen/space_10"
             android:layout_width="40dip"
             android:layout_height="40dip"
-            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_clear"/>
+            android:padding="@dimen/space_10"
+            android:src="@drawable/icon_clear"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <ScrollView
@@ -94,7 +94,7 @@
                     listitem:containAll="true"
                     listitem:hint="选择薪资要求"
                     listitem:singleSelected="true"
-                    listitem:source="salary"
+                    listitem:source="salary_expected"
                     listitem:tvtitle="薪资要求"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView

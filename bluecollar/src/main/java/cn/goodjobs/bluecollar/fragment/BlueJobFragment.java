@@ -223,7 +223,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
     }
 
     @Override
-    public void onGetDiscussSalaryInfo(Map<JSONObject, List<JSONObject>> JobFunData)
+    public void onGetDiscussJobFunInfo(Map<JSONObject, List<JSONObject>> JobFunData)
     {
         this.JobFunData = JobFunData;
         Set<Map.Entry<JSONObject, List<JSONObject>>> entries = JobFunData.entrySet();

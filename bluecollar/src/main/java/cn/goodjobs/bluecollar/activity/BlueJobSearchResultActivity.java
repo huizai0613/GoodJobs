@@ -28,6 +28,7 @@ import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.UpdateDataTaskUtils;
+import cn.goodjobs.common.util.UpdateDataTaskUtils.OnGetDiscussJobFunListener;
 import cn.goodjobs.common.util.bdlocation.LocationUtil;
 import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.bdlocation.MyLocationListener;
@@ -41,7 +42,7 @@ import cn.goodjobs.common.view.ExpandTabSuper.TwoLevelMenuView;
 /**
  * Created by yexiangyu on 15/12/23.
  */
-public class BlueJobSearchResultActivity extends BaseListActivity implements UpdateDataTaskUtils.OnGetDiscussJobTypeListener, UpdateDataTaskUtils.OnGetDiscussCityInfoListener, UpdateDataTaskUtils.OnGetDiscussSalaryInfoListener, UpdateDataTaskUtils.OnGetDiscussMoreInfoListener
+public class BlueJobSearchResultActivity extends BaseListActivity implements OnGetDiscussJobFunListener, UpdateDataTaskUtils.OnGetDiscussCityInfoListener, UpdateDataTaskUtils.OnGetDiscussSalaryInfoListener, UpdateDataTaskUtils.OnGetDiscussMoreInfoListener
 
 {
 
@@ -130,17 +131,48 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
 
                     break;
                 case UpdateDataTaskUtils.JOBTYPEDATA:
-                    ArrayList<JSONObject> jobobjs = (ArrayList<JSONObject>) msg.obj;
-                    LinkedHashMap<String, String> jobMap = new LinkedHashMap<String, String>();
-                    for (int i = 0; i < jobobjs.size(); i++) {
-                        try {
-                            jobMap.put(jobobjs.get(i).getString("id"), jobobjs.get(i).getString("name"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                    Map<JSONObject, List<JSONObject>> jobTypeyData = (Map<JSONObject, List<JSONObject>>) msg.obj;
+                    Map<Integer, String> parentCate = new LinkedHashMap<Integer, String>();
+                    Map<Integer, String> childCate = new LinkedHashMap<Integer, String>();
+
+                    Set<Map.Entry<JSONObject, List<JSONObject>>> entries1 = jobTypeyData.entrySet();
+                    Map<String, String> jobOneCate = new LinkedHashMap<String, String>();
+                    Map<String, Map<String, String>> joTwoCate = new LinkedHashMap<String, Map<String, String>>();
+                    int index = 0;
+                    for (Map.Entry<JSONObject, List<JSONObject>> jsonObjectListEntry : entries1) {
+                        JSONObject key = jsonObjectListEntry.getKey();
+                        parentCate.put(jsonObjectListEntry.getKey().optInt("id"), index + "");
+                        jobOneCate.put(index + "", key.optString("name"));
+                        List<JSONObject> value = jsonObjectListEntry.getValue();
+
+                        Map<String, String> joTwoCateChild = new LinkedHashMap<String, String>();
+                        for (int i = 0; i < value.size(); i++) {
+                            joTwoCateChild.put(i + "", value.get(i).optString("name"));
+                            childCate.put(value.get(i).optInt("id"), i + "");
                         }
+                        joTwoCate.put(index + "", joTwoCateChild);
+                        index++;
                     }
 
-                    jobType.setValue(jobMap, itemSalaryId != null ? itemSalaryId : "");
+
+                    String parentPos = "0";
+                    String childPos = "null";
+                    if (!StringUtil.isEmpty(itemJobfuncPrantId)) {
+                        if (itemJobfuncPrantId.startsWith("-1")) {
+                            parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId.split("#")[1]));
+                        } else {
+                            parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId));
+                        }
+                    }
+                    if (!StringUtil.isEmpty(itemJobfuncId)) {
+                        if (!itemJobfuncId.startsWith("-1")) {
+                            childPos = childCate.get(Integer.parseInt(itemJobfuncId));
+                        } else {
+                            childPos = "0";
+                        }
+                    }
+                    jobType.setValue(jobOneCate, joTwoCate, parentPos, childPos, new int[index]);
 
                     break;
                 case UpdateDataTaskUtils.MOREDATA:
@@ -150,21 +182,21 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
 
                     Map<String, String> oneCate1 = new TreeMap<String, String>();
                     Map<String, Map<String, String>> twoCate = new TreeMap<String, Map<String, String>>();
-                    int index = 0;
+                    int index1 = 0;
                     for (Map.Entry<String, List<JSONObject>> entry : entries) {
                         try {
-                            oneCate1.put(index + "", entry.getKey());
+                            oneCate1.put(index1 + "", entry.getKey());
                             LinkedHashMap<String, String> strings = new LinkedHashMap<>();
                             for (int i = 0; i < entry.getValue().size(); i++) {
                                 strings.put(entry.getValue().get(i).getString("id"), entry.getValue().get(i).getString("name"));
                             }
-                            twoCate.put(index + "", strings);
-                            index++;
+                            twoCate.put(index1 + "", strings);
+                            index1++;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
-                    moreInfo.setValue(oneCate1, twoCate, 0 + "", 0 + "", null);
+                    moreInfo.setValue(oneCate1, twoCate, 0 + "", itemBenefitId + "", null);
 
 
                     break;
@@ -174,7 +206,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
     };
     private TwoLevelMenuView cityInfo;
     private SingleLevelMenuView salaryInfo;
-    private SingleLevelMenuView jobType;
+    private TwoLevelMenuView jobType;
     private TwoLevelMenuView moreInfo;
     private List<JSONObject> cityData;
     private List<JSONObject> salaryData;
@@ -212,10 +244,10 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
     private TextView store;
     private TextView send;
     private LinearLayout bottomBar;
-    private String searchName;
-    private String searchID;
     private String itemJobfuncPrantId;
-    private List<JSONObject> jobTypeyData;
+    private Map<JSONObject, List<JSONObject>> jobTypeyData;
+    private String itemBenefit;
+    private String itemBenefitId;
 
 
     @Override
@@ -291,7 +323,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
             public void onSelected(String selectedKey, String showString)
             {
                 itemSalaryId = selectedKey;
-                etvMenu.setTitle(showString, 1);
+                etvMenu.setTitle(showString, 2);
                 startRefresh();
             }
         });
@@ -344,7 +376,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
 
         cityInfo = new TwoLevelMenuView(mcontext);
         salaryInfo = new SingleLevelMenuView(mcontext);
-        jobType = new SingleLevelMenuView(mcontext);
+        jobType = new TwoLevelMenuView(mcontext);
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
         HashMap<String, String> multiCheckMap = new HashMap<>();
@@ -368,8 +400,8 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
 
         ArrayList<String> strings = new ArrayList<>();
         strings.add("区域筛选");
-        strings.add(itemJobfunc);
-        strings.add(StringUtil.isEmpty(itemSalary) ? "薪资要求" : itemSalary);
+        strings.add(StringUtil.isEmpty(itemJobfunc) ? "选择岗位" : itemJobfunc);
+        strings.add(StringUtil.isEmpty(itemSalary) ? "工资要求" : itemSalary);
         strings.add("更多筛选");
 
         ArrayList<View> views = new ArrayList<>();
@@ -381,7 +413,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
         ArrayList<Integer> integers = new ArrayList<Integer>();
         int i = DensityUtil.dip2px(mcontext, 45);
         integers.add(5 * i);
-        integers.add(5 * i);
+        integers.add(8 * i);
         integers.add(5 * i);
         integers.add(5 * i);
         etvMenu.setValue(strings, views, integers);
@@ -447,13 +479,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
         if (!StringUtil.isEmpty(corpkindId))//企业性质
             Object.put("corpkind", corpkindId);
 
-        if (!StringUtil.isEmpty(searchName))//搜索器名称
-            Object.put("searchName", searchName);
-
-        if (!StringUtil.isEmpty(searchID))//搜索器ID
-            Object.put("searchID", searchID);
-
-
         HttpUtil.post(URLS.API_JOB_JobList, Object, this);
     }
 
@@ -500,6 +525,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
         itemIndtype = getIntent().getStringExtra("itemIndtype");
         itemWorktime = getIntent().getStringExtra("itemWorktime");
         itemDegree = getIntent().getStringExtra("itemDegree");
+        itemBenefit = getIntent().getStringExtra("itemBenefit");
 
         itemAddressId = getIntent().getStringExtra("itemAddressId");
         itemSalaryId = getIntent().getStringExtra("itemSalaryId");
@@ -508,8 +534,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
         itemIndtypeId = getIntent().getStringExtra("itemIndtypeId");
         itemWorktimeId = getIntent().getStringExtra("itemWorktimeId");
         itemDegreeId = getIntent().getStringExtra("itemDegreeId");
-        searchName = getIntent().getStringExtra("searchName");
-        searchID = getIntent().getStringExtra("searchID");
+        itemBenefitId = getIntent().getStringExtra("itemBenefitId");
 
         if (!StringUtil.isEmpty(itemAddressId) && itemAddressId.startsWith("-1")) {
             UpdateDataTaskUtils.selectProInfo(this, itemAddress, this);
@@ -519,8 +544,8 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
             UpdateDataTaskUtils.selectCityInfo(this, itemAddress, this);
         }
         UpdateDataTaskUtils.selectSalaryInfo(this, this);
-        UpdateDataTaskUtils.selectMoreInfo(this, this);
-        UpdateDataTaskUtils.selectJobType(this, itemJobfuncPrantId, this);
+        UpdateDataTaskUtils.selectJobFun(this, this);
+        UpdateDataTaskUtils.selecBluetMoreInfo(this, this);
 
 
     }
@@ -547,12 +572,12 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements Upd
     }
 
     @Override
-    public void onGetDiscussJobTypeo(List<JSONObject> jobTypeyData)
+    public void onGetDiscussJobFunInfo(Map<JSONObject, List<JSONObject>> JobFunData)
     {
         Message message = new Message();
         message.what = UpdateDataTaskUtils.JOBTYPEDATA;
-        message.obj = jobTypeyData;
-        this.jobTypeyData = jobTypeyData;
+        message.obj = JobFunData;
+        this.jobTypeyData = JobFunData;
         handler.sendMessage(message);
     }
 

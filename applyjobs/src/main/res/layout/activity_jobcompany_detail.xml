@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@color/window_background"
@@ -20,9 +21,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/space_10"
-                android:layout_marginRight="@dimen/space_10"
-                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
                 android:orientation="vertical">
 
                 <TextView
@@ -30,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="中国视频娱乐网"
-                    android:textColor="@color/black"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/font_size_14"
                     android:textStyle="bold"/>
 
@@ -47,14 +48,14 @@
                         android:layout_height="0dip"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:padding="@dimen/space_10">
+                        android:padding="@dimen/padding_small">
 
                         <TextView
                             android:layout_width="60dip"
                             android:layout_height="match_parent"
                             android:text="性质"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/text_small"/>
 
                         <TextView
                             android:id="@+id/com_nature"
@@ -63,8 +64,8 @@
                             android:layout_weight="3"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textColor="@color/light_color"
+                            android:textSize="@dimen/text_small"/>
 
                     </LinearLayout>
 
@@ -75,14 +76,14 @@
                         android:layout_weight="1"
                         android:background="#f9f9f9"
                         android:orientation="horizontal"
-                        android:padding="@dimen/space_10">
+                        android:padding="@dimen/padding_small">
 
                         <TextView
                             android:layout_width="60dip"
                             android:layout_height="match_parent"
                             android:text="人数"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/text_small"/>
 
                         <TextView
                             android:id="@+id/com_num"
@@ -91,8 +92,8 @@
                             android:layout_weight="3"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"
+                            android:textColor="@color/light_color"
+                            android:textSize="@dimen/text_small"
                             />
 
                     </LinearLayout>
@@ -103,14 +104,14 @@
                         android:layout_height="0dip"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:padding="@dimen/space_10">
+                        android:padding="@dimen/padding_small">
 
                         <TextView
                             android:layout_width="60dip"
                             android:layout_height="match_parent"
                             android:text="行业"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/text_small"/>
 
                         <TextView
                             android:id="@+id/com_industry"
@@ -119,8 +120,8 @@
                             android:layout_weight="3"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textColor="@color/light_color"
+                            android:textSize="@dimen/text_small"/>
 
                     </LinearLayout>
 
@@ -131,14 +132,14 @@
                         android:layout_weight="1"
                         android:background="#f9f9f9"
                         android:orientation="horizontal"
-                        android:padding="@dimen/space_10">
+                        android:padding="@dimen/padding_small">
 
                         <TextView
                             android:layout_width="60dip"
                             android:layout_height="match_parent"
                             android:text="地址"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/text_small"/>
 
                         <LinearLayout
                             android:layout_width="0dip"
@@ -152,17 +153,22 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_14"/>
+                                android:textColor="@color/light_color"
+                                android:textSize="@dimen/text_small"/>
 
-                            <TextView
-                                android:id="@+id/com_map"
+                            <cn.goodjobs.common.view.ExtendedTouchView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingBottom="@dimen/space_5"
-                                android:paddingTop="@dimen/space_5"
-                                android:text=" 查看地图"
-                                android:textColor="@color/black"/>
+                                app:touchHeight="40dip">
+
+                                <TextView
+                                    android:id="@+id/com_map"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text=" 查看地图"
+                                    android:textColor="@color/light_color"
+                                    android:textSize="@dimen/text_small"/>
+                            </cn.goodjobs.common.view.ExtendedTouchView>
 
                         </LinearLayout>
 
@@ -175,14 +181,14 @@
                         android:layout_height="0dip"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        android:padding="@dimen/space_10">
+                        android:padding="@dimen/padding_small">
 
                         <TextView
                             android:layout_width="60dip"
                             android:layout_height="match_parent"
                             android:text="电话"
                             android:textColor="@color/bule_low_color"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textSize="@dimen/text_small"/>
 
                         <TextView
                             android:id="@+id/com_phone"
@@ -190,8 +196,8 @@
                             android:layout_height="match_parent"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14"/>
+                            android:textColor="@color/light_color"
+                            android:textSize="@dimen/text_small"/>
 
                     </LinearLayout>
 
@@ -201,10 +207,11 @@
                 <LinearLayout
                     android:id="@+id/job_similar_box"
                     android:layout_width="match_parent"
-                    android:layout_height="40dip"
-                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
                     android:background="@drawable/list_item_bg"
                     android:orientation="vertical"
+                    android:padding="@dimen/padding_small"
                     android:visibility="visible">
 
                     <TextView
@@ -212,9 +219,8 @@
                         android:layout_height="match_parent"
                         android:drawableRight="@drawable/r_icon"
                         android:gravity="center_vertical"
-                        android:paddingLeft="@dimen/space_15"
                         android:text="招聘职位"
-                        android:textColor="@color/black"
+                        android:textColor="@color/bule_low_color"
                         android:textSize="@dimen/font_size_14"
                         />
                 </LinearLayout>
@@ -227,7 +233,7 @@
                     android:layout_marginTop="@dimen/space_10"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:padding="@dimen/padding_small">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -236,7 +242,7 @@
                         android:text="公司风采"
                         android:textColor="@color/bule_low_color"
                         android:textSize="@dimen/font_size_14"
-                        android:textStyle="bold"/>
+                        />
 
                     <cn.goodjobs.common.view.CustomHScrollView
                         android:layout_width="match_parent"
@@ -259,10 +265,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_10"
+                    android:layout_marginTop="@dimen/padding_small"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:padding="@dimen/space_15">
+                    android:padding="@dimen/padding_small">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -271,7 +277,7 @@
                         android:text="公司介绍"
                         android:textColor="@color/bule_low_color"
                         android:textSize="@dimen/font_size_14"
-                        android:textStyle="bold"/>
+                        />
 
 
                     <TextView
@@ -280,8 +286,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/space_10"
                         android:maxLines="5"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"></TextView>
+                        android:textColor="@color/light_color"
+                        android:textSize="@dimen/text_small"></TextView>
 
                     <ImageView
                         android:id="@+id/com_updown"
