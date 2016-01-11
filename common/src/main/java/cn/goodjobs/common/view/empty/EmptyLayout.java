@@ -39,6 +39,9 @@ public class EmptyLayout extends LinearLayout implements
     private String strNoDataContent = "";
     private TextView tv;
     private TextView tv_but;
+    private View loadBox;
+    private TextView tipTextView;
+    private ImageView loadImg;
 
     public EmptyLayout(Context context)
     {
@@ -88,9 +91,12 @@ public class EmptyLayout extends LinearLayout implements
     {
         View view = View.inflate(context, R.layout.view_error_layout, null);
         errorImg = (ImageView) view.findViewById(R.id.img_error_layout);
+        loadImg = (ImageView) view.findViewById(R.id.load_img);
         tv = (TextView) view.findViewById(R.id.tv_error_layout);
+        tipTextView = (TextView) view.findViewById(R.id.tipTextView);
         mLayout = (RelativeLayout) view.findViewById(R.id.pageerrLayout);
         animProgress = (ProgressBar) view.findViewById(R.id.animProgress);
+        loadBox = view.findViewById(R.id.load_box);
         setBackgroundColor(-1);
         setOnClickListener(this);
         errorImg.setOnClickListener(new View.OnClickListener()
@@ -205,6 +211,10 @@ public class EmptyLayout extends LinearLayout implements
 
     public void setErrorType(int i)
     {
+        loadBox.setBackgroundResource(android.R.color.transparent);
+        tipTextView.setVisibility(View.GONE);
+        loadImg.setVisibility(View.GONE);
+        tv.setVisibility(View.VISIBLE);
         setVisibility(View.VISIBLE);
         switch (i) {
             case NETWORK_ERROR:
@@ -222,11 +232,14 @@ public class EmptyLayout extends LinearLayout implements
                 clickEnable = true;
                 break;
             case NETWORK_LOADING:
+                tipTextView.setVisibility(View.VISIBLE);
+                loadImg.setVisibility(View.VISIBLE);
+                loadBox.setBackgroundResource(R.drawable.loading_dialog_bg);
                 mErrorState = NETWORK_LOADING;
                 // animProgress.setBackgroundDrawable(SkinsUtil.getDrawable(context,"loadingpage_bg"));
                 animProgress.setVisibility(View.VISIBLE);
                 errorImg.setVisibility(View.GONE);
-                tv.setText(R.string.error_view_loading);
+                tv.setVisibility(View.GONE);
                 clickEnable = false;
                 break;
             case NODATA:
@@ -267,6 +280,7 @@ public class EmptyLayout extends LinearLayout implements
 
     public void setTvNoDataContent()
     {
+        tv.setVisibility(View.VISIBLE);
         if (!strNoDataContent.equals(""))
             tv.setText(strNoDataContent);
         else

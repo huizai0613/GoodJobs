@@ -76,13 +76,26 @@ public class UpdateDataTaskUtils
                     JSONArray is = jobFun2Object.optJSONArray(jsonObject.optInt("id") + "");
 
                     for (int i1 = 0; i1 < is.length(); i1++) {
-                        jsonObjects.add(is.optJSONObject(i1));
+                        JSONObject jsonObject1 = is.optJSONObject(i1);
+                        if (jsonObject1.optString("name").equals("不限") || jsonObject1.optString("name").equals("全部")) {
+                            continue;
+                        }
+                        jsonObjects.add(jsonObject1);
                     }
+                    JSONObject jb = new JSONObject();
+                    try {
+                        jb.put("name", "不限");
+                        jb.put("id", 0);
+                        jsonObjects.add(0, jb);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     linkedHashMap.put(jsonObject, jsonObjects);
                 }
 
                 if (listener != null) {
-                    listener.onGetDiscussSalaryInfo(linkedHashMap);
+                    listener.onGetDiscussJobFunInfo(linkedHashMap);
                 }
 
             }
@@ -315,6 +328,57 @@ public class UpdateDataTaskUtils
                     linkedHashMap.put("工作经验", workObjects);
                     linkedHashMap.put("工作性质", corpkindbjects);
                     linkedHashMap.put("企业性质", corptypebjects);
+
+                    if (listener != null)
+                        listener.onGetDiscussMoreInfo(linkedHashMap);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    public static void selecBluetMoreInfo(final Context context, final OnGetDiscussMoreInfoListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try {
+                    JSONArray workArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.WELFARE);
+                    JSONArray jobArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.INDTYPE);
+                    ArrayList<JSONObject> workObjects = new ArrayList<JSONObject>();
+                    for (int i = 0; i < workArray.length(); i++) {
+                        if (workArray.optJSONObject(i).optString("name").equals("不限") || workArray.optJSONObject(i).optString("name").equals("全部")) {
+                            continue;
+                        }
+                        workObjects.add(workArray.optJSONObject(i));
+                    }
+                    JSONObject jsonWorkObject = new JSONObject();
+                    jsonWorkObject.put("name", "不限");
+                    jsonWorkObject.put("id", 0);
+                    workObjects.add(0, jsonWorkObject);
+
+                    ArrayList<JSONObject> corpkindbjects = new ArrayList<JSONObject>();
+                    for (int i = 0; i < jobArray.length(); i++) {
+                        if (jobArray.optJSONObject(i).optString("name").equals("不限") || jobArray.optJSONObject(i).optString("name").equals("全部")) {
+                            continue;
+                        }
+                        corpkindbjects.add(jobArray.optJSONObject(i));
+                    }
+                    JSONObject jsonCroObject = new JSONObject();
+                    jsonCroObject.put("name", "不限");
+                    jsonCroObject.put("id", 0);
+                    corpkindbjects.add(0, jsonCroObject);
+
+
+                    LinkedHashMap<String, List<JSONObject>> linkedHashMap = new LinkedHashMap();
+
+
+                    linkedHashMap.put("福利", workObjects);
+                    linkedHashMap.put("行业", corpkindbjects);
 
                     if (listener != null)
                         listener.onGetDiscussMoreInfo(linkedHashMap);
@@ -645,7 +709,7 @@ public class UpdateDataTaskUtils
 
     public interface OnGetDiscussJobFunListener
     {
-        void onGetDiscussSalaryInfo(Map<JSONObject, List<JSONObject>> JobFunData);
+        void onGetDiscussJobFunInfo(Map<JSONObject, List<JSONObject>> JobFunData);
     }
 
     public interface OnGetCompanyInfoListener

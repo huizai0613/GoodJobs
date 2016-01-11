@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,11 +151,11 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 TextView view = new TextView(getContext());
                 view.setText(treatmentArr.optString(i));
                 view.setGravity(Gravity.CENTER);
-                view.setTextSize(12);
+                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
                 view.setPadding(DensityUtil.dip2px(getContext(), 10), 0, DensityUtil.dip2px(getContext(), 10), 0);
                 view.setHeight(DensityUtil.dip2px(getContext(), 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.black));
+                view.setTextColor(getResources().getColor(R.color.light_color));
                 jobBright.addView(view, lp);
             }
         }
