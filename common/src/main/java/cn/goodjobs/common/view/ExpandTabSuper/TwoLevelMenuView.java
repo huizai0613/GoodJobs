@@ -163,7 +163,7 @@ public class TwoLevelMenuView extends LinearLayout implements
                 if (!"1000".equals(key)) {
                     mSecondLevelKey = key;
                     ExpandTabView tag = (ExpandTabView) TwoLevelMenuView.this.getTag();
-                    if (tag != null && !isMultiCheck) {
+                    if (tag != null) {
                         tag.onPressBack();
                     }
                     if (mFirstLevelKey != mTempFirstLevelKey) {

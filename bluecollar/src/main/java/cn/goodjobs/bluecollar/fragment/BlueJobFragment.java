@@ -17,15 +17,18 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueSearchActivity;
 import cn.goodjobs.bluecollar.fragment.BlueJob.Fragment_pro_type;
 import cn.goodjobs.bluecollar.fragment.BlueJob.Type;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.UpdateDataTaskUtils;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
@@ -67,7 +70,19 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         toolsScrlllview = (ScrollView) view.findViewById(R.id.tools_scrlllview);
         tools = (LinearLayout) view.findViewById(R.id.tools);
         jobsPager = (ViewPager) view.findViewById(R.id.jobs_pager);
+        jobsearchBut.setOnClickListener(this);
         UpdateDataTaskUtils.selectJobFun(getActivity(), this);
+    }
+
+
+    @Override
+    public void onClick(View v)
+    {
+        super.onClick(v);
+        int id = v.getId();
+        if (id == R.id.jobsearch_but) {
+            JumpViewUtil.openActivityAndParam(getContext(), BlueSearchActivity.class, new HashMap<String, Object>());
+        }
     }
 
 
@@ -96,9 +111,11 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         }
 
         String dataFromLoacl = SharedPrefUtil.getDataFromLoacl(getContext(), LASTSELECT);
-        if (StringUtil.isEmpty(dataFromLoacl))
-            dataFromLoacl = "0";
-        toolsViews[Integer.parseInt(dataFromLoacl)].performClick();
+        if (!StringUtil.isEmpty(dataFromLoacl)) {
+            toolsViews[Integer.parseInt(dataFromLoacl)].performClick();
+        } else {
+            changeTextColor(0);
+        }
 
     }
 
@@ -107,6 +124,8 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         @Override
         public void onClick(View v)
         {
+            changeTextColor(v.getId());
+            changeTextLocation(v.getId());
             SharedPrefUtil.saveDataToLoacl(LASTSELECT, v.getId());
             jobsPager.setCurrentItem(v.getId());
         }
@@ -182,10 +201,12 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         {
             Fragment_pro_type fragment = new Fragment_pro_type();
             ArrayList<Type> types = new ArrayList<>();
+            JSONObject jsonObject = cates.get(arg0);
             for (int i = 0; i < cates2Child.get(arg0).size(); i++) {
                 Type t = new Type();
                 t.setId(cates2Child.get(arg0).get(i).optInt("id"));
                 t.setTypename(cates2Child.get(arg0).get(i).optString("name"));
+                t.setPranetId(jsonObject.optInt("id"));
                 types.add(t);
             }
             fragment.setTypeList(getContext(), types);
@@ -219,7 +240,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
     }
 
     @Override
-    public void onGetDiscussSalaryInfo(Map<JSONObject, List<JSONObject>> JobFunData)
+    public void onGetDiscussJobFunInfo(Map<JSONObject, List<JSONObject>> JobFunData)
     {
         this.JobFunData = JobFunData;
         Set<Map.Entry<JSONObject, List<JSONObject>>> entries = JobFunData.entrySet();

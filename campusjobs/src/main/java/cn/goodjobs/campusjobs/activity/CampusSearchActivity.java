@@ -28,9 +28,14 @@ import cn.goodjobs.campusjobs.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.UpdateDataTaskUtils;
+import cn.goodjobs.common.util.bdlocation.LocationUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
+import cn.goodjobs.common.util.bdlocation.MyLocationListener;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.searchItem.SelectorItemView;
 
 /**
@@ -50,6 +55,8 @@ public class CampusSearchActivity extends BaseActivity {
     private String searchKeyWorld;
     private Button btnSearch;
     private TextView tvClear;
+    private boolean isLoad;
+    private MyLocation myLocation;
 
 
     @Override
@@ -93,6 +100,28 @@ public class CampusSearchActivity extends BaseActivity {
                 }
             }
         });
+
+
+        if (!isLoad) {
+//            UpdateDataTaskUtils.getHistory(mcontext, UpdateDataTaskUtils.SEARCHJOB, this);
+            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener() {
+                @Override
+                public void loaction(final MyLocation location) {
+                    mcontext.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            LogUtil.info(location.toString());
+                            SharedPrefUtil.saveObjectToLoacl("location", location);
+                            myLocation = location;
+                            itemAddress.setText(myLocation.city);
+                            itemAddress.setSelectorIds(myLocation.cityID);
+                            isLoad = true;
+                        }
+                    });
+
+                }
+            });
+        }
     }
 
     @Override
@@ -347,6 +376,18 @@ public class CampusSearchActivity extends BaseActivity {
             searchHeistory.addView(view, layoutParams);
         }
 
+    }
+
+    public void onCreated(Bundle savedInstanceState) {
+        LogUtil.info("onActivityCreated");
+        super.onCreate(savedInstanceState);
+        LocationUtil.newInstance(getApplication()).startLoction(new MyLocationListener() {
+            @Override
+            public void loaction(MyLocation location) {
+                LogUtil.info(location.toString());
+                SharedPrefUtil.saveObjectToLoacl("location", location);
+            }
+        });
     }
 
 }

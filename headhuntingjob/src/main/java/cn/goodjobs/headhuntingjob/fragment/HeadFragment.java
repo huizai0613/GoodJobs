@@ -25,7 +25,6 @@ public class HeadFragment extends BaseListFragment {
 
     private boolean isSuccess;
     private EmptyLayout emptyLayout;
-    private int page = 1;
     private int type;    //0是猎头，1是悬赏，2是代理招聘
 
     public HeadFragment() {

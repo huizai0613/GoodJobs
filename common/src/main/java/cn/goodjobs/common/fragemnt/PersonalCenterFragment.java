@@ -38,7 +38,7 @@ public class PersonalCenterFragment extends BaseFragment {
     SimpleDraweeView myImageview;
     TextView tvUsername, tvPhone, tvUpdatetime;
     ImageButton btnYanzheng, btnRefresh;
-    SearchItemView itemLogin,itemSetting, itemMessage, itemCollection, itemShenqing, itemChakan, itemXiaoyuan, itemJianli;
+    SearchItemView itemLogin, itemSetting, itemMessage, itemCollection, itemShenqing, itemChakan, itemXiaoyuan, itemJianli;
 
     public PersonalCenterFragment() {
     }
@@ -125,7 +125,7 @@ public class PersonalCenterFragment extends BaseFragment {
         } else {
             btnYanzheng.setImageResource(R.drawable.yyz);
         }
-        itemJianli.setHint(GoodJobsApp.getInstance().personalInfo.optString("viewHistoryCount")+"次被浏览");
+        itemJianli.setHint(GoodJobsApp.getInstance().personalInfo.optString("viewHistoryCount") + "次被浏览");
         itemSetting.setHint(GoodJobsApp.getInstance().personalInfo.optString("pubLevel"));
     }
 

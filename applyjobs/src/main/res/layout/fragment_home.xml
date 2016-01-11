@@ -73,7 +73,7 @@
                     android:clickable="true"
                     listitem:containAll="true"
                     listitem:hint="定位中..."
-                    listitem:singleSelected="false"
+                    listitem:singleSelected="true"
                     listitem:source="jobloc_pro;jobloc_city"
                     listitem:tvtitle="工作地点"/>
 

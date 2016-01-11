@@ -1,104 +1,135 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:listitem="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+    android:background="@color/bg_color">
 
-    <include layout="@layout/topbar"/>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/topbar" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- 广告位  -->
-            <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
-                android:id="@+id/adViewPager"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/main_banner_height"
-                android:visibility="gone"/>
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:orientation="vertical">
+
+                <!-- 广告位  -->
+                <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+                    android:id="@+id/adViewPager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/main_banner_height"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_small"
-                    android:background="@drawable/edittext_wite_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/padding_small"
-                    android:paddingLeft="12dip"
-                    android:paddingRight="@dimen/font_size_15"
-                    android:paddingTop="@dimen/padding_small"
-                    >
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/etSearch"
+                    <LinearLayout
+                        android:id="@+id/blue_search_but"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:focusable="false"
-                        android:hint="输入关键字/职位/公司搜索"
-                        android:textSize="@dimen/text_default"/>
+                        android:layout_margin="@dimen/padding_small"
+                        android:background="@drawable/edittext_wite_bg"
+                        android:clickable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:paddingLeft="12dip"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingTop="@dimen/padding_small">
 
-                    <Button
-                        android:id="@+id/btnSearch"
-                        android:layout_width="65dip"
-                        android:layout_height="35dip"
-                        android:background="@drawable/button_bg"
-                        android:text="搜索"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_default"/>
+                        <TextView
+                            android:id="@+id/etSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:clickable="false"
+                            android:hint="输入关键字/职位/公司搜索"
+                            android:textSize="@dimen/text_default" />
+
+                        <Button
+                            android:id="@+id/btnSearch"
+                            android:layout_width="65dip"
+                            android:layout_height="35dip"
+                            android:background="@drawable/button_bg"
+                            android:clickable="false"
+                            android:text="搜索"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_default" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/historyLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_default"
+                    android:visibility="gone">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/historyLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/padding_default"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_default"
+                    android:visibility="gone"></LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@color/bule_low_color"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_large"
+                    android:text="猜你喜欢"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default" />
+
+
+                <LinearLayout
+                    android:id="@+id/job_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"></LinearLayout>
+
             </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/historyLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:background="@color/white"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/padding_default"
-                android:paddingLeft="@dimen/padding_default"
-                android:paddingRight="@dimen/padding_default">
-            </LinearLayout>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_40"
-                android:background="@color/bule_low_color"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/padding_large"
-                android:text="猜你喜欢"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_default"/>
-
-
-            <LinearLayout
-                android:id="@+id/job_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"></LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/applyjob_but"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/padding_large"
+        android:layout_marginRight="@dimen/padding_small"
+        android:background="@drawable/bg_applyjob"
+        android:gravity="center"
+        android:padding="8dip"
+        android:text="申请职位"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default" />
+</RelativeLayout>

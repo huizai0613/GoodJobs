@@ -179,7 +179,6 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     private ArrayList<String> values;
 
     private boolean isCur;
-    private boolean isMuCheck;
 
 
     private String searchKeyWorld;
@@ -219,18 +218,6 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     @Override
     protected void initWeightClick()
     {
-
-        etvMenu.setmOnExpandTabDismissListener(new ExpandTabView.OnExpandTabDismissListener()
-        {
-            @Override
-            public void expandTabDismiss(int position)
-            {
-                if (position == 2 && isMuCheck) {
-                    startRefresh();
-                    isMuCheck = false;
-                }
-            }
-        });
 
 
         //区域选择
@@ -318,8 +305,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                         corpkindId = entry.getValue();
                     }
                 }
-                isMuCheck = true;
-
+                startRefresh();
             }
         });
 
@@ -358,7 +344,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
 
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("区域筛选");
+        strings.add(StringUtil.isEmpty(itemAddress) ? "区域筛选" : itemAddress);
         strings.add(StringUtil.isEmpty(itemSalary) ? "薪资要求" : itemSalary);
         strings.add("更多筛选");
 

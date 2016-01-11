@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/actionbar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <View style="@style/line" />
+
+            <cn.goodjobs.common.view.searchItem.SelectorItemView
+                android:id="@+id/itemDegree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                listitem:hint="请选择"
+                listitem:important="invisible"
+                listitem:showHLine="false"
+                listitem:source="degree"
+                listitem:tvtitle="学历" />
+
+            <cn.goodjobs.common.view.searchItem.SelectorItemView
+                android:id="@+id/itemCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                listitem:hint="请选择"
+                listitem:important="invisible"
+                listitem:showHLine="false"
+                listitem:source="cktime"
+                listitem:tvtitle="目前情况" />
+
+            <cn.goodjobs.common.view.searchItem.SelectorItemView
+                android:id="@+id/itemSalary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                listitem:hint="请选择"
+                listitem:important="invisible"
+                listitem:showHLine="false"
+                listitem:source="salary_expected"
+                listitem:tvtitle="工资要求" />
+
+            <cn.goodjobs.common.view.searchItem.SelectorItemView
+                android:id="@+id/itemWorkAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                listitem:hint="请选择"
+                listitem:important="invisible"
+                listitem:showHLine="false"
+                listitem:singleSelected="false"
+                listitem:source="jobloc_pro;jobloc_city"
+                listitem:tvtitle="求职地点" />
+
+            <cn.goodjobs.common.view.searchItem.SelectorItemView
+                android:id="@+id/itemJobFunc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                listitem:hint="请选择"
+                listitem:important="invisible"
+                listitem:showHLine="false"
+                listitem:singleSelected="false"
+                listitem:source="jobfunc_l1;jobfunc_l2"
+                listitem:tvtitle="目前职位" />
+
+            <cn.goodjobs.common.view.searchItem.SelectorItemView
+                android:id="@+id/itemWorktime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                listitem:hint="请选择"
+                listitem:important="invisible"
+                listitem:showHLine="false"
+                listitem:source="worktime"
+                listitem:tvtitle="工作年限" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/padding_default"
+                        android:layout_height="2dip" />
+
+                    <TextView
+                        android:id="@+id/tvNecessity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dip"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/imageview"
+                        android:layout_width="26dip"
+                        android:layout_height="26dip"
+                        android:layout_marginRight="@dimen/padding_small"
+                        android:scaleType="fitXY"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_searchtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/padding_small"
+                        android:text="工作经历"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/text_default" />
+
+                    <View
+                        android:id="@+id/hline"
+                        android:layout_width="0.5dip"
+                        android:layout_height="14dip"
+                        android:layout_marginRight="8dip"
+                        android:background="@color/light_color"
+                        android:visibility="invisible" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+
+                    <ImageButton
+                        android:id="@+id/btnClear"
+                        android:layout_width="18dip"
+                        android:layout_height="18dip"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:background="@color/transparent"
+                        android:padding="2dip"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_clear"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:layout_marginLeft="@dimen/padding_default"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@drawable/edittext_wite_bg"
+                    android:gravity="left|top"
+                    android:hint="可填写曾经工作的企业。担任的职位、任职期间的业绩、擅长的工作等。"
+                    android:lines="10"
+                    android:padding="@dimen/padding_small"
+                    android:textColor="@color/main_color"
+                    android:textColorHint="@color/light_color"
+                    android:textSize="@dimen/text_default" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/line"
+                android:layout_marginTop="@dimen/padding_small" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_margin="@dimen/padding_default"
+                android:layout_marginTop="@dimen/padding_default"
+                android:background="@drawable/button_bg"
+                android:onClick="doSave"
+                android:text="保存"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_default" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
