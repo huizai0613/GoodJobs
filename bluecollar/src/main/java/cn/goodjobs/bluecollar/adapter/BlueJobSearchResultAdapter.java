@@ -1,24 +1,17 @@
-package cn.goodjobs.bluecollar.activity.adapter;
+package cn.goodjobs.bluecollar.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.BlueJobSearchResultActivity;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
-import cn.goodjobs.common.util.JumpViewUtil;
-import cn.goodjobs.common.util.ViewHolderUtil;
-import cn.goodjobs.common.view.BabushkaText;
 
 /**
  * Created by yexiangyu on 15/12/28.

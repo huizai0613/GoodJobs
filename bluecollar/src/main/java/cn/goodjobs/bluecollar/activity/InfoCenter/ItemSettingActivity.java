@@ -1,4 +1,4 @@
-package cn.goodjobs.bluecollar.activity;
+package cn.goodjobs.bluecollar.activity.InfoCenter;
 
 import android.content.Intent;
 import android.os.Bundle;

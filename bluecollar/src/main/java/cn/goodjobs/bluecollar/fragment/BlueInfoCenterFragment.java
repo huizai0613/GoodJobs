@@ -3,7 +3,6 @@ package cn.goodjobs.bluecollar.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,12 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import cn.goodjobs.bluecollar.R;
-import cn.goodjobs.bluecollar.activity.ItemMoreActivity;
-import cn.goodjobs.bluecollar.activity.ItemResumeActivity;
-import cn.goodjobs.bluecollar.activity.ItemSettingActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemMoreActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemSettingActivity;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
-import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
 
