@@ -38,16 +38,6 @@ public class Fragment_pro_type extends Fragment
         listView = (GridView) view.findViewById(R.id.listView);
 
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new OnItemClickListener()
-		{
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-			{
-
-
-			}
-		});
-
 		progressBar.setVisibility(View.GONE);
         return view;
     }

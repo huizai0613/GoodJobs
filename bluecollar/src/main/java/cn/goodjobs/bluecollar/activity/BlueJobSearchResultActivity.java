@@ -399,7 +399,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
 
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("区域筛选");
+        strings.add(StringUtil.isEmpty(itemAddress) ? "区域筛选" : itemAddress);
         strings.add(StringUtil.isEmpty(itemJobfunc) ? "选择岗位" : itemJobfunc);
         strings.add(StringUtil.isEmpty(itemSalary) ? "工资要求" : itemSalary);
         strings.add("更多筛选");

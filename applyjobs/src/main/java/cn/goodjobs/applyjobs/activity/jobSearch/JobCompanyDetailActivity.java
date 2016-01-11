@@ -101,6 +101,16 @@ public class JobCompanyDetailActivity extends BaseActivity
         comMap.setCompoundDrawables(iconMap, null, null, null);
 
         error_layout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        error_layout.setOnLayoutClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("corpID", corpID);
+                HttpUtil.post(URLS.API_JOB_Corpshow, param, JobCompanyDetailActivity.this);
+            }
+        });
         HashMap<String, Object> param = new HashMap<>();
         param.put("corpID", corpID);
         HttpUtil.post(URLS.API_JOB_Corpshow, param, this);
@@ -190,7 +200,7 @@ public class JobCompanyDetailActivity extends BaseActivity
 
         int i = v.getId();
         if (i == R.id.com_updown) {
-            if (comContent.getMaxLines() < 100) {
+            if (Math.floor(comContent.getHeight() / comContent.getLineHeight()) <= 5) {
                 comContent.setMaxLines(100);
                 comUpdown.setImageResource(R.drawable.companyarticle_up);
             } else {
@@ -233,7 +243,7 @@ public class JobCompanyDetailActivity extends BaseActivity
 
 
             if (photos.size() > 4) {
-                itemW = (companyImg.getWidth() - 4 * dip2pxSmall - 2*companyImg.getPaddingLeft() ) / 5;
+                itemW = (companyImg.getWidth() - 4 * dip2pxSmall - 2 * companyImg.getPaddingLeft()) / 5;
                 itemW += (itemW / 5);
             } else {
                 itemW = (companyImg.getWidth() - 3 * dip2pxSmall - 2 * companyImg.getPaddingLeft()) / 4;

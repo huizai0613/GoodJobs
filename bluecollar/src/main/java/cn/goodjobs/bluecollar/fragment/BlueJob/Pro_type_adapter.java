@@ -1,6 +1,8 @@
 package cn.goodjobs.bluecollar.fragment.BlueJob;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,7 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueJobSearchResultActivity;
 import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.JumpViewUtil;
 
 
 public class Pro_type_adapter extends BaseAdapter
@@ -45,7 +49,7 @@ public class Pro_type_adapter extends BaseAdapter
     }
 
     @Override
-    public Object getItem(int position)
+    public Type getItem(int position)
     {
         return list.get(position);
     }
@@ -73,6 +77,23 @@ public class Pro_type_adapter extends BaseAdapter
             type = list.get(position);
             view.name.setText(type.getTypename());
         }
+
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                HashMap<String, Object> param = new HashMap<String, Object>();
+                Type item = getItem(position);
+                param.put("itemAddress", "合肥市");
+                param.put("itemJobfunc", item.getTypename());
+                param.put("itemJobfuncId", item.getId() + "");
+                param.put("jobpraentId", item.getPranetId() + "");
+                JumpViewUtil.openActivityAndParam(context, BlueJobSearchResultActivity.class, param);
+
+
+            }
+        });
 
         return convertView;
     }
