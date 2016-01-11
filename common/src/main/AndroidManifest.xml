@@ -164,12 +164,21 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".baseclass.choosepic.ImgFileListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".baseclass.choosepic.ImgsActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".activity.WebViewActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdateUserInfoActivity"
-            android:label="@string/title_activity_update_user_info" >
+            android:label="@string/title_activity_update_user_info"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdateUserNameActivity"
@@ -177,11 +186,13 @@
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdatePasswordActivity"
-            android:label="@string/title_activity_update_password" >
+            android:label="@string/title_activity_update_password"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.UpdateMobileActivity"
-            android:label="@string/title_activity_update_mobile" >
+            android:label="@string/title_activity_update_mobile"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.ImagePreviewActivity"
@@ -189,11 +200,13 @@
         </activity>
         <activity
             android:name=".activity.personalcenter.PersonalInboxDetailActivity"
-            android:label="@string/title_activity_personal_inbox_detail" >
+            android:label="@string/title_activity_personal_inbox_detail"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.personalcenter.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

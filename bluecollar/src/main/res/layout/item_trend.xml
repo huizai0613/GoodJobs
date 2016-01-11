@@ -25,7 +25,7 @@
             android:clickable="true"
             fresco:roundedCornerRadius="30dp"
             fresco:placeholderImage="@drawable/img_personal_default"
-            fresco:placeholderImageScaleType="fitXY"/>
+            fresco:placeholderImageScaleType="fitCenter"/>
 
         <LinearLayout
             android:layout_width="match_parent"

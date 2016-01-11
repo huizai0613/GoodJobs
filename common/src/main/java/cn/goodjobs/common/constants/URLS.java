@@ -107,10 +107,12 @@ public class URLS
     public final static String API_JOB_Jobfairlist = "Campus/Jobfairlist";      //宣讲会
     public final static String API_JOB_Jobfairshow = "Campus/Jobfairshow";      //宣讲会详情
 
+    // 交友
+    public final static String MAKEFRIEND_ADDPIC = "Friend/Dynamicpicsave";      //动态上传图片
+    public final static String MAKEFRIEND_ADDTREND = "Friend/Dynamicsave";      //动态发布
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件
-
 
     public final static String API_JOB_Addapply = "Job/Addapply";      //职位申请
     public final static String API_JOB_Addfavorite = "Job/Addfavorite";      //职位收藏

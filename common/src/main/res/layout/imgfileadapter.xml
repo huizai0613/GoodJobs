@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_small"
+    android:background="@drawable/list_item_bg" >
+	
+    <ImageView
+        android:id="@+id/filephoto_imgview"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/image_holder"
+        android:scaleType="fitXY" />
+    
+    <LinearLayout
+        android:layout_toRightOf="@id/filephoto_imgview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:orientation="vertical"
+        android:gravity="left|center_vertical" >
+        <TextView
+	        android:id="@+id/filename_textview"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="文件名称"
+	        android:textColor="@color/black"
+	        android:textSize="@dimen/text_default"/>
+        <TextView
+	        android:id="@+id/filecount_textview"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="几张"
+	        android:layout_marginTop="@dimen/padding_small"
+	        android:textSize="@dimen/text_small"
+	        android:textColor="@color/light_color" />
+    </LinearLayout>
+</RelativeLayout>
