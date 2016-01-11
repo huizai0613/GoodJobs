@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white" >
+
+    <View style="@style/line"/>
+
+    <Button
+        android:onClick="capturePhoto"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_margin="@dimen/padding_small"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
+        android:text="相机"/>
+
+    <Button
+        android:onClick="pickPhotoFromLocal"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:layout_marginRight="@dimen/padding_small"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
+        android:text="本地相册"/>
+
+    <Button
+        android:onClick="cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:layout_margin="@dimen/padding_small"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg_disable"
+        android:text="取消"/>
+
+</LinearLayout>

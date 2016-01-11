@@ -11,7 +11,7 @@
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".activity.AddTrendActivity"
+            android:name=".activity.makefriend.AddTrendActivity"
             android:label="@string/title_activity_add_trend" >
         </activity>
 
