@@ -344,7 +344,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
 
         ArrayList<String> strings = new ArrayList<>();
-        strings.add("区域筛选");
+        strings.add(StringUtil.isEmpty(itemAddress) ? "区域筛选" : itemAddress);
         strings.add(StringUtil.isEmpty(itemSalary) ? "薪资要求" : itemSalary);
         strings.add("更多筛选");
 
