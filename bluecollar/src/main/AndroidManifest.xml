@@ -30,6 +30,12 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"></activity>
 
+        <activity
+            android:name=".activity.BlueSearchActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.BlueJobSearchResultActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

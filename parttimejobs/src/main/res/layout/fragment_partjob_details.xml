@@ -24,17 +24,17 @@
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_job"
-                    listitem:tvtitle="职位名称："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="职位名称："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_company"
-                    listitem:tvtitle="招聘单位："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="招聘单位："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
             </LinearLayout>
@@ -48,62 +48,63 @@
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_salary"
-                    listitem:tvtitle="薪酬待遇："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="薪酬待遇："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_place"
-                    listitem:tvtitle="工作地点："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="工作地点："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_date"
-                    listitem:tvtitle="发布日期："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="发布日期："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_enddate"
-                    listitem:tvtitle="有效日期："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="有效日期："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_connect"
-                    listitem:tvtitle="联  系  人："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="联  系  人："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_phone"
-                    listitem:isCall="true"
-                    listitem:tvtitle="联系电话："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:isCall="true"
+                    listitem:tvtitle="联系电话："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
-                    listitem:tvtitle="详细要求："
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></cn.goodjobs.common.view.PartTimeItemView>
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="详细要求："></cn.goodjobs.common.view.PartTimeItemView>
 
                 <TextView
                     android:id="@+id/tv_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:lineSpacingMultiplier="1.3"
                     android:paddingBottom="@dimen/padding_small"
                     android:paddingLeft="@dimen/padding_default"
                     android:paddingRight="@dimen/padding_default"

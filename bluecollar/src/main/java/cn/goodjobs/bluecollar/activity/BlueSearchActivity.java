@@ -27,9 +27,14 @@ import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.UpdateDataTaskUtils;
+import cn.goodjobs.common.util.bdlocation.LocationUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
+import cn.goodjobs.common.util.bdlocation.MyLocationListener;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.searchItem.SelectorItemView;
 
 /**
@@ -41,7 +46,7 @@ public class BlueSearchActivity extends BaseActivity
     private Map<Long, Map<String, String>> history;
     private SelectorItemView itemAddress;
     private SelectorItemView itemJobfunc;
-    private SelectorItemView itemIndtype;
+    private SelectorItemView itemBenefit;
     private ImageButton btnClear;
     private EditText etSearch;
     private String add;
@@ -50,6 +55,10 @@ public class BlueSearchActivity extends BaseActivity
     private String searchKeyWorld;
     private Button btnSearch;
     private TextView tvClear;
+    private boolean isLoad;
+    private MyLocation myLocation;
+    private SelectorItemView itemSalary;
+    private String sal;
 
 
     @Override
@@ -74,7 +83,30 @@ public class BlueSearchActivity extends BaseActivity
     protected void onResume()
     {
         super.onResume();
-        UpdateDataTaskUtils.getHistory(this, UpdateDataTaskUtils.CAMPUSJOB, new UpdateDataTaskUtils.OnGetDiscussHistoryListener()
+        if (!isLoad) {
+            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener()
+            {
+                @Override
+                public void loaction(final MyLocation location)
+                {
+                    mcontext.runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            LogUtil.info(location.toString());
+                            SharedPrefUtil.saveObjectToLoacl("location", location);
+                            myLocation = location;
+                            itemAddress.setText(myLocation.city);
+                            itemAddress.setSelectorIds(myLocation.cityID);
+                            isLoad = true;
+                        }
+                    });
+
+                }
+            });
+        }
+        UpdateDataTaskUtils.getHistory(this, UpdateDataTaskUtils.BLUEJOB, new UpdateDataTaskUtils.OnGetDiscussHistoryListener()
         {
             @Override
             public void onGetDiscussHistory(Map<Long, Map<String, String>> history)
@@ -114,7 +146,8 @@ public class BlueSearchActivity extends BaseActivity
         searchHeistory = (LinearLayout) findViewById(R.id.search_heistory);
         itemAddress = (SelectorItemView) findViewById(R.id.item_address);
         itemJobfunc = (SelectorItemView) findViewById(R.id.item_jobfunc);
-        itemIndtype = (SelectorItemView) findViewById(R.id.item_indtype);
+        itemBenefit = (SelectorItemView) findViewById(R.id.item_benefit);
+        itemSalary = (SelectorItemView) findViewById(R.id.item_salary);
         btnClear = (ImageButton) findViewById(R.id.ib_clear);
         etSearch = (EditText) findViewById(R.id.et_campussearch);
         etSearch.addTextChangedListener(new TextWatcher()
@@ -168,11 +201,11 @@ public class BlueSearchActivity extends BaseActivity
             }
             LinkedHashMap searchHashMap = getSearchHashMap();
             saveSearchLock(history, searchHashMap);
-//            JumpViewUtil.openActivityAndParam(this, CampusSearchResultActivity.class, searchHashMap);
+            JumpViewUtil.openActivityAndParam(this, BlueJobSearchResultActivity.class, searchHashMap);
         } else if (i == R.id.tv_clear) {
             tvClear.setVisibility(View.GONE);
             history.clear();
-            UpdateDataTaskUtils.cleanHistory(this, UpdateDataTaskUtils.CAMPUSJOB);
+            UpdateDataTaskUtils.cleanHistory(this, UpdateDataTaskUtils.BLUEJOB);
             disPlayerSearchUI(null);
         }
     }
@@ -202,7 +235,7 @@ public class BlueSearchActivity extends BaseActivity
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateHistory(mcontext, saveData, UpdateDataTaskUtils.CAMPUSJOB);
+        UpdateDataTaskUtils.updateHistory(mcontext, saveData, UpdateDataTaskUtils.BLUEJOB);
     }
 
 
@@ -211,7 +244,8 @@ public class BlueSearchActivity extends BaseActivity
         searchKeyWorld = etSearch.getText().toString();
         add = itemAddress.getText();
         job = itemJobfunc.getText();
-        ind = itemIndtype.getText();
+        ind = itemBenefit.getText();
+        sal = itemSalary.getText();
 
         LinkedHashMap hashMap = new LinkedHashMap();
         if (!StringUtil.isEmpty(searchKeyWorld)) {
@@ -224,7 +258,10 @@ public class BlueSearchActivity extends BaseActivity
             hashMap.put("itemJobfunc", job);
         }
         if (!StringUtil.isEmpty(ind)) {
-            hashMap.put("itemIndtype", ind);
+            hashMap.put("itemBenefit", ind);
+        }
+        if (!StringUtil.isEmpty(sal)) {
+            hashMap.put("itemSalary", sal);
         }
         hashMap.putAll(getSearchHashMapID());
         return hashMap;
@@ -234,7 +271,9 @@ public class BlueSearchActivity extends BaseActivity
     {
         String addId = (String) itemAddress.getTag();
         String jobId = (String) itemJobfunc.getTag();
-        String indId = (String) itemIndtype.getTag();
+        String jobpraentId = (String) itemJobfunc.getSelectorPraentIds();
+        String indId = (String) itemBenefit.getTag();
+        String salId = (String) itemSalary.getTag();
 
         LinkedHashMap hashMap = new LinkedHashMap();
         if (!StringUtil.isEmpty(addId)) {
@@ -245,9 +284,13 @@ public class BlueSearchActivity extends BaseActivity
                 jobId = jobId.split("#")[1];
             }
             hashMap.put("itemJobfuncId", jobId);
+            hashMap.put("jobpraentId", jobpraentId);
         }
         if (!StringUtil.isEmpty(indId)) {
-            hashMap.put("itemIndtypeId", indId);
+            hashMap.put("itemBenefitId", indId);
+        }
+        if (!StringUtil.isEmpty(salId)) {
+            hashMap.put("itemSalaryId", salId);
         }
 
         return hashMap;
@@ -288,7 +331,7 @@ public class BlueSearchActivity extends BaseActivity
                 builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
                 builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
                 builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
-                builder.append(StringUtil.isEmpty(value.get("itemIndtype")) ? "" : value.get("itemIndtype") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemBenefit")) ? "" : value.get("itemBenefit") + " + ");
 
                 if (builder.length() == 0) {
                     continue;
@@ -313,11 +356,13 @@ public class BlueSearchActivity extends BaseActivity
                         String searchKeyWorld = value.get("searchKeyWorld");
 
                         String itemJobfuncId = value.get("itemJobfuncId");
-                        String itemIndtypeId = value.get("itemIndtypeId");
+                        String itemBenefitId = value.get("itemBenefitId");
+                        String itemSalaryId = value.get("itemSalaryId");
 
 
                         String itemJobfuncStr = value.get("itemJobfunc");
-                        String itemIndtypeStr = value.get("itemIndtype");
+                        String itemBenefitStr = value.get("itemBenefit");
+                        String itemSalaryStr = value.get("itemSalary");
 
                         if (!StringUtil.isEmpty(itemAddressId)) {
                             itemAddress.setSelectorIds(itemAddressId);
@@ -335,12 +380,20 @@ public class BlueSearchActivity extends BaseActivity
                             itemJobfunc.setText("");
                         }
 
-                        if (!StringUtil.isEmpty(itemIndtypeStr)) {
-                            itemIndtype.setSelectorIds(itemIndtypeId);
-                            itemIndtype.setText(itemIndtypeStr);
+                        if (!StringUtil.isEmpty(itemBenefitStr)) {
+                            itemBenefit.setSelectorIds(itemBenefitId);
+                            itemBenefit.setText(itemBenefitStr);
                         } else {
-                            itemIndtype.setSelectorIds("");
-                            itemIndtype.setText("");
+                            itemBenefit.setSelectorIds("");
+                            itemBenefit.setText("");
+                        }
+
+                        if (!StringUtil.isEmpty(itemSalaryStr)) {
+                            itemSalary.setSelectorIds(itemBenefitId);
+                            itemSalary.setText(itemSalaryId);
+                        } else {
+                            itemSalary.setSelectorIds("");
+                            itemSalary.setText("");
                         }
 
 
@@ -360,6 +413,7 @@ public class BlueSearchActivity extends BaseActivity
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layoutParams.setMargins(DensityUtil.dip2px(this, 10), 0, DensityUtil.dip2px(this, 10), 0);
             TextView view = new TextView(this);
+            view.setBackgroundResource(R.color.white);
             view.setPadding(0, 20, 0, 20);
             view.setSingleLine();
             view.setEllipsize(TextUtils.TruncateAt.END);

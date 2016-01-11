@@ -1,10 +1,57 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.goodjobs.bluecollar.fragment.MakeFriendsFragment">
+    android:orientation="vertical"
+    android:background="@color/bg_color">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <include layout="@layout/actionbar"/>
 
-</FrameLayout>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:orientation="horizontal"
+        android:checkedButton="@+id/radio0"
+        android:background="@color/white">
+        <RadioButton
+            android:id="@+id/radio0"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="附近的人"
+            android:textSize="@dimen/text_small"
+            android:textColor="@drawable/readstatus_text"/>
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="附近的人"
+            android:textSize="@dimen/text_small"
+            android:textColor="@drawable/readstatus_text"/>
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:text="附近的人"
+            android:textSize="@dimen/text_small"
+            android:textColor="@drawable/readstatus_text"/>
+    </RadioGroup>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </RelativeLayout>
+
+</LinearLayout>

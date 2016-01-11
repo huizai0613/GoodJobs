@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,10 @@ public class HeadHuntingActivity extends BaseActivity {
 
     private long backTime = 2000;
     private long curTime;
-    private Button btnHead, btnReward, btnAgency;
-    private List<Button> btnList = new ArrayList<Button>();
+    private TextView tv_jobFair, tv_jobMessage, tv_trainClass, line1, line2, line3;
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
+    private List<TextView> lineView = new ArrayList<TextView>();
+    private List<TextView> textView = new ArrayList<TextView>();
     private HeadViewpagerAdapter adapter;
     private ViewPager vp;
 
@@ -46,9 +48,36 @@ public class HeadHuntingActivity extends BaseActivity {
 
     @Override
     protected void initWeightClick() {
-        btnReward.setOnClickListener(this);
-        btnAgency.setOnClickListener(this);
-        btnHead.setOnClickListener(this);
+    }
+
+    @Override
+    protected void initWeight() {
+        setTopTitle("新安猎聘");
+        vp = (ViewPager) findViewById(R.id.vp_headhunt);
+        tv_jobFair = (TextView) findViewById(R.id.tv_headhunt);
+        tv_jobMessage = (TextView) findViewById(R.id.tv_reward);
+        tv_trainClass = (TextView) findViewById(R.id.tv_agency);
+        tv_jobFair.setOnClickListener(this);
+        tv_jobMessage.setOnClickListener(this);
+        tv_trainClass.setOnClickListener(this);
+        line1 = (TextView) findViewById(R.id.tv_line1);
+        line2 = (TextView) findViewById(R.id.tv_line2);
+        line3 = (TextView) findViewById(R.id.tv_line3);
+        lineView.add(line1);
+        lineView.add(line2);
+        lineView.add(line3);
+        textView.add(tv_jobFair);
+        textView.add(tv_jobMessage);
+        textView.add(tv_trainClass);
+        HeadFragment head = new HeadFragment(0);
+        HeadFragment reward = new HeadFragment(1);
+        HeadFragment agency = new HeadFragment(2);
+        fragmentList.add(head);
+        fragmentList.add(reward);
+        fragmentList.add(agency);
+        adapter = new HeadViewpagerAdapter(getSupportFragmentManager(), fragmentList);
+        vp.setOffscreenPageLimit(3);
+        vp.setAdapter(adapter);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -57,7 +86,15 @@ public class HeadHuntingActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                changeBackground(btnList.get(position).getId());
+                if (position == 0) {
+                    changeLine(line1);
+                }
+                if (position == 1) {
+                    changeLine(line2);
+                }
+                if (position == 2) {
+                    changeLine(line3);
+                }
             }
 
             @Override
@@ -68,58 +105,34 @@ public class HeadHuntingActivity extends BaseActivity {
     }
 
     @Override
-    protected void initWeight() {
-        setTopTitle("新安猎聘");
-        btnHead = (Button) findViewById(R.id.btn_headhunt);
-        btnReward = (Button) findViewById(R.id.btn_reward);
-        btnAgency = (Button) findViewById(R.id.btn_agency);
-        vp = (ViewPager) findViewById(R.id.vp_headhunt);
-        HeadFragment head = new HeadFragment(0);
-        HeadFragment reward = new HeadFragment(1);
-        HeadFragment agency = new HeadFragment(2);
-        fragmentList.add(head);
-        fragmentList.add(reward);
-        fragmentList.add(agency);
-        adapter = new HeadViewpagerAdapter(getSupportFragmentManager(), fragmentList);
-        vp.setOffscreenPageLimit(3);
-        vp.setAdapter(adapter);
-        btnList.add(btnHead);
-        btnList.add(btnReward);
-        btnList.add(btnAgency);
-    }
-
-    @Override
     protected void initData() {
 
     }
 
-    public void changeBackground(int id) {
-        btnHead.setBackground(null);
-        btnReward.setBackground(null);
-        btnAgency.setBackground(null);
-        for (int i = 0; i < btnList.size(); i++) {
-            if (btnList.get(i).getId() == id) {
-                btnList.get(i).setBackgroundColor(getResources().getColor(R.color.topbar_bg));
-                btnList.get(i).setTextColor(getResources().getColor(R.color.white));
+    //改变导航条
+    public void changeLine(TextView line) {
+        for (int i = 0; i < lineView.size(); i++) {
+            if (lineView.get(i).getId() == line.getId()) {
+                lineView.get(i).setVisibility(View.VISIBLE);
+                textView.get(i).setTextColor(getResources().getColor(R.color.topbar_bg));
             } else {
-                btnList.get(i).setBackground(getResources().getDrawable(R.drawable.button_bg_headhunt));
-                btnList.get(i).setTextColor(getResources().getColor(R.color.topbar_bg));
+                lineView.get(i).setVisibility(View.INVISIBLE);
+                textView.get(i).setTextColor(getResources().getColor(R.color.main_color));
             }
         }
+
     }
+
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
 
-        if (v.getId() == R.id.btn_agency) {
-            changeBackground(btnAgency.getId());
+        if (v.getId() == R.id.tv_agency) {
             vp.setCurrentItem(2);
-        } else if (v.getId() == R.id.btn_headhunt) {
-            changeBackground(btnHead.getId());
+        } else if (v.getId() == R.id.tv_headhunt) {
             vp.setCurrentItem(0);
-        } else if (v.getId() == R.id.btn_reward) {
-            changeBackground(btnReward.getId());
+        } else if (v.getId() == R.id.tv_reward) {
             vp.setCurrentItem(1);
         }
     }

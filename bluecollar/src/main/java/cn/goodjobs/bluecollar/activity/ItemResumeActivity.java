@@ -2,6 +2,7 @@ package cn.goodjobs.bluecollar.activity;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class ItemResumeActivity extends BaseActivity {
     private SearchItemView itemBirthday;
     private InputItemView itemName;
     private ImageButton btnRight;
+    private Button btnSave;
 
     @Override
     protected int getLayoutID() {
@@ -42,6 +44,7 @@ public class ItemResumeActivity extends BaseActivity {
         btnRight.setImageResource(R.drawable.icon_view);
         btnRight.setVisibility(View.VISIBLE);
 
+        btnSave = (Button) findViewById(R.id.btn_save);
         llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
         itemWant = (SelectorItemView) findViewById(R.id.itemWant);
         itemAddress = (SelectorItemView) findViewById(R.id.itemAddress);

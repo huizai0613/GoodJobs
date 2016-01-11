@@ -8,17 +8,26 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ActionMenuView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
+import com.facebook.drawee.view.SimpleDraweeView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueSearchActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
@@ -31,6 +40,7 @@ import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.bdlocation.MyLocationListener;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
+import cn.goodjobs.common.view.ExtendedTouchView;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.SelectorItemView;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
@@ -43,10 +53,13 @@ public class BlueHomeFragment extends BaseFragment
 
 
     private EditText etSearch;
-    private View historyLayout;
+    private LinearLayout historyLayout;
+    private LinearLayout historyLayout2;
     private SelectorItemView itemAddress;
     private SelectorItemView itemJobfunc;
     private Button btnSearch;
+    private View blueSearchBut;
+    private LinearLayout jobBox;
 
 
     private void getDataFromServer()
@@ -81,7 +94,6 @@ public class BlueHomeFragment extends BaseFragment
         initView(view);
         LogUtil.info("onCreateView");
         getDataFromServer();
-
         return view;
     }
 
@@ -90,26 +102,94 @@ public class BlueHomeFragment extends BaseFragment
     {
         super.onSuccess(tag, data);
         initAd((JSONArray) data);
-        /** 测试代码========================     */
-//        JSONArray jsonArray = new JSONArray();
-//        JSONObject jsonObject;
-//        try {
-//            jsonObject = new JSONObject();
-//            jsonObject.put("image", "http://hd.shijue.cvidea.cn/tf/140826/2348436/53fc93183dfae9381b000001.GIF");
-//            jsonObject.put("url", "http://m.goodjobs.cn/");
-//            jsonObject.put("title", "test");
-//            jsonArray.put(jsonObject);
-//
-//            jsonObject = new JSONObject();
-//            jsonObject.put("image", "http://pic33.nipic.com/20131011/8636861_091803753113_2.jpg");
-//            jsonObject.put("url", "http://m.goodjobs.cn/");
-//            jsonObject.put("title", "test2");
-//            jsonArray.put(jsonObject);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        initAd(jsonArray);
-        /** 测试代码========================     */
+        initBuleAd((JSONArray) data);
+        initnterest((JSONArray) data);
+    }
+
+    private void initnterest(JSONArray data)
+    {
+        if (data != null) {
+            int length = 6;
+            for (int i = 0; i < length; i++) {
+                View inflate = View.inflate(getContext(), R.layout.item_bluejob, null);
+                initnterestView(data.optJSONObject(i), inflate);
+                jobBox.addView(inflate);
+            }
+        }
+    }
+
+    private void initnterestView(JSONObject data, View view)
+    {
+        ExtendedTouchView itemCheck = (ExtendedTouchView) view.findViewById(R.id.item_check);
+        final CheckBox itemC = (CheckBox) view.findViewById(R.id.item_c);
+
+        itemCheck.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                itemC.setChecked(!itemC.isChecked());
+            }
+        });
+
+
+    }
+
+    private void initBuleAd(JSONArray data)
+    {
+        if (data != null) {
+            int length = 6;
+            if (length > 0) {
+                historyLayout.setVisibility(View.VISIBLE);
+                int screenW = DensityUtil.getScreenW(getContext());
+                int width = historyLayout.getWidth();
+                int itemW = 0;
+                int padding = (int) getResources().getDimension(R.dimen.padding_default);
+                if (width == 0) {
+                    itemW = (screenW - 4 * padding) / 3;
+                } else {
+                    itemW = (width - 2 * padding) / 3;
+                }
+
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams paramM = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+                paramM.leftMargin = padding;
+                paramM.rightMargin = padding;
+                for (int i = 0; i < 3; i++) {
+                    View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
+                    initItem(inflate, itemW);
+                    if (i == 1) {
+                        historyLayout.addView(inflate, paramM);
+                    } else {
+                        historyLayout.addView(inflate, param);
+                    }
+                }
+
+                if (length > 3) {
+                    historyLayout2.setVisibility(View.VISIBLE);
+                    for (int i = 3; i < 6; i++) {
+                        View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
+                        initItem(inflate, itemW);
+                        if (i == 4) {
+                            historyLayout2.addView(inflate, paramM);
+                        } else {
+                            historyLayout2.addView(inflate, param);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void initItem(View view, int itemW)
+    {
+        SimpleDraweeView itemIv = (SimpleDraweeView) view.findViewById(R.id.item_iv);
+        TextView itemTv = (TextView) view.findViewById(R.id.item_tv);
+        itemIv.getLayoutParams().width = itemW;
+        itemTv.getLayoutParams().width = itemW;
+        itemIv.getLayoutParams().height = itemW / 3;
+        view.invalidate();
+
     }
 
     private void initView(View view)
@@ -122,42 +202,20 @@ public class BlueHomeFragment extends BaseFragment
         backBtn.setImageResource(R.mipmap.icon_blue_home_logo);
         adViewPager = (AutoScrollViewPager) view.findViewById(R.id.adViewPager);
 
-        etSearch = (EditText) view.findViewById(R.id.etSearch);
-
-
-        historyLayout = view.findViewById(R.id.historyLayout);
-        btnSearch = (Button) view.findViewById(R.id.btnSearch);
-
-
-        etSearch.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s)
-            {
-                if (s.length() > 0) {
-                }
-
-            }
-        });
-        etSearch.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-            }
-        });
-        btnSearch.setOnClickListener(this);
+        blueSearchBut = view.findViewById(R.id.blue_search_but);
+        historyLayout = (LinearLayout) view.findViewById(R.id.historyLayout);
+        historyLayout2 = (LinearLayout) view.findViewById(R.id.historyLayout2);
+        jobBox = (LinearLayout) view.findViewById(R.id.job_box);
+        blueSearchBut.setOnClickListener(this);
     }
 
-
+    @Override
+    public void onClick(View v)
+    {
+        super.onClick(v);
+        int i = v.getId();
+        if (i == R.id.blue_search_but) {
+            JumpViewUtil.openActivityAndParam(getContext(), BlueSearchActivity.class, new HashMap<String, Object>());
+        }
+    }
 }

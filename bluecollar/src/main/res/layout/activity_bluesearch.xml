@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:listitem="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+              xmlns:listitem="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_color"
+              android:orientation="vertical">
 
-    <include layout="@layout/actionbar" />
+    <include layout="@layout/actionbar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 <ImageView
                     android:layout_width="20dip"
                     android:layout_height="20dip"
-                    android:src="@mipmap/fdj28_grey" />
+                    android:src="@mipmap/fdj28_grey"/>
 
                 <EditText
                     android:id="@+id/et_campussearch"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/transparent"
-                    android:hint="请输入职位/公司名称搜索" />
+                    android:hint="请输入职位/公司名称搜索"/>
 
                 <ImageButton
                     android:id="@+id/ib_clear"
@@ -46,10 +46,10 @@
                     android:background="@color/transparent"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_clear"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
             </LinearLayout>
 
-            <View style="@style/line" />
+            <View style="@style/line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,7 +57,18 @@
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <View style="@style/line" />
+                <View style="@style/line"/>
+
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:id="@+id/item_jobfunc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:containAll="true"
+                    listitem:hint="请选择"
+                    listitem:singleSelected="true"
+                    listitem:source="jobfunc_l1;jobfunc_l2"
+                    listitem:tvtitle="想做什么"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_address"
@@ -68,61 +79,61 @@
                     listitem:hint="定位中..."
                     listitem:singleSelected="true"
                     listitem:source="jobloc_pro;jobloc_city"
-                    listitem:tvtitle="工作地点" />
+                    listitem:tvtitle="工作地点"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
-                    android:id="@+id/item_indtype"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    listitem:hint="不限"
-                    listitem:singleSelected="false"
-                    listitem:source="indtype"
-                    listitem:tvtitle="行业类别" />
-
-                <cn.goodjobs.common.view.searchItem.SelectorItemView
-                    android:id="@+id/item_jobfunc"
+                    android:id="@+id/item_salary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     listitem:containAll="true"
-                    listitem:hint="不限"
-                    listitem:singleSelected="false"
-                    listitem:source="jobfunc_l1;jobfunc_l2"
-                    listitem:tvtitle="职位类别" />
+                    listitem:hint="请选择"
+                    listitem:singleSelected="true"
+                    listitem:source="salary"
+                    listitem:tvtitle="工资要求"/>
 
-                <View style="@style/line" />
+                <cn.goodjobs.common.view.searchItem.SelectorItemView
+                    android:id="@+id/item_benefit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:containAll="true"
+                    listitem:hint="请选择"
+                    listitem:singleSelected="true"
+                    listitem:source="welfare"
+                    listitem:tvtitle="相关福利"/>
+
+                <View style="@style/line"/>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btnSearch"
                 android:layout_width="match_parent"
                 android:layout_height="40dip"
-                android:layout_margin="@dimen/padding_default"
+                android:layout_marginLeft="@dimen/padding_default"
+                android:layout_marginRight="@dimen/padding_default"
+                android:layout_marginTop="@dimen/padding_default"
                 android:background="@drawable/button_bg"
                 android:text="搜索"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_default" />
+                android:textSize="@dimen/text_default"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/padding_default"
-                    android:text="近期搜索记录"
-                    android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
-
-                <View style="@style/line" />
+                    android:src="@mipmap/icon_blue_job_search_title"
+                    />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:id="@+id/search_heistory"
@@ -135,18 +146,18 @@
 
                 <TextView
                     android:id="@+id/tv_clear"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="10dp"
-                    android:background="@null"
-                    android:clickable="false"
                     android:layout_gravity="center_horizontal"
-                    android:padding="10dip"
+                    android:background="@color/white"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/padding_default"
+                    android:paddingTop="@dimen/padding_default"
                     android:text="[清空搜索记录]"
                     android:textColor="#5f9bf8"
                     android:textSize="15sp"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

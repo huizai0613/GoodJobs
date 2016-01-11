@@ -1,89 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_partJob"
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="21dip"
+        android:layout_height="21dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padding_small"
+        android:background="@drawable/icon_arrow" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="会议兼职"
-        android:padding="@dimen/padding_small"
-        android:textColor="@color/main_color"
-        android:textSize="@dimen/text_default" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/iv_arrow"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/padding_small"
-            android:layout_width="21dip"
-            android:layout_height="21dip"
-            android:background="@drawable/icon_arrow"/>
+        android:layout_toLeftOf="@id/iv_arrow"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_partContent"
-            android:layout_toLeftOf="@id/iv_arrow"
-            android:layout_centerVertical="true"
+            android:id="@+id/tv_partJob"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="修正休养堂"
-            android:paddingLeft="@dimen/padding_small"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/light_color"
-            android:textSize="@dimen/text_small" />
-    </RelativeLayout>
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:text="会议兼职"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_apply"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="待遇："
-            android:paddingLeft="@dimen/padding_small"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/light_color"
-            android:textSize="@dimen/text_small" />
-
-        <TextView
-            android:id="@+id/tv_partDate"
-            android:layout_marginRight="@dimen/padding_large"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2015-12-21"
-            android:textColor="@color/light_color"
-            android:textSize="@dimen/text_small" />
-
-        <TextView
-            android:id="@+id/tv_partSalary"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/tv_apply"
-            android:layout_toLeftOf="@+id/tv_partDate"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="100元/天"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="@color/red"
-            android:textSize="@dimen/text_small" />
-    </RelativeLayout>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_partContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="修正休养堂"
+                android:textColor="@color/light_color"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/padding_small"
+                android:text="待遇："
+                android:textColor="@color/light_color"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/tv_partDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/padding_default"
+                android:text="2015-12-21"
+                android:textColor="@color/light_color"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/tv_partSalary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_partDate"
+                android:layout_toRightOf="@id/tv_apply"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="100元/天"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <View
-        android:layout_marginTop="@dimen/padding_small"
-        style="@style/line"/>
+        style="@style/line"
+        android:layout_below="@id/ll_left"
+        android:layout_marginTop="@dimen/padding_small" />
 
-
-</LinearLayout>
+</RelativeLayout>
