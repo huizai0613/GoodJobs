@@ -8,12 +8,10 @@
         <activity
             android:name=".activity.BlueCollarActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" >
-        </activity>
+            android:launchMode="singleTask"></activity>
         <activity
             android:name=".activity.AddTrendActivity"
-            android:label="@string/title_activity_add_trend" >
-        </activity>
+            android:label="@string/title_activity_add_trend"></activity>
 
         <activity
             android:name=".activity.InfoCenter.ItemSettingActivity"
@@ -38,8 +36,21 @@
         <activity
             android:name=".activity.BlueSearchActivity"
             android:screenOrientation="portrait"></activity>
+
         <activity
             android:name=".activity.BlueJobSearchResultActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.InfoCenter.ItemCheckActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.InfoCenter.ItemApplyActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.InfoCenter.ItemCollectActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

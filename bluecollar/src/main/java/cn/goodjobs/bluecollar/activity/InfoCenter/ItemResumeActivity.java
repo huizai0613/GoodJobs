@@ -22,7 +22,6 @@ public class ItemResumeActivity extends BaseActivity {
     private SelectorItemView itemWant, itemAddress;
     private SearchItemView itemBirthday;
     private InputItemView itemName;
-    private ImageButton btnRight;
     private Button btnSave;
 
     @Override
@@ -49,13 +48,26 @@ public class ItemResumeActivity extends BaseActivity {
         new DatePickerUtil(this, itemBirthday, "yyyy-MM-dd", null);
 
         llBottom.setVisibility(View.GONE);
-
-        btnRight.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    public void onSuccess(String tag, Object data) {
+        super.onSuccess(tag, data);
+    }
+
+    @Override
+    public void onFailure(int statusCode, String tag) {
+        super.onFailure(statusCode, tag);
+    }
+
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage) {
+        super.onError(errorCode, tag, errorMessage);
     }
 
     public void doSave(View v) {
@@ -67,8 +79,5 @@ public class ItemResumeActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         int i = v.getId();
-        if (i == R.id.btn_right) {
-
-        }
     }
 }

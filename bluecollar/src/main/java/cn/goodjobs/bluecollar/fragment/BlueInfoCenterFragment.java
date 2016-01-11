@@ -13,12 +13,16 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemApplyActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCheckActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCollectActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemMoreActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemSettingActivity;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
+import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
 
@@ -61,8 +65,6 @@ public class BlueInfoCenterFragment extends BaseFragment {
         itemMore = (SearchItemView) view.findViewById(R.id.itemMore);
 
         btnLogin.setOnClickListener(this);
-        tvName.setOnClickListener(this);
-        tvTime.setOnClickListener(this);
         tvResume.setOnClickListener(this);
         tvEntrust.setOnClickListener(this);
         myHeadImage.setOnClickListener(this);
@@ -150,12 +152,19 @@ public class BlueInfoCenterFragment extends BaseFragment {
         } else if (i == R.id.itemJianli) {
             intent.setClass(getActivity(), ItemResumeActivity.class);
         } else if (i == R.id.itemChakan) {
-            return;
+            intent.setClass(getActivity(), ItemCheckActivity.class);
         } else if (i == R.id.itemShenqing) {
-            return;
+            intent.setClass(getActivity(), ItemApplyActivity.class);
         } else if (i == R.id.itemCollection) {
-            return;
+            intent.setClass(getActivity(), ItemCollectActivity.class);
         } else if (i == R.id.itemZhaoping) {
+            return;
+        } else if (i == R.id.tv_entrust) {
+            AlertDialogUtil.show(getActivity(), "委托投递", "设置委托投递成功", false, "我知道了", null, null, null);
+            return;
+        } else if (i == R.id.tv_resume) {
+            return;
+        } else if (i == R.id.myHeadImage) {
             return;
         }
         startActivity(intent);

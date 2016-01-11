@@ -156,6 +156,7 @@
                     android:clickable="true"
                     listitem:image="@drawable/personal_center_jianli"
                     listitem:showHLine="false"
+                    listitem:showLine="false"
                     listitem:tvtitle="我的简历" />
 
                 <View style="@style/line" />
@@ -195,6 +196,7 @@
                     android:clickable="true"
                     listitem:image="@drawable/personal_center_collection"
                     listitem:showHLine="false"
+                    listitem:showLine="false"
                     listitem:tvtitle="职位收藏夹" />
 
                 <View style="@style/line" />
@@ -238,6 +240,7 @@
                     android:clickable="true"
                     listitem:image="@drawable/personal_center_setting"
                     listitem:showHLine="false"
+                    listitem:showLine="false"
                     listitem:tvtitle="设置" />
 
                 <View style="@style/line" />
@@ -260,6 +263,7 @@
                     android:clickable="true"
                     listitem:image="@drawable/personal_center_setting"
                     listitem:showHLine="false"
+                    listitem:showLine="false"
                     listitem:tvtitle="更多" />
 
                 <View style="@style/line" />
