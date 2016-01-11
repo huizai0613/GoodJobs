@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_bg"
+    android:padding="@dimen/padding_small">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/headPhoto"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:fadeDuration="300"
+        android:clickable="true"
+        fresco:roundedCornerRadius="30dp"
+        fresco:placeholderImage="@drawable/img_personal_default"
+        fresco:placeholderImageScaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/headPhoto"
+        android:layout_marginLeft="@dimen/padding_small"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/headPhoto"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tvName"
+                android:textSize="@dimen/text_default"
+                android:textColor="@color/main_color"
+                android:text="赵飞燕"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDistance"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/light_color"
+                android:drawableLeft="@mipmap/img_distance"
+                android:gravity="center_vertical"
+                android:text="55m"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_toRightOf="@+id/headPhoto"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvAge"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/white"
+                android:text="22"
+                android:padding="2dip"
+                android:drawableLeft="@mipmap/img_mail"
+                android:background="@color/topbar_bg"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

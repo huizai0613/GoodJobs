@@ -54,6 +54,8 @@ public class MakeFriendsFragment extends BaseFragment {
 
     // 初始化界面布局
     private void loadView() {
+        setTopTitle(view, "交友");
+        hideBackBtn(view);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         fragmentList = new ArrayList<BaseFragment>();
         fragmentList.add(new MakeFriendsNearFragment());

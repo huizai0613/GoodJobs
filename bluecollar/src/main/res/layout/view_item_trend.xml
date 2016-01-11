@@ -12,7 +12,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/myImageview"
             android:layout_width="match_parent"
-            android:layout_height="180dip"
+            android:layout_height="match_parent"
             fresco:actualImageScaleType="focusCrop"
             fresco:fadeDuration="300"
             android:clickable="true"

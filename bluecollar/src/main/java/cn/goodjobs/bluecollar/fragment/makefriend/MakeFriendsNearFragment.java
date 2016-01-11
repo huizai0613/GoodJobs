@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.adapter.TrendAdapter;
 import cn.goodjobs.common.baseclass.BaseListFragment;
 import cn.goodjobs.common.view.LoadingDialog;
 
@@ -22,7 +23,9 @@ public class MakeFriendsNearFragment extends BaseListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.load_more_list_view, container, false);
+        mAdapter = new TrendAdapter(getActivity());
         initList(view);
+        startRefresh();
         return view;
     }
 
@@ -33,6 +36,6 @@ public class MakeFriendsNearFragment extends BaseListFragment {
     @Override
     protected void getDataFronServer() {
         super.getDataFronServer();
-        LoadingDialog.showDialog(getActivity());
+        mTestHandler.postDelayed(testRun, 2000);
     }
 }
