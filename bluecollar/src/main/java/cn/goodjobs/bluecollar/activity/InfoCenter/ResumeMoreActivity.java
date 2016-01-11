@@ -1,4 +1,4 @@
-package cn.goodjobs.bluecollar.activity;
+package cn.goodjobs.bluecollar.activity.InfoCenter;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
