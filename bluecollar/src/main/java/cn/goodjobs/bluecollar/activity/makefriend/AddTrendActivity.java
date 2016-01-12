@@ -97,12 +97,12 @@ public class AddTrendActivity extends BaseImageUploadActivity {
     }
 
     @Override
-    protected void onImageFinish(File file) {
+    protected void onImageFinish(Uri fileUri) {
         UploadImageAdapter.UploadImaggeData uploadImaggeData;
         uploadImaggeData = new UploadImageAdapter.UploadImaggeData();
         uploadImaggeData.addTrendActivity = this;
         uploadImaggeData.status = 1;
-        uploadImaggeData.file = ImageUtil.scal(Uri.fromFile(file));
+        uploadImaggeData.file = ImageUtil.scal(fileUri);
         uploadImageAdapter.uploadImaggeDatas.add(uploadImaggeData);
         uploadImageAdapter.notifyDataSetChanged();
     }

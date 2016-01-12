@@ -110,6 +110,8 @@ public class URLS
     // 交友
     public final static String MAKEFRIEND_ADDPIC = "Friend/Dynamicpicsave";      //动态上传图片
     public final static String MAKEFRIEND_ADDTREND = "Friend/Dynamicsave";      //动态发布
+    public final static String MAKEFRIEND_BASICINFO = "Friend/Basicshow";      //个人资料
+    public final static String MAKEFRIEND_BASICSAVE = "Friend/Basicsave";      //个人资料保存
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件
