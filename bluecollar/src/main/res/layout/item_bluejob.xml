@@ -62,7 +62,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="30dip"
                     android:layout_weight="2"
-                    android:gravity="center_vertical|right"
+                    android:gravity="center_vertical|left"
                     android:textColor="@color/light_color"
                     android:textSize="@dimen/font_size_12"/>
 
@@ -80,19 +80,24 @@
 
                 <TextView
                     android:id="@+id/item_salary"
-                    android:layout_width="0dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.5"
                     android:gravity="center_vertical"
+                    android:minWidth="100dip"
                     android:singleLine="true"
-                    android:text="40000-50000元/月"
                     android:textColor="@color/bule_low_color"
                     android:textSize="@dimen/text_small"/>
 
                 <LinearLayout
-                    android:layout_width="0dip"
+                    android:id="@+id/item_treatment_box"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"></LinearLayout>
+                    android:layout_marginLeft="@dimen/padding_small"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -102,21 +107,23 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <cn.goodjobs.common.view.BabushkaText
-                    android:id="@+id/item_address"
+                <TextView
+                    android:id="@+id/item_company_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:ellipsize="end"
+                    android:maxWidth="140dip"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textSize="@dimen/text_small"/>
 
                 <ImageView
                     android:id="@+id/item_certify"
                     android:layout_width="20dip"
                     android:layout_height="15dip"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/padding_small"
                     android:scaleType="fitXY"
                     android:src="@mipmap/icon_uncertify"/>
 
@@ -129,6 +136,16 @@
                     android:scaleType="fitXY"
                     android:src="@mipmap/icon_vip"/>
 
+                <TextView
+                    android:id="@+id/item_time"
+                    android:text="sdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="right|center_vertical"
+                    android:singleLine="true"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_small"/>
 
             </LinearLayout>
 

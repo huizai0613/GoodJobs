@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -196,7 +197,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             e.printStackTrace();
                         }
                     }
-                    moreInfo.setValue(oneCate1, twoCate, 0 + "", itemBenefitId + "", null);
+                    moreInfo.setValue(oneCate1, twoCate, 0 + "", 0 + "", null);
 
 
                     break;
@@ -217,7 +218,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private ArrayList<String> values;
 
     private boolean isCur;
-    private boolean isMuCheck;
 
 
     private String searchKeyWorld;
@@ -245,9 +245,10 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private TextView send;
     private LinearLayout bottomBar;
     private String itemJobfuncPrantId;
-    private Map<JSONObject, List<JSONObject>> jobTypeyData;
     private String itemBenefit;
     private String itemBenefitId;
+    private ArrayList<JSONObject> jopTypeParent;
+    private ArrayList<List<JSONObject>> jopTypeChild;
 
 
     @Override
@@ -259,18 +260,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     @Override
     protected void initWeightClick()
     {
-
-        etvMenu.setmOnExpandTabDismissListener(new ExpandTabView.OnExpandTabDismissListener()
-        {
-            @Override
-            public void expandTabDismiss(int position)
-            {
-                if (position == 2 && isMuCheck) {
-                    startRefresh();
-                    isMuCheck = false;
-                }
-            }
-        });
 
 
         //区域选择
@@ -327,6 +316,33 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                 startRefresh();
             }
         });
+
+
+        jobType.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
+        {
+
+
+            @Override
+            public void onSelected(String firstLevelKey, String secondLevelKey, String showString)
+            {
+                //筛选职位
+                etvMenu.setTitle(showString, 1);
+
+                if ("0".equals(secondLevelKey)) {
+                    itemJobfuncId = jopTypeParent.get(Integer.parseInt(firstLevelKey)).optInt("id") + "";
+                } else {
+                    itemJobfuncId = "" + jopTypeChild.get(Integer.parseInt(firstLevelKey)).get(Integer.parseInt(secondLevelKey)).optInt("id");
+                }
+                startRefresh();
+
+            }
+
+            @Override
+            public void onSelectedMuilt(HashMap<String, String> muiltMap)
+            {
+            }
+        });
+
         //更多选择
         moreInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
         {
@@ -345,21 +361,14 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                 for (Map.Entry<String, String> entry : entries) {
 
                     String key = entry.getKey();
-                    if (key.equals("0")) {
-                        itemDegreeId = entry.getValue();
+                    if (key.equals("0")) {//福利
+                        itemBenefitId = entry.getValue();
                     }
-                    if (key.equals("1")) {
-                        itemWorktimeId = entry.getValue();
-                    }
-                    if (key.equals("2")) {
-                        jobTypeId = entry.getValue();
-                    }
-                    if (key.equals("3")) {
-                        corpkindId = entry.getValue();
+                    if (key.equals("1")) {//行业
+                        itemIndtypeId = entry.getValue();
                     }
                 }
-                isMuCheck = true;
-
+                startRefresh();
             }
         });
 
@@ -380,10 +389,8 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
         HashMap<String, String> multiCheckMap = new HashMap<>();
-        multiCheckMap.put("0", itemDegreeId == null ? "0" : itemDegreeId);
-        multiCheckMap.put("1", itemWorktimeId == null ? "0" : itemWorktimeId);
-        multiCheckMap.put("2", jobTypeId == null ? "0" : jobTypeId);
-        multiCheckMap.put("3", corpkindId == null ? "0" : corpkindId);
+        multiCheckMap.put("0", itemBenefitId == null ? "0" : itemBenefitId);
+        multiCheckMap.put("1", "0");
         moreInfo.setCheckMult(multiCheckMap);
 
         store = (TextView) findViewById(R.id.item_store);
@@ -476,10 +483,13 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         if (!StringUtil.isEmpty(jobTypeId))//工作性质
             Object.put("jobType", jobTypeId);
 
+        if (!StringUtil.isEmpty(itemBenefitId))//福利
+            Object.put("treatment", itemBenefitId);
+
         if (!StringUtil.isEmpty(corpkindId))//企业性质
             Object.put("corpkind", corpkindId);
 
-        HttpUtil.post(URLS.API_JOB_JobList, Object, this);
+        HttpUtil.post(URLS.API_BLUEJOB_Joblist, Object, this);
     }
 
 
@@ -577,7 +587,14 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         Message message = new Message();
         message.what = UpdateDataTaskUtils.JOBTYPEDATA;
         message.obj = JobFunData;
-        this.jobTypeyData = JobFunData;
+        Set<Map.Entry<JSONObject, List<JSONObject>>> entries = JobFunData.entrySet();
+        jopTypeParent = new ArrayList<>();
+        jopTypeChild = new ArrayList<>();
+
+        for (Map.Entry<JSONObject, List<JSONObject>> entry : entries) {
+            jopTypeParent.add(entry.getKey());
+            jopTypeChild.add(entry.getValue());
+        }
         handler.sendMessage(message);
     }
 

@@ -1,10 +1,15 @@
 package cn.goodjobs.bluecollar.fragment;
 
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +28,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -60,12 +66,14 @@ public class BlueHomeFragment extends BaseFragment
     private Button btnSearch;
     private View blueSearchBut;
     private LinearLayout jobBox;
+    ArrayList<Integer> selectJobIds = new ArrayList<Integer>();
+    private View applyjobBut;
 
 
     private void getDataFromServer()
     {
         LoadingDialog.showDialog(getActivity());
-        HttpUtil.post(URLS.API_IMG_AD, this);
+        HttpUtil.post(URLS.API_BLUEJOB_Index, this);
     }
 
 
@@ -101,15 +109,20 @@ public class BlueHomeFragment extends BaseFragment
     public void onSuccess(String tag, Object data)
     {
         super.onSuccess(tag, data);
-        initAd((JSONArray) data);
-        initBuleAd((JSONArray) data);
-        initnterest((JSONArray) data);
+        JSONObject jsonObject = (JSONObject) data;
+        JSONArray adsList = jsonObject.optJSONArray("adsList");
+        JSONArray hotJob = jsonObject.optJSONArray("hotJob");
+        JSONArray likeJob = jsonObject.optJSONArray("likeJob");
+
+        initAd(adsList);
+        initBuleAd(hotJob);
+        initnterest(likeJob);
     }
 
     private void initnterest(JSONArray data)
     {
         if (data != null) {
-            int length = 6;
+            int length = data.length();
             for (int i = 0; i < length; i++) {
                 View inflate = View.inflate(getContext(), R.layout.item_bluejob, null);
                 initnterestView(data.optJSONObject(i), inflate);
@@ -118,10 +131,78 @@ public class BlueHomeFragment extends BaseFragment
         }
     }
 
-    private void initnterestView(JSONObject data, View view)
+    private void initnterestView(final JSONObject data, View view)
     {
         ExtendedTouchView itemCheck = (ExtendedTouchView) view.findViewById(R.id.item_check);
         final CheckBox itemC = (CheckBox) view.findViewById(R.id.item_c);
+        TextView item_title = (TextView) view.findViewById(R.id.item_title);
+        TextView item_salary = (TextView) view.findViewById(R.id.item_salary);
+        TextView item_company_name = (TextView) view.findViewById(R.id.item_company_name);
+        TextView item_dis = (TextView) view.findViewById(R.id.item_dis);
+        LinearLayout item_treatment_box = (LinearLayout) view.findViewById(R.id.item_treatment_box);
+        ImageView item_certify = (ImageView) view.findViewById(R.id.item_certify);
+        ImageView item_vip = (ImageView) view.findViewById(R.id.item_vip);
+
+
+        item_title.setText(data.optString("jobName"));
+        item_salary.setText(data.optString("salaryName"));
+        item_company_name.setText(data.optString("corpName"));
+
+        String distance = data.optString("distance");
+
+        if (StringUtil.isEmpty(distance)) {
+            item_dis.setText(data.optString("pubDate"));
+        } else {
+            Drawable iconDis = getResources().getDrawable(R.mipmap.icon_bluedis);
+            iconDis.setBounds(0, 0, DensityUtil.dip2px(getContext(), 20), DensityUtil.dip2px(getContext(), 20));
+            item_dis.setCompoundDrawables(iconDis, null, null, null);
+            item_dis.setText(" " + distance);
+        }
+
+        String certStatus = data.optString("certStatus");
+        String blueFlag = data.optString("blueFlag");
+
+
+        if ("1".equals(certStatus)) {
+            item_certify.setImageResource(R.mipmap.icon_certify);
+        } else {
+            item_certify.setImageResource(R.mipmap.icon_uncertify);
+        }
+
+        if ("0".equals(certStatus)) {
+            item_vip.setVisibility(View.VISIBLE);
+        } else {
+            item_vip.setVisibility(View.GONE);
+        }
+
+
+        JSONArray treatment = data.optJSONArray("treatment");
+
+        if (treatment != null) {
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            int i1 = DensityUtil.dip2px(getContext(), 2);
+            for (int i = 0; i < (treatment.length() > 3 ? 3 : treatment.length()); i++) {
+
+                TextView item = new TextView(getContext());
+                item.setPadding(i1, i1, i1, i1);
+                item.setBackgroundResource(R.drawable.bg_welfare);
+                item.setGravity(Gravity.CENTER);
+                if (i == 2) {
+                    item.setText("·  ·  ·");
+                } else {
+                    item.setText(treatment.optString(i));
+                }
+
+                if (i == 1) {
+                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(getContext(), 2);
+                }
+
+                item.setTextColor(Color.parseColor("#6bbd00"));
+                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                item_treatment_box.addView(item, p);
+            }
+        }
+
 
         itemCheck.setOnClickListener(new View.OnClickListener()
         {
@@ -129,6 +210,17 @@ public class BlueHomeFragment extends BaseFragment
             public void onClick(View v)
             {
                 itemC.setChecked(!itemC.isChecked());
+                if (itemC.isChecked()) {
+                    selectJobIds.add((Integer) data.optInt("id"));
+                } else {
+                    selectJobIds.remove((Integer) data.optInt("id"));
+                }
+                if (selectJobIds.size() > 0) {
+                    applyjobBut.setVisibility(View.VISIBLE);
+                } else {
+                    applyjobBut.setVisibility(View.GONE);
+                }
+
             }
         });
 
@@ -137,59 +229,70 @@ public class BlueHomeFragment extends BaseFragment
 
     private void initBuleAd(JSONArray data)
     {
-        if (data != null) {
-            int length = 6;
-            if (length > 0) {
-                historyLayout.setVisibility(View.VISIBLE);
-                int screenW = DensityUtil.getScreenW(getContext());
-                int width = historyLayout.getWidth();
-                int itemW = 0;
-                int padding = (int) getResources().getDimension(R.dimen.padding_default);
-                if (width == 0) {
-                    itemW = (screenW - 4 * padding) / 3;
+        if (data != null && data.length() > 0) {
+            int length = data.length();
+            historyLayout.setVisibility(View.VISIBLE);
+            int screenW = DensityUtil.getScreenW(getContext());
+            int width = historyLayout.getWidth();
+            int itemW = 0;
+            int padding = (int) getResources().getDimension(R.dimen.padding_default);
+            if (width == 0) {
+                itemW = (screenW - 4 * padding) / 3;
+            } else {
+                itemW = (width - 2 * padding) / 3;
+            }
+
+            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams paramM = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+            paramM.leftMargin = padding;
+            paramM.rightMargin = padding;
+            for (int i = 0; i < 3; i++) {
+                View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
+                initItem(inflate, itemW, data.optJSONObject(i));
+                if (i == 1) {
+                    historyLayout.addView(inflate, paramM);
                 } else {
-                    itemW = (width - 2 * padding) / 3;
+                    historyLayout.addView(inflate, param);
                 }
+            }
 
-                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
-                LinearLayout.LayoutParams paramM = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
-                paramM.leftMargin = padding;
-                paramM.rightMargin = padding;
-                for (int i = 0; i < 3; i++) {
+            if (length > 3) {
+                historyLayout2.setVisibility(View.VISIBLE);
+                for (int i = 3; i < 6; i++) {
                     View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
-                    initItem(inflate, itemW);
-                    if (i == 1) {
-                        historyLayout.addView(inflate, paramM);
+                    initItem(inflate, itemW, data.optJSONObject(i));
+                    if (i == 4) {
+                        historyLayout2.addView(inflate, paramM);
                     } else {
-                        historyLayout.addView(inflate, param);
-                    }
-                }
-
-                if (length > 3) {
-                    historyLayout2.setVisibility(View.VISIBLE);
-                    for (int i = 3; i < 6; i++) {
-                        View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
-                        initItem(inflate, itemW);
-                        if (i == 4) {
-                            historyLayout2.addView(inflate, paramM);
-                        } else {
-                            historyLayout2.addView(inflate, param);
-                        }
+                        historyLayout2.addView(inflate, param);
                     }
                 }
             }
+        } else {
+            historyLayout.setVisibility(View.GONE);
         }
     }
 
-    private void initItem(View view, int itemW)
+    private void initItem(View view, int itemW, JSONObject data)
     {
         SimpleDraweeView itemIv = (SimpleDraweeView) view.findViewById(R.id.item_iv);
         TextView itemTv = (TextView) view.findViewById(R.id.item_tv);
         itemIv.getLayoutParams().width = itemW;
         itemTv.getLayoutParams().width = itemW;
         itemIv.getLayoutParams().height = itemW / 3;
-        view.invalidate();
 
+        itemTv.setText(data.optString("jobName"));
+
+        itemIv.setImageURI(Uri.parse(data.optString("corpLogo")));
+
+        view.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+//  跳转职位详情
+            }
+        });
     }
 
     private void initView(View view)
@@ -202,11 +305,14 @@ public class BlueHomeFragment extends BaseFragment
         backBtn.setImageResource(R.mipmap.icon_blue_home_logo);
         adViewPager = (AutoScrollViewPager) view.findViewById(R.id.adViewPager);
 
+
         blueSearchBut = view.findViewById(R.id.blue_search_but);
         historyLayout = (LinearLayout) view.findViewById(R.id.historyLayout);
         historyLayout2 = (LinearLayout) view.findViewById(R.id.historyLayout2);
         jobBox = (LinearLayout) view.findViewById(R.id.job_box);
         blueSearchBut.setOnClickListener(this);
+        applyjobBut = view.findViewById(R.id.applyjob_but);
+        applyjobBut.setOnClickListener(this);
     }
 
     @Override
@@ -216,6 +322,17 @@ public class BlueHomeFragment extends BaseFragment
         int i = v.getId();
         if (i == R.id.blue_search_but) {
             JumpViewUtil.openActivityAndParam(getContext(), BlueSearchActivity.class, new HashMap<String, Object>());
+        } else if (i == R.id.applyjob_but) {
+            //申请职位
+            if (selectJobIds.size() > 0) {
+                for (Integer selectJobId : selectJobIds) {
+                    selectJobId.toString();
+                }
+            } else {
+                TipsUtil.show(getContext(), "您未选择职位");
+            }
+
+
         }
     }
 }

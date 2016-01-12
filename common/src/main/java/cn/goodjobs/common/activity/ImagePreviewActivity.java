@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
+import com.facebook.drawee.controller.AbstractDraweeController;
+import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -27,6 +30,8 @@ import cn.goodjobs.common.R;
 import cn.goodjobs.common.adapter.RecyclingPagerAdapter;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.view.HackyViewPager;
+import cn.goodjobs.common.view.photodraweeview.OnPhotoTapListener;
+import cn.goodjobs.common.view.photodraweeview.PhotoDraweeView;
 import cn.goodjobs.common.view.photoview.PhotoView;
 import cn.goodjobs.common.view.photoview.PhotoViewAttacher;
 
@@ -128,12 +133,12 @@ public class ImagePreviewActivity extends BaseActivity implements
 
     static class ViewHolder
     {
-        PhotoView image;
+        PhotoDraweeView image;
         ProgressBar progress;
 
         ViewHolder(View view)
         {
-            image = (PhotoView) view.findViewById(R.id.scaleimageview);
+            image = (PhotoDraweeView) view.findViewById(R.id.scaleimageview);
             progress = (ProgressBar) view.findViewById(R.id.progress);
         }
     }
@@ -160,63 +165,71 @@ public class ImagePreviewActivity extends BaseActivity implements
             } else {
                 vh = (ViewHolder) convertView.getTag();
             }
-            vh.image.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener()
+            vh.image.setOnPhotoTapListener(new OnPhotoTapListener()
             {
 
                 @Override
-                public void onViewTap(View view, float x, float y)
+                public void onPhotoTap(View view, float x, float y)
                 {
                     singleClick();
                 }
+
             });
             final ProgressBar bar = vh.progress;
 
 
-            DraweeController controller = Fresco.newDraweeControllerBuilder()
-                    .setControllerListener(new ControllerListener<ImageInfo>()
-                    {
+            final ViewHolder finalVh = vh;
+            PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
+            controller.setOldController(vh.image.getController());
 
-                        @Override
-                        public void onSubmit(String id, Object callerContext)
-                        {
-                            bar.setVisibility(View.VISIBLE);
-                        }
+            controller.setControllerListener(new BaseControllerListener<ImageInfo>()
+            {
+                @Override
+                public void onSubmit(String id, Object callerContext)
+                {
+                    bar.setVisibility(View.VISIBLE);
+                }
 
-                        @Override
-                        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable)
-                        {
-                            bar.setVisibility(View.GONE);
-                        }
+                @Override
+                public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable)
+                {
+                    bar.setVisibility(View.GONE);
+                    if (imageInfo == null || finalVh.image == null) {
+                        return;
+                    }
+                    finalVh.image.update(imageInfo.getWidth(), imageInfo.getHeight());
+                }
 
-                        @Override
-                        public void onIntermediateImageSet(String id, ImageInfo imageInfo)
-                        {
+                @Override
+                public void onIntermediateImageSet(String id, ImageInfo imageInfo)
+                {
 
-                        }
+                }
 
-                        @Override
-                        public void onIntermediateImageFailed(String id, Throwable throwable)
-                        {
-                            bar.setVisibility(View.GONE);
-                        }
+                @Override
+                public void onIntermediateImageFailed(String id, Throwable throwable)
+                {
+                    bar.setVisibility(View.GONE);
+                }
 
-                        @Override
-                        public void onFailure(String id, Throwable throwable)
-                        {
-                            bar.setVisibility(View.GONE);
+                @Override
+                public void onFailure(String id, Throwable throwable)
+                {
+                    bar.setVisibility(View.GONE);
 
-                        }
+                }
 
-                        @Override
-                        public void onRelease(String id)
-                        {
+                @Override
+                public void onRelease(String id)
+                {
 
-                        }
-                    })
+                }
+            })
                     .setUri(Uri.parse(getItem(position)))
                             // other setters
                     .build();
-            vh.image.setController(controller);
+
+            vh.image.setController(controller.build());
 
             return convertView;
         }

@@ -23,6 +23,9 @@
     <!--  行间距 -->
     <dimen name="line_padding">4dip</dimen>
 
+    <!--  底部导航栏 -->
+    <dimen name="padding_bottom">2dip</dimen>
+
     <!--  顶部导航条高度 -->
     <dimen name="topbar_height">44dip</dimen>
 

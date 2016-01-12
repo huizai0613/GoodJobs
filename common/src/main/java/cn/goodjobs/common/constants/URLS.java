@@ -23,6 +23,11 @@ public class URLS
     public final static String API_JOB_Searcher = "Job/Searcher";  // 获取搜索器
     public final static String API_JOB_Searcherdel = "Job/Searcherdel";  // 获取搜索器
     public final static String API_JOB_Joball = "Job/Joball";  // 公司所有职位
+    //蓝领
+    public final static String API_BLUEJOB_Index = "Bluejob/Index";  // 蓝领首页
+    public final static String API_BLUEJOB_Jobshow = "Bluejob/Jobshow";  // 蓝领职位详情
+    public final static String API_BLUEJOB_Joblist = "Bluejob/Joblist";  // 蓝领职位列表
+
 
     // 登录相关
     public final static String API_PERSON_LOGIN = "user/Login"; // 登录

@@ -224,7 +224,7 @@ public class JobCompanyDetailActivity extends BaseActivity
 
     public void setPhotos(final ArrayList<String> photos)
     {
-        photos.add("http://sdifisdjf.sdfjisd");
+        photos.add("http://pica.nipic.com/2008-03-19/2008319183523380_2.jpg");
         int dip2pxBig = DensityUtil.dip2px(mcontext, 15);
         int dip2pxSmall = DensityUtil.dip2px(mcontext, 5);
         int itemW = 0;

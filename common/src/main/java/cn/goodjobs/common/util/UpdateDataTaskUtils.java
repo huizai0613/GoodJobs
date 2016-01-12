@@ -687,6 +687,59 @@ public class UpdateDataTaskUtils
 
     }
 
+    //得到已阅读的职位id
+    public static void getReadJob(final Context context, final OnGetDiscussReadJobListener listener)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                String asString = LsSimpleCache.get(context).getAsString(JsonMetaUtil.JOBREAD);
+
+                ArrayList<Integer> integers = new ArrayList<Integer>();
+
+                String[] split = asString.split(",");
+
+                for (int i = 0; i < split.length; i++) {
+                    integers.add(Integer.parseInt(split[i]));
+                }
+                if (listener != null) {
+                    listener.onGetDiscussReadJob(integers);
+                }
+
+            }
+
+        });
+
+    }
+
+    public static void saveJobRead(final Context context, final int readId)
+    {
+        getBackgroundThreadPool().execute(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                String asString = LsSimpleCache.get(context).getAsString(JsonMetaUtil.JOBREAD);
+
+                if (StringUtil.isEmpty(asString)) {
+                    asString = readId + "";
+                } else {
+                    asString += asString + "," + readId;
+                }
+                LsSimpleCache.get(context).put(JsonMetaUtil.JOBREAD, asString);
+            }
+
+        });
+    }
+
+
+    public interface OnGetDiscussReadJobListener
+    {
+        void onGetDiscussReadJob(List<Integer> jobRead);
+    }
+
     public interface OnGetDiscussHistoryListener
     {
         void onGetDiscussHistory(Map<Long, Map<String, String>> history);
