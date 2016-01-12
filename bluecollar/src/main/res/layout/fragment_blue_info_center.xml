@@ -56,12 +56,13 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/myImageview"
                         android:layout_centerHorizontal="true"
+                        android:background="@drawable/button_bg_white"
                         android:paddingBottom="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
                         android:paddingTop="@dimen/padding_small"
                         android:text="注册/登录"
-                        android:textColor="@color/main_color"
+                        android:textColor="@color/topbar_bg"
                         android:textSize="@dimen/text_default"
                         android:visibility="invisible" />
 
