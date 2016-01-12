@@ -149,19 +149,11 @@ public class BaseImageUploadActivity extends BaseActivity {
 				ImageUtil.startPhotoZoom(this, Uri.parse(savePath),Uri.parse(savePath)
 						,zoomW, zoomH, FLAG_MODIFY_FINISH);
 			} else {
-				try {
-					onImageFinish(new File(new URI(savePath)));
-				} catch (URISyntaxException e) {
-					e.printStackTrace();
-				}
+				onImageFinish(Uri.parse(savePath));
 			}
 		} else if (requestCode == FLAG_MODIFY_FINISH && resultCode == RESULT_OK) {
 			if (data != null) {
-				try {
-					onImageFinish(new File(new URI(savePath)));
-				} catch (URISyntaxException e) {
-					e.printStackTrace();
-				}
+				onImageFinish(Uri.parse(savePath));
 			}
 		}
 	}
@@ -182,7 +174,7 @@ public class BaseImageUploadActivity extends BaseActivity {
 		}
 	}
 	
-	protected void onImageFinish(File file) {
+	protected void onImageFinish(Uri fileUri) {
 		
 	}
 	

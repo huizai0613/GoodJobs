@@ -9,6 +9,7 @@
             android:name=".activity.BlueCollarActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"></activity>
+
         <activity
             android:name=".activity.makefriend.AddTrendActivity"
             android:label="@string/title_activity_add_trend"></activity>
@@ -52,6 +53,14 @@
         <activity
             android:name=".activity.InfoCenter.ItemCollectActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.BlueJobSearchResultActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".activity.makefriend.MakeFriendPersonalInfoActivity"
+            android:label="@string/title_activity_make_friend_personal_info"></activity>
     </application>
 
 </manifest>
