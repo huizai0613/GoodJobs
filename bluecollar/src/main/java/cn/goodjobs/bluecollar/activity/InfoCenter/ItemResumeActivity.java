@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONObject;
 
@@ -35,10 +38,11 @@ import cn.goodjobs.common.view.searchItem.SelectorItemView;
 /**
  * Created by zhuli on 2016/1/7.
  */
-public class ItemResumeActivity extends BaseActivity {
+public class ItemResumeActivity extends BaseImageUploadActivity {
 
+    RelativeLayout headPhotoLayout;
+    SimpleDraweeView headPhoto;
     private RadioGroup sexGroup;
-    private ImageView iv_head;
     private LinearLayout llBottom;
     private SelectorItemView itemWant, itemAddress, itemDegree, itemCheckIn, itemWorkAddress, itemSalary, itemJobFunc, itemWorktime;
     private SearchItemView itemBirthday;
@@ -60,7 +64,9 @@ public class ItemResumeActivity extends BaseActivity {
     protected void initWeight() {
         setTopTitle("我的简历");
 
-        iv_head = (ImageView) findViewById(R.id.iv_head);
+        headPhotoLayout = (RelativeLayout) findViewById(R.id.headPhotoLayout);
+        headPhoto = (SimpleDraweeView) findViewById(R.id.headPhoto);
+
         btnSave = (Button) findViewById(R.id.btn_save);
         llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
         itemWant = (SelectorItemView) findViewById(R.id.itemWant);
@@ -77,6 +83,9 @@ public class ItemResumeActivity extends BaseActivity {
         itemWorktime = (SelectorItemView) findViewById(R.id.itemWorktime);
 
         new DatePickerUtil(this, itemBirthday, "yyyy-MM-dd", null);
+
+        isModify = true;
+        headPhotoLayout.setOnClickListener(this);
 
         getDataFromServer();
     }
@@ -124,6 +133,15 @@ public class ItemResumeActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         int i = v.getId();
+        if (v.getId() == R.id.headPhotoLayout) {
+            showBottomBtns();
+        }
+    }
+
+    @Override
+    protected void onImageFinish(Uri fileUri) {
+        super.onImageFinish(fileUri);
+        headPhoto.setImageURI(fileUri);
     }
 
     private void setDataToView(JSONObject jsonObject) {

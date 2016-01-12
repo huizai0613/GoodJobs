@@ -26,15 +26,15 @@
 
 
             <RelativeLayout
+                android:id="@+id/headPhotoLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:background="@drawable/list_item_bg">
+                android:layout_height="70dip"
+                android:background="@drawable/list_item_bg"
+                android:clickable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/padding_small"
+                    android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -49,13 +49,6 @@
                         android:text="*"
                         android:textColor="@color/red"
                         android:textSize="@dimen/text_small" />
-
-                    <ImageView
-                        android:layout_width="26dip"
-                        android:layout_height="26dip"
-                        android:layout_marginRight="@dimen/padding_small"
-                        android:scaleType="fitXY"
-                        android:visibility="gone" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -77,15 +70,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/headPhoto"
+                        android:layout_width="54dip"
+                        android:layout_height="54dip"
+                        fresco:actualImageScaleType="focusCrop"
+                        fresco:fadeDuration="300"
+                        fresco:placeholderImage="@mipmap/img_personal_default"
+                        fresco:placeholderImageScaleType="fitCenter"
+                        fresco:roundedCornerRadius="27dp" />
 
                     <ImageView
-                        android:id="@+id/iv_head"
-                        android:layout_width="50dip"
-                        android:layout_height="50dip"
-                        android:background="@mipmap/footer4" />
-
-                    <ImageView
-                        android:id="@+id/imgArrow"
                         style="@style/right_arrow_base"
                         android:layout_marginRight="@dimen/padding_default" />
                 </LinearLayout>
