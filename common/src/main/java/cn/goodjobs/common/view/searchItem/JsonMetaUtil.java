@@ -8,7 +8,8 @@ import cn.goodjobs.common.util.http.MetaDataUtil;
  * Created by wanggang on 2015/10/18 0018.
  * 客户端原始json数据解析
  */
-public class JsonMetaUtil  {
+public class JsonMetaUtil
+{
 
     public final static String JOBFUNCL1 = "jobfunc_l1"; // 工作性质（1级）
     public final static String JOBFUNCL2 = "jobfunc_l2"; // 工作性质（2级）
@@ -33,10 +34,14 @@ public class JsonMetaUtil  {
     public final static String JSONMATA_FILENAME = "jsonmata.txt";
     public final static String JSONCORPMATA = "jsoncorp";
 
+
+    public final static String JOBREAD = "jobread"; // 阅读过的职位
+
     /**
      * 根据key获取到json对象
-     * */
-    public static Object getObject(String key) {
+     */
+    public static Object getObject(String key)
+    {
         return MetaDataUtil.getInstanse().getMetaJson().opt(key);
     }
 

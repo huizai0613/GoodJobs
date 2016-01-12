@@ -132,6 +132,7 @@
         android:background="@drawable/bg_applyjob"
         android:gravity="center"
         android:padding="8dip"
+        android:visibility="gone"
         android:text="申请职位"
         android:textColor="@color/white"
         android:textSize="@dimen/text_default"/>

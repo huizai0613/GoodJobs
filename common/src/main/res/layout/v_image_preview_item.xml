@@ -9,12 +9,12 @@
 
     <!-- android.support.v4.widget.ContentLoadingProgressBar -->
 
-    <cn.goodjobs.common.view.photoview.PhotoView
+    <cn.goodjobs.common.view.photodraweeview.PhotoDraweeView
         android:id="@+id/scaleimageview"
-        fresco:placeholderImage="@drawable/image_holder"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/black"/>
+        android:background="@android:color/black"
+        fresco:placeholderImage="@drawable/image_holder"/>
 
     <ProgressBar
         android:id="@+id/progress"
