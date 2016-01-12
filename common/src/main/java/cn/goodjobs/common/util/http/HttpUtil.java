@@ -46,13 +46,13 @@ import cz.msebera.android.httpclient.cookie.Cookie;
 /**
  * Created by wanggang on 2015/10/7 0007.
  */
-public class HttpUtil
-{
+public class HttpUtil {
     public static final String SUCCESS = "SUCCESS";
     public static final String INFO = "INFO";
 
     public static final String HOST = "220.178.31.125:3721";
-//        private final static String HOST = "app.goodjobs.cn";
+
+    //        private final static String HOST = "app.goodjobs.cn";
     public static final String BASE_URL = "http://" + HOST + "/";
 
     public static String APP_API_KEY = "xinANrenCaiWangIsGoodJobS";
@@ -88,28 +88,23 @@ public class HttpUtil
         saveLocCookie();
     }
 
-    public static void get(String url, RequestParams params, TextHttpResponseHandler responseHandler)
-    {
+    public static void get(String url, RequestParams params, TextHttpResponseHandler responseHandler) {
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void syGet(String url, RequestParams params, TextHttpResponseHandler responseHandler)
-    {
+    public static void syGet(String url, RequestParams params, TextHttpResponseHandler responseHandler) {
         syClient.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void post(String url, final HttpResponseHandler responseHandler)
-    {
+    public static void post(String url, final HttpResponseHandler responseHandler) {
         post(url, url, null, responseHandler);
     }
 
-    public static void post(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler)
-    {
+    public static void post(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler) {
         post(url, url, paramsMap, responseHandler);
     }
 
-    public static void postList(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler, EmptyLayout layout)
-    {
+    public static void postList(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler, EmptyLayout layout) {
         if (!ConnecStatus.isNetworkAvailable(ScreenManager.getScreenManager().currentActivity())) {
             layout.setErrorType(EmptyLayout.NETWORK_ERROR);
             return;
@@ -117,13 +112,11 @@ public class HttpUtil
         post(url, url, paramsMap, responseHandler);
     }
 
-    public static void syPost(String url, final HttpResponseHandler responseHandler)
-    {
+    public static void syPost(String url, final HttpResponseHandler responseHandler) {
         syPost(url, url, null, responseHandler);
     }
 
-    public static void syPost(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler)
-    {
+    public static void syPost(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler) {
         syPost(url, url, paramsMap, responseHandler);
     }
 
@@ -136,16 +129,13 @@ public class HttpUtil
      * @param paramsMap       请求参数
      * @param responseHandler 请求回调
      */
-    public static void syPost(String url, final String tag, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler)
-    {
+    public static void syPost(String url, final String tag, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler) {
         // 首先检测网络连接
         if (!ConnecStatus.isNetworkAvailable(ScreenManager.getScreenManager().currentActivity())) {
             AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, "检测到您未连接网络，请检测您的网络连接！", true,
-                    "去检测", "退出APP", new DialogInterface.OnClickListener()
-                    {
+                    "去检测", "退出APP", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                        public void onClick(DialogInterface dialog, int which) {
                             // 跳转到系统的网络设置界面
                             Intent intent = null;
                             // 先判断当前系统版本
@@ -157,11 +147,9 @@ public class HttpUtil
                             }
                             ScreenManager.getScreenManager().currentActivity().startActivity(intent);
                         }
-                    }, new DialogInterface.OnClickListener()
-                    {
+                    }, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                        public void onClick(DialogInterface dialog, int which) {
                             // 退出应用
                             ScreenManager.getScreenManager().popAllActivityExceptOne(ScreenManager.getScreenManager().currentActivity());
                             ScreenManager.getScreenManager().currentActivity().finish();
@@ -195,11 +183,9 @@ public class HttpUtil
                 requestParams.put(key, paramsMap.get(key));
             }
 
-            TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler()
-            {
+            TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler() {
                 @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
-                {
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     LogUtil.info("onFailure" + responseString);
                     LogUtil.info("throwable" + throwable.getMessage());
                     if (requstEntityStack != null) {
@@ -211,8 +197,7 @@ public class HttpUtil
                 }
 
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, String responseString)
-                {
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
                     LogUtil.info("responseString:" + responseString);
                     LoadingDialog.hide();
                     try {
@@ -235,8 +220,7 @@ public class HttpUtil
                 }
 
                 @Override
-                public void onProgress(long bytesWritten, long totalSize)
-                {
+                public void onProgress(long bytesWritten, long totalSize) {
                     super.onProgress(bytesWritten, totalSize);
                     responseHandler.onProgress(tag, (int) (bytesWritten / totalSize) * 100);
                 }
@@ -257,16 +241,13 @@ public class HttpUtil
      * @param paramsMap       请求参数
      * @param responseHandler 请求回调
      */
-    public static void post(String url, final String tag, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler)
-    {
+    public static void post(String url, final String tag, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler) {
         // 首先检测网络连接
         if (!ConnecStatus.isNetworkAvailable(ScreenManager.getScreenManager().currentActivity())) {
             AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, "检测到您未连接网络，请检测您的网络连接！", true,
-                    "去检测", "退出APP", new DialogInterface.OnClickListener()
-                    {
+                    "去检测", "退出APP", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                        public void onClick(DialogInterface dialog, int which) {
                             // 跳转到系统的网络设置界面
                             Intent intent = null;
                             // 先判断当前系统版本
@@ -278,11 +259,9 @@ public class HttpUtil
                             }
                             ScreenManager.getScreenManager().currentActivity().startActivity(intent);
                         }
-                    }, new DialogInterface.OnClickListener()
-                    {
+                    }, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                        public void onClick(DialogInterface dialog, int which) {
                             // 退出应用
                             ScreenManager.getScreenManager().popAllActivityExceptOne(ScreenManager.getScreenManager().currentActivity());
                             ScreenManager.getScreenManager().currentActivity().finish();
@@ -316,11 +295,9 @@ public class HttpUtil
                 requestParams.put(key, paramsMap.get(key));
             }
 
-            TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler()
-            {
+            TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler() {
                 @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
-                {
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     LogUtil.info("onFailure" + responseString);
                     LogUtil.info("throwable" + throwable.getMessage());
                     if (requstEntityStack != null) {
@@ -332,8 +309,7 @@ public class HttpUtil
                 }
 
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, String responseString)
-                {
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
                     LogUtil.info("responseString:" + responseString);
                     try {
                         JSONObject jsonObject = new JSONObject(responseString);
@@ -366,8 +342,7 @@ public class HttpUtil
                 }
 
                 @Override
-                public void onProgress(long bytesWritten, long totalSize)
-                {
+                public void onProgress(long bytesWritten, long totalSize) {
                     super.onProgress(bytesWritten, totalSize);
                     responseHandler.onProgress(tag, (int) (bytesWritten / totalSize) * 100);
                 }
@@ -382,8 +357,7 @@ public class HttpUtil
     /**
      * 给请求参数添加sign
      */
-    private static void addSign(Map<String, Object> paramsMap)
-    {
+    private static void addSign(Map<String, Object> paramsMap) {
         List<String> keys = new ArrayList<String>(paramsMap.keySet());
         Collections.sort(keys);
         StringBuilder sb = new StringBuilder();
@@ -409,16 +383,14 @@ public class HttpUtil
         }
     }
 
-    private static String getAbsoluteUrl(String relativeUrl)
-    {
+    private static String getAbsoluteUrl(String relativeUrl) {
         return BASE_URL + relativeUrl;
     }
 
     /**
      * 获取手机UA
      */
-    public static String getUserAgent()
-    {
+    public static String getUserAgent() {
         if (appUserAgent == null || appUserAgent == "") {
             TelephonyManager tm = ((TelephonyManager) ScreenManager.getScreenManager().currentActivity().getSystemService(Context.TELEPHONY_SERVICE));
             String androidId = Settings.Secure.ANDROID_ID;
@@ -436,8 +408,7 @@ public class HttpUtil
         return appUserAgent;
     }
 
-    public static DisplayMetrics getDisplayMetrics()
-    {
+    public static DisplayMetrics getDisplayMetrics() {
         DisplayMetrics displayMetrix = new DisplayMetrics();
         WindowManager wm = ((WindowManager) ScreenManager.getScreenManager().currentActivity().getSystemService(Context.WINDOW_SERVICE));
         wm.getDefaultDisplay().getMetrics(displayMetrix);
@@ -449,8 +420,7 @@ public class HttpUtil
      *
      * @return
      */
-    private static PackageInfo getPackageInfo()
-    {
+    private static PackageInfo getPackageInfo() {
         PackageInfo info = null;
         try {
             info = ScreenManager.getScreenManager().currentActivity().getPackageManager().getPackageInfo(ScreenManager.getScreenManager().currentActivity().getPackageName(), 0);
@@ -462,23 +432,20 @@ public class HttpUtil
         return info;
     }
 
-    static class RequstEntity
-    {
+    static class RequstEntity {
         String url;
         String tag;
         Map<String, Object> param;
         HttpResponseHandler httpResponseHandler;
 
-        public RequstEntity(String url, String tag, Map<String, Object> param, HttpResponseHandler httpResponseHandler)
-        {
+        public RequstEntity(String url, String tag, Map<String, Object> param, HttpResponseHandler httpResponseHandler) {
             this.url = url;
             this.tag = tag;
             this.param = param;
             this.httpResponseHandler = httpResponseHandler;
         }
 
-        public void request()
-        {
+        public void request() {
             HttpUtil.post(url, tag, param, httpResponseHandler);
         }
     }
@@ -486,23 +453,19 @@ public class HttpUtil
     /**
      * 给用户执行强行登录或者自动登录
      */
-    private static void doLogin()
-    {
+    private static void doLogin() {
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("username", GoodJobsApp.getInstance().getLoginInfo().userName);
         params.put("password", CryptUtils.Base64Encode(CryptUtils.RSAEncode(GoodJobsApp.getInstance().getLoginInfo().passWord)));
         params.put("isremember", GoodJobsApp.getInstance().getLoginInfo().isAutoLogin ? 2 : 0);
-        HttpUtil.post(URLS.API_PERSON_LOGIN, params, new HttpResponseHandler()
-        {
+        HttpUtil.post(URLS.API_PERSON_LOGIN, params, new HttpResponseHandler() {
             @Override
-            public void onFailure(int statusCode, String tag)
-            {
+            public void onFailure(int statusCode, String tag) {
                 IntentUtil.toLoginActivity();
             }
 
             @Override
-            public void onSuccess(String tag, Object data)
-            {
+            public void onSuccess(String tag, Object data) {
                 if (requstEntityStack != null && requstEntityStack.size() > 0) {
                     RequstEntity requstEntity = requstEntityStack.lastElement();
                     requstEntityStack.pop();
@@ -511,29 +474,24 @@ public class HttpUtil
             }
 
             @Override
-            public void onError(int errorCode, String tag, String errorMessage)
-            {
+            public void onError(int errorCode, String tag, String errorMessage) {
                 IntentUtil.toLoginActivity();
             }
 
             @Override
-            public void onProgress(String tag, int progress)
-            {
+            public void onProgress(String tag, int progress) {
 
             }
         });
     }
 
-    public static void uploadFile(String url, final String tag, RequestParams requestParams, final HttpResponseHandler responseHandler)
-    {
+    public static void uploadFile(String url, final String tag, RequestParams requestParams, final HttpResponseHandler responseHandler) {
         // 首先检测网络连接
         if (!ConnecStatus.isNetworkAvailable(ScreenManager.getScreenManager().currentActivity())) {
             AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, "检测到您未连接网络，请检测您的网络连接！", true,
-                    "去检测", "退出APP", new DialogInterface.OnClickListener()
-                    {
+                    "去检测", "退出APP", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                        public void onClick(DialogInterface dialog, int which) {
                             // 跳转到系统的网络设置界面
                             Intent intent = null;
                             // 先判断当前系统版本
@@ -545,11 +503,9 @@ public class HttpUtil
                             }
                             ScreenManager.getScreenManager().currentActivity().startActivity(intent);
                         }
-                    }, new DialogInterface.OnClickListener()
-                    {
+                    }, new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which)
-                        {
+                        public void onClick(DialogInterface dialog, int which) {
                             // 退出应用
                             ScreenManager.getScreenManager().popAllActivityExceptOne(ScreenManager.getScreenManager().currentActivity());
                             ScreenManager.getScreenManager().currentActivity().finish();
@@ -566,13 +522,11 @@ public class HttpUtil
             } else {
                 client.removeHeader("Cookie");
             }
-//            requestParams.put("timeline", System.currentTimeMillis());
+            requestParams.put("timeline", System.currentTimeMillis());
             client.removeHeader("App-Sign");
-            TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler()
-            {
+            TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler() {
                 @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable)
-                {
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                     LogUtil.info("onFailure" + responseString);
                     LogUtil.info("throwable" + throwable.getMessage());
                     LoadingDialog.hide();
@@ -580,8 +534,7 @@ public class HttpUtil
                 }
 
                 @Override
-                public void onSuccess(int statusCode, Header[] headers, String responseString)
-                {
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
                     LogUtil.info("responseString:" + responseString);
                     LoadingDialog.hide();
                     try {
@@ -598,8 +551,7 @@ public class HttpUtil
                 }
 
                 @Override
-                public void onProgress(long bytesWritten, long totalSize)
-                {
+                public void onProgress(long bytesWritten, long totalSize) {
                     super.onProgress(bytesWritten, totalSize);
                     responseHandler.onProgress(tag, (int) (bytesWritten * 100 / totalSize));
                 }
@@ -610,16 +562,14 @@ public class HttpUtil
         }
     }
 
-    public static void saveLocCookie()
-    {
+    public static void saveLocCookie() {
         //保存cookie，自动保存到了shareprefercece
         PersistentCookieStore cookieStore = new PersistentCookieStore(ScreenManager.getScreenManager().currentActivity());
         client.setCookieStore(cookieStore);
         syClient.setCookieStore(cookieStore);
     }
 
-    public static String getLocCookie()
-    {
+    public static String getLocCookie() {
         PersistentCookieStore cookieStore = new PersistentCookieStore(ScreenManager.getScreenManager().currentActivity());
         if (cookieStore != null) {
             if (cookieStore.getCookies().size() > 0) {
@@ -636,8 +586,7 @@ public class HttpUtil
         return "";
     }
 
-    public static void cancelRequest()
-    {
+    public static void cancelRequest() {
         if (client != null) {
             client.cancelAllRequests(true);
         }

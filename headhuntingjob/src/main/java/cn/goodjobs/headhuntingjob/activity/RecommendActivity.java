@@ -174,7 +174,7 @@ public class RecommendActivity extends BaseActivity {
             TipsUtil.show(this, "手机项不符合号码格式");
             return false;
         }
-        if (bMobile.getText().length() <= 1) {
+        if (bNowjob.getText().length() <= 1) {
             TipsUtil.show(this, "目前职位项不能少于两个字符");
             return false;
         }

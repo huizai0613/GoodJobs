@@ -1,9 +1,11 @@
 package cn.goodjobs.common.baseclass;
 
+import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.util.LogUtil;
@@ -26,6 +28,7 @@ public class BaseListFragment extends BaseFragment {
     protected int page = 1; // 分页索引
     protected JsonArrayAdapterBase mAdapter;
     protected ListView mListView;
+    public Handler mTestHandler;
 
     protected void initList(View view, ListView listView) {
         // pull to refresh
@@ -60,6 +63,7 @@ public class BaseListFragment extends BaseFragment {
             }
         });
         mListView.setAdapter(mAdapter);
+        mTestHandler = new Handler();
     }
 
     protected void initList(View view) {
@@ -95,4 +99,29 @@ public class BaseListFragment extends BaseFragment {
         }, 150);
     }
 
+    protected Runnable testRun = new Runnable() {
+        @Override
+        public void run() {
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject;
+
+            jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+            jsonObject = new JSONObject();
+            jsonArray.put(jsonObject);
+
+            mAdapter.appendToList(jsonArray);
+
+            loadMoreListViewContainer.loadMoreFinish(false, true);
+            mPtrFrameLayout.refreshComplete();
+        }
+    };
 }

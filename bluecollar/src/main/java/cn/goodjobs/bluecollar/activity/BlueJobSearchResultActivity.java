@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import cn.goodjobs.bluecollar.R;
-import cn.goodjobs.bluecollar.activity.adapter.BlueJobSearchResultAdapter;
+import cn.goodjobs.bluecollar.adapter.BlueJobSearchResultAdapter;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseListActivity;
 import cn.goodjobs.common.constants.URLS;

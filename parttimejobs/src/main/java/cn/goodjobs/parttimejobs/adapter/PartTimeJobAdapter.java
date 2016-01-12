@@ -43,8 +43,8 @@ public class PartTimeJobAdapter extends JsonArrayAdapterBase<JSONObject> {
         }
         final JSONObject jsonObject = getItem(position);
 
-        holder.tvtitle.setText(jsonObject.optString("corpName"));
-        holder.tvcontent.setText(jsonObject.optString("jobName"));
+        holder.tvtitle.setText(jsonObject.optString("jobName"));
+        holder.tvcontent.setText(jsonObject.optString("corpName"));
         holder.tvsalsry.setText(jsonObject.optString("jobSalary"));
         holder.tvdate.setText(jsonObject.optString("pubDate"));
 

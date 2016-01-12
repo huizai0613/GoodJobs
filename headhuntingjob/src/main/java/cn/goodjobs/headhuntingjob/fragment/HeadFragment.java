@@ -25,7 +25,6 @@ public class HeadFragment extends BaseListFragment {
 
     private boolean isSuccess;
     private EmptyLayout emptyLayout;
-    private int page = 1;
     private int type;    //0是猎头，1是悬赏，2是代理招聘
 
     public HeadFragment() {
@@ -95,10 +94,12 @@ public class HeadFragment extends BaseListFragment {
     @Override
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
+        emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
+        emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 }

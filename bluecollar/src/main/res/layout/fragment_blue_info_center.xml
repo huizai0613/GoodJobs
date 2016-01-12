@@ -1,10 +1,277 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.goodjobs.bluecollar.fragment.BlueInfoCenterFragment">
+    android:background="@color/bg_color"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="202dip"
+                android:background="@drawable/icon_centerbg">
+
+                <TextView
+                    android:id="@+id/tv_center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:gravity="center_horizontal"
+                    android:text="个人中心"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tv_center">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/myImageview"
+                        android:layout_width="100dip"
+                        android:layout_height="100dip"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/padding_small"
+                        android:clickable="true"
+                        android:visibility="invisible"
+                        fresco:actualImageScaleType="focusCrop"
+                        fresco:fadeDuration="300"
+                        fresco:placeholderImage="@mipmap/img_personal_default"
+                        fresco:placeholderImageScaleType="fitCenter"
+                        fresco:roundedCornerRadius="4dp" />
+
+                    <Button
+                        android:id="@+id/btn_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/myImageview"
+                        android:layout_centerHorizontal="true"
+                        android:paddingBottom="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_default"
+                        android:paddingRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_small"
+                        android:text="注册/登录"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/text_default"
+                        android:visibility="invisible" />
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/myHeadImage"
+                        android:layout_width="120dip"
+                        android:layout_height="120dip"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:clickable="true"
+                        fresco:actualImageScaleType="focusCrop"
+                        fresco:fadeDuration="300"
+                        fresco:placeholderImage="@mipmap/img_personal_default"
+                        fresco:placeholderImageScaleType="fitCenter"
+                        fresco:roundedCornerRadius="4dp" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_show"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:layout_toRightOf="@id/myHeadImage"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_default"
+                            android:text="王丽"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_default" />
+
+                        <TextView
+                            android:id="@+id/tv_update"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_small"
+                            android:text="更新时间：2015-12-01"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_default" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_default"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_resume"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/topbar_bg"
+                                android:drawableLeft="@mipmap/icon_update"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:paddingLeft="@dimen/padding_small"
+                                android:paddingRight="@dimen/padding_small"
+                                android:text="更新简历"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_default" />
+
+                            <TextView
+                                android:id="@+id/tv_entrust"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/padding_small"
+                                android:background="#21BD9C"
+                                android:drawableLeft="@mipmap/icon_entrust"
+                                android:drawablePadding="@dimen/padding_small"
+                                android:paddingLeft="@dimen/padding_small"
+                                android:paddingRight="@dimen/padding_small"
+                                android:text="委托投递"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_default" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <View style="@style/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/line" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemJianli"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_jianli"
+                    listitem:showHLine="false"
+                    listitem:showLine="false"
+                    listitem:tvtitle="我的简历" />
+
+                <View style="@style/line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/line" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemChakan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_chakan"
+                    listitem:showHLine="false"
+                    listitem:tvtitle="谁看过我的简历" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemShenqing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_shenqing"
+                    listitem:showHLine="false"
+                    listitem:tvtitle="职位申请记录" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemCollection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_collection"
+                    listitem:showHLine="false"
+                    listitem:showLine="false"
+                    listitem:tvtitle="职位收藏夹" />
+
+                <View style="@style/line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/line" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemZhaoping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_message"
+                    listitem:showHLine="false"
+                    listitem:showLine="false"
+                    listitem:tvtitle="我要招聘" />
+
+                <View style="@style/line" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/line" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_setting"
+                    listitem:showHLine="false"
+                    listitem:showLine="false"
+                    listitem:tvtitle="设置" />
+
+                <View style="@style/line" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/line" />
+
+                <cn.goodjobs.common.view.searchItem.SearchItemView
+                    android:id="@+id/itemMore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    listitem:image="@drawable/personal_center_setting"
+                    listitem:showHLine="false"
+                    listitem:showLine="false"
+                    listitem:tvtitle="更多" />
+
+                <View style="@style/line" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

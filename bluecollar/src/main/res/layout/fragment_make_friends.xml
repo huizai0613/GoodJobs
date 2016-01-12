@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="附近的人"
+            android:text="同城交友"
             android:textSize="@dimen/text_small"
             android:textColor="@drawable/readstatus_text"/>
         <RadioButton
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:button="@null"
             android:gravity="center"
-            android:text="附近的人"
+            android:text="关注的人"
             android:textSize="@dimen/text_small"
             android:textColor="@drawable/readstatus_text"/>
     </RadioGroup>
@@ -52,6 +52,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="发帖"
+            android:layout_margin="@dimen/padding_large"
+            android:textColor="@color/white"
+            android:background="@drawable/makefriend_trend_add_btn_bg"/>
     </RelativeLayout>
 
 </LinearLayout>

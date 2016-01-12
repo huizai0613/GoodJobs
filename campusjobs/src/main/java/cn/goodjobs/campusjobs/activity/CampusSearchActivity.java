@@ -41,8 +41,7 @@ import cn.goodjobs.common.view.searchItem.SelectorItemView;
 /**
  * Created by zhuli on 2015/12/30.
  */
-public class CampusSearchActivity extends BaseActivity
-{
+public class CampusSearchActivity extends BaseActivity {
 
     private Map<Long, Map<String, String>> history;
     private SelectorItemView itemAddress;
@@ -61,41 +60,33 @@ public class CampusSearchActivity extends BaseActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_campussearch;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
-        UpdateDataTaskUtils.getHistory(this, UpdateDataTaskUtils.CAMPUSJOB, new UpdateDataTaskUtils.OnGetDiscussHistoryListener()
-        {
+        UpdateDataTaskUtils.getHistory(this, UpdateDataTaskUtils.CAMPUSJOB, new UpdateDataTaskUtils.OnGetDiscussHistoryListener() {
             @Override
-            public void onGetDiscussHistory(Map<Long, Map<String, String>> history)
-            {
+            public void onGetDiscussHistory(Map<Long, Map<String, String>> history) {
                 CampusSearchActivity.this.history = history;
 
                 List<Map.Entry<Long, Map<String, String>>> infoIds =
                         new ArrayList<Map.Entry<Long, Map<String, String>>>(history.entrySet());
-                Collections.sort(infoIds, new Comparator<Map.Entry<Long, Map<String, String>>>()
-                {
+                Collections.sort(infoIds, new Comparator<Map.Entry<Long, Map<String, String>>>() {
                     @Override
-                    public int compare(Map.Entry<Long, Map<String, String>> lhs, Map.Entry<Long, Map<String, String>> rhs)
-                    {
+                    public int compare(Map.Entry<Long, Map<String, String>> lhs, Map.Entry<Long, Map<String, String>> rhs) {
                         return (rhs.getKey()).compareTo(lhs.getKey());
                     }
                 });
@@ -113,16 +104,12 @@ public class CampusSearchActivity extends BaseActivity
 
         if (!isLoad) {
 //            UpdateDataTaskUtils.getHistory(mcontext, UpdateDataTaskUtils.SEARCHJOB, this);
-            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener()
-            {
+            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener() {
                 @Override
-                public void loaction(final MyLocation location)
-                {
-                    mcontext.runOnUiThread(new Runnable()
-                    {
+                public void loaction(final MyLocation location) {
+                    mcontext.runOnUiThread(new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
                             myLocation = location;
@@ -138,8 +125,7 @@ public class CampusSearchActivity extends BaseActivity
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
         setTopTitle("职位搜索");
         btnSearch = (Button) findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(this);
@@ -151,23 +137,19 @@ public class CampusSearchActivity extends BaseActivity
         itemIndtype = (SelectorItemView) findViewById(R.id.item_indtype);
         btnClear = (ImageButton) findViewById(R.id.ib_clear);
         etSearch = (EditText) findViewById(R.id.et_campussearch);
-        etSearch.addTextChangedListener(new TextWatcher()
-        {
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 if (!StringUtil.isEmpty(s.toString())) {
                     btnClear.setVisibility(View.VISIBLE);
                 } else {
@@ -179,14 +161,12 @@ public class CampusSearchActivity extends BaseActivity
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
 
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         super.onClick(v);
         int i = v.getId();
         if (i == R.id.ib_clear) {
@@ -212,8 +192,7 @@ public class CampusSearchActivity extends BaseActivity
     }
 
 
-    public void saveSearchLock(Map<Long, Map<String, String>> saveData, Map<String, String> put)
-    {
+    public void saveSearchLock(Map<Long, Map<String, String>> saveData, Map<String, String> put) {
         Set<Map.Entry<Long, Map<String, String>>> entries = saveData.entrySet();
 
         ArrayList<Long> keys = new ArrayList<>();
@@ -240,8 +219,7 @@ public class CampusSearchActivity extends BaseActivity
     }
 
 
-    private LinkedHashMap getSearchHashMap()
-    {
+    private LinkedHashMap getSearchHashMap() {
         searchKeyWorld = etSearch.getText().toString();
         add = itemAddress.getText();
         job = itemJobfunc.getText();
@@ -264,8 +242,7 @@ public class CampusSearchActivity extends BaseActivity
         return hashMap;
     }
 
-    private LinkedHashMap getSearchHashMapID()
-    {
+    private LinkedHashMap getSearchHashMapID() {
         String addId = (String) itemAddress.getTag();
         String jobId = (String) itemJobfunc.getTag();
         String indId = (String) itemIndtype.getTag();
@@ -287,11 +264,9 @@ public class CampusSearchActivity extends BaseActivity
         return hashMap;
     }
 
-    android.os.Handler handler = new android.os.Handler()
-    {
+    android.os.Handler handler = new android.os.Handler() {
         @Override
-        public void handleMessage(Message msg)
-        {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
                 disPlayerSearchUI((List<Map.Entry<Long, Map<String, String>>>) msg.obj);
@@ -304,8 +279,7 @@ public class CampusSearchActivity extends BaseActivity
     private LinearLayout searchHeistory;
 
     //近期搜索记录展示
-    private void disPlayerSearchUI(List<Map.Entry<Long, Map<String, String>>> obj)
-    {
+    private void disPlayerSearchUI(List<Map.Entry<Long, Map<String, String>>> obj) {
         searchHeistory.removeAllViews();
         if (obj != null) {
             tvClear.setVisibility(View.VISIBLE);
@@ -336,11 +310,9 @@ public class CampusSearchActivity extends BaseActivity
                 view.setBackgroundResource(R.drawable.list_item_bg);
                 view.setGravity(Gravity.CENTER_VERTICAL);
                 searchHeistory.addView(view, layoutParams);
-                view.setOnClickListener(new View.OnClickListener()
-                {
+                view.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {
+                    public void onClick(View v) {
                         //填充数据
                         String itemAddressId = value.get("itemAddressId");
                         String itemAddressS = value.get("itemAddress");
@@ -404,6 +376,18 @@ public class CampusSearchActivity extends BaseActivity
             searchHeistory.addView(view, layoutParams);
         }
 
+    }
+
+    public void onCreated(Bundle savedInstanceState) {
+        LogUtil.info("onActivityCreated");
+        super.onCreate(savedInstanceState);
+        LocationUtil.newInstance(getApplication()).startLoction(new MyLocationListener() {
+            @Override
+            public void loaction(MyLocation location) {
+                LogUtil.info(location.toString());
+                SharedPrefUtil.saveObjectToLoacl("location", location);
+            }
+        });
     }
 
 }

@@ -1,4 +1,4 @@
-package cn.goodjobs.bluecollar.activity.adapter;
+package cn.goodjobs.bluecollar.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,12 +12,14 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.BlueJobSearchResultActivity;
@@ -28,6 +30,7 @@ import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.ViewHolderUtil;
 import cn.goodjobs.common.view.BabushkaText;
 import cn.goodjobs.common.view.ExtendedTouchView;
+
 
 /**
  * Created by yexiangyu on 15/12/28.

@@ -9,10 +9,15 @@ import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
+import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.headhuntingjob.R;
 import cn.goodjobs.headhuntingjob.activity.HeadDetailsActivity;
 
@@ -55,27 +60,25 @@ public class HeadFragmentAdapter extends JsonArrayAdapterBase<JSONObject> {
         }
 
         JSONObject jsonObject = getItem(position);
-        if (type == 0 || type == 2) {
+        if (type == 0) {
             holder.jobName.setText(jsonObject.optString("jobName"));
             holder.salary.setText(jsonObject.optString("salary"));
             holder.cityName.setText(jsonObject.optString("cityName"));
             holder.pubDate.setText(jsonObject.optString("pubDate"));
-            if (type == 0) {
-                convertView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        data.clear();
-                        for (int i = 0; i < mList.size(); i++) {
-                            data.add(mList.get(i).optInt("jobID"));
-                        }
-                        Intent intent = new Intent(context, HeadDetailsActivity.class);
-                        intent.putExtra("item", position);
-                        intent.putExtra("type", type);
-                        intent.putIntegerArrayListExtra("idList", (ArrayList<Integer>) data);
-                        context.startActivity(intent);
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    data.clear();
+                    for (int i = 0; i < mList.size(); i++) {
+                        data.add(mList.get(i).optInt("jobID"));
                     }
-                });
-            }
+                    Intent intent = new Intent(context, HeadDetailsActivity.class);
+                    intent.putExtra("item", position);
+                    intent.putExtra("type", type);
+                    intent.putIntegerArrayListExtra("idList", (ArrayList<Integer>) data);
+                    context.startActivity(intent);
+                }
+            });
         } else if (type == 1) {
             holder.jobName.setText(jsonObject.optString("jobName"));
             holder.salary.setText(jsonObject.optString("salary"));
@@ -92,6 +95,43 @@ public class HeadFragmentAdapter extends JsonArrayAdapterBase<JSONObject> {
                     intent.putExtra("type", type);
                     intent.putExtra("item", position);
                     intent.putIntegerArrayListExtra("idList", (ArrayList<Integer>) data);
+                    context.startActivity(intent);
+                }
+            });
+        } else if (type == 2) {
+            holder.jobName.setText(jsonObject.optString("jobName"));
+            holder.salary.setText(jsonObject.optString("salary"));
+            holder.cityName.setText(jsonObject.optString("cityName"));
+            holder.pubDate.setText(jsonObject.optString("pubDate"));
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    HashMap<String, Object> param = new HashMap<>();
+                    param.put("POSITION", position);
+                    StringBuilder builder = new StringBuilder();
+                    for (int i = 0; i < mList.size(); i++) {
+                        builder.append(mList.get(i).optInt("jobID") + ",");
+                    }
+                    String charSequence = builder.subSequence(0, builder.length() - 1).toString();
+                    param.put("IDS", charSequence);
+                    Intent intent = new Intent();
+                    Set<Map.Entry<String, Object>> entries = param.entrySet();
+                    for (Map.Entry<String, Object> entry : entries) {
+                        if (entry.getValue() instanceof Integer) {
+                            intent.putExtra(entry.getKey(), (int) entry.getValue());
+                        } else if (entry.getValue() instanceof Float) {
+                            intent.putExtra(entry.getKey(), (float) entry.getValue());
+                        } else if (entry.getValue() instanceof Double) {
+                            intent.putExtra(entry.getKey(), (double) entry.getValue());
+                        } else if (entry.getValue() instanceof String) {
+                            intent.putExtra(entry.getKey(), (String) entry.getValue());
+                        } else if (entry.getValue() instanceof Serializable) {
+                            intent.putExtra(entry.getKey(), (Serializable) entry.getValue());
+                        } else if (entry.getValue() instanceof Long) {
+                            intent.putExtra(entry.getKey(), (long) entry.getValue());
+                        }
+                    }
+                    intent.setClassName(context, "cn.goodjobs.applyjobs.activity.jobSearch.JobDetailActivity");
                     context.startActivity(intent);
                 }
             });

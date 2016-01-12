@@ -12,7 +12,7 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/myImageview"
             android:layout_width="match_parent"
-            android:layout_height="180dip"
+            android:layout_height="match_parent"
             fresco:actualImageScaleType="focusCrop"
             fresco:fadeDuration="300"
             android:clickable="true"
@@ -33,20 +33,28 @@
             android:paddingBottom="4dip"/>
     </RelativeLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_default"
-        android:textColor="@color/main_color"
-        android:paddingLeft="@dimen/padding_default"
-        android:paddingRight="@dimen/padding_default"
-        android:paddingTop="@dimen/padding_small"
-        android:paddingBottom="@dimen/padding_small"
-        android:text="啦啦啦啦啦啦阿拉啦啦啦啦啦啦啦啦啦啦啦啦啦啦阿拉啦啦啦啦啦啦啦啦啦啦啦啦"/>
+        android:orientation="vertical"
+        android:id="@+id/contentLayout">
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_default"
+            android:textColor="@color/main_color"
+            android:paddingLeft="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small"
+            android:text="啦啦啦啦啦啦阿拉啦啦啦啦啦啦啦啦啦啦啦啦啦啦阿拉啦啦啦啦啦啦啦啦啦啦啦啦"/>
 
-    <View style="@style/line"
-        android:layout_marginLeft="@dimen/padding_default"
-        android:layout_marginRight="@dimen/padding_default"/>
+        <View style="@style/line"
+            android:layout_marginLeft="@dimen/padding_default"
+            android:layout_marginRight="@dimen/padding_default"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,6 +66,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/tvTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

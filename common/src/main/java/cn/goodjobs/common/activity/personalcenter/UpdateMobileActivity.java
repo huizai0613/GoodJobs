@@ -57,7 +57,7 @@ public class UpdateMobileActivity extends BaseActivity {
         itemOldMobile.setEditGravityLeft();
         itemVerCode.setEditGravityLeft();
         itemImgCode.setEditGravityLeft();
-        itemOldMobile.setText(GoodJobsApp.getInstance().personalInfo.optString("mb"));
+//        itemOldMobile.setText(GoodJobsApp.getInstance().personalInfo.optString("mb"));
 
         changImageCode();
     }
