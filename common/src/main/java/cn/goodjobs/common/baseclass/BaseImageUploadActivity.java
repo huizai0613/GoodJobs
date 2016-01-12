@@ -25,9 +25,7 @@ public class BaseImageUploadActivity extends BaseActivity {
 	protected PopupWindow window;
 	protected String saveName = "goodjobs.jpg" ;
 	protected String savePath ;
-	protected int uploadCount; // 上传照片的数量
-	protected int uploadFinishCount; // 上传照片完成的数量
-	
+
 	public static final int FLAG_CHOOSE_IMG = 5;
 	public static final int FLAG_CHOOSE_PHONE = 6;
 	public static final int FLAG_MODIFY_FINISH = 7;
@@ -155,22 +153,6 @@ public class BaseImageUploadActivity extends BaseActivity {
 			if (data != null) {
 				onImageFinish(Uri.parse(savePath));
 			}
-		}
-	}
-
-	public void setUploadCount(int uploadCount) {
-		this.uploadCount = uploadCount;
-		if (uploadCount == 0) {
-			finish();
-			TipsUtil.show(this, "您的动态发布成功");
-		}
-	}
-
-	public void addUploadCount() {
-		uploadFinishCount ++;
-		if (uploadFinishCount == uploadCount) {
-			finish();
-			TipsUtil.show(this, "您的动态发布成功");
 		}
 	}
 	

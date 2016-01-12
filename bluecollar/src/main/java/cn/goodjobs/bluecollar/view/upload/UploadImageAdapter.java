@@ -9,9 +9,11 @@ import android.widget.RelativeLayout;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import cn.goodjobs.bluecollar.activity.makefriend.AddTrendActivity;
 import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
 
 /**
  * Created by wanggang on 2015/12/3 0003.
@@ -19,7 +21,32 @@ import cn.goodjobs.common.util.DensityUtil;
 public class UploadImageAdapter extends RecyclerView.Adapter<UploadImageAdapter.MyViewHolder> {
 
     public List<UploadImaggeData> uploadImaggeDatas;
+    public Stack<UploadImageView> uploadImageViews;
     AddTrendActivity addTrendActivity;
+    String id;
+    MyLocation myLocation;
+    private UploadImageView.UploadListener uploadListener = new UploadImageView.UploadListener() {
+        @Override
+        public void finish(String id) {
+            UploadImageAdapter.this.id = id;
+            uploadImageViews.pop();
+            if (uploadImageViews.size() > 0) {
+                upload();
+            }
+        }
+
+        @Override
+        public void failure() {
+            uploadImageViews.pop();
+            if (uploadImageViews.size() > 0) {
+                upload();
+            }
+        }
+    };
+
+    private void upload() {
+        uploadImageViews.lastElement().upload(id, myLocation, uploadListener);
+    }
 
     public UploadImageAdapter(AddTrendActivity addTrendActivity) {
         this.addTrendActivity = addTrendActivity;
@@ -69,8 +96,8 @@ public class UploadImageAdapter extends RecyclerView.Adapter<UploadImageAdapter.
         public File file;
         public int status;
         public int progress;
-        public String id;
         public AddTrendActivity addTrendActivity;
+        public UploadImageView uploadImageView;
 
         @Override
         public String toString() {
@@ -89,16 +116,25 @@ public class UploadImageAdapter extends RecyclerView.Adapter<UploadImageAdapter.
         notifyDataSetChanged();
     }
 
-    public void uploadImage(String id) {
+    public void uploadImage(String id, MyLocation myLocation) {
+        this.id = id;
+        this.myLocation = myLocation;
         int uploadCount = 0;
-        for (UploadImaggeData uploadImaggeData: uploadImaggeDatas) {
+        int size = uploadImaggeDatas.size() - 1;
+        for (int i=size;i>0;--i) {
+            UploadImaggeData uploadImaggeData = uploadImaggeDatas.get(i-1);
             if (uploadImaggeData.status == 1 || uploadImaggeData.status == 3) {
+                if (uploadImageViews == null) {
+                    uploadImageViews = new Stack<UploadImageView>();
+                }
+                uploadImageViews.add(uploadImaggeData.uploadImageView);
                 uploadImaggeData.status = 2;
-                uploadImaggeData.id = id;
                 uploadCount ++;
             }
         }
-        addTrendActivity.setUploadCount(uploadCount);
+        if (uploadCount > 0) {
+            upload();
+        }
         notifyDataSetChanged();
     }
 }

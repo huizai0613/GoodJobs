@@ -215,6 +215,7 @@ public class ImageUtil {
 		String path = fileUri.getPath();
 		File outputFile = new File(path);
 		long fileSize = outputFile.length();
+		LogUtil.info("filesize:"+fileSize);
 		final long fileMaxSize = 150 * 1024; // 图片大小控制在150以下
 		if (fileSize >= fileMaxSize) {
 			BitmapFactory.Options options = new BitmapFactory.Options();
@@ -233,7 +234,7 @@ public class ImageUtil {
 			FileOutputStream fos = null;
 			try {
 				fos = new FileOutputStream(outputFile);
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
 				fos.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
