@@ -79,6 +79,7 @@
 
 
                     <ImageView
+                        android:id="@+id/iv_head"
                         android:layout_width="50dip"
                         android:layout_height="50dip"
                         android:background="@mipmap/footer4" />
@@ -245,7 +246,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <View style="@style/line" />
 

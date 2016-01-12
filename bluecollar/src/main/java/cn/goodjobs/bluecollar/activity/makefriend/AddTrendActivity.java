@@ -96,6 +96,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
 
     /**
      * 拍照
+     *
      * @param v
      */
     public void capturePhoto(View v) {
@@ -103,7 +104,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         if (status.equals(Environment.MEDIA_MOUNTED)) {
             try {
                 ImageUtil.getPicFromCaptureOrLocal(this, Uri.parse(savePath), true,
-                        FLAG_CHOOSE_PHONE) ;
+                        FLAG_CHOOSE_PHONE);
                 window.dismiss();
             } catch (ActivityNotFoundException e) {
             }
@@ -144,7 +145,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
             uploadImaggeData.file = ImageUtil.scal(Uri.parse(file));
             LogUtil.info("filename:"+file);
             uploadImaggeData.status = 1;
-            uploadImageAdapter.uploadImaggeDatas.add(uploadImageAdapter.uploadImaggeDatas.size()-1,uploadImaggeData);
+            uploadImageAdapter.uploadImaggeDatas.add(uploadImageAdapter.uploadImaggeDatas.size() - 1, uploadImaggeData);
         }
         uploadImageAdapter.notifyDataSetChanged();
     }

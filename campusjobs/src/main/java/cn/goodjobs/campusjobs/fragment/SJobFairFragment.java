@@ -94,11 +94,13 @@ public class SJobFairFragment extends BaseListFragment {
     @Override
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
+        emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
+        emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override

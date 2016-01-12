@@ -220,6 +220,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
 
     @Override
     protected void initWeight() {
+        setTopTitle("共    条");
         mAdapter = new CmapusResultAdapter(this);
         ((CmapusResultAdapter) mAdapter).setCmapusResultAdapter(this);
         initList();
@@ -336,6 +337,7 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     @Override
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
+        setTopTitle("共0条");
     }
 
     @Override
