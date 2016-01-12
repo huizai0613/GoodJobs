@@ -11,11 +11,15 @@ import android.widget.RelativeLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONObject;
+
 import java.io.FileNotFoundException;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.LogUtil;
+import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
 
@@ -30,6 +34,7 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
     private Shadow bgView;
 
     public UploadImageAdapter.UploadImaggeData uploadImaggeData;
+    UploadListener uploadListener;
 //    public int status; // 0:默认状态，只显示一张图片，可以点击； 1：选择状态，显示图片和删除按钮，可以点击；2：上传状态：显示图片和阴影，不可以点击 3：上传失败：显示图片和阴影，点击重传, 4:上传成功
 
     public UploadImageView(Context context) {
@@ -48,6 +53,7 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
 
     public void setStatus(UploadImageAdapter.UploadImaggeData uploadImaggeData) {
         this.uploadImaggeData = uploadImaggeData;
+        this.uploadImaggeData.uploadImageView = this;
         fleshView();
     }
 
@@ -71,7 +77,7 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
                 bgView.setVisibility(View.VISIBLE);
                 bgView.setProgress(0);
                 imageview.setImageURI(Uri.fromFile(uploadImaggeData.file));
-                upload();
+//                upload();
                 break;
             case 3:
                 imgReload.setVisibility(View.VISIBLE);
@@ -92,11 +98,24 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
         }
     }
 
-    public void upload() {
+    public void uploadImage(String id, MyLocation myLocation, UploadListener uploadListener) {
+        uploadImaggeData.status = 2;
+        fleshView();
+        upload(id, myLocation, uploadListener);
+    }
+
+    public void upload(String id, MyLocation myLocation, UploadListener uploadListener) {
+        this.uploadListener = uploadListener;
         RequestParams requestParams = new RequestParams();
-        requestParams.put("dynamicID", uploadImaggeData.id);
+        if (!StringUtil.isEmpty(id)) {
+            requestParams.put("dynamicID", id);
+        }
+        if (myLocation != null) {
+            requestParams.put("lng", myLocation.longitude);
+            requestParams.put("lat", myLocation.latitude);
+        }
         try {
-            requestParams.put("feedPic", uploadImaggeData.file);
+            requestParams.put("pics", uploadImaggeData.file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -107,12 +126,19 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
     public void onFailure(int statusCode, String tag) {
         uploadImaggeData.status = 3;
         fleshView();
+        if (uploadListener != null) {
+            uploadListener.failure();
+        }
     }
 
     @Override
     public void onSuccess(String tag, Object data) {
         uploadImaggeData.status = 4;
         fleshView();
+        if (uploadListener != null) {
+            JSONObject jsonObject = (JSONObject) data;
+            uploadListener.finish(jsonObject.optString("dynamicID"));
+        }
         uploadImaggeData.addTrendActivity.addUploadCount();
     }
 
@@ -120,6 +146,9 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
     public void onError(int errorCode, String tag, String errorMessage) {
         uploadImaggeData.status = 3;
         fleshView();
+        if (uploadListener != null) {
+            uploadListener.failure();
+        }
     }
 
     @Override
@@ -127,5 +156,10 @@ public class UploadImageView extends RelativeLayout implements HttpResponseHandl
         LogUtil.info("progress:" + progress);
         uploadImaggeData.progress = progress;
         bgView.setProgress(uploadImaggeData.progress);
+    }
+
+    public interface UploadListener {
+        public void finish(String id);
+        public void failure();
     }
 }

@@ -26,6 +26,10 @@ import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.baseclass.BaseFragmentPagerAdapter;
 import cn.goodjobs.common.util.IntentUtil;
 import cn.goodjobs.common.util.LogUtil;
+import cn.goodjobs.common.util.bdlocation.LocationUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
+import cn.goodjobs.common.util.bdlocation.MyLocationListener;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.CustomViewPager;
 
 /**
@@ -37,6 +41,7 @@ public class MakeFriendsFragment extends BaseFragment {
     ViewPager viewPager;
     Button btnAdd;
     public ArrayList<BaseFragment> fragmentList;
+    MyLocation myLocation;
 
     public MakeFriendsFragment() {
     }
@@ -85,6 +90,15 @@ public class MakeFriendsFragment extends BaseFragment {
         viewPager.setOffscreenPageLimit(4);
 
         btnAdd.setOnClickListener(this);
+
+        LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener() {
+            @Override
+            public void loaction(MyLocation location) {
+                LogUtil.info(location.toString());
+                myLocation = location;
+                SharedPrefUtil.saveObjectToLoacl("location", location);
+            }
+        });
     }
 
     @Override

@@ -566,7 +566,7 @@ public class HttpUtil
             } else {
                 client.removeHeader("Cookie");
             }
-//            requestParams.put("timeline", System.currentTimeMillis());
+            requestParams.put("timeline", System.currentTimeMillis());
             client.removeHeader("App-Sign");
             TextHttpResponseHandler textHttpResponseHandler = new TextHttpResponseHandler()
             {
