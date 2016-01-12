@@ -43,7 +43,6 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     RelativeLayout headPhotoLayout;
     SimpleDraweeView headPhoto;
     private RadioGroup sexGroup;
-    //    private ImageView iv_head;
     private LinearLayout llBottom;
     private SelectorItemView itemWant, itemAddress, itemDegree, itemCheckIn, itemWorkAddress, itemSalary, itemJobFunc, itemWorktime;
     private SearchItemView itemBirthday;
@@ -65,7 +64,6 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     protected void initWeight() {
         setTopTitle("我的简历");
 
-//        iv_head = (ImageView) findViewById(R.id.iv_head);
         headPhotoLayout = (RelativeLayout) findViewById(R.id.headPhotoLayout);
         headPhoto = (SimpleDraweeView) findViewById(R.id.headPhoto);
 
