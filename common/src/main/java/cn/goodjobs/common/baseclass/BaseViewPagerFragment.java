@@ -39,7 +39,6 @@ public abstract class BaseViewPagerFragment extends BaseFragment
     }
 
 
-
     protected abstract void getData();
 
     protected abstract void setData(JSONObject dataJson);
@@ -61,5 +60,11 @@ public abstract class BaseViewPagerFragment extends BaseFragment
         if (errorLayout != null) {
             errorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         }
+    }
+
+    //分享
+    public void share()
+    {
+
     }
 }

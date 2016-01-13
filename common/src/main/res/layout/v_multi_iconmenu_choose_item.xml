@@ -18,5 +18,5 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:textColor="@color/window_background"
-        android:textSize="@dimen/font_size_16" />
+        android:textSize="@dimen/font_size_14" />
 </LinearLayout>

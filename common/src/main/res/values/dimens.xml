@@ -41,7 +41,9 @@
     <!--  首页banaer条高度 -->
     <dimen name="main_banner_height">80dip</dimen>
 
-    <dimen name="bottom_menu_height">60dip</dimen>
+    <dimen name="bottom_menu_height">48dip</dimen>
+    <dimen name="bottom_menu_padding">4dip</dimen>
+    <dimen name="bottom_menu_top">2dip</dimen>
 
     <dimen name="share_menu_height">80dip</dimen>
 

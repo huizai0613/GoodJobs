@@ -1,6 +1,7 @@
 package cn.goodjobs.applyjobs.activity.jobSearch;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.PhoneUtils;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
+import cn.goodjobs.common.view.BabushkaText;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
 /**
@@ -55,6 +57,11 @@ public class JobCompanyDetailActivity extends BaseActivity
     private EmptyLayout error_layout;
     private JSONObject corpData;
     private String loc;
+    private View com_nature_box;
+    private View com_num_box;
+    private View com_industry_box;
+    private View com_add_box;
+    private View com_phone_box;
 
     @Override
     protected int getLayoutID()
@@ -91,6 +98,14 @@ public class JobCompanyDetailActivity extends BaseActivity
         jobSimilarBox = findViewById(R.id.job_similar_box);
         mCompanyImgBox = (LinearLayout) findViewById(R.id.company_img_box);
         companyImg = findViewById(R.id.company_img);
+
+
+        com_nature_box = findViewById(R.id.com_nature_box);
+        com_num_box = findViewById(R.id.com_num_box);
+        com_industry_box = findViewById(R.id.com_industry_box);
+        com_add_box = findViewById(R.id.com_add_box);
+        com_phone_box = findViewById(R.id.com_phone_box);
+
 
         Drawable iconPhone = getResources().getDrawable(R.drawable.phone);
         iconPhone.setBounds(0, 0, DensityUtil.dip2px(mcontext, 15), DensityUtil.dip2px(mcontext, 15));
@@ -138,19 +153,30 @@ public class JobCompanyDetailActivity extends BaseActivity
     }
 
 
+    private void setStrng2Bab(TextView tv, View box, String content)
+    {
+
+        if (StringUtil.isEmpty(content)) {
+            box.setVisibility(View.GONE);
+            return;
+        }
+
+        tv.setText(content);
+    }
+
     private void setData()
     {
-        comName.setText(corpData.optString("corpName"));
-        comNature.setText(corpData.optString("corpkind"));
-        comNum.setText(corpData.optString("corpsize"));
-        comIndustry.setText(corpData.optString("industry"));
-        comAdd.setText(corpData.optString("address"));
+
+        setStrng2Bab(comNature, com_nature_box, corpData.optString("corpkind"));
+        setStrng2Bab(comNum, com_num_box, corpData.optString("corpsize"));
+        setStrng2Bab(comIndustry, com_industry_box, corpData.optString("industry"));
+        setStrng2Bab(comAdd, com_add_box, corpData.optString("address"));
+
+
         String phone = corpData.optString("phone");
+
         if (StringUtil.isEmpty(phone) && !"0".equals(corpData.optString("hidePhone"))) {
             comPhoneBox.setVisibility(View.GONE);
-//            comPhone.setCompoundDrawables(null, null, null, null);
-//            comPhone.setText("暂无");
-//            comPhone.setOnClickListener(null);
         } else {
             comPhone.setText(phone + " ");
         }
@@ -224,7 +250,6 @@ public class JobCompanyDetailActivity extends BaseActivity
 
     public void setPhotos(final ArrayList<String> photos)
     {
-        photos.add("http://pica.nipic.com/2008-03-19/2008319183523380_2.jpg");
         int dip2pxBig = DensityUtil.dip2px(mcontext, 15);
         int dip2pxSmall = DensityUtil.dip2px(mcontext, 5);
         int itemW = 0;

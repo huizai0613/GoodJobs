@@ -32,8 +32,6 @@ import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.view.HackyViewPager;
 import cn.goodjobs.common.view.photodraweeview.OnPhotoTapListener;
 import cn.goodjobs.common.view.photodraweeview.PhotoDraweeView;
-import cn.goodjobs.common.view.photoview.PhotoView;
-import cn.goodjobs.common.view.photoview.PhotoViewAttacher;
 
 
 public class ImagePreviewActivity extends BaseActivity implements

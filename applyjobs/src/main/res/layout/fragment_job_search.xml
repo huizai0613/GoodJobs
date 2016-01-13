@@ -73,7 +73,7 @@
                     listitem:hint="选择求职岗位"
                     listitem:singleSelected="false"
                     listitem:source="jobfunc_l1;jobfunc_l2"
-                    listitem:tvtitle="求职岗位"/>
+                    listitem:tvtitle="职位类别"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_indtype"
@@ -84,7 +84,7 @@
                     listitem:hint="选择求职行业"
                     listitem:singleSelected="false"
                     listitem:source="indtype"
-                    listitem:tvtitle="求职行业"/>
+                    listitem:tvtitle="行业类别"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/item_salary"
@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     listitem:containAll="true"
-                    listitem:hint="选择学历"
+                    listitem:hint="选择学历要求"
                     listitem:showLine="false"
                     listitem:singleSelected="true"
                     listitem:source="degree"

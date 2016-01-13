@@ -71,7 +71,7 @@
                     android:text="22"
                     android:padding="2dip"
                     android:drawableLeft="@mipmap/img_mail"
-                    android:background="@color/topbar_bg"/>
+                    android:background="@color/green"/>
             </LinearLayout>
         </LinearLayout>
 
