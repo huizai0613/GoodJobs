@@ -58,7 +58,7 @@ public class SingleLevelMenuView extends RelativeLayout implements
         mAdapter = new MultiLevelMenuAdapter(getContext(), mData, R.drawable.withe,
                 R.drawable.withe, R.color.main_color);
         mAdapter.setSelectedKeyNoNotify(mSelectedKey);
-        mAdapter.setTextSize(14);
+//        mAdapter.setTextSize(14);
         mListView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new MultiLevelMenuAdapter.OnItemClickListener()
         {

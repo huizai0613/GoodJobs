@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageButton;
 
 import org.json.JSONObject;
 
@@ -25,6 +26,7 @@ public class JobDetailActivity extends BaseActivity
     private String[] split;
     private int position;
     private HashMap<Integer, JSONObject> cacheData = new HashMap<>();
+    private JobDetailAdapter jobDetailAdapter;
 
 
     public HashMap<Integer, JSONObject> getCacheData()
@@ -52,8 +54,10 @@ public class JobDetailActivity extends BaseActivity
     @Override
     protected void initWeight()
     {
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPager.setAdapter(new JobDetailAdapter(getSupportFragmentManager()));
+        jobDetailAdapter = new JobDetailAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(jobDetailAdapter);
         viewPager.setCurrentItem(position, false);
         setTopTitle("职位详情");
     }
@@ -64,7 +68,6 @@ public class JobDetailActivity extends BaseActivity
         String ids = getIntent().getStringExtra("IDS");
         split = ids.split(",");
         position = getIntent().getIntExtra("POSITION", 0);
-
     }
 
     class JobDetailAdapter extends FragmentStatePagerAdapter
@@ -76,7 +79,7 @@ public class JobDetailActivity extends BaseActivity
         }
 
         @Override
-        public Fragment getItem(int position)
+        public BaseViewPagerFragment getItem(int position)
         {
             return BaseViewPagerFragment.newInstance(Integer.parseInt(split[position]), JobDetailFragment.class);
         }
@@ -87,5 +90,6 @@ public class JobDetailActivity extends BaseActivity
             return split.length;
         }
     }
+
 
 }

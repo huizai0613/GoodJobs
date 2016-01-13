@@ -249,6 +249,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                         } else {
                             etSearch.setText("");
                         }
+                        btnSearch.performClick();
                     }
                 });
                 View line = new View(getActivity());

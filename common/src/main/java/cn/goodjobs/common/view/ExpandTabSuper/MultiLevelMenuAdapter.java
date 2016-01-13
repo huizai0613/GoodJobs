@@ -136,7 +136,7 @@ public class MultiLevelMenuAdapter extends BaseAdapter
                 view.setCompoundDrawables(null, null, null, null);
             }
         }
-        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+//        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
         view.setTag(position);
         view.setPadding(20, 0, 0, 0);
         view.setOnClickListener(mOnClickListener);
