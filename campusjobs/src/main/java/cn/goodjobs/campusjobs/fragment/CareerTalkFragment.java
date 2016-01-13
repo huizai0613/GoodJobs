@@ -99,8 +99,8 @@ public class CareerTalkFragment extends BaseListFragment {
         views.add(dateInfo);
         ArrayList<Integer> integers = new ArrayList<Integer>();
         int i = DensityUtil.dip2px(getActivity(), 45);
-        integers.add(5 * i);
-        integers.add(5 * i);
+        integers.add(8 * i);
+        integers.add(9 * i);
         etv_career.setValue(strings, views, integers);
 
         schoolInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
@@ -170,12 +170,12 @@ public class CareerTalkFragment extends BaseListFragment {
             schoolData.put(String.valueOf(i), array.optString(i));
             LogUtil.info(array.optString(i));
         }
-        JSONArray jarray = (JSONArray) JsonMetaUtil.getObject("parttime_worktime");
-        String key1 = null;
+        JSONArray jarray = (JSONArray) JsonMetaUtil.getObject("runtype");
+        String key1 = "0";
         for (int j = 0; j < jarray.length(); j++) {
             JSONObject o = jarray.optJSONObject(j);
             if (j == 0) {
-                key1 = o.optString("id");
+                dateData.put("0", "不限");
             }
             dateData.put(o.optString("id"), o.optString("name"));
         }

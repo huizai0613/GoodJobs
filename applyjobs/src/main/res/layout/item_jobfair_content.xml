@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/arrow_right_normal">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            style="@style/right_arrow_base"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_small" />
+
         <TextView
             android:id="@+id/tv_jobfair_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_default"
-            android:textColor="@color/main_color"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_arrow"
+            android:padding="@dimen/padding_small"
             android:text="大型招聘会"
-            android:padding="@dimen/padding_small" />
-</RelativeLayout>
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default" />
+    </RelativeLayout>
+
+    <View style="@style/line" />
+
+
+</LinearLayout>

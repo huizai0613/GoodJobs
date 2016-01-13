@@ -24,26 +24,45 @@
                 android:visibility="gone" />
 
             <LinearLayout
-                android:layout_marginTop="@dimen/padding_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_small"
                 android:background="@color/white"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dip"
-                    android:background="@null"
-                    android:drawableLeft="@mipmap/fdj28_grey"
-                    android:focusable="false"
-                    android:hint="输入关键字/职位/公司搜索"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:singleLine="true"
-                    android:textColorHint="@color/light_color"
-                    android:textSize="@dimen/text_small" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_small"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_small">
 
-                <View style="@style/line" />
+                    <ImageView
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@mipmap/fdj28_grey" />
+
+                    <EditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/transparent"
+                        android:focusable="false"
+                        android:hint="输入关键字/职位/公司搜索"
+                        android:textSize="@dimen/text_small" />
+
+                    <ImageButton
+                        android:id="@+id/search_clean"
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:background="@color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_clear"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -51,7 +70,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_default"
+                android:layout_marginTop="@dimen/padding_small"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -71,7 +90,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginLeft="@dimen/padding_small"
                         android:text="校招职位"
                         android:textColor="@color/topbar_bg"
                         android:textSize="@dimen/text_default" />
@@ -85,9 +104,8 @@
                 <cn.goodjobs.common.view.MyListView
                     android:id="@+id/lv_campus"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </cn.goodjobs.common.view.MyListView>
+                    android:layout_height="match_parent"
+                    android:divider="@null"></cn.goodjobs.common.view.MyListView>
             </LinearLayout>
 
         </LinearLayout>

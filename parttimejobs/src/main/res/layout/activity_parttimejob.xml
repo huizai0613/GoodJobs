@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/transparent"
-                android:hint="输入关键字/职位/公司搜索" />
+                android:hint="请输入关键字" />
 
             <ImageButton
                 android:id="@+id/ib_clear"
