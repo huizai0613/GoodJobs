@@ -33,7 +33,7 @@
                     android:text="中国视频娱乐网"
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/font_size_14"
-                    android:textStyle="bold"/>
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -217,7 +217,6 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:drawableRight="@drawable/r_icon"
                         android:gravity="center_vertical"
                         android:text="招聘职位"
                         android:textColor="@color/bule_low_color"

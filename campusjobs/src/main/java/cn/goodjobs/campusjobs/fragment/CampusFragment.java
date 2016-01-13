@@ -19,6 +19,7 @@ import java.util.Map;
 import cn.goodjobs.campusjobs.R;
 import cn.goodjobs.campusjobs.activity.CampusSearchActivity;
 import cn.goodjobs.campusjobs.adapter.CampusAdapter;
+import cn.goodjobs.campusjobs.adapter.CmapusResultAdapter;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.baseclass.BaseListActivity;
 import cn.goodjobs.common.baseclass.BaseListFragment;

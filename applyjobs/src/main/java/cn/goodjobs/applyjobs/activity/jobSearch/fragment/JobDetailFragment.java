@@ -61,9 +61,10 @@ public class JobDetailFragment extends BaseViewPagerFragment
     private EmptyLayout error_layout;
     private JobDetailActivity activity;
     private int id;
-    private TextView jobStore;
-    private TextView jobSend;
+    private View jobStore;
+    private View jobSend;
     private int memCorpID;
+    private View job_share;
 
 
     @Override
@@ -95,13 +96,15 @@ public class JobDetailFragment extends BaseViewPagerFragment
         jobName = (TextView) inflate.findViewById(R.id.job_name);
         jobCro = (TextView) inflate.findViewById(R.id.job_cro);
 
-        jobStore = (TextView) inflate.findViewById(R.id.job_store);
-        jobSend = (TextView) inflate.findViewById(R.id.job_send);
+        jobStore = inflate.findViewById(R.id.job_store);
+        jobSend = inflate.findViewById(R.id.job_send);
+        job_share = inflate.findViewById(R.id.job_share);
 
         jobStore.setOnClickListener(this);
         jobSimilarBox.setOnClickListener(this);
         jobCro.setOnClickListener(this);
         jobSend.setOnClickListener(this);
+        job_share.setOnClickListener(this);
 
         jobOtherBox = inflate.findViewById(R.id.job_other_box);
         jobOther = (TextView) inflate.findViewById(R.id.job_other);
@@ -163,8 +166,8 @@ public class JobDetailFragment extends BaseViewPagerFragment
         setStrng2Bab(jobSalary, "月薪: ", dataJson.optString("salary"));
         setStrng2Bab(jobWorkTime, "经验: ", dataJson.optString("worktime"));
         setStrng2Bab(jobDegree, "学历: ", dataJson.optString("degree"));
-        setStrng2Bab(jobAge, "性别: ", dataJson.optString("age"));
-        setStrng2Bab(jobGender, "年龄: ", dataJson.optString("sex"));
+        setStrng2Bab(jobAge, "性别: ", dataJson.optString("sex"));
+        setStrng2Bab(jobGender, "年龄: ", dataJson.optString("age"));
         setStrng2Bab(jobAddress, "地点: ", dataJson.optString("cityName"));
         memCorpID = dataJson.optInt("memCorpID");
         jobContent.setText(dataJson.optString("jobDetail"));
@@ -356,6 +359,15 @@ public class JobDetailFragment extends BaseViewPagerFragment
             param.put("corpID", memCorpID);
             JumpViewUtil.openActivityAndParam(getContext(), JobCompanyDetailActivity.class, param);
 
+        } else if (i == R.id.job_share) {
+            share();
         }
+    }
+
+    //分享
+    @Override
+    public void share()
+    {
+        super.share();
     }
 }

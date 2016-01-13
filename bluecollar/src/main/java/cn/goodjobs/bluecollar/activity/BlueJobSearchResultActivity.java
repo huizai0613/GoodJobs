@@ -101,10 +101,10 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             oneCate.put("1", "附近筛选");
                             Map<String, String> twoCate_two = new TreeMap<String, String>();
                             twoCate_two.put("0", "不限");
-                            twoCate_two.put("1", "500M");
-                            twoCate_two.put("2", "1000M");
-                            twoCate_two.put("3", "2000M");
-                            twoCate_two.put("4", "3000M");
+                            twoCate_two.put("1", "500米");
+                            twoCate_two.put("2", "1000米");
+                            twoCate_two.put("3", "2000米");
+                            twoCate_two.put("4", "3000米");
 
                             twoCate.put("1", twoCate_two);
                             twoCate.put("0", twoCate_one);
@@ -296,7 +296,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             break;
                     }
                 }
-                etvMenu.setTitle(showString, 0);
+                etvMenu.setTitle("附近" + showString, 0);
                 startRefresh();
             }
 
@@ -377,6 +377,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     @Override
     protected void initWeight()
     {
+        setTopTitle("搜索结果");
         mAdapter = new BlueJobSearchResultAdapter(this);
         ((BlueJobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
         initList();
@@ -419,10 +420,10 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
         ArrayList<Integer> integers = new ArrayList<Integer>();
         int i = DensityUtil.dip2px(mcontext, 45);
-        integers.add(5 * i);
-        integers.add(8 * i);
-        integers.add(5 * i);
-        integers.add(5 * i);
+        integers.add(10 * i);
+        integers.add(10 * i);
+        integers.add(10 * i);
+        integers.add(10 * i);
         etvMenu.setValue(strings, views, integers);
 
         etvMenu.postDelayed(new Runnable()
@@ -502,7 +503,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         if (checkJsonError(object))
             return;
         String totalNum = object.optString("totalNum");
-        setTopTitle("共" + totalNum + "条");
+        setTopTitle("搜索到" + totalNum + "条职位");
 
         try {
             mAdapter.appendToList(object.getJSONArray("list"));

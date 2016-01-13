@@ -6,12 +6,10 @@
 
     <ImageView
         android:id="@+id/iv_arrow"
-        android:layout_width="21dip"
-        android:layout_height="21dip"
+        style="@style/right_arrow_base"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/padding_small"
-        android:background="@drawable/icon_arrow" />
+        android:layout_marginRight="@dimen/padding_small" />
 
 
     <LinearLayout

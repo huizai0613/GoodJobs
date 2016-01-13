@@ -2,9 +2,11 @@ package cn.goodjobs.campusjobs.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -20,6 +22,7 @@ import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.ViewHolderUtil;
+import cn.goodjobs.common.view.BabushkaText;
 
 /**
  * Created by zhuli on 2015/12/30.
@@ -32,48 +35,39 @@ public class CampusAdapter extends JsonArrayAdapterBase<JSONObject> {
 
     @Override
     protected View getExView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
         if (convertView == null) {
-            holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_campus, null);
-            holder.corpName = (TextView) convertView.findViewById(R.id.tv_corpName);
-            holder.pubDate = (TextView) convertView.findViewById(R.id.tv_pubDate);
-            holder.jobName = (TextView) convertView.findViewById(R.id.tv_jobName);
-            holder.salaryName = (TextView) convertView.findViewById(R.id.tv_salaryName);
-            holder.treatment1 = (TextView) convertView.findViewById(R.id.tv_ftreatment);
-            holder.treatment2 = (TextView) convertView.findViewById(R.id.tv_streatment);
-            holder.treatment3 = (TextView) convertView.findViewById(R.id.tv_ttreatment3);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
         }
-        JSONObject jsonObject = getItem(position);
-        String treat = jsonObject.optString("treatment");
+        TextView title = ViewHolderUtil.get(convertView, R.id.item_title);
+        TextView address = ViewHolderUtil.get(convertView, R.id.item_address);
+        TextView name = ViewHolderUtil.get(convertView, R.id.item_name);
+        BabushkaText salary = ViewHolderUtil.get(convertView, R.id.item_salary);
+        TextView time = ViewHolderUtil.get(convertView, R.id.item_time);
 
-        holder.treatment1.setText(" ");
-        holder.treatment2.setText(" ");
-        holder.treatment3.setText(" ");
+        final JSONObject item = getItem(position);
 
-        if (!StringUtil.isEmpty(treat)) {
-            String[] sp = treat.split(",");
-            for (int i = 0; i < sp.length; i++) {
-                if (i == 0) {
-                    holder.treatment1.setText(sp[0]);
-                } else if (i == 1) {
-                    holder.treatment2.setText(sp[1]);
-                } else if (i == 2) {
-                    holder.treatment3.setText(sp[2]);
-                }
-            }
-        }
+        title.setText(item.optString("jobName"));
+        address.setText(item.optString("jobCityName"));
+        name.setText(item.optString("corpName"));
+        salary.setText(item.optString("jobName"));
+        time.setText(item.optString("pubDate"));
+        salary.reset();
+        salary.addPiece(new BabushkaText.Piece.Builder("月薪: ")
+                .textColor(Color.parseColor("#999999"))
+                .build());
 
-        holder.corpName.setText(jsonObject.optString("corpName"));
-        holder.pubDate.setText(jsonObject.optString("pubDate"));
-        holder.jobName.setText(jsonObject.optString("jobName"));
-        holder.salaryName.setText(jsonObject.optString("salaryName"));
+        salary.addPiece(new BabushkaText.Piece.Builder(item.optString("salaryName"))
+                .textColor(Color.parseColor("#ff0000"))
+                .textSizeRelative(1.0f)
+                .build());
+
+        salary.display();
+
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 HashMap<String, Object> param = new HashMap<>();
                 param.put("POSITION", position);
                 StringBuilder builder = new StringBuilder();
@@ -85,10 +79,8 @@ public class CampusAdapter extends JsonArrayAdapterBase<JSONObject> {
                 JumpViewUtil.openActivityAndParam(context, CampusDetailsActivity.class, param);
             }
         });
+
         return convertView;
     }
 
-    public class ViewHolder {
-        private TextView pubDate, jobName, corpName, salaryName, treatment1, treatment2, treatment3;
-    }
 }

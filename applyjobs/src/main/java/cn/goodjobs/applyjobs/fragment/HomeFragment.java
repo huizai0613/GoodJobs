@@ -62,7 +62,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             super.handleMessage(msg);
             List<Map.Entry<Long, Map<String, String>>> infoIds = (List<Map.Entry<Long, Map<String, String>>>) msg.obj;
 
-            if (infoIds != null) { 
+            if (infoIds != null) {
                 historyLayout.setVisibility(View.VISIBLE);
                 final Map<String, String> value = infoIds.get(0).getValue();
 
@@ -70,6 +70,10 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
                 builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
                 builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
                 builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemIndtype")) ? "" : value.get("itemIndtype") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemSalary")) ? "" : value.get("itemSalary") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemWorktime")) ? "" : value.get("itemWorktime") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemDegree")) ? "" : value.get("itemDegree") + " + ");
                 CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
                 tvHistory.setText(charSequence);
 
@@ -103,6 +107,10 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
                         } else {
                             etSearch.setText("");
                         }
+
+                        LinkedHashMap searchHashMap = getSearchHashMap();
+                        //跳转搜索列表
+                        JumpViewUtil.openActivityAndParam(getActivity(), JobSearchResultActivity.class, searchHashMap);
                     }
                 });
             } else {

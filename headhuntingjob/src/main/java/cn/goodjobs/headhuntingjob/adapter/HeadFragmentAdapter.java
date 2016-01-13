@@ -83,7 +83,7 @@ public class HeadFragmentAdapter extends JsonArrayAdapterBase<JSONObject> {
             holder.jobName.setText(jsonObject.optString("jobName"));
             holder.salary.setText(jsonObject.optString("salary"));
             holder.cityName.setText(jsonObject.optString("cityName"));
-            holder.jobBonus.setText(jsonObject.optString("jobBonus"));
+            holder.jobBonus.setText(jsonObject.optString("jobBonus") + "元");
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

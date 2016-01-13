@@ -14,10 +14,8 @@
         android:layout_height="@dimen/space_40"></cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@id/etv_menu"
-        android:background="@color/line_color"/>
+       style="@style/line"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
