@@ -41,6 +41,8 @@
 
 
     <color name="bg_color">#f0f0f0</color>
+    <color name="pink">#ff808c</color>
+    <color name="green">#7ac54c</color>
     <!--  顶部导航条背景颜色 -->
     <color name="topbar_bg">#3492e9</color>
     <color name="topbar_onbg">#44a2f9</color>

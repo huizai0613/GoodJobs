@@ -24,7 +24,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:background="@drawable/list_item_bg"
-            android:padding="@dimen/padding_small">
+            android:padding="@dimen/bottom_menu_padding">
             <ImageView
                 android:id="@+id/btnImage"
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:textColor="@drawable/a_footer_text"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="@dimen/bottom_menu_top"
                 android:text="首页"
                 android:gravity="center"/>
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:background="@drawable/list_item_bg"
-            android:padding="@dimen/padding_small">
+            android:padding="@dimen/bottom_menu_padding">
             <ImageView
                 android:id="@id/btnImage"
                 android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:textColor="@drawable/a_footer_text"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="@dimen/bottom_menu_top"
                 android:text="找工作"
                 android:gravity="center"/>
         </LinearLayout>
@@ -76,13 +76,13 @@
             android:orientation="vertical"
             android:clickable="true"
             android:background="@drawable/list_item_bg"
-            android:padding="@dimen/padding_small">
+            android:padding="@dimen/bottom_menu_padding">
             <ImageView
                 android:id="@id/btnImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/a_footer3"
+                android:src="@drawable/a_footer_like"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:id="@id/btnText"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:textColor="@drawable/a_footer_text"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="@dimen/bottom_menu_top"
                 android:text="交友"
                 android:gravity="center"/>
         </LinearLayout>
@@ -102,7 +102,7 @@
             android:orientation="vertical"
             android:clickable="true"
             android:background="@drawable/list_item_bg"
-            android:padding="@dimen/padding_small">
+            android:padding="@dimen/bottom_menu_padding">
             <ImageView
                 android:id="@id/btnImage"
                 android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:textColor="@drawable/a_footer_text"
-                android:layout_marginTop="4dip"
+                android:layout_marginTop="@dimen/bottom_menu_top"
                 android:text="个人中心"
                 android:gravity="center"/>
         </LinearLayout>

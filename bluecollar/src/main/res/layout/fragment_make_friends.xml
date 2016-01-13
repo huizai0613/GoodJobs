@@ -20,8 +20,9 @@
             android:button="@null"
             android:gravity="center"
             android:text="附近的人"
-            android:textSize="@dimen/text_small"
-            android:textColor="@drawable/readstatus_text"/>
+            android:textSize="@dimen/text_default"
+            android:textColor="@drawable/tabbar_text"
+            android:background="@drawable/tabbar_bg"/>
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="0dip"
@@ -30,8 +31,9 @@
             android:button="@null"
             android:gravity="center"
             android:text="同城交友"
-            android:textSize="@dimen/text_small"
-            android:textColor="@drawable/readstatus_text"/>
+            android:textSize="@dimen/text_default"
+            android:textColor="@drawable/tabbar_text"
+            android:background="@drawable/tabbar_bg"/>
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="0dip"
@@ -40,8 +42,9 @@
             android:button="@null"
             android:gravity="center"
             android:text="关注的人"
-            android:textSize="@dimen/text_small"
-            android:textColor="@drawable/readstatus_text"/>
+            android:textSize="@dimen/text_default"
+            android:textColor="@drawable/tabbar_text"
+            android:background="@drawable/tabbar_bg"/>
     </RadioGroup>
 
     <RelativeLayout

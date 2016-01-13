@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
+import cn.goodjobs.common.util.ImageUtil;
 import cn.goodjobs.common.util.StringUtil;
 
 /**
@@ -50,6 +51,13 @@ public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
         holder.tvName.setText(jsonObject.optString("nickName"));
         holder.tvDistance.setText(jsonObject.optString("distance"));
         holder.tvAge.setText(jsonObject.optString("ageName"));
+        if ("女".equals(jsonObject.optString("ageName"))) {
+            ImageUtil.setDrawable(context, holder.tvAge, R.mipmap.img_female, 1);
+            holder.tvAge.setBackgroundColor(context.getResources().getColor(R.color.pink));
+        } else {
+            ImageUtil.setDrawable(context, holder.tvAge, R.mipmap.img_mail, 1);
+            holder.tvAge.setBackgroundColor(context.getResources().getColor(R.color.green));
+        }
         holder.viewTrend.showView(jsonObject);
         return convertView;
     }
