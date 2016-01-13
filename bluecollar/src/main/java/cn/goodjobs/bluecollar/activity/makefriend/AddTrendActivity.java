@@ -193,6 +193,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         uploadFinishCount ++;
         if (uploadFinishCount == uploadCount) {
             TipsUtil.show(this, "您的动态发布成功");
+            setResult(RESULT_OK);
             finish();
         }
     }
@@ -208,6 +209,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
             }, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    setResult(RESULT_OK);
                     finish();
                 }
             });

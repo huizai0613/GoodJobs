@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 
@@ -35,11 +36,12 @@ import cn.goodjobs.common.view.CustomViewPager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MakeFriendsFragment extends BaseFragment {
+public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
     View view;
     ViewPager viewPager;
-    Button btnAdd;
+
+    RadioGroup radioGroup;
     public ArrayList<BaseFragment> fragmentList;
     MyLocation myLocation;
 
@@ -72,7 +74,7 @@ public class MakeFriendsFragment extends BaseFragment {
         setTopTitle(view, "交友");
         hideBackBtn(view);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
         ImageButton btnRight = (ImageButton) view.findViewById(R.id.btn_right);
         btnRight.setImageResource(R.mipmap.img_lanling_personal);
         btnRight.setVisibility(View.VISIBLE);
@@ -88,8 +90,20 @@ public class MakeFriendsFragment extends BaseFragment {
         viewPager.setAdapter(fragmentPagerAdapter);
         viewPager.setCurrentItem(0);
         viewPager.setOffscreenPageLimit(4);
+        viewPager.setOnPageChangeListener(this);
 
-        btnAdd.setOnClickListener(this);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radio0) {
+                    viewPager.setCurrentItem(0);
+                } else if (checkedId == R.id.radio1) {
+                    viewPager.setCurrentItem(1);
+                } else if (checkedId == R.id.radio2) {
+                    viewPager.setCurrentItem(2);
+                }
+            }
+        });
 
         LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener() {
             @Override
@@ -104,10 +118,7 @@ public class MakeFriendsFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if (v.getId() == R.id.btnAdd) {
-            Intent intent = new Intent(getActivity(), AddTrendActivity.class);
-            startActivity(intent);
-        } else if (v.getId() == R.id.btn_right) {
+        if (v.getId() == R.id.btn_right) {
             if (GoodJobsApp.getInstance().isLogin()) {
                 Intent intent = new Intent(getActivity(), MakeFriendPersonalInfoActivity.class);
                 startActivity(intent);
@@ -124,5 +135,32 @@ public class MakeFriendsFragment extends BaseFragment {
             Intent intent = new Intent(getActivity(), AddTrendActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                radioGroup.check(R.id.radio0);
+                break;
+            case 1:
+                radioGroup.check(R.id.radio1);
+                break;
+            case 2:
+                radioGroup.check(R.id.radio2);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

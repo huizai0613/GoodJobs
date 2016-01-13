@@ -117,7 +117,8 @@ public class URLS
     public final static String MAKEFRIEND_ADDTREND = "Friend/Dynamicsave";      //动态发布
     public final static String MAKEFRIEND_BASICINFO = "Friend/Basicshow";      //个人资料
     public final static String MAKEFRIEND_BASICSAVE = "Friend/Basicsave";      //个人资料保存
-    public final static String MAKEFRIEND_TRENDLIST = "Friend/Dynamiclist";      //交友首页
+    public final static String MAKEFRIEND_TRENDLIST = "Friend/Dynamiclist";      //交友首页,附近的动态
+    public final static String MAKEFRIEND_CITYLIST = "Friend/Cityfriendlist";      //交友首页，同城交友
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件
