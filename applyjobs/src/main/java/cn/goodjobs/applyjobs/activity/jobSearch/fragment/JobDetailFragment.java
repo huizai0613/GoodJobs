@@ -273,8 +273,8 @@ public class JobDetailFragment extends BaseViewPagerFragment
     public void onSuccess(String tag, Object data)
     {
         super.onSuccess(tag, data);
-        JSONObject jsonObject = (JSONObject) data;
-        setData(jsonObject);
+        JSONObject jobDetailJson = (JSONObject) data;
+        setData(jobDetailJson);
 
     }
 

@@ -79,6 +79,8 @@ public class JobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
 
         salary.display();
 
+        check.setChecked(checkPosition.contains((Integer)position));
+
         check.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -86,9 +88,7 @@ public class JobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
             {
                 if (checkPosition.contains((Integer) position)) {
                     checkPosition.remove((Integer) position);
-                    check.setSelected(false);
                 } else {
-                    check.setSelected(true);
                     checkPosition.add((Integer) position);
                 }
                 jobSearchResultActivity.setBottomVisible(checkPosition.size() > 0);

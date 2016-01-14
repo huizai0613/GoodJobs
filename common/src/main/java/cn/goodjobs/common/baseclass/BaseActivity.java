@@ -29,6 +29,7 @@ import cn.goodjobs.common.view.empty.EmptyLayout;
 public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener, HttpResponseHandler
 {
     protected BaseActivity mcontext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -94,6 +95,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
     }
 
+
     /**
      * 退出当前界面
      */
@@ -105,7 +107,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     /**
      * 跳转到系统设置界面
      */
-    public void toSetting(View view) {
+    public void toSetting(View view)
+    {
         Intent intent = new Intent(this, GoodJobsSettingActivity.class);
         startActivity(intent);
     }
@@ -129,6 +132,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     @Override
     protected void onDestroy()
     {
+        HttpUtil.cancelAllRequests();
         ScreenManager.getScreenManager().popActivity(this);
         super.onDestroy();
     }
