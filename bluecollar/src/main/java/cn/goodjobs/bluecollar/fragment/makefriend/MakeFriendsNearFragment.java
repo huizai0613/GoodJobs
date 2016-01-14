@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import org.json.JSONObject;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.makefriend.AddTrendActivity;
+import cn.goodjobs.bluecollar.activity.makefriend.TrendDetailActivity;
 import cn.goodjobs.bluecollar.adapter.TrendAdapter;
 import cn.goodjobs.common.baseclass.BaseListFragment;
 import cn.goodjobs.common.constants.URLS;
@@ -26,7 +28,7 @@ import cn.goodjobs.common.view.empty.EmptyLayout;
 /**
  * 附近的人
  */
-public class MakeFriendsNearFragment extends BaseListFragment {
+public class MakeFriendsNearFragment extends BaseListFragment implements AdapterView.OnItemClickListener {
     View view;
     Button btnAdd;
     String pageTime = "0";
@@ -47,8 +49,15 @@ public class MakeFriendsNearFragment extends BaseListFragment {
         btnAdd.setOnClickListener(this);
         emptyLayout.setOnClickListener(this);
         initList(view);
+        mListView.setOnItemClickListener(this);
         startRefresh();
         return view;
+    }
+
+    @Override
+    protected void refresh() {
+        pageTime = "0";
+        super.refresh();
     }
 
     @Override
@@ -123,5 +132,13 @@ public class MakeFriendsNearFragment extends BaseListFragment {
             page = 1;
             startRefresh();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
+        Intent intent = new Intent(getActivity(), TrendDetailActivity.class);
+        intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
+        startActivity(intent);
     }
 }

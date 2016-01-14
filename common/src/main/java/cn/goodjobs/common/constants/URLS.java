@@ -116,8 +116,13 @@ public class URLS {
     public final static String MAKEFRIEND_ADDTREND = "Friend/Dynamicsave";      //动态发布
     public final static String MAKEFRIEND_BASICINFO = "Friend/Basicshow";      //个人资料
     public final static String MAKEFRIEND_BASICSAVE = "Friend/Basicsave";      //个人资料保存
+    public final static String MAKEFRIEND_BASICPICSAVE = "Friend/Basicpicsave";      //个人资料头像保存
     public final static String MAKEFRIEND_TRENDLIST = "Friend/Dynamiclist";      //交友首页,附近的动态
+    public final static String MAKEFRIEND_TRENDDETAIL = "Friend/Dynamicshow";      //动态详情
+    public final static String MAKEFRIEND_TRENDCOMMENT = "Friend/Replylist";      //动态详情评论列表
     public final static String MAKEFRIEND_CITYLIST = "Friend/Cityfriendlist";      //交友首页，同城交友
+    public final static String MAKEFRIEND_COMMENT = "Friend/Replysave";      //动态评论与回复
+    public final static String MAKEFRIEND_FOLLOW = "Friend/Followsave";      //交友关注和取消关注操作
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件
