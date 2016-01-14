@@ -212,11 +212,15 @@ public class ImageUtil {
 	}
 
 	public static File scal(Uri fileUri){
+		final long fileMaxSize = 150 * 1024; // 图片大小控制在150以下
+		return scal(fileUri, fileMaxSize);
+	}
+
+	public static File scal(Uri fileUri, long fileMaxSize){
 		String path = fileUri.getPath();
 		File outputFile = new File(path);
 		long fileSize = outputFile.length();
 		LogUtil.info("filesize:"+fileSize);
-		final long fileMaxSize = 150 * 1024; // 图片大小控制在150以下
 		if (fileSize >= fileMaxSize) {
 			BitmapFactory.Options options = new BitmapFactory.Options();
 			options.inJustDecodeBounds = true;

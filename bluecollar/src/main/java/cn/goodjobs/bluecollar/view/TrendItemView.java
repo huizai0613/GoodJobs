@@ -29,7 +29,7 @@ public class TrendItemView extends CombinedBaseView implements View.OnClickListe
     RelativeLayout imgLayout;
     LinearLayout contentLayout;
     SimpleDraweeView myImageview;
-    TextView tvMsg, tvFans, tvGuanzhu, tvTime, tvContent;
+    TextView tvMsg, tvFans, tvGuanzhu, tvTime, tvContent, tvPics;
     ArrayList<String> picList;
 
     public TrendItemView(Context context, AttributeSet attrs) {
@@ -52,6 +52,7 @@ public class TrendItemView extends CombinedBaseView implements View.OnClickListe
         tvGuanzhu = (TextView) findViewById(R.id.tvGuanzhu);
         tvTime = (TextView) findViewById(R.id.tvTime);
         tvContent = (TextView) findViewById(R.id.tvContent);
+        tvPics = (TextView) findViewById(R.id.tvPics);
 
         myImageview.setOnClickListener(this);
     }
@@ -65,6 +66,11 @@ public class TrendItemView extends CombinedBaseView implements View.OnClickListe
 
             picList = new ArrayList<String>();
             int size = images.length();
+            if (size > 1) {
+                tvPics.setVisibility(View.VISIBLE);
+            } else {
+                tvPics.setVisibility(View.INVISIBLE);
+            }
             for (int i=0;i<size;++i) {
                 picList.add(images.optString(i));
             }

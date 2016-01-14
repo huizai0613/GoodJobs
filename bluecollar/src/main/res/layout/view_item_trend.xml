@@ -19,6 +19,7 @@
             fresco:placeholderImage="@drawable/image_holder"
             fresco:placeholderImageScaleType="fitXY"/>
         <TextView
+            android:id="@+id/tvPics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="图集"

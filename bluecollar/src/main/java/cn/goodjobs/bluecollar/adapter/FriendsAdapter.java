@@ -48,6 +48,8 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> {
         if (!StringUtil.isEmpty(jsonObject.optString("userPhoto"))) {
             Uri uri = Uri.parse(jsonObject.optString("userPhoto"));
             holder.headPhoto.setImageURI(uri);
+        } else {
+            holder.headPhoto.setImageResource(R.drawable.img_personal_default);
         }
         holder.tvName.setText(jsonObject.optString("nickName"));
         holder.tvAge.setText(jsonObject.optString("age"));

@@ -9,9 +9,9 @@
     <!--  小号字 -->
     <dimen name="text_small">12sp</dimen>
     <!--  超小号字 -->
-    <dimen name="text_litter">11sp</dimen>
+    <dimen name="text_litter">10sp</dimen>
     <!--  大号字 -->
-    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_large">18sp</dimen>
 
     <!--  间距设定 -->
     <!--  默认间距 -->
