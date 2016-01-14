@@ -15,10 +15,12 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
@@ -45,6 +47,7 @@ import cn.goodjobs.common.view.searchItem.SelectorItemView;
  */
 public class ItemResumeActivity extends BaseImageUploadActivity {
 
+    Uri fileUri;
     RelativeLayout headPhotoLayout;
     SimpleDraweeView headPhoto;
     private RadioGroup sexGroup;
@@ -126,6 +129,9 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
             } else {
                 TipsUtil.show(this, ((JSONObject) data).optString("message"));
             }
+        } else if (tag.equals(URLS.API_JOB_CvPhotosave)) {
+            TipsUtil.show(this, (String) data);
+            headPhoto.setImageURI(fileUri);
         }
     }
 
@@ -186,10 +192,19 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     @Override
     protected void onImageFinish(Uri fileUri) {
         super.onImageFinish(fileUri);
-//        headPhoto.setImageURI(fileUri);
+        this.fileUri = fileUri;
+        RequestParams requestParams = new RequestParams();
+        try {
+            requestParams.put("portrait", ImageUtil.scal(fileUri, 10240));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        LoadingDialog.showDialog(this);
+        HttpUtil.uploadFile(URLS.API_JOB_CvPhotosave, URLS.API_JOB_CvPhotosave, requestParams, this);
     }
 
     private void setDataToView(JSONObject jsonObject) {
+        headPhoto.setImageURI(Uri.parse(jsonObject.optString("userLogo")));
         if (StringUtil.isEmpty(jsonObject.optString("realName"))) {
             llBottom.setVisibility(View.GONE);
             isContinue = true;

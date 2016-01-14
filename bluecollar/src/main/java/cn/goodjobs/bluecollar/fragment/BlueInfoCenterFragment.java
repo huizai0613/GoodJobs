@@ -229,7 +229,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
 
     private void setDataToView() {
         Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
-        myImageview.setImageURI(uri);
+        myHeadImage.setImageURI(uri);
         tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));
         tvTime.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
         itemChakan.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countCorpLook") + "条");
