@@ -1,15 +1,21 @@
 package cn.goodjobs.bluecollar.fragment.makefriend;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.makefriend.AddTrendActivity;
+import cn.goodjobs.bluecollar.activity.makefriend.TrendDetailActivity;
 import cn.goodjobs.bluecollar.adapter.TrendAdapter;
 import cn.goodjobs.common.baseclass.BaseListFragment;
 import cn.goodjobs.common.constants.URLS;
@@ -22,8 +28,9 @@ import cn.goodjobs.common.view.empty.EmptyLayout;
 /**
  * 附近的人
  */
-public class MakeFriendsNearFragment extends BaseListFragment {
+public class MakeFriendsNearFragment extends BaseListFragment implements AdapterView.OnItemClickListener {
     View view;
+    Button btnAdd;
     String pageTime = "0";
     MyLocation myLocation;
     EmptyLayout emptyLayout;
@@ -35,12 +42,22 @@ public class MakeFriendsNearFragment extends BaseListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.load_more_list_view, container, false);
+        view = inflater.inflate(R.layout.makefriend_near, container, false);
         mAdapter = new TrendAdapter(getActivity());
         emptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
+        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(this);
+        emptyLayout.setOnClickListener(this);
         initList(view);
+        mListView.setOnItemClickListener(this);
         startRefresh();
         return view;
+    }
+
+    @Override
+    protected void refresh() {
+        pageTime = "0";
+        super.refresh();
     }
 
     @Override
@@ -93,5 +110,35 @@ public class MakeFriendsNearFragment extends BaseListFragment {
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v.getId() == R.id.empty_view) {
+            LoadingDialog.showDialog(getActivity());
+            getDataFronServer();
+        } else if (v.getId() == R.id.btnAdd) {
+            Intent intent = new Intent(getActivity(), AddTrendActivity.class);
+            startActivityForResult(intent, 111);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            mAdapter.clear();
+            page = 1;
+            startRefresh();
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
+        Intent intent = new Intent(getActivity(), TrendDetailActivity.class);
+        intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
+        startActivity(intent);
     }
 }

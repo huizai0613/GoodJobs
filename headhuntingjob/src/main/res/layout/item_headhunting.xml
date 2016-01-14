@@ -5,12 +5,10 @@
 
     <ImageView
         android:id="@+id/iv_arrow"
-        android:layout_width="21dip"
-        android:layout_height="21dip"
+        style="@style/right_arrow_base"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/padding_small"
-        android:background="@drawable/icon_arrow" />
+        android:layout_marginRight="@dimen/padding_small" />
 
     <LinearLayout
         android:id="@+id/ll_left"
@@ -40,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:paddingRight="@dimen/padding_default"
+                android:paddingRight="@dimen/padding_small"
                 android:text="20000-29000元"
                 android:textColor="@color/red"
                 android:textSize="@dimen/text_small" />

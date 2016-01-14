@@ -23,7 +23,7 @@ public class PersonalLookActivity extends BasePersonalListActivity implements Ad
         adapterRes = R.layout.item_personal_look;
         url = URLS.API_USER_CORPVIEWHISTORY;
         delUrl = URLS.API_USER_CORPVIEWHISTORYDEL;
-        idKey = "id";
+        idKey = "mailID";
         paramKey = "mailID";
         resIDs = new int[]{R.id.tvTitle, R.id.tvTime};
         keys = new String[]{"corpName", "logDate"};

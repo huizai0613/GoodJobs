@@ -102,7 +102,7 @@ public class PartTimeJobActivity extends BaseListActivity {
         ArrayList<Integer> integers = new ArrayList<Integer>();
         int i = DensityUtil.dip2px(this, 45);
         integers.add(5 * i);
-        integers.add(5 * i);
+        integers.add(9 * i);
         initSearch();
         etv_career.setValue(strings, views, integers);
         schoolInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {

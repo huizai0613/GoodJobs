@@ -7,10 +7,12 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
@@ -19,6 +21,7 @@ import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseImageUploadActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DatePickerUtil;
+import cn.goodjobs.common.util.ImageUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
@@ -35,6 +38,7 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
     RadioGroup sexGroup;
     SearchItemView itemBirthday;
     SelectorItemView itemAddress;
+    Uri fileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,10 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
         } else if (tag.equals(URLS.MAKEFRIEND_BASICSAVE)) {
             JSONObject jsonObject = (JSONObject) data;
             TipsUtil.show(this, jsonObject.optString("message"));
+        } else if (tag.equals(URLS.MAKEFRIEND_BASICPICSAVE)) {
+            JSONObject jsonObject = (JSONObject) data;
+            TipsUtil.show(this, jsonObject.optString("message"));
+            headPhoto.setImageURI(fileUri);
         }
     }
 
@@ -114,7 +122,15 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
     @Override
     protected void onImageFinish(Uri fileUri) {
         super.onImageFinish(fileUri);
-        headPhoto.setImageURI(fileUri);
+        this.fileUri = fileUri;
+        RequestParams requestParams = new RequestParams();
+        try {
+            requestParams.put("pics", ImageUtil.scal(fileUri, 10240));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        LoadingDialog.showDialog(this);
+        HttpUtil.uploadFile(URLS.MAKEFRIEND_BASICPICSAVE, URLS.MAKEFRIEND_BASICPICSAVE, requestParams, this);
     }
 
     public void doSave(View view) {

@@ -59,6 +59,7 @@ public class JsonArrayAdapterBase<T> extends BaseAdapter {
 	public void clear() {
 		mList.clear();
 	}
+
 	@Override
 	public int getCount() {
 		return mList.size();
