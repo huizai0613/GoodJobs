@@ -3,8 +3,7 @@ package cn.goodjobs.common.constants;
 /**
  * Created by wanggang on 2015/10/9 0009.
  */
-public class URLS
-{
+public class URLS {
     // 公共数据
     public final static String API_COMMON_META = "common/meta";  // 公共数据
     public final static String FOOTER = "Ehr/Footer";  // 企业底部公司电话和地址
@@ -128,5 +127,9 @@ public class URLS
 
     public final static String API_JOB_CampusIndex = "Campus/Index";      //校园招聘首页
     public final static String API_JOB_CampusJoblist = "Campus/Joblist";      //校园招聘搜索
+
+
+    //蓝领个人中心
+    public final static String API_JOB_BlueMy = "Blue/My";      //蓝领个人中心首页
 
 }

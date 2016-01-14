@@ -41,7 +41,7 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical|right"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </LinearLayout>
 
@@ -54,7 +54,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textColor="@color/light_color"
-                android:textSize="@dimen/text_default" />
+                android:textSize="@dimen/text_small" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
                 <TextView
                     android:id="@+id/item_time"
@@ -80,7 +80,7 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical|right"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_small" />
 
             </LinearLayout>
 

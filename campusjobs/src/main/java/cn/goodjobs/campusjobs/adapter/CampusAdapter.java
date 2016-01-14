@@ -47,7 +47,7 @@ public class CampusAdapter extends JsonArrayAdapterBase<JSONObject> {
         final JSONObject item = getItem(position);
 
         title.setText(item.optString("jobName"));
-        address.setText(item.optString("jobCityName"));
+        address.setText(item.optString("cityName"));
         name.setText(item.optString("corpName"));
         salary.setText(item.optString("jobName"));
         time.setText(item.optString("pubDate"));

@@ -110,7 +110,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
             if (isFirst) {
                 //发送请求
                 LoadingDialog.showDialog(getActivity());
-                HttpUtil.post(URLS.API_PERSON, this);
+                HttpUtil.post(URLS.API_JOB_BlueMy, this);
                 isFirst = false;
             }
         }
@@ -125,13 +125,14 @@ public class BlueInfoCenterFragment extends BaseFragment {
             myHeadImage.setVisibility(View.VISIBLE);
             //发送请求
             LoadingDialog.showDialog(getActivity());
-            HttpUtil.post(URLS.API_PERSON, this);
+            HttpUtil.post(URLS.API_JOB_BlueMy, this);
             status = true;
         } else {
             myImageview.setVisibility(View.VISIBLE);
             btnLogin.setVisibility(View.VISIBLE);
             show.setVisibility(View.INVISIBLE);
             myHeadImage.setVisibility(View.INVISIBLE);
+            setDataToNull();
             status = false;
         }
     }
@@ -187,8 +188,8 @@ public class BlueInfoCenterFragment extends BaseFragment {
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        if (tag.equals(URLS.API_PERSON)) {
-            GoodJobsApp.getInstance().personalInfo = (JSONObject) data;
+        if (tag.equals(URLS.API_JOB_BlueMy)) {
+            GoodJobsApp.getInstance().bluePersonalInfo = (JSONObject) data;
             setDataToView();
         }
     }
@@ -204,13 +205,27 @@ public class BlueInfoCenterFragment extends BaseFragment {
     }
 
     private void setDataToView() {
-        Uri uri = Uri.parse(GoodJobsApp.getInstance().personalInfo.optString("pic"));
+        Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
         myImageview.setImageURI(uri);
-        tvName.setText(GoodJobsApp.getInstance().personalInfo.optString("username"));
-        tvTime.setText(GoodJobsApp.getInstance().personalInfo.optString("updateTime"));
-        itemChakan.setHint(GoodJobsApp.getInstance().personalInfo.optString("countCorpLook") + "条");
-        itemShenqing.setHint(GoodJobsApp.getInstance().personalInfo.optString("countJobApply") + "条");
-        itemCollection.setHint(GoodJobsApp.getInstance().personalInfo.optString("countBookmark") + "条");
-        itemJianli.setHint(GoodJobsApp.getInstance().personalInfo.optString("viewHistoryCount") + "次被浏览");
+        tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));
+        tvTime.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
+        itemChakan.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countCorpLook") + "条");
+        itemShenqing.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countJobApply") + "条");
+        itemCollection.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countBookmark") + "条");
+        itemJianli.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("clickNum") + "次被浏览");
+        if ("0".equals(GoodJobsApp.getInstance().bluePersonalInfo.optString("autoSend"))) {
+            tvEntrust.setText("委托投递");
+        } else if ("1".equals(GoodJobsApp.getInstance().bluePersonalInfo.optString("autoSend"))) {
+            tvEntrust.setText("取消委托");
+        }
+    }
+
+    private void setDataToNull() {
+        tvName.setText("");
+        tvTime.setText("");
+        itemChakan.setHint("");
+        itemShenqing.setHint("");
+        itemCollection.setHint("");
+        itemJianli.setHint("");
     }
 }
