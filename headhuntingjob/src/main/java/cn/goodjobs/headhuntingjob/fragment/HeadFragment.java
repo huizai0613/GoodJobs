@@ -8,18 +8,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import cn.goodjobs.common.baseclass.BaseListFragment;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.LogUtil;
+import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.empty.EmptyLayout;
+import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 import cn.goodjobs.headhuntingjob.R;
 import cn.goodjobs.headhuntingjob.adapter.HeadFragmentAdapter;
 
@@ -30,9 +34,10 @@ public class HeadFragment extends BaseListFragment implements SpinnerDialog.Spin
 
     private Button btnChoice;
     private SpinnerDialog dialog;
-    private ArrayList<String> list;
+    private Map<String, String> list;
     private boolean isSuccess;
     private EmptyLayout emptyLayout;
+    private String departID;
     private View mView;
     private int type;    //0是猎头，1是悬赏，2是代理招聘
 
@@ -72,16 +77,21 @@ public class HeadFragment extends BaseListFragment implements SpinnerDialog.Spin
         btnChoice = (Button) view.findViewById(R.id.btnChoice);
         emptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
         if (type == 0) {
+            list = new LinkedHashMap<String, String>();
             btnChoice.setVisibility(View.VISIBLE);
             dialog = new SpinnerDialog(1);
-            dialog.strs = new String[]{"全部行业", "IT电子/网络", "建筑/房产开发", "汽车零部件", "制造业", "商业零售", "快速消费品", "其他行业"};
+            JSONArray jarray = (JSONArray) JsonMetaUtil.getObject("huntdept");
+            dialog.strs = new String[jarray.length()];
+            for (int j = 0; j < jarray.length(); j++) {
+                JSONObject o = jarray.optJSONObject(j);
+                list.put(o.optString("id"), o.optString("name"));
+                dialog.strs[j] = o.optString("name");
+            }
             dialog.chooseIndex = 0;
             dialog.title = "行业筛选";
             dialog.listener = this;
         }
         btnChoice.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -90,6 +100,8 @@ public class HeadFragment extends BaseListFragment implements SpinnerDialog.Spin
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("page", page);
         if (type == 0) {
+            if (!StringUtil.isEmpty(departID))
+                params.put("departID", departID);
             HttpUtil.post(URLS.API_JOB_HeadHunt, params, this);
         } else if (type == 1) {
             HttpUtil.post(URLS.API_JOB_BonusList, params, this);
@@ -135,6 +147,14 @@ public class HeadFragment extends BaseListFragment implements SpinnerDialog.Spin
 
     @Override
     public void choose(int position, int id) {
-        TipsUtil.show(getActivity(), "选择为：" + dialog.strs[position]);
+        int i = 0;
+        for (String ignored : list.keySet()) {
+            if (i == position) {
+                departID = ignored;
+            }
+            i++;
+        }
+
+        startRefresh();
     }
 }
