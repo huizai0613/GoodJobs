@@ -92,7 +92,7 @@
             </RelativeLayout>
 
             <cn.goodjobs.common.view.searchItem.InputItemView
-                android:id="@+id/itemName"
+                android:id="@+id/myName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 listitem:hint="请输入姓名"
@@ -385,7 +385,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/editText"
+                        android:id="@+id/etContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/padding_small"

@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +19,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.view.upload.UploadImageAdapter;
@@ -28,7 +31,9 @@ import cn.goodjobs.common.baseclass.choosepic.ImgFileListActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DatePickerUtil;
 import cn.goodjobs.common.util.ImageUtil;
+import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.http.CryptUtils;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.InputItemView;
@@ -48,7 +53,10 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     private SearchItemView itemBirthday;
     private InputItemView itemName;
     private Button btnSave;
+    private CheckBox cbCheck;
     private boolean isContinue = false;
+    private EditText etContent;
+    private String realname, sex, birthday, cityID, sFunction, autoSend, degree, salary, ckTime, sWorkPlace, jobName, worktime, selfIntro;
 
     @Override
     protected int getLayoutID() {
@@ -72,8 +80,10 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         itemWant = (SelectorItemView) findViewById(R.id.itemWant);
         itemAddress = (SelectorItemView) findViewById(R.id.itemAddress);
         itemBirthday = (SearchItemView) findViewById(R.id.itemBirthday);
-        itemName = (InputItemView) findViewById(R.id.itemName);
+        itemName = (InputItemView) findViewById(R.id.myName);
         sexGroup = (RadioGroup) findViewById(R.id.sexGroup);
+        cbCheck = (CheckBox) findViewById(R.id.cb_check);
+        etContent = (EditText) findViewById(R.id.etContent);
 
         itemDegree = (SelectorItemView) findViewById(R.id.itemDegree);
         itemCheckIn = (SelectorItemView) findViewById(R.id.itemCheckIn);
@@ -92,7 +102,9 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
 
     private void getDataFromServer() {
         LoadingDialog.showDialog(this);
-        HttpUtil.post(URLS.API_CV_BASIC, this);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("cvType", 0);
+        HttpUtil.post(URLS.API_JOB_BlueBasic, params, this);
     }
 
 
@@ -104,8 +116,17 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        GoodJobsApp.getInstance().resumeJson = (JSONObject) data;
-        setDataToView((JSONObject) data);
+        if (tag.equals(URLS.API_JOB_BlueBasic)) {
+            GoodJobsApp.getInstance().bluePersonalInfo = (JSONObject) data;
+            setDataToView((JSONObject) data);
+        } else if (tag.equals(URLS.API_JOB_BlueBasicsave)) {
+            if (isContinue) {
+                Intent intent = new Intent(this, ResumeMoreActivity.class);
+                startActivity(intent);
+            } else {
+                TipsUtil.show(this, ((JSONObject) data).optString("message"));
+            }
+        }
     }
 
     @Override
@@ -121,10 +142,34 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     public void doSave(View v) {
         if (chooseCondition()) {
             if (isContinue) {
-                Intent intent = new Intent(this, ResumeMoreActivity.class);
-                startActivity(intent);
+                HashMap<String, Object> params = new HashMap<String, Object>();
+                params.put("cvType", 1);
+                params.put("realname", realname);
+                params.put("sex", sex);
+                params.put("birthday", birthday);
+                params.put("cityID", cityID);
+                params.put("sFunction", sFunction);
+                params.put("autoSend", autoSend);
+                LoadingDialog.showDialog(this);
+                HttpUtil.post(URLS.API_JOB_BlueBasicsave, params, this);
             } else {
-                //发送请求
+                HashMap<String, Object> params = new HashMap<String, Object>();
+                params.put("cvType", 0);
+                params.put("realname", realname);
+                params.put("sex", sex);
+                params.put("birthday", birthday);
+                params.put("cityID", cityID);
+                params.put("sFunction", sFunction);
+                params.put("autoSend", autoSend);
+                params.put("degree", degree);
+                params.put("ckTime", ckTime);
+                params.put("salary", salary);
+                params.put("sWorkPlace", sWorkPlace);
+                params.put("jobName", jobName);
+                params.put("worktime", worktime);
+                params.put("selfIntro", selfIntro);
+                LoadingDialog.showDialog(this);
+                HttpUtil.post(URLS.API_JOB_BlueBasicsave, params, this);
             }
         }
     }
@@ -141,11 +186,11 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     @Override
     protected void onImageFinish(Uri fileUri) {
         super.onImageFinish(fileUri);
-        headPhoto.setImageURI(fileUri);
+//        headPhoto.setImageURI(fileUri);
     }
 
     private void setDataToView(JSONObject jsonObject) {
-        if (jsonObject.optString("realName").isEmpty()) {
+        if (StringUtil.isEmpty(jsonObject.optString("realName"))) {
             llBottom.setVisibility(View.GONE);
             isContinue = true;
         } else {
@@ -161,12 +206,26 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         itemDegree.setSelectorIds(jsonObject.optString("degree"));
         itemWorktime.setText(jsonObject.optString("fmtWorktime"));
         itemWorktime.setSelectorIds(jsonObject.optString("worktime"));
-        itemSalary.setText(jsonObject.optString("fmtCurrentSalary"));
-        itemSalary.setSelectorIds(jsonObject.optString("currentSalary"));
+        itemCheckIn.setText(jsonObject.optString("fmtWorktime"));
+        itemCheckIn.setSelectorIds(jsonObject.optString("checkInTime"));
+        itemSalary.setText(jsonObject.optString("salaryName"));
+        itemSalary.setSelectorIds(jsonObject.optString("salary"));
+        itemWant.setText(jsonObject.optString("fmtPosition"));
+        itemWant.setSelectorIds(jsonObject.optString("position"));
+        itemWorkAddress.setText(jsonObject.optString("fmtWorkPlace"));
+        itemWorkAddress.setSelectorIds(jsonObject.optString("workPlace"));
+        itemJobFunc.setText(jsonObject.optString("fmtJobName"));
+        itemJobFunc.setSelectorIds(jsonObject.optString("jobName"));
+        etContent.setText(jsonObject.optString("selfIntro"));
         if ("女".equals(jsonObject.optString("sex"))) {
             sexGroup.check(R.id.radioWoman);
         } else {
             sexGroup.check(R.id.radioMan);
+        }
+        if ("0".equals(jsonObject.optString("autoSend"))) {
+            cbCheck.setChecked(false);
+        } else if ("1".equals(jsonObject.optString("autoSend"))) {
+            cbCheck.setChecked(true);
         }
     }
 
@@ -175,19 +234,44 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         if (itemName.getText().length() <= 1) {
             TipsUtil.show(this, "姓名项不能少于两个字符");
             return false;
+        } else {
+            realname = itemName.getText();
         }
         if (itemBirthday.getText().isEmpty()) {
             TipsUtil.show(this, "出生年月不能为空");
             return false;
+        } else {
+            birthday = itemBirthday.getText();
         }
         if (itemAddress.getText().isEmpty()) {
             TipsUtil.show(this, "现居住地不能为空");
             return false;
+        } else {
+            cityID = itemAddress.getSelectorIds();
         }
         if (itemWant.getText().isEmpty()) {
             TipsUtil.show(this, "想做什么不能为空");
             return false;
+        } else {
+            sFunction = itemWant.getSelectorIds();
         }
+        if (sexGroup.getCheckedRadioButtonId() == R.id.radioWoman) {
+            sex = "女";
+        } else {
+            sex = "男";
+        }
+        if (cbCheck.isChecked()) {
+            autoSend = "1";
+        } else {
+            autoSend = "0";
+        }
+        degree = itemDegree.getSelectorIds();
+        ckTime = itemCheckIn.getSelectorIds();
+        salary = itemSalary.getSelectorIds();
+        sWorkPlace = itemWorkAddress.getSelectorIds();
+        jobName = itemJobFunc.getSelectorIds();
+        worktime = itemWorktime.getSelectorIds();
+        selfIntro = etContent.getText().toString();
         return true;
     }
 
