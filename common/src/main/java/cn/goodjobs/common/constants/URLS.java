@@ -24,9 +24,12 @@ public class URLS
     public final static String API_JOB_Searcherdel = "Job/Searcherdel";  // 获取搜索器
     public final static String API_JOB_Joball = "Job/Joball";  // 公司所有职位
     //蓝领
-    public final static String API_BLUEJOB_Index = "Bluejob/Index";  // 蓝领首页
-    public final static String API_BLUEJOB_Jobshow = "Bluejob/Jobshow";  // 蓝领职位详情
-    public final static String API_BLUEJOB_Joblist = "Bluejob/Joblist";  // 蓝领职位列表
+    public final static String API_BLUEJOB_Index = "Blue/Index";  // 蓝领首页
+    public final static String API_BLUEJOB_Jobshow = "Blue/Jobshow";  // 蓝领职位详情
+    public final static String API_BLUEJOB_Joblist = "Blue/Joblist";  // 蓝领职位列表
+    public final static String API_BLUEJOB_Addapply = "Blue/Addapply";  // 蓝领职位申请
+    public final static String API_BLUEJOB_Addfavorite = "Blue/Addfavorite";  // 蓝领职位收藏
+    public final static String API_BLUEJOB_Corpshow = "Blue/Corpshow";  // 蓝领企业详情
 
 
     // 登录相关

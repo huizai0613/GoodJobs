@@ -1,11 +1,13 @@
-package cn.goodjobs.applyjobs.activity.jobSearch;
+package cn.goodjobs.bluecollar.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,24 +22,23 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cn.goodjobs.applyjobs.R;
+import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.common.activity.ImagePreviewActivity;
 import cn.goodjobs.common.activity.LsMapActivity;
-import cn.goodjobs.common.activity.WebViewActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.PhoneUtils;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.UpdateDataTaskUtils;
 import cn.goodjobs.common.util.http.HttpUtil;
-import cn.goodjobs.common.view.BabushkaText;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
 /**
  * Created by yexiangyu on 15/12/28.
  */
-public class JobCompanyDetailActivity extends BaseActivity
+public class BlueJobCompanyDetailActivity extends BaseActivity
 {
 
     private View jobSimilarBox;
@@ -62,11 +63,12 @@ public class JobCompanyDetailActivity extends BaseActivity
     private View com_industry_box;
     private View com_add_box;
     private View com_phone_box;
+    private LinearLayout jobBox;
 
     @Override
     protected int getLayoutID()
     {
-        return R.layout.activity_jobcompany_detail;
+        return R.layout.activity_bluejobcompany_detail;
     }
 
     @Override
@@ -97,6 +99,7 @@ public class JobCompanyDetailActivity extends BaseActivity
         comUpdown = (ImageView) findViewById(R.id.com_updown);
         jobSimilarBox = findViewById(R.id.job_similar_box);
         mCompanyImgBox = (LinearLayout) findViewById(R.id.company_img_box);
+        jobBox = (LinearLayout) findViewById(R.id.job_box);
         companyImg = findViewById(R.id.company_img);
 
 
@@ -123,12 +126,12 @@ public class JobCompanyDetailActivity extends BaseActivity
             {
                 HashMap<String, Object> param = new HashMap<>();
                 param.put("corpID", corpID);
-                HttpUtil.post(URLS.API_JOB_Corpshow, param, JobCompanyDetailActivity.this);
+                HttpUtil.post(URLS.API_BLUEJOB_Corpshow, param, BlueJobCompanyDetailActivity.this);
             }
         });
         HashMap<String, Object> param = new HashMap<>();
         param.put("corpID", corpID);
-        HttpUtil.post(URLS.API_JOB_Corpshow, param, this);
+        HttpUtil.post(URLS.API_BLUEJOB_Corpshow, param, this);
     }
 
 
@@ -166,7 +169,7 @@ public class JobCompanyDetailActivity extends BaseActivity
 
     private void setData()
     {
-        comName.setText( corpData.optString("corpName"));
+        comName.setText(corpData.optString("corpName"));
         setStrng2Bab(comNature, com_nature_box, corpData.optString("corpkind"));
         setStrng2Bab(comNum, com_num_box, corpData.optString("corpsize"));
         setStrng2Bab(comIndustry, com_industry_box, corpData.optString("industry"));
@@ -201,6 +204,7 @@ public class JobCompanyDetailActivity extends BaseActivity
             }
         }
         setPhotos(strings);
+        setJobs(corpData.optJSONArray("list"));
     }
 
     @Override
@@ -238,11 +242,6 @@ public class JobCompanyDetailActivity extends BaseActivity
         } else if (i == R.id.com_map) {
             LsMapActivity.openMap(mcontext, Double.parseDouble(loc.split(",")[0]), Double.parseDouble(loc.split(",")[1]),
                     corpData.optString("corpName"), corpData.optString("address"));
-        } else if (i == R.id.job_similar_box) {//跳转相似职位列表
-
-            HashMap<String, Object> param = new HashMap<>();
-            param.put("corpID", corpID);
-            JumpViewUtil.openActivityAndParam(mcontext, JobSimilarActivity.class, param);
         }
 
     }
@@ -306,6 +305,53 @@ public class JobCompanyDetailActivity extends BaseActivity
                     }
                 });
                 mCompanyImgBox.addView(item, params);
+            }
+        }
+    }
+
+    public void setJobs(final JSONArray jobs)
+    {
+        if (jobs != null) {
+            LinearLayout.LayoutParams param =
+                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            int i1 = DensityUtil.dip2px(mcontext, (int) mcontext.getResources().getDimension(R.dimen.line_padding));
+            LinearLayout.LayoutParams lineP =
+                    new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(mcontext, 1));
+            Drawable drawable = mcontext.getResources().getDrawable(R.drawable.r_icon);
+            drawable.setBounds(0, 0, DensityUtil.dip2px(mcontext, 35), DensityUtil.dip2px(mcontext, 20));
+
+            for ( int i = 0; i < jobs.length(); i++) {
+                final int j=i;
+                TextView view = new TextView(mcontext);
+                view.setSingleLine(true);
+                view.setPadding(i1, i1, 0, i1);
+                view.setBackgroundResource(R.drawable.list_item_bg);
+                view.setCompoundDrawables(null, null, drawable, null);
+                view.setEllipsize(TextUtils.TruncateAt.END);
+                view.setTextColor(mcontext.getResources().getColor(R.color.main_color));
+                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mcontext.getResources().getDimension(R.dimen.text_default));
+                view.setText(jobs.optJSONObject(i).optString("jobName"));
+                view.setClickable(true);
+                view.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        HashMap<String, Object> param = new HashMap<>();
+                        param.put("POSITION",j);
+                        StringBuilder builder = new StringBuilder();
+                        for (int i = 0; i < jobs.length(); i++) {
+                            builder.append(jobs.optJSONObject(i).optInt("blueJobID") + ",");
+                        }
+                        String charSequence = builder.subSequence(0, builder.length() - 1).toString();
+                        param.put("IDS", charSequence);
+                        JumpViewUtil.openActivityAndParam(mcontext, BlueJobDetailActivity.class, param);
+                    }
+                });
+                jobBox.addView(view, param);
+                View line = new View(mcontext);
+                line.setBackgroundColor(mcontext.getResources().getColor(R.color.line_color));
+                jobBox.addView(line, lineP);
             }
         }
     }

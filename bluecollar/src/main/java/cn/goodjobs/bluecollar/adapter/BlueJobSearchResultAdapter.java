@@ -20,14 +20,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueJobDetailActivity;
 import cn.goodjobs.bluecollar.activity.BlueJobSearchResultActivity;
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.UpdateDataTaskUtils;
 import cn.goodjobs.common.util.ViewHolderUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.view.BabushkaText;
 import cn.goodjobs.common.view.ExtendedTouchView;
 
@@ -39,16 +45,28 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
 {
     private BlueJobSearchResultActivity jobSearchResultActivity;
     private Context context;
+    private List<Integer> jobRead;
+    private final MyLocation myLocation;
 
     public BlueJobSearchResultAdapter(Context context)
     {
         super(context);
         this.context = context;
+        UpdateDataTaskUtils.getReadJob(context, new UpdateDataTaskUtils.OnGetDiscussReadJobListener()
+        {
+            @Override
+            public void onGetDiscussReadJob(List<Integer> jobRead)
+            {
+                BlueJobSearchResultAdapter.this.jobRead = jobRead;
+                notifyDataSetChanged();
+            }
+        });
+        myLocation = GoodJobsApp.getInstance().getMyLocation();
     }
 
     public void setJobSearchResultActivity(BlueJobSearchResultActivity blueJobSearchResultActivity)
     {
-        this.jobSearchResultActivity = jobSearchResultActivity;
+        this.jobSearchResultActivity = blueJobSearchResultActivity;
     }
 
     ArrayList<Integer> checkPosition = new ArrayList<>();
@@ -74,7 +92,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
 
         ExtendedTouchView itemCheck = ViewHolderUtil.get(convertView, R.id.item_check);
         final CheckBox itemC = ViewHolderUtil.get(convertView, R.id.item_c);
-        TextView item_title = ViewHolderUtil.get(convertView, R.id.item_title);
+        final TextView item_title = ViewHolderUtil.get(convertView, R.id.item_title);
         TextView item_salary = ViewHolderUtil.get(convertView, R.id.item_salary);
         TextView item_company_name = ViewHolderUtil.get(convertView, R.id.item_company_name);
         TextView item_dis = ViewHolderUtil.get(convertView, R.id.item_dis);
@@ -83,9 +101,16 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
         ImageView item_vip = ViewHolderUtil.get(convertView, R.id.item_vip);
         TextView item_time = ViewHolderUtil.get(convertView, R.id.item_time);
 
-        JSONObject data = getItem(position);
-
+        final JSONObject data = getItem(position);
+        final int jobID = data.optInt("jobID");
         item_title.setText(data.optString("jobName"));
+        if (jobRead != null && jobRead.contains((Integer) jobID)) {
+            item_title.setTextColor(context.getResources().getColor(R.color.light_color));
+        } else {
+            item_title.setTextColor(context.getResources().getColor(R.color.main_color));
+        }
+
+
         item_salary.setText(data.optString("salaryName"));
         item_company_name.setText(data.optString("corpName"));
         item_time.setText(data.optString("pubDate"));
@@ -144,7 +169,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
                 item_treatment_box.addView(item, p);
             }
         }
-
+        itemC.setChecked(checkPosition.contains((Integer) position));
 
         itemCheck.setOnClickListener(new View.OnClickListener()
         {
@@ -153,10 +178,33 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
             {
                 itemC.setChecked(!itemC.isChecked());
                 if (itemC.isChecked()) {
-//                    selectJobIds.add((Integer) data.optInt("id"));
+                    checkPosition.add((Integer) position);
                 } else {
-//                    selectJobIds.remove((Integer) data.optInt("id"));
+                    checkPosition.remove((Integer) position);
                 }
+                jobSearchResultActivity.setBottomVisible(checkPosition.size() > 0);
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("POSITION", 4);
+//                StringBuilder builder = new StringBuilder();
+//                for (int i = 0; i < mList.size(); i++) {
+//                    builder.append(mList.get(i).optInt("jobID") + ",");
+//                }
+//                String charSequence = builder.subSequence(0, builder.length() - 1).toString();
+                param.put("IDS", "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1");
+                if (!jobRead.contains((Integer) jobID))
+                    UpdateDataTaskUtils.saveJobRead(context, jobID);
+                item_title.setTextColor(context.getResources().getColor(R.color.light_color));
+                jobRead.add(jobID);
+                JumpViewUtil.openActivityAndParam(context, BlueJobDetailActivity.class, param);
             }
         });
 

@@ -241,15 +241,12 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private String itemWorktimeId;
     private String itemDegreeId;
 
-    private TextView store;
-    private TextView send;
-    private LinearLayout bottomBar;
     private String itemJobfuncPrantId;
     private String itemBenefit;
     private String itemBenefitId;
     private ArrayList<JSONObject> jopTypeParent;
     private ArrayList<List<JSONObject>> jopTypeChild;
-
+    private View applyjobBut;
 
     @Override
     protected int getLayoutID()
@@ -382,7 +379,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         ((BlueJobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
         initList();
         etvMenu = (ExpandTabView) findViewById(R.id.etv_menu);
-        bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
+        applyjobBut = findViewById(R.id.applyjob_but);
 
         cityInfo = new TwoLevelMenuView(mcontext);
         salaryInfo = new SingleLevelMenuView(mcontext);
@@ -394,16 +391,11 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         multiCheckMap.put("1", "0");
         moreInfo.setCheckMult(multiCheckMap);
 
-        store = (TextView) findViewById(R.id.item_store);
-        send = (TextView) findViewById(R.id.item_send);
-        store.setOnClickListener(this);
-        send.setOnClickListener(this);
+        applyjobBut.setOnClickListener(this);
 
         Drawable drawable = getResources().getDrawable(R.drawable.store);
 
         drawable.setBounds(0, 0, DensityUtil.dip2px(mcontext, 20), DensityUtil.dip2px(mcontext, 20));
-
-        store.setCompoundDrawables(null, drawable, null, null);
 
 
         ArrayList<String> strings = new ArrayList<>();
@@ -613,7 +605,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
     public void setBottomVisible(Boolean isShow)
     {
-        bottomBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        applyjobBut.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -630,47 +622,48 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         String ids = builder.subSequence(0, builder.length() - 1).toString();
 
         int i = v.getId();
-        if (i == R.id.item_store) {
-            //收藏职位Fs
-            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
-                return;
+//        if (i == R.id.item_store) {
+//            //收藏职位Fs
+//            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
+//                return;
+//
+//            HashMap<String, Object> param = new HashMap<>();
+//            param.put("jobID", ids);
+//            HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler()
+//            {
+//                @Override
+//                public void onFailure(int statusCode, String tag)
+//                {
+//                    TipsUtil.show(mcontext, "收藏失败");
+//                }
+//
+//                @Override
+//                public void onSuccess(String tag, Object data)
+//                {
+//                    TipsUtil.show(mcontext, ((JSONObject) data).optString("message"));
+//                }
+//
+//                @Override
+//                public void onError(int errorCode, String tag, String errorMessage)
+//                {
+//                }
+//
+//                @Override
+//                public void onProgress(String tag, int progress)
+//                {
+//                }
+//            });
 
-            HashMap<String, Object> param = new HashMap<>();
-            param.put("jobID", ids);
-            HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler()
-            {
-                @Override
-                public void onFailure(int statusCode, String tag)
-                {
-                    TipsUtil.show(mcontext, "收藏失败");
-                }
-
-                @Override
-                public void onSuccess(String tag, Object data)
-                {
-                    TipsUtil.show(mcontext, ((JSONObject) data).optString("message"));
-                }
-
-                @Override
-                public void onError(int errorCode, String tag, String errorMessage)
-                {
-                }
-
-                @Override
-                public void onProgress(String tag, int progress)
-                {
-                }
-            });
-
-        } else if (i == R.id.item_send) {
+//        } else
+        if (i == R.id.applyjob_but) {
             //投递简历
             if (!GoodJobsApp.getInstance().checkLogin(mcontext))
                 return;
 
             HashMap<String, Object> param = new HashMap<>();
-            param.put("jobID", ids);
+            param.put("blueJobID", ids);
             param.put("ft", 2);
-            HttpUtil.post(URLS.API_JOB_apply, param, new HttpResponseHandler()
+            HttpUtil.post(URLS.API_BLUEJOB_Addapply, param, new HttpResponseHandler()
             {
                 @Override
                 public void onFailure(int statusCode, String tag)

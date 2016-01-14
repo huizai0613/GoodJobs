@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.goodjobs.bluecollar">
+<manifest package="cn.goodjobs.bluecollar"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -56,6 +56,13 @@
 
         <activity
             android:name=".activity.BlueJobSearchResultActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.BlueJobDetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.BlueJobCompanyDetailActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
         <activity

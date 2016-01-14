@@ -698,11 +698,11 @@ public class UpdateDataTaskUtils
                 String asString = LsSimpleCache.get(context).getAsString(JsonMetaUtil.JOBREAD);
 
                 ArrayList<Integer> integers = new ArrayList<Integer>();
-
-                String[] split = asString.split(",");
-
-                for (int i = 0; i < split.length; i++) {
-                    integers.add(Integer.parseInt(split[i]));
+                if (!StringUtil.isEmpty(asString)) {
+                    String[] split = asString.split(",");
+                    for (int i = 0; i < split.length; i++) {
+                        integers.add(Integer.parseInt(split[i]));
+                    }
                 }
                 if (listener != null) {
                     listener.onGetDiscussReadJob(integers);
@@ -721,14 +721,16 @@ public class UpdateDataTaskUtils
             @Override
             public void run()
             {
-                String asString = LsSimpleCache.get(context).getAsString(JsonMetaUtil.JOBREAD);
+                synchronized (context) {
+                    String asString = LsSimpleCache.get(context).getAsString(JsonMetaUtil.JOBREAD);
 
-                if (StringUtil.isEmpty(asString)) {
-                    asString = readId + "";
-                } else {
-                    asString += asString + "," + readId;
+                    if (StringUtil.isEmpty(asString)) {
+                        asString = readId + "";
+                    } else {
+                        asString +="," + readId;
+                    }
+                    LsSimpleCache.get(context).put(JsonMetaUtil.JOBREAD, asString);
                 }
-                LsSimpleCache.get(context).put(JsonMetaUtil.JOBREAD, asString);
             }
 
         });
