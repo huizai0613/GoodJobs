@@ -19,12 +19,12 @@ import cn.goodjobs.common.util.StringUtil;
 
 /**
  * Created by 王刚 on 2015/12/21.
- * 动态列表
+ * 好友列表
  */
-public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
+public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> {
 
 
-    public TrendAdapter(Context context) {
+    public FriendsAdapter(Context context) {
         super(context);
     }
 
@@ -33,12 +33,13 @@ public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_trend, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_friends, null);
             holder.headPhoto = (SimpleDraweeView) convertView.findViewById(R.id.headPhoto);
             holder.tvName = (TextView)convertView.findViewById(R.id.tvName);
-            holder.tvDistance = (TextView)convertView.findViewById(R.id.tvDistance);
+            holder.btnFans = (TextView)convertView.findViewById(R.id.btnFans);
+            holder.btnMsg = (TextView)convertView.findViewById(R.id.btnMsg);
+            holder.tvAddress = (TextView)convertView.findViewById(R.id.tvAddress);
             holder.tvAge = (TextView)convertView.findViewById(R.id.tvAge);
-            holder.viewTrend = (TrendItemView) convertView.findViewById(R.id.viewTrend);
             convertView.setTag(holder);
         }else{
             holder= (ViewHolder) convertView.getTag();
@@ -49,8 +50,8 @@ public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
             holder.headPhoto.setImageURI(uri);
         }
         holder.tvName.setText(jsonObject.optString("nickName"));
-        holder.tvDistance.setText(jsonObject.optString("distance"));
-        holder.tvAge.setText(jsonObject.optString("ageName"));
+        holder.tvAge.setText(jsonObject.optString("age"));
+        holder.tvAddress.setText(jsonObject.optString("cityName"));
         if ("女".equals(jsonObject.optString("sexName"))) {
             ImageUtil.setDrawable(context, holder.tvAge, R.mipmap.img_female, 1);
             holder.tvAge.setBackgroundResource(R.drawable.small_button_pink);
@@ -58,13 +59,26 @@ public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
             ImageUtil.setDrawable(context, holder.tvAge, R.mipmap.img_mail, 1);
             holder.tvAge.setBackgroundResource(R.drawable.small_button_green);
         }
-        holder.viewTrend.showView(jsonObject);
+        holder.btnFans.setVisibility(View.VISIBLE);
+        if ("yes".equals(jsonObject.optString("followHas"))) {
+            holder.btnFans.setText("取消关注");
+            holder.btnFans.setBackgroundResource(R.drawable.small_button_grey);
+        } else if ("no".equals(jsonObject.optString("followHas"))) {
+            holder.btnFans.setText("    关注    ");
+            holder.btnFans.setBackgroundResource(R.drawable.small_button_green);
+        } else {
+            holder.btnFans.setVisibility(View.INVISIBLE);
+        }
+        if ("1".equals(jsonObject.optString("SmsHas"))) {
+            holder.btnMsg.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnMsg.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
     public class ViewHolder {
         SimpleDraweeView headPhoto;
-        TextView tvName, tvDistance, tvAge;
-        TrendItemView viewTrend;
+        TextView tvName, btnFans, tvAge, btnMsg, tvAddress;
     }
 }

@@ -7,6 +7,7 @@
     <include layout="@layout/actionbar"/>
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="40dip"
         android:orientation="horizontal"
@@ -46,26 +47,8 @@
             android:textColor="@drawable/tabbar_text"
             android:background="@drawable/tabbar_bg"/>
     </RadioGroup>
-
-    <RelativeLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:text="发帖"
-            android:layout_margin="@dimen/padding_large"
-            android:textColor="@color/white"
-            android:background="@drawable/makefriend_trend_add_btn_bg"/>
-    </RelativeLayout>
-
+        android:layout_height="match_parent"/>
 </LinearLayout>

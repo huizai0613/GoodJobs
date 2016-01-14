@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="invisible">
+
+    <cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView
+        android:id="@+id/etv_career"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_40"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white"/>
+    <View style="@style/line"/>
+    <include layout="@layout/load_more_list_view"/>
+
+</LinearLayout>
