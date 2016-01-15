@@ -2,11 +2,170 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/window_background">
+              android:background="@color/window_background"
+              android:orientation="vertical">
 
     <include layout="@layout/actionbar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginTop="@dimen/padding_default"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_small">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="投诉企业:"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:gravity="center_vertical"
+            android:text="投诉企业:"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_default"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default"
+            android:background="@color/white"
+            android:gravity="top"
+            android:hint="请尽量详情反应情况,以便我们及时正确的处理你的举报(最多200字)"
+            android:maxLength="200"
+            android:minHeight="150dip"
+            android:padding="@dimen/line_padding"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingBottom="@dimen/padding_default"
+            android:paddingRight="@dimen/padding_default"
+            android:text="100/200"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_default"/>
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/rb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_bg"
+                android:textColor="@color/main_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="虚假招聘"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/rb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_bg"
+                android:textColor="@color/main_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="额外收费"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_small"
+            android:layout_marginLeft="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:orientation="horizontal">
+
+            <CheckBox
+
+                android:id="@+id/rb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/checkbox_bg"
+                android:textColor="@color/main_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:gravity="center_vertical"
+                android:text="过期信息"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default"/>
+
+        </LinearLayout>
 
 
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginRight="@dimen/padding_default"
+        android:layout_marginTop="@dimen/padding_default"
+        android:background="@drawable/button_bg"
+        android:text="投  诉"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_default"/>
 
 </LinearLayout>

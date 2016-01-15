@@ -49,6 +49,9 @@
             android:name=".activity.BlueJobDetailActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activity.BlueComplainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".activity.BlueJobCompanyDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>

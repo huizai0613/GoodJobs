@@ -78,6 +78,11 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
     private JSONObject jobDetailJson;
 
 
+    public JSONObject getJobDetailJson()
+    {
+        return jobDetailJson;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

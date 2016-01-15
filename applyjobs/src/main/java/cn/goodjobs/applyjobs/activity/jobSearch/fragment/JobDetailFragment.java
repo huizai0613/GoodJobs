@@ -254,13 +254,13 @@ public class JobDetailFragment extends BaseViewPagerFragment
             tv.setVisibility(View.GONE);
             return;
         }
-
+        tv.setVisibility(View.VISIBLE);
         tv.addPiece(new BabushkaText.Piece.Builder(title)
                 .textColor(Color.parseColor("#999999"))
                 .build());
         // Add the second piece "1.2 mi"
         tv.addPiece(new BabushkaText.Piece.Builder(content)
-                .textColor(Color.parseColor("#000000"))
+                .textColor(Color.parseColor("#606060"))
                 .build());
 
         tv.display();

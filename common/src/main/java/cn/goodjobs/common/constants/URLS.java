@@ -29,6 +29,7 @@ public class URLS {
     public final static String API_BLUEJOB_Addapply = "Blue/Addapply";  // 蓝领职位申请
     public final static String API_BLUEJOB_Addfavorite = "Blue/Addfavorite";  // 蓝领职位收藏
     public final static String API_BLUEJOB_Corpshow = "Blue/Corpshow";  // 蓝领企业详情
+    public final static String API_BLUEJOB_Feedback = "Blue/Feedback";  // 蓝领职位投诉
 
 
     // 登录相关
