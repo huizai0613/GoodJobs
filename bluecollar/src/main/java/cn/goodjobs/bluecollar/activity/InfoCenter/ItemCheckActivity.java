@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import org.json.JSONObject;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueJobCompanyDetailActivity;
 import cn.goodjobs.common.activity.personalcenter.BasePersonalListActivity;
 import cn.goodjobs.common.constants.URLS;
 
@@ -19,9 +20,9 @@ public class ItemCheckActivity extends BasePersonalListActivity implements Adapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         adapterRes = R.layout.item_check;
-        url = URLS.API_USER_CORPVIEWHISTORY;
-        delUrl = URLS.API_USER_CORPVIEWHISTORYDEL;
-        idKey = "id";
+        url = URLS.API_JOB_UserCorpviewhistory;
+        delUrl = URLS.API_JOB_UserCampusoperationdel;
+        idKey = "mailID";
         paramKey = "mailID";
         resIDs = new int[]{R.id.tvTitle, R.id.tvTime};
         keys = new String[]{"corpName", "logDate"};
@@ -43,10 +44,17 @@ public class ItemCheckActivity extends BasePersonalListActivity implements Adapt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
-        Intent intent = new Intent();
-        intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobCompanyDetailActivity");
-        intent.putExtra("corpID", jsonObject.optInt("memCorpID"));
-        startActivity(intent);
+        if ("0".equals(jsonObject.optString("buleFlag"))) {
+            Intent intent = new Intent();
+            intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobCompanyDetailActivity");
+            intent.putExtra("corpID", jsonObject.optInt("memCorpID"));
+            startActivity(intent);
+        } else if ("1".equals(jsonObject.optString("buleFlag"))) {
+            Intent intent = new Intent();
+            intent.setClass(this, BlueJobCompanyDetailActivity.class);
+            intent.putExtra("corpID", jsonObject.optInt("memCorpID"));
+            startActivity(intent);
+        }
     }
 
 }

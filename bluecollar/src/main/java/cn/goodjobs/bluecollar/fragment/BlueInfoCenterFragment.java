@@ -15,6 +15,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemApplyActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCheckActivity;
@@ -39,7 +41,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     private TextView tvName, tvTime, tvResume, tvEntrust;
     private SimpleDraweeView myHeadImage, myImageview;
     private SearchItemView itemZhaoping, itemSetting, itemMore, itemCollection, itemShenqing, itemChakan, itemJianli;
-    private boolean status, isFirst = false;
+    private boolean status, isFirst = false, isEntrust = false;
 
     public BlueInfoCenterFragment() {
     }
@@ -175,9 +177,18 @@ public class BlueInfoCenterFragment extends BaseFragment {
         } else if (i == R.id.itemZhaoping) {
             return;
         } else if (i == R.id.tv_entrust) {
-            AlertDialogUtil.show(getActivity(), "委托投递", "设置委托投递成功", false, "我知道了", null, null, null);
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            if (isEntrust) {
+                params.put("type", "del");
+            } else {
+                params.put("type", "add");
+            }
+            LoadingDialog.showDialog(getActivity());
+            HttpUtil.post(URLS.API_JOB_BlueuserEntrustcv, params, this);
             return;
         } else if (i == R.id.tv_resume) {
+            LoadingDialog.showDialog(getActivity());
+            HttpUtil.post(URLS.API_JOB_UserUpdate, this);
             return;
         } else if (i == R.id.myHeadImage) {
             return;
@@ -191,6 +202,18 @@ public class BlueInfoCenterFragment extends BaseFragment {
         if (tag.equals(URLS.API_JOB_BlueMy)) {
             GoodJobsApp.getInstance().bluePersonalInfo = (JSONObject) data;
             setDataToView();
+        } else if (tag.equals(URLS.API_JOB_UserUpdate)) {
+            HttpUtil.post(URLS.API_JOB_BlueMy, this);
+            TipsUtil.show(getActivity(), (String) data);
+        } else if (tag.equals(URLS.API_JOB_BlueuserEntrustcv)) {
+            if (isEntrust) {
+                tvEntrust.setText("委托投递");
+                isEntrust = false;
+            } else {
+                tvEntrust.setText("取消委托");
+                isEntrust = true;
+            }
+            AlertDialogUtil.show(getActivity(), "委托投递", ((JSONObject) data).optString("message"), false, "我知道了", null, null, null);
         }
     }
 
@@ -206,7 +229,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
 
     private void setDataToView() {
         Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
-        myImageview.setImageURI(uri);
+        myHeadImage.setImageURI(uri);
         tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));
         tvTime.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
         itemChakan.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countCorpLook") + "条");
@@ -215,8 +238,10 @@ public class BlueInfoCenterFragment extends BaseFragment {
         itemJianli.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("clickNum") + "次被浏览");
         if ("0".equals(GoodJobsApp.getInstance().bluePersonalInfo.optString("autoSend"))) {
             tvEntrust.setText("委托投递");
+            isEntrust = false;
         } else if ("1".equals(GoodJobsApp.getInstance().bluePersonalInfo.optString("autoSend"))) {
             tvEntrust.setText("取消委托");
+            isEntrust = true;
         }
     }
 

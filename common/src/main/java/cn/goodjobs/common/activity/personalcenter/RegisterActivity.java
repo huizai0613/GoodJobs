@@ -15,6 +15,7 @@ import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.entity.LoginInfo;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.http.CryptUtils;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
@@ -104,8 +105,9 @@ public class RegisterActivity extends BaseActivity {
         }
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("mobile", itemOldMobile.getText());
-        params.put("passwd", itemPassword.getText());
+        params.put("passwd", CryptUtils.Base64Encode(CryptUtils.RSAEncode(itemPassword.getText().toString().trim())));
         params.put("smsCodeStr", itemVerCode.getText());
+        params.put("ut", 8);
         LoadingDialog.showDialog(this);
         HttpUtil.post(URLS.API_USER_REGISTERNEW, params, this);
     }
@@ -118,7 +120,7 @@ public class RegisterActivity extends BaseActivity {
             btnVerCode.setEnabled(false);
             mHandler.post(verCodeRun);
         } else if (tag.equals(URLS.API_USER_REGISTERNEW)) {
-            TipsUtil.show(this, data+"");
+            TipsUtil.show(this, data + "");
             LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
             loginInfo.userName = itemOldMobile.getText();
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
@@ -131,7 +133,7 @@ public class RegisterActivity extends BaseActivity {
         @Override
         public void run() {
             if (min > 0) {
-                btnVerCode.setText((min--)+"秒后重新获取");
+                btnVerCode.setText((min--) + "秒后重新获取");
                 mHandler.postDelayed(this, 1000);
             } else {
                 min = 60;

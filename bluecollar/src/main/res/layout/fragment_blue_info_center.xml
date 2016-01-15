@@ -92,7 +92,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_small"
-                            android:text="王丽"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_default" />
 
@@ -101,7 +100,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/padding_small"
-                            android:text="更新时间：2015-12-01"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text_default" />
 

@@ -7,10 +7,14 @@ import android.widget.AdapterView;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueJobDetailActivity;
 import cn.goodjobs.common.activity.personalcenter.BasePersonalListActivity;
 import cn.goodjobs.common.adapter.PersonalListAdapter;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.TipsUtil;
 
 /**
@@ -21,8 +25,8 @@ public class ItemCollectActivity extends BasePersonalListActivity implements Ada
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         adapterRes = R.layout.item_collect;
-        url = URLS.API_USER_USERFAVORITE;
-        delUrl = URLS.API_USER_USERFAVORITEDEL;
+        url = URLS.API_JOB_BlueuserFavorite;
+        delUrl = URLS.API_JOB_BlueuserFavoritedel;
         idKey = "fID";
         paramKey = "fID";
         resIDs = new int[]{R.id.tvJobname, R.id.tvAddress, R.id.tvCompany, R.id.tvStatus, R.id.tvTime};
@@ -48,10 +52,10 @@ public class ItemCollectActivity extends BasePersonalListActivity implements Ada
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
         if ("2".equals(jsonObject.optString("jobStatus"))) {
-            Intent intent = new Intent();
-            intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobDetailActivity");
-            intent.putExtra("IDS", jsonObject.optString("jobID"));
-            startActivity(intent);
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("POSITION", 1);
+            param.put("IDS", jsonObject.optString("jobID"));
+            JumpViewUtil.openActivityAndParam(this, BlueJobDetailActivity.class, param);
         } else {
             TipsUtil.show(this, "该职位已过期");
         }
