@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.makefriend.AddTrendActivity;
 import cn.goodjobs.bluecollar.activity.makefriend.MakeFriendPersonalInfoActivity;
+import cn.goodjobs.bluecollar.activity.makefriend.PersonalInfoActivity;
 import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsCityFragment;
 import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsGuanzhuFragment;
 import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsNearFragment;
@@ -44,6 +45,7 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
     RadioGroup radioGroup;
     public ArrayList<BaseFragment> fragmentList;
     MyLocation myLocation;
+    MakeFriendsGuanzhuFragment makeFriendsGuanzhuFragment;
 
     public MakeFriendsFragment() {
     }
@@ -83,7 +85,10 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
         fragmentList = new ArrayList<BaseFragment>();
         fragmentList.add(new MakeFriendsNearFragment());
         fragmentList.add(new MakeFriendsCityFragment());
-        fragmentList.add(new MakeFriendsGuanzhuFragment());
+        makeFriendsGuanzhuFragment = new MakeFriendsGuanzhuFragment();
+        makeFriendsGuanzhuFragment.viewPager = viewPager;
+        makeFriendsGuanzhuFragment.preItem = 0;
+        fragmentList.add(makeFriendsGuanzhuFragment);
 
         BaseFragmentPagerAdapter fragmentPagerAdapter = new BaseFragmentPagerAdapter(getChildFragmentManager());
         fragmentPagerAdapter.fragmentList = fragmentList;
@@ -97,8 +102,10 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radio0) {
                     viewPager.setCurrentItem(0);
+                    makeFriendsGuanzhuFragment.preItem = 0;
                 } else if (checkedId == R.id.radio1) {
                     viewPager.setCurrentItem(1);
+                    makeFriendsGuanzhuFragment.preItem = 1;
                 } else if (checkedId == R.id.radio2) {
                     viewPager.setCurrentItem(2);
                 }
@@ -120,7 +127,8 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
         super.onClick(v);
         if (v.getId() == R.id.btn_right) {
             if (GoodJobsApp.getInstance().isLogin()) {
-                Intent intent = new Intent(getActivity(), MakeFriendPersonalInfoActivity.class);
+//                Intent intent = new Intent(getActivity(), MakeFriendPersonalInfoActivity.class);
+                Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -147,9 +155,11 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
         switch (position) {
             case 0:
                 radioGroup.check(R.id.radio0);
+                makeFriendsGuanzhuFragment.preItem = 0;
                 break;
             case 1:
                 radioGroup.check(R.id.radio1);
+                makeFriendsGuanzhuFragment.preItem = 1;
                 break;
             case 2:
                 radioGroup.check(R.id.radio2);

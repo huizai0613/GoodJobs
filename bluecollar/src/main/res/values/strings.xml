@@ -7,4 +7,7 @@
     <string name="title_activity_add_trend">AddTrendActivity</string>
     <string name="title_activity_make_friend_personal_info">MakeFriendPersonalInfoActivity</string>
     <string name="title_activity_trend_detail">TrendDetailActivity</string>
+    <string name="title_activity_personal_info">PersonalInfoActivity</string>
+    <string name="title_activity_look">LookActivity</string>
+    <string name="title_activity_fans">FansActivity</string>
 </resources>

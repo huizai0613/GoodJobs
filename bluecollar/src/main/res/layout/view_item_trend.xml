@@ -94,9 +94,11 @@
                 android:text="100"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/btnZan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:clickable="true"
             android:layout_marginLeft="@dimen/padding_small"
             android:orientation="horizontal">
             <ImageView
