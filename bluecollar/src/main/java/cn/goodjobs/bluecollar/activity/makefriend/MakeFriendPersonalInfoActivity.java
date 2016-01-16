@@ -39,6 +39,7 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
     SearchItemView itemBirthday;
     SelectorItemView itemAddress;
     Uri fileUri;
+    boolean update; // 是否做了修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,11 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
         } else if (tag.equals(URLS.MAKEFRIEND_BASICSAVE)) {
             JSONObject jsonObject = (JSONObject) data;
             TipsUtil.show(this, jsonObject.optString("message"));
+            setResult(RESULT_OK);
+            finish();
         } else if (tag.equals(URLS.MAKEFRIEND_BASICPICSAVE)) {
             JSONObject jsonObject = (JSONObject) data;
+            update = true;
             TipsUtil.show(this, jsonObject.optString("message"));
             headPhoto.setImageURI(fileUri);
         }
@@ -148,5 +152,13 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
         params.put("cityID", itemAddress.getSelectorIds());
         LoadingDialog.showDialog(this);
         HttpUtil.post(URLS.MAKEFRIEND_BASICSAVE, params, this);
+    }
+
+    @Override
+    protected void back() {
+        if (update) {
+            setResult(RESULT_OK);
+        }
+        super.back();
     }
 }

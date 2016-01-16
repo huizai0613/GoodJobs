@@ -1,9 +1,11 @@
 package cn.goodjobs.bluecollar.fragment.makefriend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.makefriend.OtherPersonalInfoActivity;
 import cn.goodjobs.bluecollar.adapter.FriendsAdapter;
 import cn.goodjobs.common.baseclass.BaseListFragment;
 import cn.goodjobs.common.constants.URLS;
@@ -31,7 +34,7 @@ import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 /**
  * 同城
  */
-public class MakeFriendsCityFragment extends BaseListFragment {
+public class MakeFriendsCityFragment extends BaseListFragment implements AdapterView.OnItemClickListener {
     View view;
     private Map<String, String> sexData = new LinkedHashMap<String, String>();
     private Map<String, String> timeData = new LinkedHashMap<String, String>();
@@ -75,6 +78,7 @@ public class MakeFriendsCityFragment extends BaseListFragment {
         timeInfo = new SingleLevelMenuView(getActivity());
         mAdapter = new FriendsAdapter(getActivity());
         initList(view);
+        mListView.setOnItemClickListener(this);
         ArrayList<String> strings = new ArrayList<>();
         strings.add("性别");
         strings.add("年龄");
@@ -194,4 +198,12 @@ public class MakeFriendsCityFragment extends BaseListFragment {
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
+        Intent intent = new Intent(getActivity(), OtherPersonalInfoActivity.class);
+        intent.putExtra("friendID", jsonObject.optString("friendID"));
+        intent.putExtra("nickName", jsonObject.optString("nickName"));
+        startActivity(intent);
+    }
 }

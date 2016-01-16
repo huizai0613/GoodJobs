@@ -2,6 +2,8 @@ package cn.goodjobs.common.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 public class MyListView extends ListView {
@@ -22,5 +24,4 @@ public class MyListView extends ListView {
 	                Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
 		super.onMeasure(widthMeasureSpec, expandSpec);
 	}
-
 }

@@ -3,6 +3,7 @@ package cn.goodjobs.bluecollar.activity.makefriend;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,8 +20,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.adapter.PersonalTrendAdapter;
 import cn.goodjobs.bluecollar.adapter.TrendCommentAdapter;
 import cn.goodjobs.bluecollar.view.TrendItemView;
+import cn.goodjobs.bluecollar.view.upload.CustomerListView;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.ImageUtil;
@@ -34,21 +37,20 @@ import cn.goodjobs.common.view.MyListView;
 
 public class TrendDetailActivity extends BaseActivity implements TextView.OnEditorActionListener, AdapterView.OnItemClickListener {
 
-    SimpleDraweeView headPhoto;
-    TextView tvName, tvDistance, tvAge, btnLook, btnMsg;
-    TrendItemView viewTrend;
-    LinearLayout trendLayout;
-    ProgressBar progressBar;
-    MyListView myListView;
+    CustomerListView myListView;
     int pageTime;
     int page = 1;
-    View hLine;
     TrendCommentAdapter trendCommentAdapter;
     TextView btnSend;
+    TextView btnLook;
     EditText editText;
     JSONObject replyObject;
     int myHas = 0;
     String friendID;
+
+    View footView;
+    View headView;
+    boolean hasMore; // 是否包含更多
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,24 +70,27 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
     @Override
     protected void initWeight() {
         setTopTitle("查看动态");
-        headPhoto = (SimpleDraweeView) findViewById(R.id.headPhoto);
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvDistance = (TextView) findViewById(R.id.tvDistance);
-        btnLook = (TextView) findViewById(R.id.btnLook);
-        btnMsg = (TextView) findViewById(R.id.btnMsg);
-        tvAge = (TextView) findViewById(R.id.tvAge);
-        viewTrend = (TrendItemView) findViewById(R.id.viewTrend);
-        trendLayout = (LinearLayout) findViewById(R.id.trendLayout);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        myListView = (MyListView) findViewById(R.id.myListView);
-        hLine = findViewById(R.id.hLine);
+
+        myListView = (CustomerListView) findViewById(R.id.myListView);
         btnSend = (TextView) findViewById(R.id.btnSend);
         editText = (EditText) findViewById(R.id.editText);
 
         btnSend.setOnClickListener(this);
         editText.setOnEditorActionListener(this);
         editText.setOnClickListener(this);
-        btnLook.setOnClickListener(this);
+        footView = LayoutInflater.from(this).inflate(R.layout.item_loading, null);
+        headView = LayoutInflater.from(this).inflate(R.layout.item_trend_top, null);
+        myListView.addHeaderView(headView);
+        myListView.setMyScrollListener(new CustomerListView.MyScrollListener() {
+            @Override
+            public void toFoot() {
+                LogUtil.info("到达底部");
+                if (hasMore) {
+                    page++;
+                    getCommentList();
+                }
+            }
+        });
         getDataFromServer();
     }
 
@@ -106,56 +111,26 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
         super.onSuccess(tag, data);
         if (tag.equals(URLS.MAKEFRIEND_TRENDDETAIL)) {
             JSONObject jsonObject = (JSONObject) data;
-            if (!StringUtil.isEmpty(jsonObject.optString("userPhoto"))) {
-                Uri uri = Uri.parse(jsonObject.optString("userPhoto"));
-                headPhoto.setImageURI(uri);
-            }
-            tvName.setText(jsonObject.optString("nickName"));
-            tvDistance.setText(jsonObject.optString("distance"));
-            tvAge.setText(jsonObject.optString("ageName"));
-            if ("女".equals(jsonObject.optString("sexName"))) {
-                ImageUtil.setDrawable(this, tvAge, R.mipmap.img_female, 1);
-                tvAge.setBackgroundResource(R.drawable.small_button_pink);
-            } else {
-                ImageUtil.setDrawable(this, tvAge, R.mipmap.img_mail, 1);
-                tvAge.setBackgroundResource(R.drawable.small_button_green);
-            }
-            if ("yes".equals(jsonObject.optString("followHas"))) {
-                btnLook.setText("取消关注");
-                btnLook.setBackgroundResource(R.drawable.small_button_grey);
-                btnLook.setTextColor(getResources().getColor(R.color.main_color));
-                btnLook.setTag("1");
-            } else if ("no".equals(jsonObject.optString("followHas"))) {
-                btnLook.setText("    关注    ");
-                btnLook.setBackgroundResource(R.drawable.small_button_green);
-                btnLook.setTextColor(getResources().getColor(R.color.white));
-                btnLook.setTag("2");
-            } else {
-                btnLook.setVisibility(View.INVISIBLE);
-            }
-            if ("1".equals(jsonObject.optString("SmsHas"))) {
-                btnMsg.setVisibility(View.VISIBLE);
-            } else {
-                btnMsg.setVisibility(View.GONE);
-            }
-            myHas = jsonObject.optInt("myHas");
-            friendID = jsonObject.optString("friendID");
-            viewTrend.showView(jsonObject);
-            trendLayout.setVisibility(View.VISIBLE);
-
+            setDataToView(jsonObject);
+            headView.setVisibility(View.VISIBLE);
             trendCommentAdapter = new TrendCommentAdapter(this);
+            trendCommentAdapter.showLoading = true;
             myListView.setAdapter(trendCommentAdapter);
             if (myHas == 1) {
                 myListView.setOnItemClickListener(this);
             }
             getCommentList();
         } else if (tag.equals(URLS.MAKEFRIEND_TRENDCOMMENT)) {
-            progressBar.setVisibility(View.INVISIBLE);
             JSONObject jsonObject = (JSONObject) data;
+            trendCommentAdapter.showLoading = false;
             trendCommentAdapter.appendToList(jsonObject.optJSONArray("list"));
-            if (trendCommentAdapter.getCount() > 0) {
-                hLine.setVisibility(View.VISIBLE);
-                myListView.setVisibility(View.VISIBLE);
+            hasMore = jsonObject.optInt("maxPage")>page;
+            if (hasMore) {
+                if (myListView.getFooterViewsCount() == 0) {
+                    myListView.addFooterView(footView);
+                }
+            } else {
+                myListView.removeFooterView(footView);
             }
             pageTime = jsonObject.optInt("pageTime");
         } else if (tag.equals(URLS.MAKEFRIEND_COMMENT)) {
@@ -182,16 +157,57 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
         }
     }
 
-    @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
-        super.onError(errorCode, tag, errorMessage);
-        replyObject = null;
-    }
+    private void setDataToView(JSONObject jsonObject) {
+        SimpleDraweeView headPhoto = (SimpleDraweeView) headView.findViewById(R.id.headPhoto);
+        TextView tvName = (TextView) findViewById(R.id.tvName);
+        TextView tvDistance = (TextView) findViewById(R.id.tvDistance);
+        btnLook = (TextView) findViewById(R.id.btnLook);
+        TextView btnMsg = (TextView) findViewById(R.id.btnMsg);
+        TextView tvAge = (TextView) findViewById(R.id.tvAge);
+        TrendItemView viewTrend = (TrendItemView) findViewById(R.id.viewTrend);
 
-    @Override
-    public void onFailure(int statusCode, String tag) {
-        super.onFailure(statusCode, tag);
-        replyObject = null;
+        btnLook.setOnClickListener(this);
+        if (!StringUtil.isEmpty(jsonObject.optString("userPhoto"))) {
+            Uri uri = Uri.parse(jsonObject.optString("userPhoto"));
+            headPhoto.setImageURI(uri);
+        }
+        tvName.setText(jsonObject.optString("nickName"));
+        tvDistance.setText(jsonObject.optString("distance"));
+        tvAge.setText(jsonObject.optString("ageName"));
+        if ("女".equals(jsonObject.optString("sexName"))) {
+            ImageUtil.setDrawable(this, tvAge, R.mipmap.img_female, 1);
+            tvAge.setBackgroundResource(R.drawable.small_button_pink);
+        } else {
+            ImageUtil.setDrawable(this, tvAge, R.mipmap.img_mail, 1);
+            tvAge.setBackgroundResource(R.drawable.small_button_green);
+        }
+        myHas = jsonObject.optInt("myHas");
+        if (myHas == 1) {
+            // 当前是自己发表的动态
+            btnLook.setVisibility(View.INVISIBLE);
+            btnMsg.setVisibility(View.GONE);
+        } else {
+            if ("yes".equals(jsonObject.optString("followHas")) || "all".equals(jsonObject.optString("followHas"))) {
+                btnLook.setText("取消关注");
+                btnLook.setBackgroundResource(R.drawable.small_button_grey);
+                btnLook.setTextColor(getResources().getColor(R.color.main_color));
+                btnLook.setTag("1");
+            } else if ("no".equals(jsonObject.optString("followHas"))) {
+                btnLook.setText("    关注    ");
+                btnLook.setBackgroundResource(R.drawable.small_button_green);
+                btnLook.setTextColor(getResources().getColor(R.color.white));
+                btnLook.setTag("2");
+            } else {
+                btnLook.setVisibility(View.INVISIBLE);
+            }
+            if ("1".equals(jsonObject.optString("smsHas"))) {
+                btnMsg.setVisibility(View.VISIBLE);
+            } else {
+                btnMsg.setVisibility(View.GONE);
+            }
+        }
+        friendID = jsonObject.optString("friendID");
+        viewTrend.showView(jsonObject);
     }
 
     private void getCommentList() {
@@ -247,7 +263,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        replyObject = trendCommentAdapter.getItem(position);
+        replyObject = trendCommentAdapter.getItem(position-1);
         KeyBoardUtil.show(editText);
     }
 }
