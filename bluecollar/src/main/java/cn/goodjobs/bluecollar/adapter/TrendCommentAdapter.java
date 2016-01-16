@@ -6,6 +6,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -23,6 +24,15 @@ import cn.goodjobs.common.util.StringUtil;
  */
 public class TrendCommentAdapter extends JsonArrayAdapterBase<JSONObject> {
 
+    public boolean showLoading;
+
+    @Override
+    public int getCount() {
+        if (showLoading) {
+            return 1;
+        }
+        return super.getCount();
+    }
 
     public TrendCommentAdapter(Context context) {
         super(context);
@@ -30,8 +40,11 @@ public class TrendCommentAdapter extends JsonArrayAdapterBase<JSONObject> {
 
     @Override
     protected View getExView(int position, View convertView, ViewGroup parent) {
+        if (showLoading) {
+            return LayoutInflater.from(context).inflate(R.layout.item_loading, null);
+        }
         ViewHolder holder;
-        if (convertView == null) {
+        if (convertView == null || convertView instanceof RelativeLayout) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_trend_comment, null);
             holder.headPhoto = (SimpleDraweeView) convertView.findViewById(R.id.headPhoto);

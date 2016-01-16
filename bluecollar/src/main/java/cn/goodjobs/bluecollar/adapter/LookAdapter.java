@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
-import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.ImageUtil;
@@ -30,10 +29,11 @@ import cn.goodjobs.common.view.LoadingDialog;
  * Created by 王刚 on 2015/12/21.
  * 好友列表
  */
-public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements View.OnClickListener, HttpResponseHandler {
+public class LookAdapter extends JsonArrayAdapterBase<JSONObject> implements View.OnClickListener, HttpResponseHandler {
 
     JSONObject itemObject;
-    public FriendsAdapter(Context context) {
+    public LookListener lookListener;
+    public LookAdapter(Context context) {
         super(context);
     }
 
@@ -77,12 +77,6 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
             holder.btnFans.setText("取消关注");
             holder.btnFans.setBackgroundResource(R.drawable.small_button_grey);
             holder.btnFans.setTextColor(context.getResources().getColor(R.color.main_color));
-        } else if ("no".equals(jsonObject.optString("followHas"))) {
-            holder.btnFans.setText("    关注    ");
-            holder.btnFans.setBackgroundResource(R.drawable.small_button_green);
-            holder.btnFans.setTextColor(context.getResources().getColor(R.color.white));
-        } else {
-            holder.btnFans.setVisibility(View.INVISIBLE);
         }
         if ("1".equals(jsonObject.optString("smsHas"))) {
             holder.btnMsg.setVisibility(View.VISIBLE);
@@ -119,20 +113,7 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
     @Override
     public void onSuccess(String tag, Object data) {
         if (tag.equals(URLS.MAKEFRIEND_FOLLOW)) {
-            if ("yes".equals(itemObject.optString("followHas"))) {
-                try {
-                    itemObject.put("followHas", "no");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } else if ("no".equals(itemObject.optString("followHas"))) {
-                try {
-                    itemObject.put("followHas", "yes");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            notifyDataSetChanged();
+            lookListener.remove();
         }
     }
 
@@ -149,5 +130,9 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
     public class ViewHolder {
         SimpleDraweeView headPhoto;
         TextView tvName, btnFans, tvAge, btnMsg, tvAddress;
+    }
+
+    public interface LookListener {
+        public void remove();
     }
 }

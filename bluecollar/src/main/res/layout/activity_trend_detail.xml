@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,156 +6,12 @@
 
     <include layout="@layout/actionbar"/>
 
-    <ScrollView
+    <cn.goodjobs.bluecollar.view.upload.CustomerListView
+        android:id="@+id/myListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:scrollbars="none">
-        <LinearLayout
-            android:id="@+id/trendLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="invisible">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="@dimen/padding_small">
-
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/headPhoto"
-                    android:layout_width="60dip"
-                    android:layout_height="60dip"
-                    fresco:actualImageScaleType="focusCrop"
-                    fresco:fadeDuration="300"
-                    android:clickable="true"
-                    fresco:roundedCornerRadius="30dp"
-                    fresco:placeholderImage="@drawable/img_personal_default"
-                    fresco:placeholderImageScaleType="fitCenter"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/headPhoto"
-                    android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:id="@+id/tvName"
-                            android:textSize="@dimen/text_default"
-                            android:textColor="@color/main_color"
-                            android:text="赵飞燕"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvDistance"
-                            android:textSize="@dimen/text_small"
-                            android:textColor="@color/light_color"
-                            android:drawableLeft="@mipmap/img_distance"
-                            android:gravity="center_vertical"
-                            android:text="55m"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_small"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/tvAge"
-                            android:textSize="@dimen/text_small"
-                            android:textColor="@color/white"
-                            android:text="22"
-                            android:gravity="center_vertical"
-                            android:paddingTop="2dip"
-                            android:paddingBottom="2dip"
-                            android:paddingLeft="6dip"
-                            android:paddingRight="6dip"
-                            android:drawablePadding="2dip"
-                            android:drawableLeft="@mipmap/img_mail"
-                            android:background="@drawable/small_button_green"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btnLook"
-                            android:textSize="@dimen/text_small"
-                            android:textColor="@color/white"
-                            android:text="  关注  "
-                            android:gravity="center_vertical"
-                            android:paddingTop="2dip"
-                            android:paddingBottom="2dip"
-                            android:paddingLeft="6dip"
-                            android:paddingRight="6dip"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:background="@drawable/small_button_green"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/btnMsg"
-                            android:textSize="@dimen/text_small"
-                            android:textColor="@color/white"
-                            android:text="私信"
-                            android:gravity="center_vertical"
-                            android:paddingTop="2dip"
-                            android:paddingBottom="2dip"
-                            android:paddingLeft="6dip"
-                            android:paddingRight="6dip"
-                            android:drawablePadding="2dip"
-                            android:drawableLeft="@mipmap/img_makefriend_msg"
-                            android:layout_marginLeft="@dimen/padding_small"
-                            android:background="@drawable/small_button_green"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <cn.goodjobs.bluecollar.view.TrendItemView
-                android:id="@+id/viewTrend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/padding_small"
-                    style="?android:attr/progressBarStyleSmall"/>
-
-                <View style="@style/line"
-                    android:id="@+id/hLine"
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/padding_small"/>
-                <cn.goodjobs.common.view.MyListView
-                    android:id="@+id/myListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:listSelector="@color/transparent"
-                    android:cacheColorHint="@color/transparent"
-                    android:layout_below="@+id/hLine"
-                    android:divider="@null"
-                    android:visibility="invisible"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        android:divider="@null"/>
 
     <LinearLayout
         android:layout_width="match_parent"

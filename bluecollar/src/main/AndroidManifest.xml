@@ -49,16 +49,41 @@
             android:name=".activity.BlueJobDetailActivity"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activity.BlueComplainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".activity.BlueJobCompanyDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.makefriend.MakeFriendPersonalInfoActivity"
-            android:label="@string/title_activity_make_friend_personal_info"/>
+            android:label="@string/title_activity_make_friend_personal_info"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.makefriend.TrendDetailActivity"
             android:label="@string/title_activity_trend_detail"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.makefriend.PersonalInfoActivity"
+            android:label="@string/title_activity_personal_info"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.makefriend.OtherPersonalInfoActivity"
+            android:label="@string/title_activity_personal_info"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.makefriend.LookActivity"
+            android:label="@string/title_activity_look"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.makefriend.FansActivity"
+            android:label="@string/title_activity_fans"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

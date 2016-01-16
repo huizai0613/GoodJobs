@@ -29,6 +29,7 @@ public class URLS {
     public final static String API_BLUEJOB_Addapply = "Blue/Addapply";  // 蓝领职位申请
     public final static String API_BLUEJOB_Addfavorite = "Blue/Addfavorite";  // 蓝领职位收藏
     public final static String API_BLUEJOB_Corpshow = "Blue/Corpshow";  // 蓝领企业详情
+    public final static String API_BLUEJOB_Feedback = "Blue/Feedback";  // 蓝领职位投诉
 
 
     // 登录相关
@@ -126,6 +127,10 @@ public class URLS {
     public final static String MAKEFRIEND_CITYLIST = "Friend/Cityfriendlist";      //交友首页，同城交友
     public final static String MAKEFRIEND_COMMENT = "Friend/Replysave";      //动态评论与回复
     public final static String MAKEFRIEND_FOLLOW = "Friend/Followsave";      //交友关注和取消关注操作
+    public final static String MAKEFRIEND_LIKE = "Friend/Dynamiclike";      //交友动态点赞
+    public final static String MAKEFRIEND_FRIEND = "Friend/Friendshow";      //个人主页详情
+    public final static String MAKEFRIEND_LOOKLIST = "Friend/Followlist";      //关注列表
+    public final static String MAKEFRIEND_FANSLIST = "Friend/Fanslist";      //粉丝列表
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件

@@ -4,15 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +45,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 {
 
     private ExpandTabView etvMenu;
-    private int cityId;
     private Map<String, Map<String, String>> twoCate;
 
 
@@ -95,6 +91,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                         {
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
+                            GoodJobsApp.getInstance().setMyLocation(location);
                             myLocation = location;
                             Map<String, String> oneCate = new TreeMap<String, String>();
                             oneCate.put("0", "地区筛选");
@@ -232,6 +229,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
 
     private String itemAddressId;
+    private String oldAddressId;
     private int dis;
     private String itemSalaryId = "";
     private String itemJobfuncId;
@@ -263,16 +261,37 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         cityInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
         {
             @Override
-            public void onSelected(String firstLevelKey, String secondLevelKey, String showString)
+            public void onSelected(String firstLevelKey, final String secondLevelKey, String showString)
             {
                 if (firstLevelKey.equals("0")) {
+                    ((BlueJobSearchResultAdapter) mAdapter).setCurType(BlueJobSearchResultAdapter.REGIONDIS);
                     isCur = false;
-                    if (isPro && !secondLevelKey.equals("0")) {
-                        UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), BlueJobSearchResultActivity.this);
-                        isPro = false;
+                    if (isPro) {
+                        if (secondLevelKey.equals("0")) {
+                            itemAddressId = oldAddressId;
+                        } else {
+                            mcontext.runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), BlueJobSearchResultActivity.this);
+                                }
+                            });
+                            isPro = false;
+                            oldAddressId = itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                        }
+                    } else {
+                        if (secondLevelKey.equals("0")) {
+                            itemAddressId = oldAddressId;
+                        } else {
+                            itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                        }
                     }
-                    itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                    etvMenu.setTitle(secondLevelKey.equals("0") ? "不限" : showString, 0);
+
                 } else {
+                    ((BlueJobSearchResultAdapter) mAdapter).setCurType(BlueJobSearchResultAdapter.CURDIS);
                     isCur = true;
                     int i = Integer.parseInt(secondLevelKey);
                     switch (i) {
@@ -292,8 +311,9 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             dis = 3000;
                             break;
                     }
+                    etvMenu.setTitle("附近" + showString, 0);
                 }
-                etvMenu.setTitle("附近" + showString, 0);
+
                 startRefresh();
             }
 
@@ -530,7 +550,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         itemDegree = getIntent().getStringExtra("itemDegree");
         itemBenefit = getIntent().getStringExtra("itemBenefit");
 
-        itemAddressId = getIntent().getStringExtra("itemAddressId");
+        oldAddressId = itemAddressId = getIntent().getStringExtra("itemAddressId");
         itemSalaryId = getIntent().getStringExtra("itemSalaryId");
         itemJobfuncId = getIntent().getStringExtra("itemJobfuncId");
         itemJobfuncPrantId = getIntent().getStringExtra("jobpraentId");

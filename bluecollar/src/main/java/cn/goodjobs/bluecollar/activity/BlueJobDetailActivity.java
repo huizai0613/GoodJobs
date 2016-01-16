@@ -1,21 +1,26 @@
 package cn.goodjobs.bluecollar.activity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.fragment.BlueJobDetailFragment;
 import cn.goodjobs.common.GoodJobsApp;
+import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseViewPagerFragment;
+import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.bdlocation.LocationUtil;
 import cn.goodjobs.common.util.bdlocation.MyLocation;
@@ -32,8 +37,10 @@ public class BlueJobDetailActivity extends BaseActivity
     private String[] split;
     private int position;
     private HashMap<Integer, JSONObject> cacheData = new HashMap<>();
+    private HashMap<Integer, BlueJobDetailFragment> blueJobDetailFragments = new HashMap<>();
     private boolean isLoad;
     public MyLocation myLocation;
+    private JobDetailAdapter jobDetailAdapter;
 
 
     public HashMap<Integer, JSONObject> getCacheData()
@@ -89,7 +96,6 @@ public class BlueJobDetailActivity extends BaseActivity
     @Override
     protected void initWeight()
     {
-
         ImageButton btn_right = (ImageButton) findViewById(R.id.btn_right);
         btn_right.setImageResource(R.mipmap.icon_complaint);
         btn_right.setVisibility(View.VISIBLE);
@@ -98,13 +104,28 @@ public class BlueJobDetailActivity extends BaseActivity
             @Override
             public void onClick(View v)
             {
+                if (!GoodJobsApp.getInstance().isLogin()) {
+                    Intent intent = new Intent(BlueJobDetailActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    return;
+                }
 
+                BlueJobDetailFragment item = blueJobDetailFragments.get(viewPager.getCurrentItem());
+                JSONObject jobDetailJson = item.getJobDetailJson();
+
+                HashMap<String, Object> param = new HashMap<String, Object>();
+                param.put("cropName", jobDetailJson.optString("corpName"));
+                param.put("jobName", jobDetailJson.optString("jobName"));
+                param.put("blueJobID", jobDetailJson.optString("blueJobID"));
+
+                JumpViewUtil.openActivityAndParam(mcontext, BlueComplainActivity.class, param);
             }
         });
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        viewPager.setAdapter(new JobDetailAdapter(getSupportFragmentManager()));
-        viewPager.setOffscreenPageLimit(0);
+        jobDetailAdapter = new JobDetailAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(jobDetailAdapter);
+        viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(position, false);
         setTopTitle("职位详情");
     }
@@ -127,9 +148,18 @@ public class BlueJobDetailActivity extends BaseActivity
         }
 
         @Override
-        public Fragment getItem(int position)
+        public BlueJobDetailFragment getItem(int position)
         {
-            return BaseViewPagerFragment.newInstance(Integer.parseInt(split[position]), BlueJobDetailFragment.class);
+            BlueJobDetailFragment baseViewPagerFragment = (BlueJobDetailFragment) BaseViewPagerFragment.newInstance(Integer.parseInt(split[position]), BlueJobDetailFragment.class);
+            blueJobDetailFragments.put(position, baseViewPagerFragment);
+            return baseViewPagerFragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object)
+        {
+            blueJobDetailFragments.remove(position);
+            super.destroyItem(container, position, object);
         }
 
         @Override
