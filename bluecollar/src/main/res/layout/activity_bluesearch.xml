@@ -67,7 +67,7 @@
                     listitem:containAll="true"
                     listitem:hint="请选择"
                     listitem:singleSelected="true"
-                    listitem:source="jobfunc_l1;jobfunc_l2"
+                    listitem:source="blueCategoryBig;blueCategorySmall"
                     listitem:tvtitle="想做什么"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView

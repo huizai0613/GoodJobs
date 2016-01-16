@@ -13,6 +13,8 @@ public class JsonMetaUtil
 
     public final static String JOBFUNCL1 = "jobfunc_l1"; // 工作性质（1级）
     public final static String JOBFUNCL2 = "jobfunc_l2"; // 工作性质（2级）
+    public final static String BLUEJOBFUNCL1 = "blueCategoryBig"; // 蓝领工作大类
+    public final static String BLUEJOBFUNCL2 = "blueCategorySmall"; // 蓝领工作小类
     public final static String JOBLOCPRO = "jobloc_pro"; // 省份列表
     public final static String JOBLOCCITY = "jobloc_city"; // 城市列表
     public final static String JOBLOCDISTRICT = "jobloc_district"; // 区列表

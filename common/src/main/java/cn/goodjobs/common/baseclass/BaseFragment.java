@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,6 +194,14 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
         super.onPause();
         if (adViewPager != null && adViewPager.getVisibility() == View.VISIBLE) {
             adViewPager.stopAutoScroll();
+        }
+    }
+
+    protected void runMainThread(Runnable runnable)
+    {
+        FragmentActivity activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(runnable);
         }
     }
 }

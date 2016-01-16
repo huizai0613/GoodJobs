@@ -61,12 +61,13 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
         this.curType = curType;
     }
 
-    public BlueJobSearchResultAdapter(Context context)
+    public BlueJobSearchResultAdapter(Context context, BlueJobSearchResultActivity jobSearchResultActivity)
     {
         super(context);
         this.context = context;
         iconDis = context.getResources().getDrawable(R.mipmap.icon_bluedis);
         iconDis.setBounds(0, 0, DensityUtil.dip2px(context, 25), DensityUtil.dip2px(context, 25));
+        this.jobSearchResultActivity = jobSearchResultActivity;
 
         UpdateDataTaskUtils.getReadJob(context, new UpdateDataTaskUtils.OnGetDiscussReadJobListener()
         {
@@ -74,7 +75,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
             public void onGetDiscussReadJob(List<Integer> jobRead)
             {
                 BlueJobSearchResultAdapter.this.jobRead = jobRead;
-                jobSearchResultActivity.runOnUiThread(new Runnable()
+                BlueJobSearchResultAdapter.this.jobSearchResultActivity.runOnUiThread(new Runnable()
                 {
                     @Override
                     public void run()
@@ -227,7 +228,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
                 param.put("POSITION", position);
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < mList.size(); i++) {
-                    builder.append(mList.get(i).optInt("jobID") + ",");
+                    builder.append(mList.get(i).optInt("blueJobID") + ",");
                 }
                 String charSequence = builder.subSequence(0, builder.length() - 1).toString();
                 param.put("IDS", charSequence);

@@ -71,16 +71,9 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         tools = (LinearLayout) view.findViewById(R.id.tools);
         jobsPager = (ViewPager) view.findViewById(R.id.jobs_pager);
         jobsearchBut.setOnClickListener(this);
+        UpdateDataTaskUtils.selectJobFun(getActivity(), this);
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser)
-    {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            UpdateDataTaskUtils.selectJobFun(getActivity(), this);
-        }
-    }
 
     @Override
     public void onClick(View v)

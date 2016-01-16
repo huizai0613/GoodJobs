@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -33,17 +34,22 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueJobDetailActivity;
 import cn.goodjobs.bluecollar.activity.BlueSearchActivity;
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.GeoUtils;
 import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.UpdateDataTaskUtils;
 import cn.goodjobs.common.util.bdlocation.LocationUtil;
 import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.bdlocation.MyLocationListener;
+import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExtendedTouchView;
@@ -68,12 +74,20 @@ public class BlueHomeFragment extends BaseFragment
     private LinearLayout jobBox;
     ArrayList<Integer> selectJobIds = new ArrayList<Integer>();
     private View applyjobBut;
+    private JSONObject jsonObject;
+    private MyLocation myLocation;
 
 
     private void getDataFromServer()
     {
         LoadingDialog.showDialog(getActivity());
-        HttpUtil.post(URLS.API_BLUEJOB_Index, this);
+
+        HashMap<String, Object> param = new HashMap<>();
+        if (myLocation != null) {
+            param.put("lat", myLocation.latitude);
+            param.put("lng", myLocation.longitude);
+        }
+        HttpUtil.post(URLS.API_BLUEJOB_Index, param, this);
     }
 
 
@@ -89,7 +103,24 @@ public class BlueHomeFragment extends BaseFragment
             {
                 LogUtil.info(location.toString());
                 SharedPrefUtil.saveObjectToLoacl("location", location);
+                myLocation = location;
+                if (jsonObject != null) {
+                    runMainThread(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            HashMap<String, Object> param = new HashMap<>();
+                            if (myLocation != null) {
+                                param.put("lat", myLocation.latitude);
+                                param.put("lng", myLocation.longitude);
+                            }
+                            HttpUtil.post(URLS.API_BLUEJOB_Index, param, BlueHomeFragment.this);
+                        }
+                    });
 
+                }
+                GoodJobsApp.getInstance().setMyLocation(location);
             }
         });
     }
@@ -109,7 +140,7 @@ public class BlueHomeFragment extends BaseFragment
     public void onSuccess(String tag, Object data)
     {
         super.onSuccess(tag, data);
-        JSONObject jsonObject = (JSONObject) data;
+        jsonObject = (JSONObject) data;
         JSONArray adsList = jsonObject.optJSONArray("adsList");
         JSONArray hotJob = jsonObject.optJSONArray("hotJob");
         JSONArray likeJob = jsonObject.optJSONArray("likeJob");
@@ -122,16 +153,23 @@ public class BlueHomeFragment extends BaseFragment
     private void initnterest(JSONArray data)
     {
         if (data != null) {
+            jobBox.removeAllViews();
             int length = data.length();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < length; i++) {
+                builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
+            }
+            String charSequence = builder.subSequence(0, builder.length() - 1).toString();
+
             for (int i = 0; i < length; i++) {
                 View inflate = View.inflate(getContext(), R.layout.item_bluejob, null);
-                initnterestView(data.optJSONObject(i), inflate);
+                initnterestView(data.optJSONObject(i), inflate, charSequence, i);
                 jobBox.addView(inflate);
             }
         }
     }
 
-    private void initnterestView(final JSONObject data, View view)
+    private void initnterestView(final JSONObject data, View view, final String ids, final int position)
     {
         ExtendedTouchView itemCheck = (ExtendedTouchView) view.findViewById(R.id.item_check);
         final CheckBox itemC = (CheckBox) view.findViewById(R.id.item_c);
@@ -139,6 +177,7 @@ public class BlueHomeFragment extends BaseFragment
         TextView item_salary = (TextView) view.findViewById(R.id.item_salary);
         TextView item_company_name = (TextView) view.findViewById(R.id.item_company_name);
         TextView item_dis = (TextView) view.findViewById(R.id.item_dis);
+        TextView item_time = (TextView) view.findViewById(R.id.item_time);
         LinearLayout item_treatment_box = (LinearLayout) view.findViewById(R.id.item_treatment_box);
         ImageView item_certify = (ImageView) view.findViewById(R.id.item_certify);
         ImageView item_vip = (ImageView) view.findViewById(R.id.item_vip);
@@ -147,16 +186,29 @@ public class BlueHomeFragment extends BaseFragment
         item_title.setText(data.optString("jobName"));
         item_salary.setText(data.optString("salaryName"));
         item_company_name.setText(data.optString("corpName"));
+        item_time.setText(data.optString("pubDate"));
 
-        String distance = data.optString("distance");
+        String mapLng = data.optString("mapLng");
+        String mapLat = data.optString("mapLat");
+        String cityName = data.optString("cityName");
 
-        if (StringUtil.isEmpty(distance)) {
-            item_dis.setText(data.optString("pubDate"));
-        } else {
-            Drawable iconDis = getResources().getDrawable(R.mipmap.icon_bluedis);
-            iconDis.setBounds(0, 0, DensityUtil.dip2px(getContext(), 20), DensityUtil.dip2px(getContext(), 20));
+        MyLocation myLocation = GoodJobsApp.getInstance().getMyLocation();
+
+
+        if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && myLocation != null) {
+            Drawable iconDis = getContext().getResources().getDrawable(R.mipmap.icon_bluedis);
+            iconDis.setBounds(0, 0, DensityUtil.dip2px(getContext(), 25), DensityUtil.dip2px(getContext(), 25));
             item_dis.setCompoundDrawables(iconDis, null, null, null);
-            item_dis.setText(" " + distance);
+            double distance = GeoUtils.
+                    distance(myLocation.latitude, myLocation.longitude, Double.parseDouble(mapLat), Double.parseDouble(mapLng));
+            if (distance > 1000) {
+                item_dis.setText(distance / 1000 + "千米");
+            } else {
+                item_dis.setText(distance + "米");
+            }
+        } else {
+            item_dis.setText(cityName);
+
         }
 
         String certStatus = data.optString("certStatus");
@@ -211,9 +263,9 @@ public class BlueHomeFragment extends BaseFragment
             {
                 itemC.setChecked(!itemC.isChecked());
                 if (itemC.isChecked()) {
-                    selectJobIds.add((Integer) data.optInt("id"));
+                    selectJobIds.add((Integer) data.optInt("blueJobID"));
                 } else {
-                    selectJobIds.remove((Integer) data.optInt("id"));
+                    selectJobIds.remove((Integer) data.optInt("blueJobID  "));
                 }
                 if (selectJobIds.size() > 0) {
                     applyjobBut.setVisibility(View.VISIBLE);
@@ -224,13 +276,33 @@ public class BlueHomeFragment extends BaseFragment
             }
         });
 
+        view.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("POSITION", position);
+                param.put("IDS", ids);
+                JumpViewUtil.openActivityAndParam(getContext(), BlueJobDetailActivity.class, param);
+            }
+        });
 
     }
 
     private void initBuleAd(JSONArray data)
     {
         if (data != null && data.length() > 0) {
+            historyLayout.removeAllViews();
+            historyLayout2.removeAllViews();
             int length = data.length();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < length; i++) {
+                builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
+            }
+            String charSequence = builder.subSequence(0, builder.length() - 1).toString();
+
+
             historyLayout.setVisibility(View.VISIBLE);
             int screenW = DensityUtil.getScreenW(getContext());
             int width = historyLayout.getWidth();
@@ -248,7 +320,7 @@ public class BlueHomeFragment extends BaseFragment
             paramM.rightMargin = padding;
             for (int i = 0; i < 3; i++) {
                 View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
-                initItem(inflate, itemW, data.optJSONObject(i));
+                initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
                 if (i == 1) {
                     historyLayout.addView(inflate, paramM);
                 } else {
@@ -260,7 +332,7 @@ public class BlueHomeFragment extends BaseFragment
                 historyLayout2.setVisibility(View.VISIBLE);
                 for (int i = 3; i < 6; i++) {
                     View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
-                    initItem(inflate, itemW, data.optJSONObject(i));
+                    initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
                     if (i == 4) {
                         historyLayout2.addView(inflate, paramM);
                     } else {
@@ -273,7 +345,7 @@ public class BlueHomeFragment extends BaseFragment
         }
     }
 
-    private void initItem(View view, int itemW, JSONObject data)
+    private void initItem(View view, int itemW, JSONObject data, final String ids, final int position)
     {
         SimpleDraweeView itemIv = (SimpleDraweeView) view.findViewById(R.id.item_iv);
         TextView itemTv = (TextView) view.findViewById(R.id.item_tv);
@@ -291,6 +363,10 @@ public class BlueHomeFragment extends BaseFragment
             public void onClick(View v)
             {
 //  跳转职位详情
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("POSITION", position);
+                param.put("IDS", ids);
+                JumpViewUtil.openActivityAndParam(getContext(), BlueJobDetailActivity.class, param);
             }
         });
     }
@@ -325,9 +401,42 @@ public class BlueHomeFragment extends BaseFragment
         } else if (i == R.id.applyjob_but) {
             //申请职位
             if (selectJobIds.size() > 0) {
+                StringBuilder builder = new StringBuilder();
+
                 for (Integer selectJobId : selectJobIds) {
-                    selectJobId.toString();
+                    builder.append(selectJobId + ",");
                 }
+                String ids = builder.subSequence(0, builder.length() - 1).toString();
+                if (!GoodJobsApp.getInstance().checkLogin(getActivity()))
+                    return;
+
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("blueJobID", ids);
+                param.put("ft", 2);
+                HttpUtil.post(URLS.API_BLUEJOB_Addapply, param, new HttpResponseHandler()
+                {
+                    @Override
+                    public void onFailure(int statusCode, String tag)
+                    {
+                        TipsUtil.show(getContext(), "简历投递失败");
+                    }
+
+                    @Override
+                    public void onSuccess(String tag, Object data)
+                    {
+                        TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    }
+
+                    @Override
+                    public void onError(int errorCode, String tag, String errorMessage)
+                    {
+                    }
+
+                    @Override
+                    public void onProgress(String tag, int progress)
+                    {
+                    }
+                });
             } else {
                 TipsUtil.show(getContext(), "您未选择职位");
             }

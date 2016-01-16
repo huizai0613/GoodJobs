@@ -1,6 +1,7 @@
 package cn.goodjobs.bluecollar.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -64,6 +65,7 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
     private View com_add_box;
     private View com_phone_box;
     private LinearLayout jobBox;
+    private TextView comStatus;
 
     @Override
     protected int getLayoutID()
@@ -89,6 +91,7 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
         comName = (TextView) findViewById(R.id.com_name);
         error_layout = (EmptyLayout) findViewById(R.id.error_layout);
         comNature = (TextView) findViewById(R.id.com_nature);
+        comStatus = (TextView) findViewById(R.id.com_status);
         comNum = (TextView) findViewById(R.id.com_num);
         comIndustry = (TextView) findViewById(R.id.com_industry);
         comAdd = (TextView) findViewById(R.id.com_add);
@@ -191,6 +194,23 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
         } else {
             comMap.setVisibility(View.VISIBLE);
         }
+
+        String certStatus = corpData.optString("certStatus");
+
+        if (certStatus.equals("0")) {
+            Drawable iconUncertify = getResources().getDrawable(R.mipmap.icon_uncertify);
+            iconUncertify.setBounds(0, 0, DensityUtil.dip2px(mcontext, 12), DensityUtil.dip2px(mcontext, 8));
+            comStatus.setCompoundDrawables(iconUncertify, null, null, null);
+            comStatus.setText(" 营业执照未验证");
+            comStatus.setTextColor(Color.parseColor("#999999"));
+        } else {
+            Drawable iconCertify = getResources().getDrawable(R.mipmap.icon_certify);
+            iconCertify.setBounds(0, 0, DensityUtil.dip2px(mcontext, 11), DensityUtil.dip2px(mcontext, 8));
+            comStatus.setText(" 营业执照已验证");
+            comStatus.setCompoundDrawables(iconCertify, null, null, null);
+            comStatus.setTextColor(Color.parseColor("#5ab94b"));
+        }
+
 
         JSONArray corpPic = corpData.optJSONArray("corpPic");
 
@@ -320,8 +340,8 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
             Drawable drawable = mcontext.getResources().getDrawable(R.drawable.r_icon);
             drawable.setBounds(0, 0, DensityUtil.dip2px(mcontext, 35), DensityUtil.dip2px(mcontext, 20));
 
-            for ( int i = 0; i < jobs.length(); i++) {
-                final int j=i;
+            for (int i = 0; i < jobs.length(); i++) {
+                final int j = i;
                 TextView view = new TextView(mcontext);
                 view.setSingleLine(true);
                 view.setPadding(i1, i1, 0, i1);
@@ -338,7 +358,7 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
                     public void onClick(View v)
                     {
                         HashMap<String, Object> param = new HashMap<>();
-                        param.put("POSITION",j);
+                        param.put("POSITION", j);
                         StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < jobs.length(); i++) {
                             builder.append(jobs.optJSONObject(i).optInt("blueJobID") + ",");

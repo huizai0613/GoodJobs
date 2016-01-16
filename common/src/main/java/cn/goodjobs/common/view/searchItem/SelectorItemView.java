@@ -33,7 +33,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
 
     public Stack<List<SelectorEntity>> selectorEntityStack; // 保存要显示的数据
     public List<SelectorEntity> selectedItems; // 已经选中的数据
-    public String spitStr = "#";
+    public static String spitStr = "#";
     public boolean isInit; //是否初始化
     public static String allId = "-1"; // 默认不限的id
 

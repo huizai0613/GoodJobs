@@ -59,13 +59,24 @@
 
                         <TextView
                             android:id="@+id/com_nature"
-                            android:layout_width="0dip"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="3"
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:textColor="@color/light_color"
                             android:textSize="@dimen/text_small"/>
+
+                        <TextView
+                            android:id="@+id/com_status"
+                            android:layout_marginLeft="@dimen/padding_small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="#5ab94b"
+                            android:drawableLeft="@mipmap/icon_uncertify"
+                            android:gravity="center_vertical"
+                            android:text=" 营业执照已验证"
+                            android:textSize="@dimen/text_litter_small"
+                            />
 
                     </LinearLayout>
 
