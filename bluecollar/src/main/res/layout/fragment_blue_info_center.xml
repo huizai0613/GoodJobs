@@ -245,7 +245,7 @@
                     listitem:image="@drawable/personal_center_setting"
                     listitem:showHLine="false"
                     listitem:showLine="false"
-                    listitem:tvtitle="设置" />
+                    listitem:tvtitle="修改登录信息" />
 
                 <View style="@style/line" />
             </LinearLayout>
