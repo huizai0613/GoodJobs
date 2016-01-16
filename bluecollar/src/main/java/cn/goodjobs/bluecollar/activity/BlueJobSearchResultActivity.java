@@ -4,15 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +45,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 {
 
     private ExpandTabView etvMenu;
-    private int cityId;
     private Map<String, Map<String, String>> twoCate;
 
 
@@ -95,6 +91,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                         {
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
+                            GoodJobsApp.getInstance().setMyLocation(location);
                             myLocation = location;
                             Map<String, String> oneCate = new TreeMap<String, String>();
                             oneCate.put("0", "地区筛选");
@@ -232,6 +229,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
 
     private String itemAddressId;
+    private String oldAddressId;
     private int dis;
     private String itemSalaryId = "";
     private String itemJobfuncId;
@@ -241,15 +239,12 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private String itemWorktimeId;
     private String itemDegreeId;
 
-    private TextView store;
-    private TextView send;
-    private LinearLayout bottomBar;
     private String itemJobfuncPrantId;
     private String itemBenefit;
     private String itemBenefitId;
     private ArrayList<JSONObject> jopTypeParent;
     private ArrayList<List<JSONObject>> jopTypeChild;
-
+    private View applyjobBut;
 
     @Override
     protected int getLayoutID()
@@ -266,16 +261,37 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         cityInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
         {
             @Override
-            public void onSelected(String firstLevelKey, String secondLevelKey, String showString)
+            public void onSelected(String firstLevelKey, final String secondLevelKey, String showString)
             {
                 if (firstLevelKey.equals("0")) {
+                    ((BlueJobSearchResultAdapter) mAdapter).setCurType(BlueJobSearchResultAdapter.REGIONDIS);
                     isCur = false;
-                    if (isPro && !secondLevelKey.equals("0")) {
-                        UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), BlueJobSearchResultActivity.this);
-                        isPro = false;
+                    if (isPro) {
+                        if (secondLevelKey.equals("0")) {
+                            itemAddressId = oldAddressId;
+                        } else {
+                            mcontext.runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), BlueJobSearchResultActivity.this);
+                                }
+                            });
+                            isPro = false;
+                            oldAddressId = itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                        }
+                    } else {
+                        if (secondLevelKey.equals("0")) {
+                            itemAddressId = oldAddressId;
+                        } else {
+                            itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                        }
                     }
-                    itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                    etvMenu.setTitle(secondLevelKey.equals("0") ? "不限" : showString, 0);
+
                 } else {
+                    ((BlueJobSearchResultAdapter) mAdapter).setCurType(BlueJobSearchResultAdapter.CURDIS);
                     isCur = true;
                     int i = Integer.parseInt(secondLevelKey);
                     switch (i) {
@@ -295,8 +311,9 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             dis = 3000;
                             break;
                     }
+                    etvMenu.setTitle("附近" + showString, 0);
                 }
-                etvMenu.setTitle("附近" + showString, 0);
+
                 startRefresh();
             }
 
@@ -382,7 +399,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         ((BlueJobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
         initList();
         etvMenu = (ExpandTabView) findViewById(R.id.etv_menu);
-        bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
+        applyjobBut = findViewById(R.id.applyjob_but);
 
         cityInfo = new TwoLevelMenuView(mcontext);
         salaryInfo = new SingleLevelMenuView(mcontext);
@@ -394,16 +411,11 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         multiCheckMap.put("1", "0");
         moreInfo.setCheckMult(multiCheckMap);
 
-        store = (TextView) findViewById(R.id.item_store);
-        send = (TextView) findViewById(R.id.item_send);
-        store.setOnClickListener(this);
-        send.setOnClickListener(this);
+        applyjobBut.setOnClickListener(this);
 
         Drawable drawable = getResources().getDrawable(R.drawable.store);
 
         drawable.setBounds(0, 0, DensityUtil.dip2px(mcontext, 20), DensityUtil.dip2px(mcontext, 20));
-
-        store.setCompoundDrawables(null, drawable, null, null);
 
 
         ArrayList<String> strings = new ArrayList<>();
@@ -538,7 +550,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         itemDegree = getIntent().getStringExtra("itemDegree");
         itemBenefit = getIntent().getStringExtra("itemBenefit");
 
-        itemAddressId = getIntent().getStringExtra("itemAddressId");
+        oldAddressId = itemAddressId = getIntent().getStringExtra("itemAddressId");
         itemSalaryId = getIntent().getStringExtra("itemSalaryId");
         itemJobfuncId = getIntent().getStringExtra("itemJobfuncId");
         itemJobfuncPrantId = getIntent().getStringExtra("jobpraentId");
@@ -613,7 +625,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
     public void setBottomVisible(Boolean isShow)
     {
-        bottomBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        applyjobBut.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -630,47 +642,48 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         String ids = builder.subSequence(0, builder.length() - 1).toString();
 
         int i = v.getId();
-        if (i == R.id.item_store) {
-            //收藏职位Fs
-            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
-                return;
+//        if (i == R.id.item_store) {
+//            //收藏职位Fs
+//            if (!GoodJobsApp.getInstance().checkLogin(mcontext))
+//                return;
+//
+//            HashMap<String, Object> param = new HashMap<>();
+//            param.put("jobID", ids);
+//            HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler()
+//            {
+//                @Override
+//                public void onFailure(int statusCode, String tag)
+//                {
+//                    TipsUtil.show(mcontext, "收藏失败");
+//                }
+//
+//                @Override
+//                public void onSuccess(String tag, Object data)
+//                {
+//                    TipsUtil.show(mcontext, ((JSONObject) data).optString("message"));
+//                }
+//
+//                @Override
+//                public void onError(int errorCode, String tag, String errorMessage)
+//                {
+//                }
+//
+//                @Override
+//                public void onProgress(String tag, int progress)
+//                {
+//                }
+//            });
 
-            HashMap<String, Object> param = new HashMap<>();
-            param.put("jobID", ids);
-            HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler()
-            {
-                @Override
-                public void onFailure(int statusCode, String tag)
-                {
-                    TipsUtil.show(mcontext, "收藏失败");
-                }
-
-                @Override
-                public void onSuccess(String tag, Object data)
-                {
-                    TipsUtil.show(mcontext, ((JSONObject) data).optString("message"));
-                }
-
-                @Override
-                public void onError(int errorCode, String tag, String errorMessage)
-                {
-                }
-
-                @Override
-                public void onProgress(String tag, int progress)
-                {
-                }
-            });
-
-        } else if (i == R.id.item_send) {
+//        } else
+        if (i == R.id.applyjob_but) {
             //投递简历
             if (!GoodJobsApp.getInstance().checkLogin(mcontext))
                 return;
 
             HashMap<String, Object> param = new HashMap<>();
-            param.put("jobID", ids);
+            param.put("blueJobID", ids);
             param.put("ft", 2);
-            HttpUtil.post(URLS.API_JOB_apply, param, new HttpResponseHandler()
+            HttpUtil.post(URLS.API_BLUEJOB_Addapply, param, new HttpResponseHandler()
             {
                 @Override
                 public void onFailure(int statusCode, String tag)

@@ -35,7 +35,8 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 /**
  * Created by 王刚 on 2015/12/15 0015.
  */
-public class BaseFragment extends Fragment implements HttpResponseHandler, View.OnClickListener {
+public class BaseFragment extends Fragment implements HttpResponseHandler, View.OnClickListener
+{
 
     public boolean isLoad; // 界面数据是否加载
     protected AutoScrollViewPager adViewPager;
@@ -43,51 +44,67 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     int scrollTime = 3000; // 广告3秒滚动一屏
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onFailure(int statusCode, String tag) {
+    public void onFailure(int statusCode, String tag)
+    {
 
     }
 
     @Override
-    public void onSuccess(String tag, Object data) {
+    public void onSuccess(String tag, Object data)
+    {
 
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
 
     }
 
     @Override
-    public void onProgress(String tag, int progress) {
+    public void onProgress(String tag, int progress)
+    {
 
     }
 
-    protected void setTopTitle(View view, String title) {
+    @Override
+    public void onDetach()
+    {
+        HttpUtil.cancelAllRequests();
+        super.onDetach();
+    }
+
+    protected void setTopTitle(View view, String title)
+    {
         TextView tvToptitle = (TextView) view.findViewById(R.id.top_title);
         tvToptitle.setText(title);
         tvToptitle.setVisibility(View.VISIBLE);
     }
 
     // 设置副标题
-    protected void setTopSubTitle(View view, String subTitle) {
+    protected void setTopSubTitle(View view, String subTitle)
+    {
         TextView tvTopSubTitle = (TextView) view.findViewById(R.id.top_sub_title);
         tvTopSubTitle.setText(subTitle);
         tvTopSubTitle.setVisibility(View.VISIBLE);
     }
 
     // 隐藏返回按钮
-    protected void hideBackBtn(View view) {
+    protected void hideBackBtn(View view)
+    {
         ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
         backBtn.setVisibility(View.INVISIBLE);
     }
 
     //改变左侧图片
-    protected void changeLeftBg(View view, int id) {
+    protected void changeLeftBg(View view, int id)
+    {
         ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
         backBtn.setImageResource(id);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(80, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -98,14 +115,16 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
 
     }
 
     /**
      * 初始化顶部广告图
      */
-    protected void initAd(JSONArray jsonArray) {
+    protected void initAd(JSONArray jsonArray)
+    {
         // 广告图片
         if (jsonArray != null && jsonArray.length() > 0) {
             int len = jsonArray.length();
@@ -130,9 +149,11 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
                 } else {
                     simpleDraweeView.setImageURI(uri);
                 }
-                simpleDraweeView.setOnClickListener(new View.OnClickListener() {
+                simpleDraweeView.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
                         Intent intent = new Intent(getActivity(), WebViewActivity.class);
                         intent.putExtra("title", jsonObject.optString("title"));
                         intent.putExtra("url", jsonObject.optString("url"));
@@ -158,7 +179,8 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         if (adViewPager != null && adViewPager.getVisibility() == View.VISIBLE) {
             adViewPager.startAutoScroll(scrollTime);
@@ -166,7 +188,8 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     }
 
     @Override
-    public void onPause() {
+    public void onPause()
+    {
         super.onPause();
         if (adViewPager != null && adViewPager.getVisibility() == View.VISIBLE) {
             adViewPager.stopAutoScroll();

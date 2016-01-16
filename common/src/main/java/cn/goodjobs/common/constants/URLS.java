@@ -23,9 +23,13 @@ public class URLS {
     public final static String API_JOB_Searcherdel = "Job/Searcherdel";  // 获取搜索器
     public final static String API_JOB_Joball = "Job/Joball";  // 公司所有职位
     //蓝领
-    public final static String API_BLUEJOB_Index = "Bluejob/Index";  // 蓝领首页
-    public final static String API_BLUEJOB_Jobshow = "Bluejob/Jobshow";  // 蓝领职位详情
-    public final static String API_BLUEJOB_Joblist = "Bluejob/Joblist";  // 蓝领职位列表
+    public final static String API_BLUEJOB_Index = "Blue/Index";  // 蓝领首页
+    public final static String API_BLUEJOB_Jobshow = "Blue/Jobshow";  // 蓝领职位详情
+    public final static String API_BLUEJOB_Joblist = "Blue/Joblist";  // 蓝领职位列表
+    public final static String API_BLUEJOB_Addapply = "Blue/Addapply";  // 蓝领职位申请
+    public final static String API_BLUEJOB_Addfavorite = "Blue/Addfavorite";  // 蓝领职位收藏
+    public final static String API_BLUEJOB_Corpshow = "Blue/Corpshow";  // 蓝领企业详情
+    public final static String API_BLUEJOB_Feedback = "Blue/Feedback";  // 蓝领职位投诉
 
 
     // 登录相关
@@ -140,6 +144,16 @@ public class URLS {
 
 
     //蓝领个人中心
-    public final static String API_JOB_BlueMy = "Blue/My";      //蓝领个人中心首页
-
+    public final static String API_JOB_BlueMy = "blueuser/my";      //蓝领个人中心首页
+    public final static String API_JOB_UserCorpviewhistory = "User/Corpviewhistory";      //蓝领个人中心谁看过我的简历
+    public final static String API_JOB_UserCampusoperationdel = "User/Campusoperationdel";      //蓝领个人中心谁看过我的简历删除
+    public final static String API_JOB_BlueBasicsave = "Blueuser/Basicsave";      //蓝领简历保存数据
+    public final static String API_JOB_BlueBasic = "Blueuser/Basic";      //蓝领简历修改数据显示
+    public final static String API_JOB_UserUpdate = "User/Update";      //蓝领简历刷新
+    public final static String API_JOB_BlueuserEntrustcv = "Blueuser/Entrustcv";      //蓝领简历刷新
+    public final static String API_JOB_BlueuserOutbox = "Blueuser/Outbox";      //蓝领职位申请列表
+    public final static String API_JOB_BlueuserOutboxdel = "Blueuser/Outboxdel";      // 蓝领申请职位删除且不可恢复操作
+    public final static String API_JOB_BlueuserFavorite = "Blueuser/Favorite";      // 收藏职位列表
+    public final static String API_JOB_BlueuserFavoritedel = "Blueuser/Favoritedel";      // 收藏职位删除进入回收站操作
+    public final static String API_JOB_CvPhotosave = "cv/photosave";      // 头像上传
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.entity.LoginInfo;
 import cn.goodjobs.common.util.JumpViewUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.imagemenu.MainMenuEntity;
 
@@ -25,11 +26,23 @@ public class GoodJobsApp extends Application
 
     private static GoodJobsApp instance;
     private LoginInfo loginInfo;
+    private MyLocation myLocation;
     private boolean isLogin; // 是否登录
     public JSONObject resumeJson; // 我的简历状态信息
     public JSONObject personalInfo; // 用户基本信息
     public JSONObject bluePersonalInfo; // 蓝领用户基本信息
     private List<MainMenuEntity> menuEntitys;
+
+
+    public MyLocation getMyLocation()
+    {
+        return myLocation;
+    }
+
+    public void setMyLocation(MyLocation myLocation)
+    {
+        this.myLocation = myLocation;
+    }
 
     @Override
     public void onCreate()

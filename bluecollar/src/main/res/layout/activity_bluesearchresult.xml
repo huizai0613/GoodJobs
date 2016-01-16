@@ -14,7 +14,7 @@
         android:layout_height="@dimen/space_40"></cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView>
 
     <View
-       style="@style/line"
+        style="@style/line"
         />
 
     <RelativeLayout
@@ -22,46 +22,11 @@
         android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="40dip"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/item_store"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="收藏"
-                android:textColor="@color/light_color"
-                android:textSize="@dimen/font_size_14"/>
-
-            <TextView
-                android:id="@+id/item_send"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/topbar_bg"
-                android:gravity="center"
-                android:text="发送简历"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_18"/>
-
-        </LinearLayout>
-
-
         <in.srain.cube.views.ptr.PtrClassicFrameLayout
             android:id="@+id/load_more_list_view_ptr_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bottom_bar">
+            >
 
             <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
                 android:id="@+id/load_more_list_view_container"
@@ -86,6 +51,23 @@
             android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/applyjob_but"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_marginRight="@dimen/padding_small"
+            android:background="@drawable/bg_applyjob"
+            android:gravity="center"
+            android:padding="8dip"
+            android:text="申请职位"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_default"
             android:visibility="gone"/>
     </RelativeLayout>
 </LinearLayout>

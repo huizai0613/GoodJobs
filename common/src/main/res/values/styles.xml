@@ -16,8 +16,11 @@
     <!--职位详情-->
     <style name="job_detail_tv">
         <item name="android:layout_width">0dip</item>
-        <item name="android:layout_height">30dip</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">@dimen/line_padding</item>
+        <item name="android:layout_marginBottom">@dimen/line_padding</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/light_color</item>
         <item name="android:textSize">@dimen/text_small</item>
@@ -90,11 +93,17 @@
     <style name="AnimBottom" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
-        <item name="android:windowFrame">@null</item><!--边框-->
-        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
-        <item name="android:windowIsTranslucent">true</item><!--半透明-->
-        <item name="android:windowNoTitle">true</item><!--无标题-->
-        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
-        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+        <item name="android:windowFrame">@null</item>
+        <!--边框-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--半透明-->
+        <item name="android:windowNoTitle">true</item>
+        <!--无标题-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--背景透明-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--模糊-->
     </style>
 </resources>

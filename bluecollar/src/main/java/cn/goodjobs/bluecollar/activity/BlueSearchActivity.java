@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
@@ -97,6 +98,7 @@ public class BlueSearchActivity extends BaseActivity
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
                             myLocation = location;
+                            GoodJobsApp.getInstance().setMyLocation(myLocation);
                             itemAddress.setText(myLocation.city);
                             itemAddress.setSelectorIds(myLocation.cityID);
                             isLoad = true;
