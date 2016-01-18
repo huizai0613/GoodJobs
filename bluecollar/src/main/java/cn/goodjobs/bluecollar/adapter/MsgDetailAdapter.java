@@ -65,6 +65,8 @@ public class MsgDetailAdapter extends JsonArrayAdapterBase<JSONObject> {
             holder.tvTime.setVisibility(View.VISIBLE);
             holder.tvTime.setText(jsonObject.optString("sendDate"));
         }
+        holder.progressBar.setVisibility(View.GONE);
+        holder.imgReload.setVisibility(View.GONE);
         if ("0".equals(jsonObject.optString("myHas"))) {
             holder.headPhoto1.setVisibility(View.VISIBLE);
             holder.tvContent1.setVisibility(View.VISIBLE);
@@ -82,14 +84,9 @@ public class MsgDetailAdapter extends JsonArrayAdapterBase<JSONObject> {
             if ("1".equals(jsonObject.optString("status"))) {
                 // 正在发送消息
                 holder.progressBar.setVisibility(View.VISIBLE);
-                holder.imgReload.setVisibility(View.GONE);
             } else if ("2".equals(jsonObject.optString("status"))) {
                 // 发动消息失败
                 holder.imgReload.setVisibility(View.VISIBLE);
-                holder.progressBar.setVisibility(View.GONE);
-            } else {
-                holder.progressBar.setVisibility(View.GONE);
-                holder.imgReload.setVisibility(View.GONE);
             }
         }
         return convertView;
