@@ -156,4 +156,5 @@ public class URLS {
     public final static String API_JOB_BlueuserFavorite = "Blueuser/Favorite";      // 收藏职位列表
     public final static String API_JOB_BlueuserFavoritedel = "Blueuser/Favoritedel";      // 收藏职位删除进入回收站操作
     public final static String API_JOB_CvPhotosave = "cv/photosave";      // 头像上传
+    public final static String API_JOB_UserFeedback = "user/Feedback";      // 意见反馈
 }

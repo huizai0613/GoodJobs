@@ -249,29 +249,6 @@
 
                 <View style="@style/line" />
             </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-                <View style="@style/line" />
-
-                <cn.goodjobs.common.view.searchItem.SearchItemView
-                    android:id="@+id/itemMore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    listitem:image="@drawable/personal_center_setting"
-                    listitem:showHLine="false"
-                    listitem:showLine="false"
-                    listitem:tvtitle="更多" />
-
-                <View style="@style/line" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

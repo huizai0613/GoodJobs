@@ -17,10 +17,6 @@
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         <activity
-            android:name=".activity.InfoCenter.ItemMoreActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTask" />
-        <activity
             android:name=".activity.InfoCenter.ItemResumeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />

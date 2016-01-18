@@ -17,6 +17,8 @@ public class GoodJobsSettingActivity extends BaseActivity {
 
     SearchItemView itemModule;
     HashMap<String, String> moduleNames;
+    SearchItemView itemFeedBack, itemClear, itemCheck, itemHelp, itemAbout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,18 @@ public class GoodJobsSettingActivity extends BaseActivity {
             itemModule.setText(moduleNames.get(defaultModule));
         }
         itemModule.setOnClickListener(this);
+
+        itemFeedBack = (SearchItemView) findViewById(R.id.itemFeedBack);
+        itemClear = (SearchItemView) findViewById(R.id.itemClear);
+        itemCheck = (SearchItemView) findViewById(R.id.itemCheck);
+        itemHelp = (SearchItemView) findViewById(R.id.itemHelp);
+        itemAbout = (SearchItemView) findViewById(R.id.itemAbout);
+
+        itemFeedBack.setOnClickListener(this);
+        itemClear.setOnClickListener(this);
+        itemCheck.setOnClickListener(this);
+        itemHelp.setOnClickListener(this);
+        itemAbout.setOnClickListener(this);
     }
 
     @Override
@@ -58,10 +72,20 @@ public class GoodJobsSettingActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        Intent intent = new Intent();
         if (v.getId() == R.id.itemModule) {
-            Intent intent = new Intent();
             intent.setClassName(this, "cn.goodjobs.client.activity.MainActivity");
-            startActivity(intent);
+        } else if (v.getId() == R.id.itemFeedBack) {
+            intent.setClass(this, FeedBackActivity.class);
+        } else if (v.getId() == R.id.itemClear) {
+            return;
+        } else if (v.getId() == R.id.itemCheck) {
+            return;
+        } else if (v.getId() == R.id.itemHelp) {
+            return;
+        } else if (v.getId() == R.id.itemAbout) {
+            return;
         }
+        startActivity(intent);
     }
 }

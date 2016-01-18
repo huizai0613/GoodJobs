@@ -208,6 +208,11 @@
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".activity.FeedBackActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

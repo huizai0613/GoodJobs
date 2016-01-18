@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".ui.activitys.FeedBackActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/actionbar" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:background="@drawable/login_edit_bg"
+                        android:hint="点击输入姓名"
+                        android:padding="@dimen/padding_small"
+                        android:singleLine="true"
+                        android:textColor="@color/main_color"
+                        android:textColorHint="@color/light_color"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/etMoblie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:background="@drawable/login_edit_bg"
+                        android:hint="点击输入手机号"
+                        android:padding="@dimen/padding_small"
+                        android:singleLine="true"
+                        android:textColor="@color/main_color"
+                        android:textColorHint="@color/light_color"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:layout_marginTop="@dimen/padding_default"
+                        android:background="@drawable/login_edit_bg"
+                        android:hint="点击输入标题"
+                        android:padding="@dimen/padding_small"
+                        android:singleLine="true"
+                        android:textColor="@color/main_color"
+                        android:textColorHint="@color/light_color" />
+
+                    <EditText
+                        android:id="@+id/etContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_default"
+                        android:background="@drawable/login_edit_bg"
+                        android:gravity="left|top"
+                        android:hint="点击输入反馈内容"
+                        android:lines="8"
+                        android:padding="@dimen/padding_small"
+                        android:textColor="@color/main_color"
+                        android:textColorHint="@color/light_color" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:background="@drawable/button_bg"
+                        android:onClick="doCommit"
+                        android:text="提交"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
