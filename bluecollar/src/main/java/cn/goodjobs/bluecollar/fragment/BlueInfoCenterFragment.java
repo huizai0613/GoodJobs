@@ -21,6 +21,7 @@ import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemApplyActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCheckActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCollectActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemInviteActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemMoreActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemSettingActivity;
@@ -175,7 +176,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         } else if (i == R.id.itemCollection) {
             intent.setClass(getActivity(), ItemCollectActivity.class);
         } else if (i == R.id.itemZhaoping) {
-            return;
+            intent.setClass(getActivity(), ItemInviteActivity.class);
         } else if (i == R.id.tv_entrust) {
             HashMap<String, Object> params = new HashMap<String, Object>();
             if (isEntrust) {

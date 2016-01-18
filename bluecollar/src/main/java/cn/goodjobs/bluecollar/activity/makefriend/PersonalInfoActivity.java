@@ -34,6 +34,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     PullToZoomListViewEx listView;
     RelativeLayout topLayout;
     ImageButton btnEdit;
+    ImageButton btnMsg;
     View headView;
     int page = 1;
     PersonalTrendAdapter personalTrendAdapter;
@@ -63,6 +64,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
         topLayout.getBackground().setAlpha(0); // 设置背景透明
         listView = (PullToZoomListViewEx) findViewById(R.id.listview);
         btnEdit = (ImageButton) findViewById(R.id.btn_right);
+        btnMsg = (ImageButton) findViewById(R.id.btn_msg);
         listView.setTopBarView(topLayout);
         headView = listView.getHeaderView();
         footView = LayoutInflater.from(this).inflate(R.layout.item_loading, null);
@@ -74,6 +76,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
         listView.setParallax(false);
         listView.getPullRootView().setOnItemClickListener(this);
         btnEdit.setOnClickListener(this);
+        btnMsg.setOnClickListener(this);
         listView.setScrollListener(new PullToZoomListViewEx.ScrollListener() {
             @Override
             public void toFoot() {
@@ -181,6 +184,9 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
             startActivityForResult(intent, 111);
         } else if (v.getId() == R.id.tvFans) {
             Intent intent = new Intent(this, FansActivity.class);
+            startActivityForResult(intent, 111);
+        } else if (v.getId() == R.id.btn_msg) {
+            Intent intent = new Intent(this, MsgListActivity.class);
             startActivityForResult(intent, 111);
         }
     }

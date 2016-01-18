@@ -358,7 +358,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         message.what = UpdateDataTaskUtils.COMPANYDATA;
         message.obj = CompanyData;
         corpkindId = corpkindId + "";
-        this.companyData = companyData;
         handler.sendMessage(message);
     }
 

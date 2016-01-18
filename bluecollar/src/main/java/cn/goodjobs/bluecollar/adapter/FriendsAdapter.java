@@ -2,6 +2,7 @@ package cn.goodjobs.bluecollar.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.makefriend.MsgDetailActivity;
 import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
 import cn.goodjobs.common.constants.URLS;
@@ -86,6 +88,8 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
         }
         if ("1".equals(jsonObject.optString("smsHas"))) {
             holder.btnMsg.setVisibility(View.VISIBLE);
+            holder.btnMsg.setOnClickListener(this);
+            holder.btnMsg.setTag(position);
         } else {
             holder.btnMsg.setVisibility(View.GONE);
         }
@@ -108,6 +112,12 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
             }
             LoadingDialog.showDialog((Activity) context);
             HttpUtil.post(URLS.MAKEFRIEND_FOLLOW, params, this);
+        } else if (v.getId() == R.id.btnMsg) {
+            JSONObject jsonObject = getItem((int) v.getTag());
+            Intent intent = new Intent(context, MsgDetailActivity.class);
+            intent.putExtra("nickName", jsonObject.optString("nickName"));
+            intent.putExtra("friendID", jsonObject.optString("friendID"));
+            context.startActivity(intent);
         }
     }
 

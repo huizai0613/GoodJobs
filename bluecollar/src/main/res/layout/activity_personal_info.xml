@@ -45,9 +45,20 @@
             android:id="@+id/btn_right"
             android:layout_width="@dimen/topbar_height"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_toLeftOf="@+id/btn_msg"
             android:onClick="rightBtnClick"
             android:src="@mipmap/icon_edit"
+            android:scaleType="fitCenter"
+            android:background="@drawable/topbar_btn_bg"
+            android:padding="10dip"/>
+
+        <ImageButton
+            android:id="@+id/btn_msg"
+            android:layout_width="@dimen/topbar_height"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:onClick="rightBtnClick"
+            android:src="@mipmap/img_trend_msg_white"
             android:scaleType="fitCenter"
             android:background="@drawable/topbar_btn_bg"
             android:padding="10dip"/>
