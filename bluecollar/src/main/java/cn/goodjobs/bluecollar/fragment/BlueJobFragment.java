@@ -91,7 +91,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
     {
         int i1 = Integer.parseInt(selectID);
         for (int i = 0; i < cates.size(); i++) {
-            if (cates.get(i).optInt("id") ==i1 ) {
+            if (cates.get(i).optInt("id") == i1) {
                 toolsViews[i].performClick();
             }
         }
@@ -242,11 +242,11 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
     {
         for (int i = 0; i < toolsTextViews.length; i++) {
             if (i != id) {
-                toolsTextViews[i].setBackgroundResource(android.R.color.transparent);
+                toolsTextViews[i].setBackgroundColor(Color.parseColor("#00000000"));
                 toolsTextViews[i].setTextColor(Color.parseColor("#454545"));
             }
         }
-        toolsTextViews[id].setBackgroundResource(android.R.color.white);
+        toolsTextViews[id].setBackgroundColor(Color.parseColor("#ffffff"));
         toolsTextViews[id].setTextColor(Color.parseColor("#3492e9"));
     }
 

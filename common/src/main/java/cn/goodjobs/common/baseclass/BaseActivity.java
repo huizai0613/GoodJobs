@@ -26,11 +26,13 @@ import cn.goodjobs.common.view.empty.EmptyLayout;
  * Created by 王刚 on 2015/12/14 0014.
  * activity的基类
  */
-public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener, HttpResponseHandler {
+public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener, HttpResponseHandler
+{
     protected BaseActivity mcontext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         ScreenManager.getScreenManager().pushActivity(this);
         mcontext = this;
@@ -64,27 +66,32 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
 
     }
 
     @Override
-    public void onFailure(int statusCode, String tag) {
+    public void onFailure(int statusCode, String tag)
+    {
 
     }
 
     @Override
-    public void onSuccess(String tag, Object data) {
+    public void onSuccess(String tag, Object data)
+    {
 
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
 
     }
 
     @Override
-    public void onProgress(String tag, int progress) {
+    public void onProgress(String tag, int progress)
+    {
 
     }
 
@@ -92,26 +99,30 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     /**
      * 退出当前界面
      */
-    public void doBack(View view) {
+    public void doBack(View view)
+    {
         back();
     }
 
     /**
      * 跳转到系统设置界面
      */
-    public void toSetting(View view) {
+    public void toSetting(View view)
+    {
         Intent intent = new Intent(this, GoodJobsSettingActivity.class);
         startActivity(intent);
     }
 
-    protected void back() {
+    protected void back()
+    {
         HttpUtil.cancelRequest(); // 返回上级界面前取消当前界面的网络请求
         hideSoftInputFromWindow();
         finish();
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             back();
         }
@@ -119,27 +130,30 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     }
 
     @Override
-    protected void onDestroy() {
-        HttpUtil.cancelAllRequests();
+    protected void onDestroy()
+    {
         ScreenManager.getScreenManager().popActivity(this);
         super.onDestroy();
     }
 
-    protected void setTopTitle(String title) {
+    protected void setTopTitle(String title)
+    {
         TextView tvToptitle = (TextView) findViewById(R.id.top_title);
         tvToptitle.setVisibility(View.VISIBLE);
         tvToptitle.setText(title);
     }
 
     // 设置副标题
-    protected void setTopSubTitle(String subTitle) {
+    protected void setTopSubTitle(String subTitle)
+    {
         TextView tvTopSubTitle = (TextView) findViewById(R.id.top_sub_title);
         tvTopSubTitle.setText(subTitle);
         tvTopSubTitle.setVisibility(View.VISIBLE);
     }
 
 
-    protected void hideSoftInputFromWindow() {
+    protected void hideSoftInputFromWindow()
+    {
         View currentFocus = getWindow().getCurrentFocus();
         if (currentFocus != null) {
             ((InputMethodManager) getSystemService(
@@ -151,7 +165,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     }
 
 
-    protected boolean checkJsonError(JSONObject jsonObject) {
+    protected boolean checkJsonError(JSONObject jsonObject)
+    {
 
         int errorCode = jsonObject.optInt("errorCode");
 
@@ -162,4 +177,10 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         return false;
     }
 
+    @Override
+    protected void onStop()
+    {
+        HttpUtil.cancelAllRequests();
+        super.onStop();
+    }
 }
