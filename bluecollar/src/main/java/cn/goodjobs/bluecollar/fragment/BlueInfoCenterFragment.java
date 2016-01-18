@@ -231,7 +231,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
         myHeadImage.setImageURI(uri);
         tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));
-        tvTime.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
+        tvTime.setText("更新时间  :  " + GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
         itemChakan.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countCorpLook") + "条");
         itemShenqing.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countJobApply") + "条");
         itemCollection.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countBookmark") + "条");
