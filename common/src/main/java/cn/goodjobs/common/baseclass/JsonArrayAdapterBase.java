@@ -40,6 +40,14 @@ public class JsonArrayAdapterBase<T> extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
+	public void append(T object)  {
+		if (object == null) {
+			return;
+		}
+		mList.add(object);
+		notifyDataSetChanged();
+	}
+
 	public void appendToList(List<T> list)  {
 		if (list == null) {
 			return;
@@ -47,9 +55,28 @@ public class JsonArrayAdapterBase<T> extends BaseAdapter {
 		mList.addAll(list);
 		notifyDataSetChanged();
 	}
+
+	public void appendToTopList(JSONArray jsonArray)  {
+		if (jsonArray == null) {
+			return;
+		}
+		int size = jsonArray.length();
+		try {
+			for (int i=size; i> 0; i--) {
+				mList.add(0, (T) jsonArray.get(i-1));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		notifyDataSetChanged();
+	}
 	
 	public void removeItem(int position){
 		mList.remove(position);
+	}
+
+	public void removeObject(T object){
+		mList.remove(object);
 	}
 
 	public void updateItem(int position,T t){

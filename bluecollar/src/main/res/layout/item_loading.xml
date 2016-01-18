@@ -8,6 +8,8 @@
         android:id="@+id/progressBar"
         android:layout_width="28dp"
         android:layout_height="28dp"
+        android:indeterminateDrawable="@drawable/iamge_progress"
+        android:indeterminateDuration="1000"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

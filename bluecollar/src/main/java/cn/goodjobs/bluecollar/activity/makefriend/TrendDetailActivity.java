@@ -1,5 +1,6 @@
 package cn.goodjobs.bluecollar.activity.makefriend;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -47,6 +48,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
     JSONObject replyObject;
     int myHas = 0;
     String friendID;
+    String nickName;
 
     View footView;
     View headView;
@@ -171,7 +173,8 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             Uri uri = Uri.parse(jsonObject.optString("userPhoto"));
             headPhoto.setImageURI(uri);
         }
-        tvName.setText(jsonObject.optString("nickName"));
+        nickName = jsonObject.optString("nickName");
+        tvName.setText(nickName);
         tvDistance.setText(jsonObject.optString("distance"));
         tvAge.setText(jsonObject.optString("ageName"));
         if ("女".equals(jsonObject.optString("sexName"))) {
@@ -202,6 +205,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             }
             if ("1".equals(jsonObject.optString("smsHas"))) {
                 btnMsg.setVisibility(View.VISIBLE);
+                btnMsg.setOnClickListener(this);
             } else {
                 btnMsg.setVisibility(View.GONE);
             }
@@ -241,6 +245,11 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             params.put("type", btnLook.getTag().toString());
             LoadingDialog.showDialog(this);
             HttpUtil.post(URLS.MAKEFRIEND_FOLLOW, params, this);
+        } else if (v.getId() == R.id.btnMsg) {
+            Intent intent = new Intent(this, MsgDetailActivity.class);
+            intent.putExtra("nickName", nickName);
+            intent.putExtra("friendID", friendID);
+            startActivity(intent);
         }
     }
 
