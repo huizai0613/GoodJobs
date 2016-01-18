@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
 import cn.goodjobs.bluecollar.activity.BlueJobDetailActivity;
 import cn.goodjobs.bluecollar.activity.BlueSearchActivity;
 import cn.goodjobs.common.GoodJobsApp;
@@ -76,6 +77,7 @@ public class BlueHomeFragment extends BaseFragment
     private View applyjobBut;
     private JSONObject jsonObject;
     private MyLocation myLocation;
+    private BlueCollarActivity activity;
 
 
     private void getDataFromServer()
@@ -96,6 +98,7 @@ public class BlueHomeFragment extends BaseFragment
     {
         LogUtil.info("onActivityCreated");
         super.onActivityCreated(savedInstanceState);
+        activity = (BlueCollarActivity) getActivity();
         LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
         {
             @Override
@@ -141,6 +144,7 @@ public class BlueHomeFragment extends BaseFragment
     {
         super.onSuccess(tag, data);
         jsonObject = (JSONObject) data;
+        activity.setCurSelectJobCate(jsonObject.optString("getBlueFunID"));
         JSONArray adsList = jsonObject.optJSONArray("adsList");
         JSONArray hotJob = jsonObject.optJSONArray("hotJob");
         JSONArray likeJob = jsonObject.optJSONArray("likeJob");
