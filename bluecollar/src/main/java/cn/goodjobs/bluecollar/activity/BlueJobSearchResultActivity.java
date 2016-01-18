@@ -261,6 +261,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private ArrayList<JSONObject> jopTypeParent;
     private ArrayList<List<JSONObject>> jopTypeChild;
     private View applyjobBut;
+    private String cepage;
 
     @Override
     protected int getLayoutID()
@@ -481,13 +482,11 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
 
-        if (page != 1)
-            Object.put("cepage", page);
+        if (!StringUtil.isEmpty(cepage))
+            Object.put("cepage", cepage);
 
-        {
-            if (!StringUtil.isEmpty(searchKeyWorld))//关键字
-                Object.put("keyword", searchKeyWorld);
-        }
+        if (!StringUtil.isEmpty(searchKeyWorld))//关键字
+            Object.put("keyword", searchKeyWorld);
 
         if (isCur) {
             if (dis != 0)//地址
@@ -509,7 +508,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
         if (!StringUtil.isEmpty(itemJobfuncId) && !"-1".equals(itemIndtypeId))//岗位
 
-            if ("0".equals(itemJobfuncId)||itemJobfuncId.startsWith("-1")) {
+            if ("0".equals(itemJobfuncId) || itemJobfuncId.startsWith("-1")) {
                 Object.put("respon", itemJobfuncPrantId.replaceAll("#", ","));
             } else {
                 Object.put("respon", itemJobfuncId.replaceAll("#", ","));
@@ -545,6 +544,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         JSONObject object = (JSONObject) data;
         if (checkJsonError(object))
             return;
+        cepage = object.optString("cepage");
         String totalNum = object.optString("totalNum");
         setTopTitle("搜索到" + totalNum + "条职位");
 

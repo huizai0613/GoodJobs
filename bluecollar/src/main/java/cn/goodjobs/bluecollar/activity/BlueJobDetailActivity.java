@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.fragment.BlueJobDetailFragment;
