@@ -1,6 +1,9 @@
 package cn.goodjobs.bluecollar.activity.makefriend;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import org.json.JSONObject;
 
@@ -17,7 +20,7 @@ import cn.goodjobs.common.view.empty.EmptyLayout;
  * 私信列表
  * */
 
-public class MsgListActivity extends BaseListActivity {
+public class MsgListActivity extends BaseListActivity implements AdapterView.OnItemClickListener {
     int pageTime;
     boolean hasMore; // 是否包含下一页
     @Override
@@ -36,6 +39,7 @@ public class MsgListActivity extends BaseListActivity {
         setTopTitle("聊天记录");
         mAdapter = new MsgListAdapter(this);
         initList();
+        mListView.setOnItemClickListener(this);
         startRefresh();
     }
 
@@ -81,5 +85,14 @@ public class MsgListActivity extends BaseListActivity {
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) mAdapter.getItem(position - 1);
+        Intent intent = new Intent(this, MsgDetailActivity.class);
+        intent.putExtra("nickName", jsonObject.optString("nickName"));
+        intent.putExtra("friendID", jsonObject.optString("friendID"));
+        startActivity(intent);
     }
 }
