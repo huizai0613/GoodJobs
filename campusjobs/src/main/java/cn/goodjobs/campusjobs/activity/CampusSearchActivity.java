@@ -243,19 +243,27 @@ public class CampusSearchActivity extends BaseActivity {
     }
 
     private LinkedHashMap getSearchHashMapID() {
-        String addId = (String) itemAddress.getTag();
-        String jobId = (String) itemJobfunc.getTag();
-        String indId = (String) itemIndtype.getTag();
+        String addId = (String) itemAddress.getSelectorIds();
+        String jobId = (String) itemJobfunc.getSelectorIds();
+        String indId = (String) itemIndtype.getSelectorIds();
+
 
         LinkedHashMap hashMap = new LinkedHashMap();
         if (!StringUtil.isEmpty(addId)) {
             hashMap.put("itemAddressId", addId);
         }
         if (!StringUtil.isEmpty(jobId)) {
-            if (jobId.startsWith("-1")) {
-                jobId = jobId.split("#")[1];
+            String[] split = jobId.split(",");
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < split.length; i++) {
+                if (split[i].startsWith("-1")) {
+                    split[i] = split[i].split("#")[1];
+                }
+                builder.append(split[i] + ",");
             }
-            hashMap.put("itemJobfuncId", jobId);
+            CharSequence charSequence = builder.subSequence(0, builder.length() - 1);
+
+            hashMap.put("itemJobfuncId", charSequence.toString());
         }
         if (!StringUtil.isEmpty(indId)) {
             hashMap.put("itemIndtypeId", indId);

@@ -85,7 +85,7 @@ public class RegisterActivity extends BaseActivity {
             TipsUtil.show(this, "您输入的手机号码格式不正确");
             return;
         }
-        if (itemImgCode.getText().toLowerCase().equals(VerCode.getInstance().getCode().toLowerCase())) {
+        if (!itemImgCode.getText().toLowerCase().equals(VerCode.getInstance().getCode().toLowerCase())) {
             TipsUtil.show(this, "您的图形验证码输入有误");
             return;
         }

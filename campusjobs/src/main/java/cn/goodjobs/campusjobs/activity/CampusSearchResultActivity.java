@@ -108,8 +108,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         }
                     }
                     moreInfo.setValue(oneCate1, twoCate, 0 + "", 0 + "", null);
-
-
                     break;
             }
 
@@ -121,10 +119,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     private List<JSONObject> salaryData;
     private Map<String, List<JSONObject>> moreData;
 
-    private boolean isMuCheck;
-
-
-    private String districtId;
     private String searchKeyWorld;
     private String itemAddress;
     private String itemSalary;
@@ -155,15 +149,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     @Override
     protected void initWeightClick() {
 
-        etvMenu.setmOnExpandTabDismissListener(new ExpandTabView.OnExpandTabDismissListener() {
-            @Override
-            public void expandTabDismiss(int position) {
-                if (position == 2 && isMuCheck) {
-                    startRefresh();
-                    isMuCheck = false;
-                }
-            }
-        });
 
         companyInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
             @Override
@@ -205,14 +190,19 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         jobTypeId = entry.getValue();
                     }
                     if (key.equals("2")) {
-                        if (isPro && !entry.getValue().equals("0")) {
-                            itemAddressId = entry.getValue();
+                        if (isPro) {
+                            if (!entry.getValue().equals("0")) {
+                                itemAddressId = entry.getValue();
+                                UpdateDataTaskUtils.selectCompusInfo(CampusSearchResultActivity.this, false, itemAddressId, CampusSearchResultActivity.this);
+                            }
                         } else {
-                            districtId = entry.getValue();
+                            if (!entry.getValue().equals("0")) {
+                                itemAddressId = entry.getValue();
+                            }
                         }
                     }
                 }
-                isMuCheck = true;
+                startRefresh();
             }
         });
 
@@ -282,14 +272,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                 Object.put("keyword", searchKeyWorld);
         }
 
-        if (!StringUtil.isEmpty(itemAddressId))//地址
-        {
-            if (itemAddressId.startsWith("-1#")) {
-                itemAddressId = (itemAddressId.split("#"))[1];
-            }
-            Object.put("jobCity", itemAddressId);
-        }
-
         if (!StringUtil.isEmpty(itemIndtypeId))//行业
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
 
@@ -305,13 +287,17 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         if (!StringUtil.isEmpty(jobTypeId))//工作性质
             Object.put("jobType", jobTypeId);
 
-        if (!StringUtil.isEmpty(districtId))//区域
-            Object.put("district", districtId);
 
         if (!StringUtil.isEmpty(corpkindId))//企业性质
             Object.put("corpkind", corpkindId);
 
-
+        if (!StringUtil.isEmpty(itemAddressId)) {
+            if (itemAddressId.startsWith("-1")) {
+                Object.put("jobCity", itemAddressId.substring(3, itemAddressId.length()));
+            } else {
+                Object.put("jobCity", itemAddressId);
+            }
+        }
         HttpUtil.post(URLS.API_JOB_CampusJoblist, Object, this);
     }
 
@@ -372,7 +358,6 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         message.what = UpdateDataTaskUtils.COMPANYDATA;
         message.obj = CompanyData;
         corpkindId = corpkindId + "";
-        this.companyData = companyData;
         handler.sendMessage(message);
     }
 

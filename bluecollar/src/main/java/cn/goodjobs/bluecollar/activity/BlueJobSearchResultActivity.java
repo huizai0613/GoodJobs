@@ -36,6 +36,7 @@ import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView;
 import cn.goodjobs.common.view.ExpandTabSuper.SingleLevelMenuView;
 import cn.goodjobs.common.view.ExpandTabSuper.TwoLevelMenuView;
+import cn.goodjobs.common.view.searchItem.SelectorItemView;
 
 /**
  * Created by yexiangyu on 15/12/23.
@@ -93,22 +94,36 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             SharedPrefUtil.saveObjectToLoacl("location", location);
                             GoodJobsApp.getInstance().setMyLocation(location);
                             myLocation = location;
-                            Map<String, String> oneCate = new TreeMap<String, String>();
-                            oneCate.put("0", "地区筛选");
-                            oneCate.put("1", "附近筛选");
-                            Map<String, String> twoCate_two = new TreeMap<String, String>();
-                            twoCate_two.put("0", "不限");
-                            twoCate_two.put("1", "500米");
-                            twoCate_two.put("2", "1000米");
-                            twoCate_two.put("3", "2000米");
-                            twoCate_two.put("4", "3000米");
 
-                            twoCate.put("1", twoCate_two);
-                            twoCate.put("0", twoCate_one);
-                            cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
-                            isLoad = true;
-                            lat = location.latitude;
-                            lng = location.longitude;
+
+                            if (oldAddressStr.equals(myLocation.city)) {
+                                Map<String, String> oneCate = new TreeMap<String, String>();
+                                oneCate.put("0", "地区筛选");
+                                oneCate.put("1", "附近筛选");
+                                Map<String, String> twoCate_two = new TreeMap<String, String>();
+                                twoCate_two.put("1", "500米");
+                                twoCate_two.put("2", "1000米");
+                                twoCate_two.put("3", "2000米");
+                                twoCate_two.put("4", "3000米");
+
+                                twoCate.put("1", twoCate_two);
+                                twoCate.put("0", twoCate_one);
+                                cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
+                                isLoad = true;
+                                lat = location.latitude;
+                                lng = location.longitude;
+                            } else {
+                                Map<String, String> oneCate = new TreeMap<String, String>();
+                                oneCate.put("0", "地区筛选");
+                                oneCate.put("1", "附近筛选");
+                                Map<String, String> twoCate_two = new TreeMap<String, String>();
+                                twoCate_two.put("1000", "您当前城市与选择城市不一致,无法使用附近功能");
+                                twoCate.put("0", twoCate_one);
+                                twoCate.put("1", twoCate_two);
+                                cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
+                            }
+
+
                         }
                     });
 
@@ -230,6 +245,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
     private String itemAddressId;
     private String oldAddressId;
+    private String oldAddressStr;
     private int dis;
     private String itemSalaryId = "";
     private String itemJobfuncId;
@@ -261,7 +277,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         cityInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
         {
             @Override
-            public void onSelected(String firstLevelKey, final String secondLevelKey, String showString)
+            public void onSelected(String firstLevelKey, final String secondLevelKey, final String showString)
             {
                 if (firstLevelKey.equals("0")) {
                     ((BlueJobSearchResultAdapter) mAdapter).setCurType(BlueJobSearchResultAdapter.REGIONDIS);
@@ -269,35 +285,46 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                     if (isPro) {
                         if (secondLevelKey.equals("0")) {
                             itemAddressId = oldAddressId;
+                            etvMenu.setTitle(oldAddressStr, 0);
                         } else {
-                            mcontext.runOnUiThread(new Runnable()
+                            UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), new UpdateDataTaskUtils.OnGetDiscussCityInfoListener()
                             {
                                 @Override
-                                public void run()
+                                public void onGetDiscussCityInfo(final List<JSONObject> cityData, final int CityId)
                                 {
-                                    UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), BlueJobSearchResultActivity.this);
+                                    mcontext.runOnUiThread(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            BlueJobSearchResultActivity.this.onGetDiscussCityInfo(cityData, CityId);
+                                            isPro = false;
+                                            oldAddressStr = showString;
+                                            etvMenu.setTitle(showString, 0);
+                                            startRefresh();
+                                        }
+                                    });
+
                                 }
                             });
-                            isPro = false;
-                            oldAddressId = itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                            return;
+
                         }
                     } else {
                         if (secondLevelKey.equals("0")) {
                             itemAddressId = oldAddressId;
+                            etvMenu.setTitle(oldAddressStr, 0);
                         } else {
                             itemAddressId = cityData.get(Integer.parseInt(secondLevelKey)).optString("id");
+                            etvMenu.setTitle(showString, 0);
                         }
                     }
-                    etvMenu.setTitle(secondLevelKey.equals("0") ? "不限" : showString, 0);
 
                 } else {
                     ((BlueJobSearchResultAdapter) mAdapter).setCurType(BlueJobSearchResultAdapter.CURDIS);
                     isCur = true;
                     int i = Integer.parseInt(secondLevelKey);
                     switch (i) {
-                        case 0:
-                            dis = 0;
-                            break;
                         case 1:
                             dis = 500;
                             break;
@@ -395,8 +422,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     protected void initWeight()
     {
         setTopTitle("搜索结果");
-        mAdapter = new BlueJobSearchResultAdapter(this);
-        ((BlueJobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
+        mAdapter = new BlueJobSearchResultAdapter(this, this);
         initList();
         etvMenu = (ExpandTabView) findViewById(R.id.etv_menu);
         applyjobBut = findViewById(R.id.applyjob_but);
@@ -542,15 +568,13 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     protected void initData()
     {
         searchKeyWorld = getIntent().getStringExtra("searchKeyWorld");
-        itemAddress = getIntent().getStringExtra("itemAddress");
+        oldAddressStr = itemAddress = getIntent().getStringExtra("itemAddress");
         itemSalary = getIntent().getStringExtra("itemSalary");
         itemJobfunc = getIntent().getStringExtra("itemJobfunc");
         itemIndtype = getIntent().getStringExtra("itemIndtype");
         itemWorktime = getIntent().getStringExtra("itemWorktime");
         itemDegree = getIntent().getStringExtra("itemDegree");
         itemBenefit = getIntent().getStringExtra("itemBenefit");
-
-        oldAddressId = itemAddressId = getIntent().getStringExtra("itemAddressId");
         itemSalaryId = getIntent().getStringExtra("itemSalaryId");
         itemJobfuncId = getIntent().getStringExtra("itemJobfuncId");
         itemJobfuncPrantId = getIntent().getStringExtra("jobpraentId");
@@ -559,13 +583,24 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         itemDegreeId = getIntent().getStringExtra("itemDegreeId");
         itemBenefitId = getIntent().getStringExtra("itemBenefitId");
 
-        if (!StringUtil.isEmpty(itemAddressId) && itemAddressId.startsWith("-1")) {
+        String id = getIntent().getStringExtra("itemAddressId");
+
+        if (!StringUtil.isEmpty(id) && id.startsWith("-1")) {
             UpdateDataTaskUtils.selectProInfo(this, itemAddress, this);
             isPro = true;
         } else {
             isPro = false;
             UpdateDataTaskUtils.selectCityInfo(this, itemAddress, this);
         }
+
+
+        if (id.startsWith("-1")) {
+            oldAddressId = this.itemAddressId = id.split(SelectorItemView.spitStr)[1];
+        } else {
+            oldAddressId = this.itemAddressId = id;
+        }
+
+
         UpdateDataTaskUtils.selectSalaryInfo(this, this);
         UpdateDataTaskUtils.selectJobFun(this, this);
         UpdateDataTaskUtils.selecBluetMoreInfo(this, this);
@@ -579,7 +614,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         Message message = new Message();
         message.what = UpdateDataTaskUtils.CITYDATA;
         message.obj = cityData;
-        itemAddressId = CityId + "";
+        oldAddressId = itemAddressId = CityId + "";
         this.cityData = cityData;
         handler.sendMessage(message);
     }

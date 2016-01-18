@@ -65,8 +65,8 @@ public class UpdateDataTaskUtils
             {
                 LinkedHashMap<JSONObject, List<JSONObject>> linkedHashMap = new LinkedHashMap<JSONObject, List<JSONObject>>();
 
-                JSONArray jobFun1Array = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.JOBFUNCL1);
-                JSONObject jobFun2Object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBFUNCL2);
+                JSONArray jobFun1Array = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.BLUEJOBFUNCL1);
+                JSONObject jobFun2Object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.BLUEJOBFUNCL2);
 
 
                 for (int i = 0; i < jobFun1Array.length(); i++) {

@@ -86,6 +86,7 @@ public class Pro_type_adapter extends BaseAdapter
                 HashMap<String, Object> param = new HashMap<String, Object>();
                 Type item = getItem(position);
                 param.put("itemAddress", "合肥市");
+                param.put("itemAddressId", "1043");
                 param.put("itemJobfunc", item.getTypename());
                 param.put("itemJobfuncId", item.getId() + "");
                 param.put("jobpraentId", item.getPranetId() + "");

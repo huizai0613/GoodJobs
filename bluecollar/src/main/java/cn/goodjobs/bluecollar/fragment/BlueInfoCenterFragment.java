@@ -21,6 +21,7 @@ import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemApplyActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCheckActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCollectActivity;
+import cn.goodjobs.bluecollar.activity.InfoCenter.ItemInviteActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemMoreActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemSettingActivity;
@@ -175,7 +176,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         } else if (i == R.id.itemCollection) {
             intent.setClass(getActivity(), ItemCollectActivity.class);
         } else if (i == R.id.itemZhaoping) {
-            return;
+            intent.setClass(getActivity(), ItemInviteActivity.class);
         } else if (i == R.id.tv_entrust) {
             HashMap<String, Object> params = new HashMap<String, Object>();
             if (isEntrust) {
@@ -231,7 +232,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
         myHeadImage.setImageURI(uri);
         tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));
-        tvTime.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
+        tvTime.setText("更新时间  :  " + GoodJobsApp.getInstance().bluePersonalInfo.optString("updateDate"));
         itemChakan.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countCorpLook") + "条");
         itemShenqing.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countJobApply") + "条");
         itemCollection.setHint(GoodJobsApp.getInstance().bluePersonalInfo.optString("countBookmark") + "条");
