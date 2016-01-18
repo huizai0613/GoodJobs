@@ -110,11 +110,10 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                                 oneCate.put("0", "地区筛选");
                                 oneCate.put("1", "附近筛选");
                                 Map<String, String> twoCate_two = new TreeMap<String, String>();
-                                twoCate_two.put("0", "不限");
-                                twoCate_two.put("1", "500米");
-                                twoCate_two.put("2", "1000米");
-                                twoCate_two.put("3", "2000米");
-                                twoCate_two.put("4", "3000米");
+                                twoCate_two.put("0", "500米");
+                                twoCate_two.put("1", "1000米");
+                                twoCate_two.put("2", "2000米");
+                                twoCate_two.put("3", "3000米");
 
                                 twoCate.put("1", twoCate_two);
                                 twoCate.put("0", twoCate_one);
@@ -287,18 +286,15 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                     int i = Integer.parseInt(secondLevelKey);
                     switch (i) {
                         case 0:
-                            dis = 0;
-                            break;
-                        case 1:
                             dis = 500;
                             break;
-                        case 2:
+                        case 1:
                             dis = 1000;
                             break;
-                        case 3:
+                        case 2:
                             dis = 2000;
                             break;
-                        case 4:
+                        case 3:
                             dis = 3000;
                             break;
                     }
