@@ -504,28 +504,33 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                 Object.put("jobcity", itemAddressId);
         }
 
-        if (!StringUtil.isEmpty(itemIndtypeId))//行业
+        if (!StringUtil.isEmpty(itemIndtypeId) && !"-1".equals(itemIndtypeId))//行业
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
 
-        if (!StringUtil.isEmpty(itemJobfuncId))//岗位
-            Object.put("respon", itemJobfuncId.replaceAll("#", ","));
+        if (!StringUtil.isEmpty(itemJobfuncId) && !"-1".equals(itemIndtypeId))//岗位
 
-        if (!StringUtil.isEmpty(itemSalaryId))//薪资
+            if ("0".equals(itemJobfuncId)||itemJobfuncId.startsWith("-1")) {
+                Object.put("respon", itemJobfuncPrantId.replaceAll("#", ","));
+            } else {
+                Object.put("respon", itemJobfuncId.replaceAll("#", ","));
+            }
+
+        if (!StringUtil.isEmpty(itemSalaryId) && !"-1".equals(itemIndtypeId))//薪资
             Object.put("salary", itemSalaryId);
 
-        if (!StringUtil.isEmpty(itemWorktimeId))//工作时间
+        if (!StringUtil.isEmpty(itemWorktimeId) && !"-1".equals(itemIndtypeId))//工作时间
             Object.put("worktime", itemWorktimeId);
 
-        if (!StringUtil.isEmpty(itemDegreeId))//学历
+        if (!StringUtil.isEmpty(itemDegreeId) && !"-1".equals(itemIndtypeId))//学历
             Object.put("degree", itemDegreeId);
 
-        if (!StringUtil.isEmpty(jobTypeId))//工作性质
+        if (!StringUtil.isEmpty(jobTypeId) && !"-1".equals(itemIndtypeId))//工作性质
             Object.put("jobType", jobTypeId);
 
-        if (!StringUtil.isEmpty(itemBenefitId))//福利
+        if (!StringUtil.isEmpty(itemBenefitId) && !"-1".equals(itemIndtypeId))//福利
             Object.put("treatment", itemBenefitId);
 
-        if (!StringUtil.isEmpty(corpkindId))//企业性质
+        if (!StringUtil.isEmpty(corpkindId) && !"-1".equals(itemIndtypeId))//企业性质
             Object.put("corpkind", corpkindId);
 
         HttpUtil.post(URLS.API_BLUEJOB_Joblist, Object, this);

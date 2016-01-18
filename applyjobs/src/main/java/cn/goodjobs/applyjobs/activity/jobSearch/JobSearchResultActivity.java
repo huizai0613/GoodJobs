@@ -371,10 +371,10 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         moreInfo = new TwoLevelMenuView(mcontext);
         moreInfo.setIsMultiCheck(true);
         HashMap<String, String> multiCheckMap = new HashMap<>();
-        multiCheckMap.put("0", itemDegreeId == null ? "0" : itemDegreeId);
-        multiCheckMap.put("1", itemWorktimeId == null ? "0" : itemWorktimeId);
-        multiCheckMap.put("2", jobTypeId == null ? "0" : jobTypeId);
-        multiCheckMap.put("3", corpkindId == null ? "0" : corpkindId);
+        multiCheckMap.put("0", itemDegreeId == null || "-1".equals(itemDegreeId) ? "0" : itemDegreeId);
+        multiCheckMap.put("1", itemWorktimeId == null || "-1".equals(itemWorktimeId) ? "0" : itemWorktimeId);
+        multiCheckMap.put("2", jobTypeId == null || "-1".equals(jobTypeId) ? "0" : jobTypeId);
+        multiCheckMap.put("3", corpkindId == null || "-1".equals(corpkindId) ? "0" : corpkindId);
         moreInfo.setCheckMult(multiCheckMap);
 
         store = (TextView) findViewById(R.id.item_store);
@@ -446,25 +446,25 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                 Object.put("jobcity", itemAddressId);
         }
 
-        if (!StringUtil.isEmpty(itemIndtypeId))//行业
+        if (!StringUtil.isEmpty(itemIndtypeId) && !"-1".equals(itemIndtypeId))//行业
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
 
-        if (!StringUtil.isEmpty(itemJobfuncId))//岗位
+        if (!StringUtil.isEmpty(itemJobfuncId) && !"-1".equals(itemDegreeId))//岗位
             Object.put("respon", itemJobfuncId.replaceAll("#", ","));
 
-        if (!StringUtil.isEmpty(itemSalaryId))//薪资
+        if (!StringUtil.isEmpty(itemSalaryId) && !"-1".equals(itemSalaryId))//薪资
             Object.put("salary", itemSalaryId);
 
-        if (!StringUtil.isEmpty(itemWorktimeId))//工作时间
+        if (!StringUtil.isEmpty(itemWorktimeId) && !"-1".equals(itemWorktimeId))//工作时间
             Object.put("worktime", itemWorktimeId);
 
-        if (!StringUtil.isEmpty(itemDegreeId))//学历
+        if (!StringUtil.isEmpty(itemDegreeId) && !"-1".equals(itemDegreeId))//学历
             Object.put("degree", itemDegreeId);
 
-        if (!StringUtil.isEmpty(jobTypeId))//工作性质
+        if (!StringUtil.isEmpty(jobTypeId) && !"-1".equals(itemDegreeId))//工作性质
             Object.put("jobType", jobTypeId);
 
-        if (!StringUtil.isEmpty(corpkindId))//企业性质
+        if (!StringUtil.isEmpty(corpkindId) && !"-1".equals(itemDegreeId))//企业性质
             Object.put("corpkind", corpkindId);
 
         if (!StringUtil.isEmpty(searchName))//搜索器名称

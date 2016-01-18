@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
 import cn.goodjobs.bluecollar.activity.BlueSearchActivity;
 import cn.goodjobs.bluecollar.fragment.BlueJob.Fragment_pro_type;
 import cn.goodjobs.bluecollar.fragment.BlueJob.Type;
@@ -85,6 +86,16 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         }
     }
 
+
+    public void setSelectCate(String selectID)
+    {
+        int i1 = Integer.parseInt(selectID);
+        for (int i = 0; i < cates.size(); i++) {
+            if (cates.get(i).optInt("id") ==i1 ) {
+                toolsViews[i].performClick();
+            }
+        }
+    }
 
     /**
      * 动态生成显示items中的textview
