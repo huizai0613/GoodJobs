@@ -185,7 +185,7 @@ public class MainActivity extends BaseActivity {
         menuEntity.scale = 0.28f;
         menuEntity.title = "兼职";
         menuEntity.content = "自由灵活的“第二职业。”";
-        menuEntity.toClass = "cn.goodjobs.parttimejobs.activity.PartJobDetailsActivity";
+        menuEntity.toClass = "cn.goodjobs.parttimejobs.activity.PartTimeJobActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 45);
         menuEntity.imgH = DensityUtil.dip2px(this, 45);
         menuEntitys.add(menuEntity);
