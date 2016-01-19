@@ -10,4 +10,6 @@
     <string name="title_activity_personal_info">PersonalInfoActivity</string>
     <string name="title_activity_look">LookActivity</string>
     <string name="title_activity_fans">FansActivity</string>
+    <string name="title_activity_msg_list">MsgListActivity</string>
+    <string name="title_activity_msg_detail">MsgDetailActivity</string>
 </resources>

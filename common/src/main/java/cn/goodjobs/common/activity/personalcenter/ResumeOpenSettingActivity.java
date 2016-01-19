@@ -146,4 +146,5 @@ public class ResumeOpenSettingActivity extends BaseActivity {
             getDataFromServer();
         }
     }
+
 }

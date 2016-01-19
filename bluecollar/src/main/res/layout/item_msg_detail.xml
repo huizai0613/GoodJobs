@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-09-08"
+        android:textSize="9sp"
+        android:textColor="@color/white"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_small"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:background="@color/grey"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        android:orientation="horizontal">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/headPhoto1"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:fadeDuration="300"
+            android:clickable="true"
+            fresco:roundedCornerRadius="20dp"
+            fresco:placeholderImage="@drawable/img_personal_default"
+            fresco:placeholderImageScaleType="fitCenter"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvContent1"
+                android:textColor="@color/main_color"
+                android:text="你好呀"
+                android:background="@drawable/chat_send"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="@dimen/padding_small">
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:indeterminateDrawable="@drawable/iamge_progress"
+                        android:indeterminateDuration="1000"
+                        android:visibility="invisible"/>
+                    <ImageView
+                        android:id="@+id/imgReload"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/img_reload"
+                        android:scaleType="fitCenter"
+                        android:visibility="invisible"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvContent2"
+                    android:textColor="@color/white"
+                    android:text="你好呀"
+                    android:background="@drawable/chat_send_nor"
+                    android:visibility="invisible"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/headPhoto2"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            fresco:actualImageScaleType="focusCrop"
+            fresco:fadeDuration="300"
+            android:clickable="true"
+            fresco:roundedCornerRadius="20dp"
+            fresco:placeholderImage="@drawable/img_personal_default"
+            fresco:placeholderImageScaleType="fitCenter"/>
+    </LinearLayout>
+
+</LinearLayout>

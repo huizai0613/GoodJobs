@@ -169,6 +169,7 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
         }
         if ("1".equals(jsonObject.optString("smsHas"))) {
             btnMsg.setVisibility(View.VISIBLE);
+            btnMsg.setOnClickListener(this);
         } else {
             btnMsg.setVisibility(View.GONE);
         }
@@ -205,6 +206,11 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
             params.put("type", btnLook.getTag().toString());
             LoadingDialog.showDialog(this);
             HttpUtil.post(URLS.MAKEFRIEND_FOLLOW, params, this);
+        } else if (v.getId() == R.id.btnMsg) {
+            Intent intent = new Intent(this, MsgDetailActivity.class);
+            intent.putExtra("nickName", getIntent().getStringExtra("nickName"));
+            intent.putExtra("friendID", friendID);
+            startActivity(intent);
         }
     }
 }

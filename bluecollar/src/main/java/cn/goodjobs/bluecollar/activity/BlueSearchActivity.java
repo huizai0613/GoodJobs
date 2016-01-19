@@ -271,18 +271,23 @@ public class BlueSearchActivity extends BaseActivity
 
     private LinkedHashMap getSearchHashMapID()
     {
-        String addId = (String) itemAddress.getTag();
-        String jobId = (String) itemJobfunc.getTag();
+        String addId = (String) itemAddress.getSelectorIds();
+        String jobId = (String) itemJobfunc.getSelectorIds();
         String jobpraentId = (String) itemJobfunc.getSelectorPraentIds();
-        String indId = (String) itemBenefit.getTag();
-        String salId = (String) itemSalary.getTag();
+        String indId = (String) itemBenefit.getSelectorIds();
+        String salId = (String) itemSalary.getSelectorIds();
 
         LinkedHashMap hashMap = new LinkedHashMap();
         if (!StringUtil.isEmpty(addId)) {
             hashMap.put("itemAddressId", addId);
         }
         if (!StringUtil.isEmpty(jobId)) {
-            hashMap.put("itemJobfuncId", jobId);
+
+            if (jobId.startsWith("-1")) {
+                hashMap.put("itemJobfuncId", jobId.split(SelectorItemView.spitStr)[1]);
+            } else {
+                hashMap.put("itemJobfuncId", jobId);
+            }
             hashMap.put("jobpraentId", jobpraentId);
         }
         if (!StringUtil.isEmpty(indId)) {
@@ -401,6 +406,7 @@ public class BlueSearchActivity extends BaseActivity
                         } else {
                             etSearch.setText("");
                         }
+                        btnSearch.performClick();
                     }
                 });
                 View line = new View(this);

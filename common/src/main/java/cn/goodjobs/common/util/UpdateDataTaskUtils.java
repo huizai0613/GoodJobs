@@ -490,6 +490,9 @@ public class UpdateDataTaskUtils
                     for (Long key : data.keySet()) {
                         jb = new JSONObject();
                         for (Map.Entry<String, String> entries : data.get(key).entrySet()) {
+                            if ("不限".equals(entries.getValue())) {
+                                continue;
+                            }
                             jb.put(entries.getKey(), entries.getValue());
                         }
                         ja.put(key + "", jb);
@@ -727,7 +730,7 @@ public class UpdateDataTaskUtils
                     if (StringUtil.isEmpty(asString)) {
                         asString = readId + "";
                     } else {
-                        asString +="," + readId;
+                        asString += "," + readId;
                     }
                     LsSimpleCache.get(context).put(JsonMetaUtil.JOBREAD, asString);
                 }

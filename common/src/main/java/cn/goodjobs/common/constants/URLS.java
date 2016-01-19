@@ -131,6 +131,9 @@ public class URLS {
     public final static String MAKEFRIEND_FRIEND = "Friend/Friendshow";      //个人主页详情
     public final static String MAKEFRIEND_LOOKLIST = "Friend/Followlist";      //关注列表
     public final static String MAKEFRIEND_FANSLIST = "Friend/Fanslist";      //粉丝列表
+    public final static String MAKEFRIEND_SMSLIST = "Friend/Smslist";      //聊天列表
+    public final static String MAKEFRIEND_SMSSHOW = "Friend/Smsshow";      //私信详情
+    public final static String MAKEFRIEND_SMSSEND = "Friend/Smssend";      //交友私信发送操作
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件

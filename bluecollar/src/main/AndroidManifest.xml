@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.goodjobs.bluecollar">
+    package="cn.goodjobs.bluecollar" >
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
         <activity
             android:name=".activity.BlueCollarActivity"
             android:label="@string/app_name"
@@ -12,10 +12,6 @@
         <activity
             android:name=".activity.makefriend.AddTrendActivity"
             android:label="@string/title_activity_add_trend" />
-        <activity
-            android:name=".activity.InfoCenter.ItemSettingActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTask" />
         <activity
             android:name=".activity.InfoCenter.ItemResumeActivity"
             android:label="@string/app_name"
@@ -38,18 +34,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InfoCenter.ItemCollectActivity"
-            android:screenOrientation="portrait"></activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BlueJobDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BlueComplainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BlueJobCompanyDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.makefriend.MakeFriendPersonalInfoActivity"
             android:label="@string/title_activity_make_friend_personal_info"
@@ -58,27 +53,48 @@
             android:name=".activity.makefriend.TrendDetailActivity"
             android:label="@string/title_activity_trend_detail"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden">
+
+        </activity>
         <activity
             android:name=".activity.makefriend.PersonalInfoActivity"
             android:label="@string/title_activity_personal_info"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".activity.makefriend.OtherPersonalInfoActivity"
             android:label="@string/title_activity_personal_info"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".activity.makefriend.LookActivity"
             android:label="@string/title_activity_look"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".activity.makefriend.FansActivity"
             android:label="@string/title_activity_fans"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.makefriend.MsgListActivity"
+            android:label="@string/title_activity_msg_list"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.makefriend.MsgDetailActivity"
+            android:label="@string/title_activity_msg_detail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
         <activity
             android:name=".activity.InfoCenter.ItemInviteActivity"
             android:label="@string/title_activity_fans"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

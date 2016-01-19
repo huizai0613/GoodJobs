@@ -230,7 +230,11 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
                 id.append(spitStr);
             }
             if (selectorEntity.id.startsWith(allId)) {
-                sb.append(selectorEntity.parentName);
+                if (StringUtil.isEmpty(selectorEntity.parentName)) {
+                    sb.append(selectorEntity.name);
+                } else {
+                    sb.append(selectorEntity.parentName);
+                }
             } else {
                 sb.append(selectorEntity.name);
             }
