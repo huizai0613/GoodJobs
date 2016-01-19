@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import cn.goodjobs.applyjobs.activity.ApplyJobsActivity;
-import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
-import cn.goodjobs.campusjobs.activity.CampusActivity;
 import cn.goodjobs.client.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
@@ -19,8 +16,6 @@ import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.MetaDataUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
-import cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity;
-import cn.goodjobs.parttimejobs.activity.PartTimeJobActivity;
 
 public class LauncherActivity extends BaseActivity {
 
@@ -128,15 +123,15 @@ public class LauncherActivity extends BaseActivity {
                 intent.setClass(LauncherActivity.this, MainActivity.class);
             } else {
                 if (defaultModule.equals(Constant.module.ApplyJobs.toString())) {
-                    intent.setClass(LauncherActivity.this, ApplyJobsActivity.class);
+                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
                 } else if (defaultModule.equals(Constant.module.Xiaoyuan.toString())) {
-                    intent.setClass(LauncherActivity.this, CampusActivity.class);
+                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.campusjobs.activity.CampusActivity");
                 } else if (defaultModule.equals(Constant.module.Liepin.toString())) {
-                    intent.setClass(LauncherActivity.this, HeadHuntingActivity.class);
+                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity");
                 } else if (defaultModule.equals(Constant.module.Jianzhi.toString())) {
-                    intent.setClass(LauncherActivity.this, PartTimeJobActivity.class);
+                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.parttimejobs.activity.PartTimeJobActivity");
                 } else if (defaultModule.equals(Constant.module.Lanling.toString())) {
-                    intent.setClass(LauncherActivity.this, BlueCollarActivity.class);
+                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.bluecollar.activity.BlueCollarActivity");
                 }
             }
             startActivity(intent);
