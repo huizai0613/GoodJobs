@@ -129,15 +129,15 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
 
         Drawable iconPhone = getResources().getDrawable(R.mipmap.phone);
-        iconPhone.setBounds(0, 0, DensityUtil.dip2px(getContext(), 15), DensityUtil.dip2px(getContext(), 15));
+        iconPhone.setBounds(0, 0, DensityUtil.dip2px(mActivity, 15), DensityUtil.dip2px(mActivity, 15));
         jobPhone.setCompoundDrawables(null, null, iconPhone, null);
 
         Drawable iconStore = getResources().getDrawable(R.drawable.icon_wite_store);
-        iconStore.setBounds(0, 0, DensityUtil.dip2px(getContext(), 30), DensityUtil.dip2px(getContext(), 30));
+        iconStore.setBounds(0, 0, DensityUtil.dip2px(mActivity, 30), DensityUtil.dip2px(mActivity, 30));
         jobStore.setCompoundDrawables(null, iconStore, null, null);
 
         Drawable iconShare = getResources().getDrawable(R.drawable.share);
-        iconShare.setBounds(0, 0, DensityUtil.dip2px(getContext(), 30), DensityUtil.dip2px(getContext(), 30));
+        iconShare.setBounds(0, 0, DensityUtil.dip2px(mActivity, 30), DensityUtil.dip2px(mActivity, 30));
         jobShare.setCompoundDrawables(null, iconShare, null, null);
 
         jobOtherBox = inflate.findViewById(R.id.job_other_box);
@@ -196,12 +196,12 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
             lp.topMargin = 5;
             lp.bottomMargin = 5;
             for (int i = 0; i < treatmentArr.length(); i++) {
-                TextView view = new TextView(getContext());
+                TextView view = new TextView(mActivity);
                 view.setText(treatmentArr.optString(i));
                 view.setGravity(Gravity.CENTER);
                 view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
-                view.setPadding(DensityUtil.dip2px(getContext(), 10), 0, DensityUtil.dip2px(getContext(), 10), 0);
-                view.setHeight(DensityUtil.dip2px(getContext(), 25));
+                view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
+                view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
                 view.setTextColor(getResources().getColor(R.color.light_color));
                 jobBright.addView(view, lp);
@@ -227,7 +227,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
         lat = dataJson.optString("lat");
         if (!StringUtil.isEmpty(lng) && !StringUtil.isEmpty(lat)) {
             Drawable iconMap = getResources().getDrawable(R.drawable.mapm);
-            iconMap.setBounds(0, 0, DensityUtil.dip2px(getContext(), 15), DensityUtil.dip2px(getContext(), 15));
+            iconMap.setBounds(0, 0, DensityUtil.dip2px(mActivity, 15), DensityUtil.dip2px(mActivity, 15));
             jobAddress.setCompoundDrawables(null, null, iconMap, null);
             jobAddress.setOnClickListener(this);
         }
@@ -260,7 +260,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
                 final int curPosition = i;
 
-                View inflate = View.inflate(getContext(), R.layout.item_bluejob, null);
+                View inflate = View.inflate(mActivity, R.layout.item_bluejob, null);
 
                 ExtendedTouchView itemCheck = ViewHolderUtil.get(inflate, R.id.item_check);
                 final CheckBox itemC = ViewHolderUtil.get(inflate, R.id.item_c);
@@ -285,8 +285,8 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                 String cityName = data.optString("cityName");
 
                 if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && activity.myLocation != null) {
-                    Drawable iconDis = getContext().getResources().getDrawable(R.mipmap.icon_bluedis);
-                    iconDis.setBounds(0, 0, DensityUtil.dip2px(getContext(), 25), DensityUtil.dip2px(getContext(), 25));
+                    Drawable iconDis = mActivity.getResources().getDrawable(R.mipmap.icon_bluedis);
+                    iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 25), DensityUtil.dip2px(mActivity, 25));
                     item_dis.setCompoundDrawables(iconDis, null, null, null);
 
 
@@ -324,9 +324,9 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                 item_treatment_box.removeAllViews();
                 if (treatment != null) {
                     LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    int i1 = DensityUtil.dip2px(getContext(), 2);
+                    int i1 = DensityUtil.dip2px(mActivity, 2);
                     for (int j = 0; j < (treatment.length() > 3 ? 3 : treatment.length()); j++) {
-                        TextView item = new TextView(getContext());
+                        TextView item = new TextView(mActivity);
                         item.setPadding(i1, i1, i1, i1);
                         item.setBackgroundResource(R.drawable.bg_welfare);
                         item.setGravity(Gravity.CENTER);
@@ -337,11 +337,11 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                         }
 
                         if (j == 1) {
-                            p.rightMargin = p.leftMargin = DensityUtil.dip2px(getContext(), 2);
+                            p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
                         }
 
                         item.setTextColor(Color.parseColor("#6bbd00"));
-                        item.setTextSize(TypedValue.COMPLEX_UNIT_PX, getContext().getResources().getDimension(R.dimen.text_small));
+                        item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_small));
                         item_treatment_box.addView(item, p);
                     }
                 }
@@ -364,7 +364,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 //                }
 //                String charSequence = builder.subSequence(0, builder.length() - 1).toString();
                         param.put("IDS", "1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1");
-                        JumpViewUtil.openActivityAndParam(getContext(), BlueJobDetailActivity.class, param);
+                        JumpViewUtil.openActivityAndParam(mActivity, BlueJobDetailActivity.class, param);
                     }
                 });
 
@@ -432,13 +432,13 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                 @Override
                 public void onFailure(int statusCode, String tag)
                 {
-                    TipsUtil.show(getContext(), "收藏失败");
+                    TipsUtil.show(mActivity, "收藏失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data)
                 {
-                    TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
@@ -464,13 +464,13 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                 @Override
                 public void onFailure(int statusCode, String tag)
                 {
-                    TipsUtil.show(getContext(), "简历投递失败");
+                    TipsUtil.show(mActivity, "简历投递失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data)
                 {
-                    TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
@@ -487,15 +487,15 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("corpID", memCorpID);
-            JumpViewUtil.openActivityAndParam(getContext(), BlueJobCompanyDetailActivity.class, param);
+            JumpViewUtil.openActivityAndParam(mActivity, BlueJobCompanyDetailActivity.class, param);
 
         } else if (i == R.id.job_share) {
             //分享
         } else if (i == R.id.job_phone) {
-            PhoneUtils.makeCall(jobPhone.getText().toString(), getContext());
+            PhoneUtils.makeCall(jobPhone.getText().toString(), mActivity);
         } else if (i == R.id.job_address) {
             //进入地图
-            LsMapActivity.openMap(getContext(), Double.parseDouble(lng), Double.parseDouble(lat),
+            LsMapActivity.openMap(mActivity, Double.parseDouble(lng), Double.parseDouble(lat),
                     jobDetailJson.optString("corpName"), jobDetailJson.optString("address"));
         }
 
