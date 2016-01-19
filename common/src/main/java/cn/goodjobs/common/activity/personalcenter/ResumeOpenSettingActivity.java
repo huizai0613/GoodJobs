@@ -29,7 +29,6 @@ public class ResumeOpenSettingActivity extends BaseActivity {
     String status; // y 公开   m 部分隐藏   n 完全隐藏
     OpenSetAdapter openSetAdapter;
     int delPosition;
-    boolean isUpdate; // 是否修改
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +52,6 @@ public class ResumeOpenSettingActivity extends BaseActivity {
                 } else {
                     status = "n";
                 }
-                isUpdate = true;
                 setStatus();
             }
         });
@@ -94,6 +92,9 @@ public class ResumeOpenSettingActivity extends BaseActivity {
         } else if (tag.equals(URLS.API_USER_OPENDEL)) {
             openSetAdapter.removeItem(delPosition);
             openSetAdapter.notifyDataSetChanged();
+        } else if (tag.equals(URLS.API_USER_OPENUPDATE)) {
+            setResult(RESULT_OK);
+            finish();
         }
 
     }
@@ -130,12 +131,12 @@ public class ResumeOpenSettingActivity extends BaseActivity {
         startActivityForResult(intent, 111);
     }
 
-    @Override
-    protected void back() {
-        if (isUpdate) {
-            setResult(RESULT_OK);
-        }
-        super.back();
+    // 保存更改
+    public void doSave(View view) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("openStatus", status);
+        LoadingDialog.showDialog(ResumeOpenSettingActivity.this);
+        HttpUtil.post(URLS.API_USER_OPENUPDATE, params, ResumeOpenSettingActivity.this);
     }
 
     @Override

@@ -80,6 +80,7 @@ public class URLS {
     public final static String API_CV_SAVE_STU = "cv/pracsave";
     public final static String API_CV_EDIT_STU = "cv/prac";
     public final static String API_CV_DEL_STU = "cv/pracdel";
+    public final static String API_USER_OPENUPDATE = "user/openupdate";
     public final static String API_USER_OPENSET = "user/openset";
     public final static String API_USER_OPENADD = "user/openadd";
     public final static String API_USER_OPENSEARCH = "user/opensearch";
