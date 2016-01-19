@@ -110,7 +110,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
 
                         LinkedHashMap searchHashMap = getSearchHashMap();
                         //跳转搜索列表
-                        JumpViewUtil.openActivityAndParam(getActivity(), JobSearchResultActivity.class, searchHashMap);
+                        JumpViewUtil.openActivityAndParam(mActivity, JobSearchResultActivity.class, searchHashMap);
                     }
                 });
             } else {
@@ -147,7 +147,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
 
     private void getDataFromServer()
     {
-        LoadingDialog.showDialog(getActivity());
+        LoadingDialog.showDialog(mActivity);
         HttpUtil.post(URLS.API_IMG_AD, this);
     }
 
@@ -183,7 +183,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
     {
         LogUtil.info("onActivityCreated");
         super.onActivityCreated(savedInstanceState);
-        LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
+        LocationUtil.newInstance(mActivity.getApplication()).startLoction(new MyLocationListener()
         {
             @Override
             public void loaction(MyLocation location)
@@ -248,12 +248,12 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             {
                 add = itemAddress.getText();
                 if (StringUtil.isEmpty(add)) {
-                    TipsUtil.show(getActivity(), "请选择工作地点");
+                    TipsUtil.show(mActivity, "请选择工作地点");
                     return;
                 }
                 LinkedHashMap hashMap = getSearchHashMap();
 
-                JumpViewUtil.openActivityAndParam(getContext(), JobSearchNameActivity.class, hashMap);
+                JumpViewUtil.openActivityAndParam(mActivity, JobSearchNameActivity.class, hashMap);
             }
         });
         btnSearch.setOnClickListener(this);
@@ -270,13 +270,13 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             }
             add = itemAddress.getText();
             if (StringUtil.isEmpty(add)) {
-                TipsUtil.show(getActivity(), "请选择工作地点");
+                TipsUtil.show(mActivity, "请选择工作地点");
                 return;
             }
             LinkedHashMap searchHashMap = getSearchHashMap();
             saveSearchLock(history, searchHashMap);
             //跳转搜索列表
-            JumpViewUtil.openActivityAndParam(getActivity(), JobSearchResultActivity.class, searchHashMap);
+            JumpViewUtil.openActivityAndParam(mActivity, JobSearchResultActivity.class, searchHashMap);
         }
     }
 
@@ -304,7 +304,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateHistory(getActivity(), saveData, UpdateDataTaskUtils.SEARCHJOB);
+        UpdateDataTaskUtils.updateHistory(mActivity, saveData, UpdateDataTaskUtils.SEARCHJOB);
     }
 
     private LinkedHashMap getSearchHashMap()
@@ -359,18 +359,18 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
     {
         LogUtil.info("HomeFragment--------setUserVisibleHint:" + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && getActivity() != null) {
-            UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
+        if (isVisibleToUser && mActivity != null) {
+            UpdateDataTaskUtils.getHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB, this);
         }
 
         if (isVisibleToUser && !isLoad) {
-            UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
-            LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
+            UpdateDataTaskUtils.getHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB, this);
+            LocationUtil.newInstance(mActivity.getApplication()).startLoction(new MyLocationListener()
             {
                 @Override
                 public void loaction(final MyLocation location)
                 {
-                    getActivity().runOnUiThread(new Runnable()
+                    mActivity.runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run()
@@ -394,13 +394,13 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
     {
         super.onResume();
         if (!isLoad) {
-            UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
-            LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
+            UpdateDataTaskUtils.getHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB, this);
+            LocationUtil.newInstance(mActivity.getApplication()).startLoction(new MyLocationListener()
             {
                 @Override
                 public void loaction(final MyLocation location)
                 {
-                    getActivity().runOnUiThread(new Runnable()
+                    mActivity.runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run()
@@ -417,7 +417,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
                 }
             });
         }
-        UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
+        UpdateDataTaskUtils.getHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB, this);
     }
 
     @Override

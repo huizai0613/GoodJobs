@@ -72,7 +72,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         tools = (LinearLayout) view.findViewById(R.id.tools);
         jobsPager = (ViewPager) view.findViewById(R.id.jobs_pager);
         jobsearchBut.setOnClickListener(this);
-        UpdateDataTaskUtils.selectJobFun(getActivity(), this);
+        UpdateDataTaskUtils.selectJobFun(mActivity, this);
     }
 
 
@@ -82,7 +82,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         super.onClick(v);
         int id = v.getId();
         if (id == R.id.jobsearch_but) {
-            JumpViewUtil.openActivityAndParam(getContext(), BlueSearchActivity.class, new HashMap<String, Object>());
+            JumpViewUtil.openActivityAndParam(mActivity, BlueSearchActivity.class, new HashMap<String, Object>());
         }
     }
 
@@ -107,10 +107,10 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
         views = new View[JobFunData.size()];
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                (LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(getContext(), 41));
+                (LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(mActivity, 41));
 
         for (int i = 0; i < cates.size(); i++) {
-            View view = View.inflate(getActivity(), R.layout.item_b_top_nav_layout, null);
+            View view = View.inflate(mActivity, R.layout.item_b_top_nav_layout, null);
             view.setId(i);
             view.setOnClickListener(toolsItemListener);
             TextView textView = (TextView) view.findViewById(R.id.text);
@@ -121,7 +121,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
             views[i] = view;
         }
 
-        String dataFromLoacl = SharedPrefUtil.getDataFromLoacl(getContext(), LASTSELECT);
+        String dataFromLoacl = SharedPrefUtil.getDataFromLoacl(mActivity, LASTSELECT);
         if (!StringUtil.isEmpty(dataFromLoacl)) {
             toolsViews[Integer.parseInt(dataFromLoacl)].performClick();
         } else {
@@ -220,7 +220,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
                 t.setPranetId(jsonObject.optInt("id"));
                 types.add(t);
             }
-            fragment.setTypeList(getContext(), types);
+            fragment.setTypeList(mActivity, types);
 
             return fragment;
         }
@@ -263,7 +263,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
             cates2Child.add(entry.getValue());
         }
 
-        getActivity().runOnUiThread(new Runnable()
+        mActivity.runOnUiThread(new Runnable()
         {
             @Override
             public void run()

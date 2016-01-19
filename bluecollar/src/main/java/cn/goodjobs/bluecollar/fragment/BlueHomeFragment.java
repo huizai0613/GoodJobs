@@ -82,7 +82,7 @@ public class BlueHomeFragment extends BaseFragment
 
     private void getDataFromServer()
     {
-        LoadingDialog.showDialog(getActivity());
+        LoadingDialog.showDialog(mActivity);
 
         HashMap<String, Object> param = new HashMap<>();
         if (myLocation != null) {
@@ -98,8 +98,8 @@ public class BlueHomeFragment extends BaseFragment
     {
         LogUtil.info("onActivityCreated");
         super.onActivityCreated(savedInstanceState);
-        activity = (BlueCollarActivity) getActivity();
-        LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
+        activity = (BlueCollarActivity) mActivity;
+        LocationUtil.newInstance(mActivity.getApplication()).startLoction(new MyLocationListener()
         {
             @Override
             public void loaction(MyLocation location)
@@ -159,16 +159,18 @@ public class BlueHomeFragment extends BaseFragment
         if (data != null) {
             jobBox.removeAllViews();
             int length = data.length();
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < length; i++) {
-                builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
-            }
-            String charSequence = builder.subSequence(0, builder.length() - 1).toString();
+            if (length > 0) {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < length; i++) {
+                    builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
+                }
+                String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
-            for (int i = 0; i < length; i++) {
-                View inflate = View.inflate(getContext(), R.layout.item_bluejob, null);
-                initnterestView(data.optJSONObject(i), inflate, charSequence, i);
-                jobBox.addView(inflate);
+                for (int i = 0; i < length; i++) {
+                    View inflate = View.inflate(mActivity, R.layout.item_bluejob, null);
+                    initnterestView(data.optJSONObject(i), inflate, charSequence, i);
+                    jobBox.addView(inflate);
+                }
             }
         }
     }
@@ -200,8 +202,8 @@ public class BlueHomeFragment extends BaseFragment
 
 
         if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && myLocation != null) {
-            Drawable iconDis = getContext().getResources().getDrawable(R.mipmap.icon_bluedis);
-            iconDis.setBounds(0, 0, DensityUtil.dip2px(getContext(), 25), DensityUtil.dip2px(getContext(), 25));
+            Drawable iconDis = mActivity.getResources().getDrawable(R.mipmap.icon_bluedis);
+            iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 25), DensityUtil.dip2px(mActivity, 25));
             item_dis.setCompoundDrawables(iconDis, null, null, null);
             double distance = GeoUtils.
                     distance(myLocation.latitude, myLocation.longitude, Double.parseDouble(mapLat), Double.parseDouble(mapLng));
@@ -236,10 +238,10 @@ public class BlueHomeFragment extends BaseFragment
 
         if (treatment != null) {
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            int i1 = DensityUtil.dip2px(getContext(), 2);
+            int i1 = DensityUtil.dip2px(mActivity, 2);
             for (int i = 0; i < (treatment.length() > 3 ? 3 : treatment.length()); i++) {
 
-                TextView item = new TextView(getContext());
+                TextView item = new TextView(mActivity);
                 item.setPadding(i1, i1, i1, i1);
                 item.setBackgroundResource(R.drawable.bg_welfare);
                 item.setGravity(Gravity.CENTER);
@@ -250,7 +252,7 @@ public class BlueHomeFragment extends BaseFragment
                 }
 
                 if (i == 1) {
-                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(getContext(), 2);
+                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
                 }
 
                 item.setTextColor(Color.parseColor("#6bbd00"));
@@ -288,7 +290,7 @@ public class BlueHomeFragment extends BaseFragment
                 HashMap<String, Object> param = new HashMap<>();
                 param.put("POSITION", position);
                 param.put("IDS", ids);
-                JumpViewUtil.openActivityAndParam(getContext(), BlueJobDetailActivity.class, param);
+                JumpViewUtil.openActivityAndParam(mActivity, BlueJobDetailActivity.class, param);
             }
         });
 
@@ -300,52 +302,54 @@ public class BlueHomeFragment extends BaseFragment
             historyLayout.removeAllViews();
             historyLayout2.removeAllViews();
             int length = data.length();
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < length; i++) {
-                builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
-            }
-            String charSequence = builder.subSequence(0, builder.length() - 1).toString();
-
-
-            historyLayout.setVisibility(View.VISIBLE);
-            int screenW = DensityUtil.getScreenW(getContext());
-            int width = historyLayout.getWidth();
-            int itemW = 0;
-            int padding = (int) getResources().getDimension(R.dimen.padding_default);
-            if (width == 0) {
-                itemW = (screenW - 4 * padding) / 3;
-            } else {
-                itemW = (width - 2 * padding) / 3;
-            }
-
-            LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
-            LinearLayout.LayoutParams paramM = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
-            paramM.leftMargin = padding;
-            paramM.rightMargin = padding;
-            for (int i = 0; i < 3; i++) {
-                View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
-                initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
-                if (i == 1) {
-                    historyLayout.addView(inflate, paramM);
-                } else {
-                    historyLayout.addView(inflate, param);
+            if (length > 0) {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < length; i++) {
+                    builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
                 }
-            }
+                String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
-            if (length > 3) {
-                historyLayout2.setVisibility(View.VISIBLE);
-                for (int i = 3; i < 6; i++) {
-                    View inflate = View.inflate(getContext(), R.layout.item_bluehome_ad, null);
+
+                historyLayout.setVisibility(View.VISIBLE);
+                int screenW = DensityUtil.getScreenW(mActivity);
+                int width = historyLayout.getWidth();
+                int itemW = 0;
+                int padding = (int) getResources().getDimension(R.dimen.padding_default);
+                if (width == 0) {
+                    itemW = (screenW - 4 * padding) / 3;
+                } else {
+                    itemW = (width - 2 * padding) / 3;
+                }
+
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams paramM = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+                paramM.leftMargin = padding;
+                paramM.rightMargin = padding;
+                for (int i = 0; i < 3; i++) {
+                    View inflate = View.inflate(mActivity, R.layout.item_bluehome_ad, null);
                     initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
-                    if (i == 4) {
-                        historyLayout2.addView(inflate, paramM);
+                    if (i == 1) {
+                        historyLayout.addView(inflate, paramM);
                     } else {
-                        historyLayout2.addView(inflate, param);
+                        historyLayout.addView(inflate, param);
                     }
                 }
+
+                if (length > 3) {
+                    historyLayout2.setVisibility(View.VISIBLE);
+                    for (int i = 3; i < 6; i++) {
+                        View inflate = View.inflate(mActivity, R.layout.item_bluehome_ad, null);
+                        initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
+                        if (i == 4) {
+                            historyLayout2.addView(inflate, paramM);
+                        } else {
+                            historyLayout2.addView(inflate, param);
+                        }
+                    }
+                }
+            } else {
+                historyLayout.setVisibility(View.GONE);
             }
-        } else {
-            historyLayout.setVisibility(View.GONE);
         }
     }
 
@@ -370,7 +374,7 @@ public class BlueHomeFragment extends BaseFragment
                 HashMap<String, Object> param = new HashMap<>();
                 param.put("POSITION", position);
                 param.put("IDS", ids);
-                JumpViewUtil.openActivityAndParam(getContext(), BlueJobDetailActivity.class, param);
+                JumpViewUtil.openActivityAndParam(mActivity, BlueJobDetailActivity.class, param);
             }
         });
     }
@@ -380,8 +384,8 @@ public class BlueHomeFragment extends BaseFragment
         setTopTitle(view, "蓝领招聘");
         ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
         backBtn.getLayoutParams().width = RelativeLayout.LayoutParams.WRAP_CONTENT;
-        ((RelativeLayout.LayoutParams) backBtn.getLayoutParams()).leftMargin = DensityUtil.dip2px(getContext(), 10);
-        ((RelativeLayout.LayoutParams) backBtn.getLayoutParams()).rightMargin = DensityUtil.dip2px(getContext(), 5);
+        ((RelativeLayout.LayoutParams) backBtn.getLayoutParams()).leftMargin = DensityUtil.dip2px(mActivity, 10);
+        ((RelativeLayout.LayoutParams) backBtn.getLayoutParams()).rightMargin = DensityUtil.dip2px(mActivity, 5);
         backBtn.setImageResource(R.mipmap.icon_blue_home_logo);
         adViewPager = (AutoScrollViewPager) view.findViewById(R.id.adViewPager);
 
@@ -401,7 +405,7 @@ public class BlueHomeFragment extends BaseFragment
         super.onClick(v);
         int i = v.getId();
         if (i == R.id.blue_search_but) {
-            JumpViewUtil.openActivityAndParam(getContext(), BlueSearchActivity.class, new HashMap<String, Object>());
+            JumpViewUtil.openActivityAndParam(mActivity, BlueSearchActivity.class, new HashMap<String, Object>());
         } else if (i == R.id.applyjob_but) {
             //申请职位
             if (selectJobIds.size() > 0) {
@@ -411,7 +415,7 @@ public class BlueHomeFragment extends BaseFragment
                     builder.append(selectJobId + ",");
                 }
                 String ids = builder.subSequence(0, builder.length() - 1).toString();
-                if (!GoodJobsApp.getInstance().checkLogin(getActivity()))
+                if (!GoodJobsApp.getInstance().checkLogin(mActivity))
                     return;
 
                 HashMap<String, Object> param = new HashMap<>();
@@ -422,13 +426,13 @@ public class BlueHomeFragment extends BaseFragment
                     @Override
                     public void onFailure(int statusCode, String tag)
                     {
-                        TipsUtil.show(getContext(), "简历投递失败");
+                        TipsUtil.show(mActivity, "简历投递失败");
                     }
 
                     @Override
                     public void onSuccess(String tag, Object data)
                     {
-                        TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                        TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                     }
 
                     @Override
@@ -442,7 +446,7 @@ public class BlueHomeFragment extends BaseFragment
                     }
                 });
             } else {
-                TipsUtil.show(getContext(), "您未选择职位");
+                TipsUtil.show(mActivity, "您未选择职位");
             }
 
 
