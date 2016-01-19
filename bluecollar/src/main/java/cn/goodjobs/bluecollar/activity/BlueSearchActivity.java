@@ -365,6 +365,7 @@ public class BlueSearchActivity extends BaseActivity
 
 
                         String itemJobfuncStr = value.get("itemJobfunc");
+                        String jobpraentId = value.get("jobpraentId");
                         String itemBenefitStr = value.get("itemBenefit");
                         String itemSalaryStr = value.get("itemSalary");
 
@@ -378,6 +379,7 @@ public class BlueSearchActivity extends BaseActivity
 
                         if (!StringUtil.isEmpty(itemJobfuncStr)) {
                             itemJobfunc.setSelectorIds(itemJobfuncId);
+                            itemJobfunc.setSpID(jobpraentId);
                             itemJobfunc.setText(itemJobfuncStr);
                         } else {
                             itemJobfunc.setSelectorIds("");
