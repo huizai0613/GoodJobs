@@ -50,6 +50,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     Uri fileUri;
     RelativeLayout headPhotoLayout;
     SimpleDraweeView headPhoto;
+    private Intent intent;
     private RadioGroup sexGroup;
     private LinearLayout llBottom;
     private SelectorItemView itemWant, itemAddress, itemDegree, itemCheckIn, itemWorkAddress, itemSalary, itemJobFunc, itemWorktime;
@@ -74,6 +75,8 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     @Override
     protected void initWeight() {
         setTopTitle("我的简历");
+
+        intent = new Intent();
 
         headPhotoLayout = (RelativeLayout) findViewById(R.id.headPhotoLayout);
         headPhoto = (SimpleDraweeView) findViewById(R.id.headPhoto);
@@ -158,6 +161,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 params.put("autoSend", autoSend);
                 LoadingDialog.showDialog(this);
                 HttpUtil.post(URLS.API_JOB_BlueBasicsave, params, this);
+                this.setResult(22, intent);
             } else {
                 HashMap<String, Object> params = new HashMap<String, Object>();
                 params.put("cvType", 0);
@@ -176,6 +180,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 params.put("selfIntro", selfIntro);
                 LoadingDialog.showDialog(this);
                 HttpUtil.post(URLS.API_JOB_BlueBasicsave, params, this);
+                this.setResult(22, intent);
             }
         }
     }
@@ -201,6 +206,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         }
         LoadingDialog.showDialog(this);
         HttpUtil.uploadFile(URLS.API_JOB_CvPhotosave, URLS.API_JOB_CvPhotosave, requestParams, this);
+        this.setResult(22, intent);
     }
 
     private void setDataToView(JSONObject jsonObject) {

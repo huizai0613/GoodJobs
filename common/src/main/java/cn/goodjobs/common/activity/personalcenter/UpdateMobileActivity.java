@@ -24,7 +24,7 @@ import cn.goodjobs.common.view.searchItem.InputItemView;
 
 public class UpdateMobileActivity extends BaseActivity {
 
-    InputItemView itemOldMobile,itemVerCode, itemImgCode;
+    InputItemView itemOldMobile, itemVerCode, itemImgCode;
     TextView btnVerCode;
     ImageView imgCode;
     int min = 60; // 60秒后获取验证码
@@ -84,7 +84,7 @@ public class UpdateMobileActivity extends BaseActivity {
             TipsUtil.show(this, "您输入的手机号码格式不正确");
             return;
         }
-        if (itemImgCode.getText().toLowerCase().equals(VerCode.getInstance().getCode().toLowerCase())) {
+        if (!itemImgCode.getText().toLowerCase().equals(VerCode.getInstance().getCode().toLowerCase())) {
             TipsUtil.show(this, "您的图形验证码输入有误");
             return;
         }
@@ -117,7 +117,7 @@ public class UpdateMobileActivity extends BaseActivity {
             btnVerCode.setEnabled(false);
             mHandler.post(verCodeRun);
         } else if (tag.equals(URLS.API_USER_MOBILECHECK1)) {
-            TipsUtil.show(this, data+"");
+            TipsUtil.show(this, data + "");
             LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
             loginInfo.userName = itemOldMobile.getText();
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
@@ -130,7 +130,7 @@ public class UpdateMobileActivity extends BaseActivity {
         @Override
         public void run() {
             if (min > 0) {
-                btnVerCode.setText((min--)+"秒后重新获取");
+                btnVerCode.setText((min--) + "秒后重新获取");
                 mHandler.postDelayed(this, 1000);
             } else {
                 min = 60;
