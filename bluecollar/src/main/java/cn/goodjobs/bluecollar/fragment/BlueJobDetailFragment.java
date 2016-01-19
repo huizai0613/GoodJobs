@@ -254,7 +254,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
             int length = list.length();
             if (length > 0) {
                 for (int i = 0; i < length; i++) {
-                    builder.append(list.optJSONObject(i).optInt("jobID") + ",");
+                    builder.append(list.optJSONObject(i).optString("blueJobID") + ",");
                 }
                 final String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
