@@ -34,7 +34,6 @@ import cn.goodjobs.common.view.empty.EmptyLayout;
  */
 public class MakeFriendsGuanzhuFragment extends BaseListFragment implements AdapterView.OnItemClickListener {
     View view;
-    private EmptyLayout emptyLayout;
     public ViewPager viewPager;
     public int preItem = 1;
     boolean hasMore; // 是否包含下一页
@@ -84,7 +83,6 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
     }
 
     private void loadView() {
-        emptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
         mAdapter = new LookAdapter(getActivity());
         ((LookAdapter) mAdapter).lookListener = new LookAdapter.LookListener() {
             @Override
@@ -111,7 +109,7 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
         JSONObject jsonObject = (JSONObject) data;
         mAdapter.appendToList(jsonObject.optJSONArray("list"));
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NODATA);
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
         }
         hasMore = jsonObject.optInt("maxPage")>page;
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
@@ -122,7 +120,7 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+            mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();
@@ -132,8 +130,8 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NODATA);
-            emptyLayout.setErrorMessage(errorMessage);
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+            mEmptyLayout.setErrorMessage(errorMessage);
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();
