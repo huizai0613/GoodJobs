@@ -33,7 +33,6 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
     Button btnAdd;
     String pageTime = "0";
     MyLocation myLocation;
-    EmptyLayout emptyLayout;
     boolean hasMore; // 是否包含下一页
 
     public MakeFriendsNearFragment() {
@@ -44,10 +43,8 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.makefriend_near, container, false);
         mAdapter = new TrendAdapter(getActivity());
-        emptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
-        emptyLayout.setOnClickListener(this);
         initList(view);
         mListView.setOnItemClickListener(this);
         startRefresh();
@@ -83,7 +80,7 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
         JSONObject jsonObject = (JSONObject) data;
         mAdapter.appendToList(jsonObject.optJSONArray("list"));
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NODATA);
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
         }
         pageTime = jsonObject.optString("pageTime");
         hasMore = jsonObject.optInt("maxPage")>page;
@@ -95,7 +92,7 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+            mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();
@@ -105,8 +102,8 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NODATA);
-            emptyLayout.setErrorMessage(errorMessage);
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+            mEmptyLayout.setErrorMessage(errorMessage);
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();

@@ -40,7 +40,6 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
     private Map<String, String> timeData = new LinkedHashMap<String, String>();
     private SingleLevelMenuView sexInfo, timeInfo;
     private ExpandTabView etv_career;
-    private EmptyLayout emptyLayout;
     String sexType = "0";
     String timeType = "0";
     String pageTime = "0";
@@ -72,8 +71,6 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
 
     private void loadView() {
         etv_career = (ExpandTabView) view.findViewById(R.id.etv_career);
-        emptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
-        emptyLayout.setOnClickListener(this);
         sexInfo = new SingleLevelMenuView(getActivity());
         timeInfo = new SingleLevelMenuView(getActivity());
         mAdapter = new FriendsAdapter(getActivity());
@@ -160,7 +157,7 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
         JSONObject jsonObject = (JSONObject) data;
         mAdapter.appendToList(jsonObject.optJSONArray("list"));
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NODATA);
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
         }
         pageTime = jsonObject.optString("pageTime");
         hasMore = jsonObject.optInt("maxPage")>page;
@@ -172,7 +169,7 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+            mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();
@@ -182,8 +179,8 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
         if (mAdapter.getCount() == 0) {
-            emptyLayout.setErrorType(EmptyLayout.NODATA);
-            emptyLayout.setErrorMessage(errorMessage);
+            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+            mEmptyLayout.setErrorMessage(errorMessage);
         }
         loadMoreListViewContainer.loadMoreFinish(false, hasMore);
         mPtrFrameLayout.refreshComplete();

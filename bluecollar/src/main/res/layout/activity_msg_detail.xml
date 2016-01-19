@@ -6,40 +6,14 @@
 
     <include layout="@layout/actionbar"/>
 
-    <RelativeLayout
+    <cn.goodjobs.bluecollar.view.listview.XListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <in.srain.cube.views.ptr.PtrClassicFrameLayout
-            android:id="@+id/load_more_list_view_ptr_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
-                android:id="@+id/load_more_list_view_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ListView
-                    android:id="@+id/list_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@null"
-                    android:fadingEdge="none"
-                    android:listSelector="@android:color/transparent"
-                    android:cacheColorHint="@color/transparent"
-                    android:scrollbars="none" />
-
-            </in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer>
-        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-        <cn.goodjobs.common.view.empty.EmptyLayout
-            android:id="@+id/empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
-        </cn.goodjobs.common.view.empty.EmptyLayout>
-    </RelativeLayout>
+        android:layout_weight="1"
+        android:divider="@null"
+        android:listSelector="@color/transparent"
+        android:cacheColorHint="@color/transparent"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,8 +15,11 @@ import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.adapter.MsgDetailAdapter;
+import cn.goodjobs.bluecollar.view.listview.BaseXListViewActivity;
+import cn.goodjobs.bluecollar.view.listview.XListView;
 import cn.goodjobs.common.baseclass.BaseListActivity;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.KeyBoardUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
@@ -23,7 +27,7 @@ import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
-public class MsgDetailActivity extends BaseListActivity implements TextView.OnEditorActionListener {
+public class MsgDetailActivity extends BaseXListViewActivity implements TextView.OnEditorActionListener {
 
     int type = 1; // 类型(1历史记录 2最新记录)
     String friendID;
@@ -37,6 +41,7 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
     EditText editText;
     int sendIndex;
     HashMap<String, JSONObject> sendMap;
+    MsgDetailAdapter msgDetailAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +59,15 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
         setTopTitle(getIntent().getStringExtra("nickName"));
         btnSend = (TextView) findViewById(R.id.btnSend);
         editText = (EditText) findViewById(R.id.editText);
+        listView = (XListView) findViewById(R.id.listView);
         friendID = getIntent().getStringExtra("friendID");
-        mAdapter = new MsgDetailAdapter(this);
+        pageIndex = 0;
+        msgDetailAdapter = new MsgDetailAdapter(this);
+        listView.setAdapter(msgDetailAdapter);
         sendMap = new HashMap<String, JSONObject>();
-        page = 0;
-        initList();
-        startRefresh();
+        initXListView();
+        listView.hideFootText();
+        listView.setPullLoadEnable(true);
     }
 
     @Override
@@ -70,10 +78,10 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
     }
 
     @Override
-    protected void getDataFronServer() {
-        super.getDataFronServer();
+    protected void getDataFromServer() {
+        super.getDataFromServer();
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("page", page+1);
+        params.put("page", pageIndex+1);
         params.put("type", type);
         params.put("friendID", friendID);
         params.put("pageTime", pageTime);
@@ -81,18 +89,20 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
         HttpUtil.post(URLS.MAKEFRIEND_SMSSHOW, params, this);
     }
 
-    protected void refresh() {
+    @Override
+    public void onRefresh() {
         pageTime = loadMoreTime;
         isRefush = false;
         type = 1;
-        getDataFronServer();
+        getDataFromServer();
     }
 
-    protected void loadMore() {
+    @Override
+    public void onLoadMore() {
         pageTime = refreshTime;
-        isRefush = true;
         type = 2;
-        getDataFronServer();
+        isRefresh = true;
+        getDataFromServer();
     }
 
     @Override
@@ -100,52 +110,52 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
         super.onSuccess(tag, data);
         if (tag.endsWith(URLS.MAKEFRIEND_SMSSHOW)) {
             JSONObject jsonObject = (JSONObject) data;
-            if (mAdapter.getCount() == 0) {
-                ((MsgDetailAdapter) mAdapter).myUserPhoto = jsonObject.optString("MyUserPhoto");
-                ((MsgDetailAdapter) mAdapter).friendUserPhoto = jsonObject.optString("FriendUserPhoto");
+            if (msgDetailAdapter.getCount() == 0) {
+                msgDetailAdapter.myUserPhoto = jsonObject.optString("MyUserPhoto");
+                msgDetailAdapter.friendUserPhoto = jsonObject.optString("FriendUserPhoto");
             }
             if (firstIn) {
-                mAdapter.appendToList(jsonObject.optJSONArray("list"));
+                msgDetailAdapter.appendToList(jsonObject.optJSONArray("list"));
+                listView.smoothScrollToPosition(msgDetailAdapter.getCount());
             } else {
-                if (isRefush) {
-                    mAdapter.appendToList(jsonObject.optJSONArray("list"));
-                } else {
-                    mAdapter.appendToTopList(jsonObject.optJSONArray("list"));
+                if (jsonObject.optJSONArray("list").length() > 0) {
+                    if (isRefush) {
+                        msgDetailAdapter.appendToList(jsonObject.optJSONArray("list"));
+                        listView.smoothScrollToPosition(msgDetailAdapter.getCount());
+                    } else {
+                        msgDetailAdapter.appendToTopList(jsonObject.optJSONArray("list"));
+                    }
                 }
             }
-            if (mAdapter.getCount() > 0) {
+            if (msgDetailAdapter.getCount() > 0) {
                 if (firstIn) {
-                    JSONObject jsonObject1 = (JSONObject) mAdapter.getItem(mAdapter.getCount()-1);
+                    JSONObject jsonObject1 = (JSONObject) msgDetailAdapter.getItem(msgDetailAdapter.getCount()-1);
                     refreshTime = jsonObject1.optInt("sendTime");
-                    page = jsonObject.optInt("page");
+                    pageIndex = jsonObject.optInt("page");
                     loadMoreTime = jsonObject.optInt("pageTime");
                 } else {
                     if (isRefush) {
-                        JSONObject jsonObject1 = (JSONObject) mAdapter.getItem(mAdapter.getCount()-1);
+                        JSONObject jsonObject1 = (JSONObject) msgDetailAdapter.getItem(msgDetailAdapter.getCount()-1);
                         refreshTime = jsonObject1.optInt("sendTime");
                     } else {
                         if (jsonObject.optJSONArray("list").length() > 0) {
-                            page = jsonObject.optInt("page");
-                        } else {
-                            page--;
+                            pageIndex++;
                         }
                         loadMoreTime = jsonObject.optInt("pageTime");
                     }
                 }
                 firstIn = false;
-            } else {
-                mEmptyLayout.setErrorType(EmptyLayout.NODATA);
             }
-            loadMoreListViewContainer.loadMoreFinish(false, true);
-            mPtrFrameLayout.refreshComplete();
+            listView.stopRefresh();
+            listView.stopLoadMore();
         } else {
             JSONObject jsonObject = (JSONObject) data;
             TipsUtil.show(this, jsonObject.optString("message"));
-            mAdapter.removeObject(sendMap.get(tag));
-            mAdapter.appendToList(jsonObject.optJSONArray("list"));
-            editText.setText("");
-            JSONObject jsonObject1 = (JSONObject) mAdapter.getItem(mAdapter.getCount()-1);
+            msgDetailAdapter.removeObject(sendMap.get(tag));
+            msgDetailAdapter.appendToList(jsonObject.optJSONArray("list"));
+            JSONObject jsonObject1 = (JSONObject) msgDetailAdapter.getItem(msgDetailAdapter.getCount()-1);
             refreshTime = jsonObject1.optInt("sendTime");
+            msgDetailAdapter.notifyDataSetChanged();
         }
     }
 
@@ -153,11 +163,7 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
         if (tag.endsWith(URLS.MAKEFRIEND_SMSSHOW)) {
-            if (mAdapter.getCount() == 0) {
-                mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
-            }
-            loadMoreListViewContainer.loadMoreFinish(false, true);
-            mPtrFrameLayout.refreshComplete();
+
         } else {
             JSONObject jsonObject = sendMap.get(tag);
             try {
@@ -165,7 +171,7 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mAdapter.notifyDataSetChanged();
+            msgDetailAdapter.notifyDataSetChanged();
         }
     }
 
@@ -173,12 +179,7 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
         if (tag.endsWith(URLS.MAKEFRIEND_SMSSHOW)) {
-            if (mAdapter.getCount() == 0) {
-                mEmptyLayout.setErrorType(EmptyLayout.NODATA);
-                mEmptyLayout.setErrorMessage(errorMessage);
-            }
-            loadMoreListViewContainer.loadMoreFinish(false, true);
-            mPtrFrameLayout.refreshComplete();
+
         } else {
             JSONObject jsonObject = sendMap.get(tag);
             try {
@@ -186,16 +187,18 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mAdapter.notifyDataSetChanged();
+            msgDetailAdapter.notifyDataSetChanged();
         }
     }
 
     private void sendMsg() {
         String content = editText.getText().toString();
+        editText.setText("");
         if (StringUtil.isEmpty(content)) {
             TipsUtil.show(this, "请输入内容");
             return;
         }
+        KeyBoardUtil.hide(this); // 隐藏键盘
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("friendID", friendID);
         params.put("content", content);
@@ -211,8 +214,8 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
             e.printStackTrace();
         }
         sendMap.put(tag, jsonObject);
-        mAdapter.append(jsonObject);
-        mListView.smoothScrollToPosition(mAdapter.getCount() - 1);
+        msgDetailAdapter.append(jsonObject);
+        listView.smoothScrollToPosition(msgDetailAdapter.getCount());
         HttpUtil.post(URLS.MAKEFRIEND_SMSSEND, tag, params, this);
     }
 
@@ -230,5 +233,25 @@ public class MsgDetailActivity extends BaseListActivity implements TextView.OnEd
             sendMsg();
         }
         return false;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JSONObject jsonObject = (JSONObject) msgDetailAdapter.getItem(position-1);
+        if (2 == jsonObject.optInt("status")) {
+            // 重新上传
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            params.put("friendID", friendID);
+            params.put("content", jsonObject.optString("content"));
+            params.put("pageTime", refreshTime);
+            String tag = jsonObject.optString("tag");
+            try {
+                jsonObject.put("status", 1);
+                msgDetailAdapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            HttpUtil.post(URLS.MAKEFRIEND_SMSSEND, tag, params, this);
+        }
     }
 }

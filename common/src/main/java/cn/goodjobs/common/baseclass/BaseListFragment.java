@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.util.LogUtil;
+import cn.goodjobs.common.view.empty.EmptyLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -29,6 +30,7 @@ public class BaseListFragment extends BaseFragment {
     protected JsonArrayAdapterBase mAdapter;
     protected ListView mListView;
     public Handler mTestHandler;
+    protected EmptyLayout mEmptyLayout;
 
     protected void initList(View view, ListView listView) {
         // pull to refresh
@@ -38,6 +40,7 @@ public class BaseListFragment extends BaseFragment {
         if (mListView == null) {
             mListView = (ListView) view.findViewById(R.id.list_view);
         }
+        mEmptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
         mPtrFrameLayout.setLoadingMinTime(1000);
         mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
@@ -60,6 +63,13 @@ public class BaseListFragment extends BaseFragment {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
                 loadMore();
+            }
+        });
+        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+                startRefresh();
             }
         });
         mListView.setAdapter(mAdapter);
