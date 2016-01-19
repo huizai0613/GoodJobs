@@ -35,6 +35,29 @@
             android:process=":remote" >
         </service>
 
+        <!-- 添加友盟统计 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="513da0a95270157f04000055" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="goodjobs" />
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="63af2af18c4f9288927316b0dfd84df2" >
+        </meta-data>
+
+        <!--  友盟版本更新 -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
         <activity
             android:name=".view.searchItem.SelectorActivity"
             android:label="@string/title_activity_selector"

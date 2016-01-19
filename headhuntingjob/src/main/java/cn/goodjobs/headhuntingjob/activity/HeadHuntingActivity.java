@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.umeng.update.UmengUpdateAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,8 @@ public class HeadHuntingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Liepin.toString()); // 保存当前模块为默认模块
+
+        UmengUpdateAgent.update(this); // 检测版本更新
     }
 
     @Override

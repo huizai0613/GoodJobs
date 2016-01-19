@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.json.JSONObject;
 
 import cn.goodjobs.common.R;
@@ -40,6 +42,20 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         initData();
         initWeight();
         initWeightClick();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 添加友盟统计代码
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 添加友盟统计代码
+        MobclickAgent.onPause(this);
     }
 
     /**
