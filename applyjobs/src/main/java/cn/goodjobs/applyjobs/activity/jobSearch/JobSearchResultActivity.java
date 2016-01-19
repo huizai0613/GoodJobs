@@ -221,6 +221,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     private String searchID;
     private String oldAddressStr;
     private String oldAddressId;
+    private String cepage;
 
 
     @Override
@@ -423,13 +424,11 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
 
-        if (page != 1)
-            Object.put("cepage", page);
+        if (!StringUtil.isEmpty(cepage))
+            Object.put("cepage", cepage);
 
-        {
-            if (!StringUtil.isEmpty(searchKeyWorld))//关键字
-                Object.put("keyword", searchKeyWorld);
-        }
+        if (!StringUtil.isEmpty(searchKeyWorld))//关键字
+            Object.put("keyword", searchKeyWorld);
 
         if (isCur) {
             if (dis != 0)//地址
@@ -487,6 +486,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         if (checkJsonError(object))
             return;
         String totalNum = object.optString("totalNum");
+        cepage = object.optString("cepage");
         setTopTitle("搜索到" + totalNum + "条职位");
 
         try {

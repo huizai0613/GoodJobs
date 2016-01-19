@@ -103,7 +103,7 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
             personalTrendAdapter.showLoading = true;
             myListView.setAdapter(personalTrendAdapter);
             loadTend();
-        } else if (tag.equals(URLS.MAKEFRIEND_TRENDLIST)) {
+        } else if (tag.equals(URLS.MAKEFRIEND_TRENDFRIENDLIST)) {
             JSONObject jsonObject = (JSONObject) data;
             personalTrendAdapter.showLoading = false;
             personalTrendAdapter.appendToList(jsonObject.optJSONArray("list"));
@@ -182,7 +182,7 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
             params.put("friendID", friendID);
         }
         params.put("tp", "other");
-        HttpUtil.post(URLS.MAKEFRIEND_TRENDLIST, params, this);
+        HttpUtil.post(URLS.MAKEFRIEND_TRENDFRIENDLIST, params, this);
     }
 
     @Override

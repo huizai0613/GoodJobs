@@ -74,6 +74,8 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
 
     }
 
+
+
     @Override
     public void onDetach()
     {

@@ -122,6 +122,7 @@ public class URLS {
     public final static String MAKEFRIEND_BASICSAVE = "Friend/Basicsave";      //个人资料保存
     public final static String MAKEFRIEND_BASICPICSAVE = "Friend/Basicpicsave";      //个人资料头像保存
     public final static String MAKEFRIEND_TRENDLIST = "Friend/Dynamiclist";      //交友首页,附近的动态
+    public final static String MAKEFRIEND_TRENDFRIENDLIST = "Friend/Dynamicmylist";      //
     public final static String MAKEFRIEND_TRENDDETAIL = "Friend/Dynamicshow";      //动态详情
     public final static String MAKEFRIEND_TRENDCOMMENT = "Friend/Replylist";      //动态详情评论列表
     public final static String MAKEFRIEND_CITYLIST = "Friend/Cityfriendlist";      //交友首页，同城交友
@@ -149,7 +150,7 @@ public class URLS {
     //蓝领个人中心
     public final static String API_JOB_BlueMy = "blueuser/my";      //蓝领个人中心首页
     public final static String API_JOB_UserCorpviewhistory = "User/Corpviewhistory";      //蓝领个人中心谁看过我的简历
-    public final static String API_JOB_UserCampusoperationdel = "User/Campusoperationdel";      //蓝领个人中心谁看过我的简历删除
+    public final static String API_JOB_UserCampusoperationdel = "User/Corpviewhistorydel";      //蓝领个人中心谁看过我的简历删除
     public final static String API_JOB_BlueBasicsave = "Blueuser/Basicsave";      //蓝领简历保存数据
     public final static String API_JOB_BlueBasic = "Blueuser/Basic";      //蓝领简历修改数据显示
     public final static String API_JOB_UserUpdate = "User/Update";      //蓝领简历刷新

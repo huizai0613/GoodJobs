@@ -125,7 +125,7 @@ public class BaseListActivity extends BaseActivity
             {
                 mPtrFrameLayout.autoRefresh(false);
             }
-        }, 150);
+        }, 250);
     }
 
     @Override

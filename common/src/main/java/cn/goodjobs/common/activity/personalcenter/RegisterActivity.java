@@ -144,6 +144,7 @@ public class RegisterActivity extends BaseActivity {
         }
     };
 
+
     @Override
     protected void initData() {
 

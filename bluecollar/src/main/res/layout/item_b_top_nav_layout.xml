@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="41dip"
-              android:background="@drawable/lottery_list_selector_disabled_holo_light"
+              android:background="#22000000"
               android:orientation="vertical"
     >
 
