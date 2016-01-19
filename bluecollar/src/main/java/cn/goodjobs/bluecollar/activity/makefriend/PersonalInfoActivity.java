@@ -114,7 +114,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
                 listView.setAdapter(personalTrendAdapter);
                 loadTend();
             }
-        } else if (tag.equals(URLS.MAKEFRIEND_TRENDLIST)) {
+        } else if (tag.equals(URLS.MAKEFRIEND_TRENDFRIENDLIST)) {
             firstIn = false;
             JSONObject jsonObject = (JSONObject) data;
             personalTrendAdapter.showLoading = false;
@@ -162,7 +162,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("page", page);
         params.put("tp", "my");
-        HttpUtil.post(URLS.MAKEFRIEND_TRENDLIST, params, this);
+        HttpUtil.post(URLS.MAKEFRIEND_TRENDFRIENDLIST, params, this);
     }
 
     @Override

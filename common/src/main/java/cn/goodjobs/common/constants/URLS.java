@@ -122,6 +122,7 @@ public class URLS {
     public final static String MAKEFRIEND_BASICSAVE = "Friend/Basicsave";      //个人资料保存
     public final static String MAKEFRIEND_BASICPICSAVE = "Friend/Basicpicsave";      //个人资料头像保存
     public final static String MAKEFRIEND_TRENDLIST = "Friend/Dynamiclist";      //交友首页,附近的动态
+    public final static String MAKEFRIEND_TRENDFRIENDLIST = "Friend/Dynamicmylist";      //
     public final static String MAKEFRIEND_TRENDDETAIL = "Friend/Dynamicshow";      //动态详情
     public final static String MAKEFRIEND_TRENDCOMMENT = "Friend/Replylist";      //动态详情评论列表
     public final static String MAKEFRIEND_CITYLIST = "Friend/Cityfriendlist";      //交友首页，同城交友
