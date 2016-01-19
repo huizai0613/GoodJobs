@@ -34,6 +34,7 @@ import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.PhoneUtils;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.UpdateDataTaskUtils;
 import cn.goodjobs.common.util.ViewHolderUtil;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
@@ -491,6 +492,8 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
         } else if (i == R.id.job_share) {
             //分享
+            UMShareUtil.setShareText(getActivity(), jobName.getText().toString(), id+"");
+            UMShareUtil.getUMSocialService().openShare(getActivity(), false);
         } else if (i == R.id.job_phone) {
             PhoneUtils.makeCall(jobPhone.getText().toString(), mActivity);
         } else if (i == R.id.job_address) {

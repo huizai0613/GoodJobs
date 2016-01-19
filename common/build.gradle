@@ -42,4 +42,6 @@ dependencies {
     // 友盟统计
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/umeng-update-v2.6.0.1.jar')
+    compile files('libs/SocialSDK_QQZone_1.jar')
+    compile files('libs/SocialSDK_QQZone_2.jar')
 }

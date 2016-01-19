@@ -27,6 +27,7 @@ import cn.goodjobs.applyjobs.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 
@@ -161,6 +162,9 @@ public class JobNewsDetailsActivity extends BaseActivity
 
     public void rightBtnClick(View v)
     {
-        TipsUtil.show(this, "share");
+        UMShareUtil.setShareText(this, "http://m.goodjobs.cn/index.php/module/Corp/action/NewId?newId=", tv_title.getText().toString(), getIntent().getIntExtra("newsid", 0) + "");
+        UMShareUtil.getUMSocialService().openShare(this, false);
     }
+
+
 }
