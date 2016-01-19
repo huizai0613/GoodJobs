@@ -4,4 +4,7 @@
         android:width="1px"
         android:color="@color/line_color"
         ></stroke>
+    <solid
+        android:color="#ffffff"
+        />
 </shape>
