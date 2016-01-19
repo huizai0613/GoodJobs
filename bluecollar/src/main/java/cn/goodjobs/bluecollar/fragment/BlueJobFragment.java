@@ -53,6 +53,8 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
     private ArrayList<JSONObject> cates;
     private ArrayList<List<JSONObject>> cates2Child;
     private ShopAdapter shopAdapter;
+    private int curSelectID;
+    private boolean isChangeSelect;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -89,13 +91,18 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
 
     public void setSelectCate(String selectID)
     {
-        int i1 = Integer.parseInt(selectID);
-        for (int i = 0; i < cates.size(); i++) {
-            if (cates.get(i).optInt("id") == i1) {
-                toolsViews[i].performClick();
+        curSelectID = Integer.parseInt(selectID);
+        if (cates != null) {
+            for (int i = 0; i < cates.size(); i++) {
+                if (cates.get(i).optInt("id") == curSelectID) {
+                    toolsViews[i].performClick();
+                }
             }
+        } else {
+            isChangeSelect = true;
         }
     }
+
 
     /**
      * 动态生成显示items中的textview
@@ -119,6 +126,10 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
             toolsTextViews[i] = textView;
             toolsViews[i] = view;
             views[i] = view;
+
+            if (cates.get(i).optInt("id") == curSelectID) {
+                toolsViews[i].performClick();
+            }
         }
 
         String dataFromLoacl = SharedPrefUtil.getDataFromLoacl(mActivity, LASTSELECT);

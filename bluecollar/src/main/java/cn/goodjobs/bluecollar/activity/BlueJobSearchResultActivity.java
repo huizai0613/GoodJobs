@@ -482,7 +482,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
 
-        if (!StringUtil.isEmpty(cepage))
+        if (!StringUtil.isEmpty(cepage) && page > 1)
             Object.put("cepage", cepage);
 
         if (!StringUtil.isEmpty(searchKeyWorld))//关键字
@@ -677,7 +677,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < checkPosition.size(); i++) {
-            builder.append(list.get(checkPosition.get(i)).optInt("jobID") + ",");
+            builder.append(list.get(checkPosition.get(i)).optInt("blueJobID") + ",");
         }
         String ids = builder.subSequence(0, builder.length() - 1).toString();
 

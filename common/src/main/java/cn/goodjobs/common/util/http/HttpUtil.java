@@ -456,7 +456,7 @@ public class HttpUtil
      *
      * @return
      */
-    private static PackageInfo getPackageInfo()
+    public static PackageInfo getPackageInfo()
     {
         PackageInfo info = null;
         try {

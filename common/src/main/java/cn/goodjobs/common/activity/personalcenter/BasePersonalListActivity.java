@@ -87,11 +87,15 @@ public class BasePersonalListActivity extends BaseListActivity {
             if (mAdapter.getCount() == 0) {
                 emptyLayout.setErrorType(EmptyLayout.NODATA);
             }
-            hasMore = object.optInt("maxPage")>page;
+            hasMore = object.optInt("maxPage") > page;
             loadMoreListViewContainer.loadMoreFinish(false, hasMore);
             mPtrFrameLayout.refreshComplete();
         } else if (tag.equals(delUrl)) {
-            TipsUtil.show(this, data+"");
+            if (data instanceof String) {
+                TipsUtil.show(this, data + "");
+            } else if (data instanceof JSONObject) {
+                TipsUtil.show(this, ((JSONObject) data).optString("message"));
+            }
             mAdapter.clear();
             page = 1;
             startRefresh();

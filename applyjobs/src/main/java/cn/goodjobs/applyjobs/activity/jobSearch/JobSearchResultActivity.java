@@ -424,7 +424,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
 
-        if (!StringUtil.isEmpty(cepage))
+        if (!StringUtil.isEmpty(cepage)&& page > 1)
             Object.put("cepage", cepage);
 
         if (!StringUtil.isEmpty(searchKeyWorld))//关键字

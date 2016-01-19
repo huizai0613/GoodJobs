@@ -19,6 +19,7 @@ import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.headhuntingjob.R;
@@ -115,6 +116,9 @@ public class HeadDetailsActivity extends BaseActivity {
 
         } else if (v.getId() == R.id.rl_share) {
             //分享
+            JSONObject jsonObject = jsonObjects[vp.getCurrentItem()];
+            UMShareUtil.setShareText(this, jsonObject.optString("jobName"), data.get(vp.getCurrentItem())+"");
+            UMShareUtil.getUMSocialService().openShare(this, false);
         }
     }
 
