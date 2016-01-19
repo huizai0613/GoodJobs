@@ -85,7 +85,7 @@ public class FansActivity extends BaseListActivity implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
         Intent intent = new Intent(this, OtherPersonalInfoActivity.class);
-        intent.putExtra("friendID", jsonObject.optString("friendID"));
+        intent.putExtra("friendID", jsonObject.optString("myID"));
         intent.putExtra("nickName", jsonObject.optString("nickName"));
         startActivity(intent);
     }

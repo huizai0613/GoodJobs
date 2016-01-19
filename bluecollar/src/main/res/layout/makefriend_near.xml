@@ -5,12 +5,10 @@
     <include layout="@layout/load_more_list_view"/>
     <Button
         android:id="@+id/btnAdd"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="发帖"
         android:layout_margin="@dimen/padding_large"
-        android:textColor="@color/white"
-        android:background="@drawable/makefriend_trend_add_btn_bg"/>
+        android:background="@mipmap/post_add"/>
 </RelativeLayout>
