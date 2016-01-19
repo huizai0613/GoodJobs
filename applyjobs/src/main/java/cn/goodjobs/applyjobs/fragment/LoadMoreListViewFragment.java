@@ -61,7 +61,7 @@ public class LoadMoreListViewFragment extends BaseListFragment {
 
         @Override
         protected View getExView(int position, View convertView, ViewGroup parent) {
-            TextView view = new TextView(getContext());
+            TextView view = new TextView(mActivity);
             view.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
             view.setText(getItem(position));
             return view;

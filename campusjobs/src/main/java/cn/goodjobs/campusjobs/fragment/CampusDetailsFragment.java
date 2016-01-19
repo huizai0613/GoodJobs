@@ -2,6 +2,7 @@ package cn.goodjobs.campusjobs.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,9 +54,10 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
     private EmptyLayout error_layout;
     private CampusDetailsActivity activity;
     private int id;
-    private TextView jobStore;
-    private TextView jobSend;
+    private View jobStore;
+    private View jobSend;
     private int memCorpID;
+    private View job_share;
 
 
     @Override
@@ -85,13 +87,15 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
         jobName = (TextView) inflate.findViewById(R.id.job_name);
         jobCro = (TextView) inflate.findViewById(R.id.job_cro);
 
-        jobStore = (TextView) inflate.findViewById(R.id.job_store);
-        jobSend = (TextView) inflate.findViewById(R.id.job_send);
+        jobStore = inflate.findViewById(R.id.job_store);
+        jobSend = inflate.findViewById(R.id.job_send);
+        job_share = inflate.findViewById(R.id.job_share);
 
         jobStore.setOnClickListener(this);
         jobSimilarBox.setOnClickListener(this);
         jobCro.setOnClickListener(this);
         jobSend.setOnClickListener(this);
+        job_share.setOnClickListener(this);
 
         jobOtherBox = inflate.findViewById(R.id.job_other_box);
         jobOther = (TextView) inflate.findViewById(R.id.job_other);
@@ -134,14 +138,14 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
             lp.topMargin = 5;
             lp.bottomMargin = 5;
             for (int i = 0; i < treatmentArr.length(); i++) {
-                TextView view = new TextView(getContext());
+                TextView view = new TextView(mActivity);
                 view.setText(treatmentArr.optString(i));
                 view.setGravity(Gravity.CENTER);
-                view.setTextSize(12);
-                view.setPadding(DensityUtil.dip2px(getContext(), 10), 0, DensityUtil.dip2px(getContext(), 10), 0);
-                view.setHeight(DensityUtil.dip2px(getContext(), 25));
+                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
+                view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.black));
+                view.setTextColor(getResources().getColor(R.color.light_color));
                 jobBright.addView(view, lp);
             }
         }
@@ -149,8 +153,8 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
         setStrng2Bab(jobSalary, "月薪: ", dataJson.optString("salary"));
         setStrng2Bab(jobWorkTime, "经验: ", dataJson.optString("worktime"));
         setStrng2Bab(jobDegree, "学历: ", dataJson.optString("degree"));
-        setStrng2Bab(jobAge, "性别: ", dataJson.optString("age"));
-        setStrng2Bab(jobGender, "年龄: ", dataJson.optString("sex"));
+        setStrng2Bab(jobAge, "性别: ", dataJson.optString("sex"));
+        setStrng2Bab(jobGender, "年龄: ", dataJson.optString("age"));
         setStrng2Bab(jobAddress, "地点: ", dataJson.optString("cityName"));
         memCorpID = dataJson.optInt("memCorpID");
         jobContent.setText(dataJson.optString("jobDetail"));
@@ -179,7 +183,7 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
 
                 final int curPosition = i;
 
-                View inflate = View.inflate(getContext(), R.layout.item_jobsearchresult, null);
+                View inflate = View.inflate(mActivity, R.layout.item_jobsearchresult, null);
 
                 TextView title = ViewHolderUtil.get(inflate, R.id.item_title);
                 TextView address = ViewHolderUtil.get(inflate, R.id.item_address);
@@ -216,7 +220,7 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
                         HashMap<String, Object> param = new HashMap<>();
                         param.put("POSITION", curPosition);
                         param.put("IDS", charSequence);
-                        JumpViewUtil.openActivityAndParam(getContext(), CampusDetailsActivity.class, param);
+                        JumpViewUtil.openActivityAndParam(mActivity, CampusDetailsActivity.class, param);
                     }
                 });
 
@@ -234,13 +238,13 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
             tv.setVisibility(View.GONE);
             return;
         }
-
+        tv.setVisibility(View.VISIBLE);
         tv.addPiece(new BabushkaText.Piece.Builder(title)
                 .textColor(Color.parseColor("#999999"))
                 .build());
         // Add the second piece "1.2 mi"
         tv.addPiece(new BabushkaText.Piece.Builder(content)
-                .textColor(Color.parseColor("#000000"))
+                .textColor(Color.parseColor("#606060"))
                 .build());
 
         tv.display();
@@ -252,8 +256,8 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        JSONObject jsonObject = (JSONObject) data;
-        setData(jsonObject);
+        JSONObject jobDetailJson = (JSONObject) data;
+        setData(jobDetailJson);
 
     }
 
@@ -269,7 +273,7 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
         super.onClick(v);
         int i = v.getId();
         if (i == R.id.job_store) {
-//            收藏职位
+            //收藏职位
             if (!GoodJobsApp.getInstance().checkLogin(activity))
                 return;
             HashMap<String, Object> param = new HashMap<>();
@@ -277,12 +281,12 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
             HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, String tag) {
-                    TipsUtil.show(getContext(), "收藏失败");
+                    TipsUtil.show(mActivity, "收藏失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data) {
-                    TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
@@ -304,12 +308,12 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
             HttpUtil.post(URLS.API_JOB_apply, param, new HttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, String tag) {
-                    TipsUtil.show(getContext(), "简历投递失败");
+                    TipsUtil.show(mActivity, "简历投递失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data) {
-                    TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
@@ -324,8 +328,16 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("corpID", memCorpID);
-            JumpViewUtil.openActivityAndParam(getContext(), CampusCompanyDetailsActivity.class, param);
+            JumpViewUtil.openActivityAndParam(mActivity, CampusCompanyDetailsActivity.class, param);
 
+        } else if (i == R.id.job_share) {
+            share();
         }
+    }
+
+    //分享
+    @Override
+    public void share() {
+        super.share();
     }
 }

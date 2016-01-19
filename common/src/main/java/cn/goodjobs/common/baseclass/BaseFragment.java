@@ -1,5 +1,6 @@
 package cn.goodjobs.common.baseclass;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,11 +44,13 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     protected AutoScrollViewPager adViewPager;
     protected double adScale = 4;
     int scrollTime = 3000; // 广告3秒滚动一屏
+    protected FragmentActivity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        mActivity = getActivity();
     }
 
     @Override
@@ -73,7 +76,6 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
     {
 
     }
-
 
 
     @Override

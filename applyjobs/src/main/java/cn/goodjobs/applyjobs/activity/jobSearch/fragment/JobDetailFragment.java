@@ -151,12 +151,12 @@ public class JobDetailFragment extends BaseViewPagerFragment
             lp.topMargin = 5;
             lp.bottomMargin = 5;
             for (int i = 0; i < treatmentArr.length(); i++) {
-                TextView view = new TextView(getContext());
+                TextView view = new TextView(mActivity);
                 view.setText(treatmentArr.optString(i));
                 view.setGravity(Gravity.CENTER);
                 view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
-                view.setPadding(DensityUtil.dip2px(getContext(), 10), 0, DensityUtil.dip2px(getContext(), 10), 0);
-                view.setHeight(DensityUtil.dip2px(getContext(), 25));
+                view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
+                view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
                 view.setTextColor(getResources().getColor(R.color.light_color));
                 jobBright.addView(view, lp);
@@ -196,7 +196,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
 
                 final int curPosition = i;
 
-                View inflate = View.inflate(getContext(), R.layout.item_jobsearchresult, null);
+                View inflate = View.inflate(mActivity, R.layout.item_jobsearchresult, null);
 
                 TextView title = ViewHolderUtil.get(inflate, R.id.item_title);
                 TextView address = ViewHolderUtil.get(inflate, R.id.item_address);
@@ -235,7 +235,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
                         HashMap<String, Object> param = new HashMap<>();
                         param.put("POSITION", curPosition);
                         param.put("IDS", charSequence);
-                        JumpViewUtil.openActivityAndParam(getContext(), JobDetailActivity.class, param);
+                        JumpViewUtil.openActivityAndParam(mActivity, JobDetailActivity.class, param);
                     }
                 });
 
@@ -302,13 +302,13 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 @Override
                 public void onFailure(int statusCode, String tag)
                 {
-                    TipsUtil.show(getContext(), "收藏失败");
+                    TipsUtil.show(mActivity, "收藏失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data)
                 {
-                    TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
@@ -334,13 +334,13 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 @Override
                 public void onFailure(int statusCode, String tag)
                 {
-                    TipsUtil.show(getContext(), "简历投递失败");
+                    TipsUtil.show(mActivity, "简历投递失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data)
                 {
-                    TipsUtil.show(getContext(), ((JSONObject) data).optString("message"));
+                    TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
@@ -357,7 +357,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("corpID", memCorpID);
-            JumpViewUtil.openActivityAndParam(getContext(), JobCompanyDetailActivity.class, param);
+            JumpViewUtil.openActivityAndParam(mActivity, JobCompanyDetailActivity.class, param);
 
         } else if (i == R.id.job_share) {
             share();

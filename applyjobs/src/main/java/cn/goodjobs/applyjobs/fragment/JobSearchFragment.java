@@ -143,13 +143,13 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     {
         searchHeistory.removeAllViews();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(DensityUtil.dip2px(getActivity(), 10), 0, DensityUtil.dip2px(getActivity(), 10), 0);
+        layoutParams.setMargins(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
         LinearLayout.LayoutParams lineParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1);
         if (obj != null && obj.size() > 0) {
             StringBuilder builder = new StringBuilder();
             for (Map.Entry<Long, Map<String, String>> longMapEntry : obj) {
                 final Map<String, String> value = longMapEntry.getValue();
-                TextView view = new TextView(getActivity());
+                TextView view = new TextView(mActivity);
 
                 builder.delete(0, builder.length());
 
@@ -252,11 +252,11 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                         btnSearch.performClick();
                     }
                 });
-                View line = new View(getActivity());
+                View line = new View(mActivity);
                 line.setBackgroundResource(R.color.line_color);
                 searchHeistory.addView(line, lineParams);
             }
-            TextView clean = new TextView(getActivity());
+            TextView clean = new TextView(mActivity);
             clean.setPadding(0, 20, 0, 20);
             clean.setSingleLine();
             clean.setEllipsize(TextUtils.TruncateAt.END);
@@ -270,17 +270,17 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                 @Override
                 public void onClick(View v)
                 {
-                    UpdateDataTaskUtils.cleanHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB);
+                    UpdateDataTaskUtils.cleanHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB);
                     history.clear();
                     disPlayerSearchUI(null);
                 }
             });
             searchHeistory.addView(clean, layoutParams);
-            View line = new View(getActivity());
+            View line = new View(mActivity);
             line.setBackgroundResource(R.color.line_color);
             searchHeistory.addView(line, lineParams);
         } else {
-            TextView clean = new TextView(getActivity());
+            TextView clean = new TextView(mActivity);
             clean.setPadding(0, 20, 0, 20);
             clean.setSingleLine();
             clean.setEllipsize(TextUtils.TruncateAt.END);
@@ -293,13 +293,13 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                 @Override
                 public void onClick(View v)
                 {
-                    UpdateDataTaskUtils.cleanHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB);
+                    UpdateDataTaskUtils.cleanHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB);
                     history.clear();
                     disPlayerSearchUI(null);
                 }
             });
             searchHeistory.addView(clean, layoutParams);
-            View line = new View(getActivity());
+            View line = new View(mActivity);
             line.setBackgroundResource(R.color.line_color);
             searchHeistory.addView(line, lineParams);
         }
@@ -314,7 +314,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         StringBuilder builder = new StringBuilder();
 
         if (jsonArray.length() <= 0) {
-            TextView view = new TextView(getActivity());
+            TextView view = new TextView(mActivity);
             view.setPadding(0, 20, 0, 20);
             view.setSingleLine();
             view.setEllipsize(TextUtils.TruncateAt.END);
@@ -345,7 +345,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                 }
                 CharSequence charSequence = builder.subSequence(0, builder.length() - 3);
 
-                View inflate = View.inflate(getActivity(), R.layout.item_user_search, null);
+                View inflate = View.inflate(mActivity, R.layout.item_user_search, null);
                 TextView itemContent = (TextView) inflate.findViewById(R.id.item_content);
                 View itemClean = inflate.findViewById(R.id.item_clean);
                 itemContent.setText(charSequence);
@@ -360,7 +360,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                     {
                         //删除搜索器
 
-                        AlertDialogUtil.show(getActivity(), R.string.app_name, "您确定删除这个搜索器么？", true, "确定", "取消", new DialogInterface.OnClickListener()
+                        AlertDialogUtil.show(mActivity, R.string.app_name, "您确定删除这个搜索器么？", true, "确定", "取消", new DialogInterface.OnClickListener()
                         {
                             @Override
                             public void onClick(DialogInterface dialog, int which)
@@ -542,7 +542,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     public void onResume()
     {
         super.onResume();
-        UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
+        UpdateDataTaskUtils.getHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB, this);
         LogUtil.info("JobSearchFragment------onResume");
         if (isRefresh) {
             getSearchData();
@@ -658,7 +658,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             public void onClick(View v)
             {
                 //跳转登陆界面
-                GoodJobsApp.getInstance().checkLogin(getActivity(), URLS.JOB_search_login);
+                GoodJobsApp.getInstance().checkLogin(mActivity, URLS.JOB_search_login);
             }
         });
 
@@ -669,7 +669,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             {
                 add = itemAddress.getText();
                 if (StringUtil.isEmpty(add)) {
-                    TipsUtil.show(getActivity(), "请选择工作地点");
+                    TipsUtil.show(mActivity, "请选择工作地点");
                     return;
                 }
                 LinkedHashMap hashMap = getSearchHashMap();
@@ -686,13 +686,13 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                         searchContent.setText("");
                         isRefresh = true;
                     } else {
-                        TipsUtil.show(getContext(), "请输入搜索器名称");
+                        TipsUtil.show(mActivity, "请输入搜索器名称");
                         return;
                     }
                 }
 
 
-                JumpViewUtil.openActivityAndParam(getContext(), JobSearchNameActivity.class, hashMap);
+                JumpViewUtil.openActivityAndParam(mActivity, JobSearchNameActivity.class, hashMap);
             }
         });
         setTopTitle(view, "职位搜索");
@@ -717,7 +717,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             }
             add = itemAddress.getText();
             if (StringUtil.isEmpty(add)) {
-                TipsUtil.show(getActivity(), "请选择工作地点");
+                TipsUtil.show(mActivity, "请选择工作地点");
                 return;
             }
             LinkedHashMap searchHashMap = getSearchHashMap();
@@ -734,12 +734,12 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
                     searchContent.setText("");
                     isRefresh = true;
                 } else {
-                    TipsUtil.show(getContext(), "请输入搜索器名称");
+                    TipsUtil.show(mActivity, "请输入搜索器名称");
                     return;
                 }
             }
             //跳转搜索列表
-            JumpViewUtil.openActivityAndParam(getActivity(), JobSearchResultActivity.class, searchHashMap);
+            JumpViewUtil.openActivityAndParam(mActivity, JobSearchResultActivity.class, searchHashMap);
         }
 
     }
@@ -832,13 +832,13 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         LogUtil.info("JobSearchFragment----setUserVisibleHint:" + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && !isLoad) {
-            UpdateDataTaskUtils.getHistory(getActivity(), UpdateDataTaskUtils.SEARCHJOB, this);
-            LocationUtil.newInstance(getActivity().getApplication()).startLoction(new MyLocationListener()
+            UpdateDataTaskUtils.getHistory(mActivity, UpdateDataTaskUtils.SEARCHJOB, this);
+            LocationUtil.newInstance(mActivity.getApplication()).startLoction(new MyLocationListener()
             {
                 @Override
                 public void loaction(final MyLocation location)
                 {
-                    getActivity().runOnUiThread(new Runnable()
+                    mActivity.runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run()
@@ -887,7 +887,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         }
 
         saveData.put(System.currentTimeMillis(), put);
-        UpdateDataTaskUtils.updateHistory(getActivity(), saveData, UpdateDataTaskUtils.SEARCHJOB);
+        UpdateDataTaskUtils.updateHistory(mActivity, saveData, UpdateDataTaskUtils.SEARCHJOB);
     }
 
 
