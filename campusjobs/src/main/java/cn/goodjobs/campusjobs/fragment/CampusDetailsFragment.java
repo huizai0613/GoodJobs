@@ -26,6 +26,7 @@ import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.ViewHolderUtil;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
@@ -339,5 +340,7 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
     @Override
     public void share() {
         super.share();
+        UMShareUtil.setShareText(getActivity(), jobName.getText().toString(), id + "");
+        UMShareUtil.getUMSocialService().openShare(getActivity(), false);
     }
 }

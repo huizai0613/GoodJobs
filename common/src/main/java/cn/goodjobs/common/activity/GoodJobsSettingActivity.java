@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.umeng.update.UmengUpdateAgent;
+
 import java.util.HashMap;
 
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
 
@@ -47,13 +50,14 @@ public class GoodJobsSettingActivity extends BaseActivity {
         itemModule = (SearchItemView) findViewById(R.id.itemModule);
         String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
         if (!StringUtil.isEmpty(defaultModule)) {
-            itemModule.setText(moduleNames.get(defaultModule));
+            itemModule.setText("当前频道："+moduleNames.get(defaultModule));
         }
         itemModule.setOnClickListener(this);
 
         itemFeedBack = (SearchItemView) findViewById(R.id.itemFeedBack);
         itemClear = (SearchItemView) findViewById(R.id.itemClear);
         itemCheck = (SearchItemView) findViewById(R.id.itemCheck);
+        itemCheck.setHint("当前版本：V"+HttpUtil.getPackageInfo().versionName);
         itemHelp = (SearchItemView) findViewById(R.id.itemHelp);
         itemAbout = (SearchItemView) findViewById(R.id.itemAbout);
 
@@ -80,6 +84,7 @@ public class GoodJobsSettingActivity extends BaseActivity {
         } else if (v.getId() == R.id.itemClear) {
             return;
         } else if (v.getId() == R.id.itemCheck) {
+            UmengUpdateAgent.forceUpdate(this);
             return;
         } else if (v.getId() == R.id.itemHelp) {
             return;
