@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/window_background">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background">
 
     <LinearLayout
         android:id="@+id/bottom_bar"
@@ -25,7 +25,7 @@
                 android:layout_height="25dip"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/padding_small"
-                android:background="@mipmap/icon_share"/>
+                android:background="@drawable/icon_share" />
 
             <TextView
                 android:id="@+id/tv_share"
@@ -37,7 +37,7 @@
                 android:paddingTop="2dip"
                 android:text="分享"
                 android:textColor="@color/topbar_bg"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_small" />
 
         </RelativeLayout>
 
@@ -56,7 +56,7 @@
                 android:paddingTop="@dimen/padding_small"
                 android:text="申请职位"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_default"/>
+                android:textSize="@dimen/text_default" />
 
         </RelativeLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_height="25dip"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/padding_small"
-                android:background="@mipmap/icon_collect"/>
+                android:background="@drawable/icon_collect" />
 
             <TextView
                 android:id="@+id/tv_collect"
@@ -84,7 +84,7 @@
                 android:paddingTop="2dip"
                 android:text="收藏"
                 android:textColor="@color/topbar_bg"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_small" />
 
         </RelativeLayout>
 
@@ -92,8 +92,7 @@
 
     <View
         style="@style/line"
-        android:layout_above="@+id/bottom_bar"
-        />
+        android:layout_above="@+id/bottom_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -123,8 +122,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_14"
-                    />
+                    android:textSize="@dimen/font_size_14" />
 
                 <TextView
                     android:id="@+id/job_cro"
@@ -137,8 +135,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/space_5"
                     android:textColor="@color/main_color"
-                    android:textSize="@dimen/font_size_14"
-                    />
+                    android:textSize="@dimen/font_size_14" />
             </LinearLayout>
 
 
@@ -158,8 +155,7 @@
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_belong"
                         style="@style/job_detail_tv"
-                        android:visibility="gone"
-                        />
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -169,13 +165,11 @@
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_address"
-                        style="@style/job_detail_tv"
-                        />
+                        style="@style/job_detail_tv" />
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_salary"
-                        style="@style/job_detail_tv"
-                        />
+                        style="@style/job_detail_tv" />
 
                 </LinearLayout>
 
@@ -186,13 +180,11 @@
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_work_time"
-                        style="@style/job_detail_tv"
-                        />
+                        style="@style/job_detail_tv" />
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_degree"
-                        style="@style/job_detail_tv"
-                        />
+                        style="@style/job_detail_tv" />
 
                 </LinearLayout>
 
@@ -203,13 +195,11 @@
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_gender"
-                        style="@style/job_detail_tv"
-                        />
+                        style="@style/job_detail_tv" />
 
                     <cn.goodjobs.common.view.BabushkaText
                         android:id="@+id/job_age"
-                        style="@style/job_detail_tv"
-                        />
+                        style="@style/job_detail_tv" />
 
                 </LinearLayout>
 
@@ -232,21 +222,19 @@
                     android:gravity="center_vertical"
                     android:text="职位亮点"
                     android:textColor="@color/bule_low_color"
-                    android:textSize="@dimen/font_size_14"
-                    />
+                    android:textSize="@dimen/font_size_14" />
 
 
                 <cn.goodjobs.common.view.XCFlowLayout
                     android:id="@+id/job_bright"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_10"
-                    ></cn.goodjobs.common.view.XCFlowLayout>
+                    android:layout_marginTop="@dimen/space_10"></cn.goodjobs.common.view.XCFlowLayout>
 
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="1px"
-                    android:layout_marginTop="2dip"/>
+                    android:layout_marginTop="2dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -263,8 +251,7 @@
                     android:gravity="center_vertical"
                     android:text="工作说明"
                     android:textColor="@color/bule_low_color"
-                    android:textSize="@dimen/font_size_14"
-                    />
+                    android:textSize="@dimen/font_size_14" />
 
 
                 <TextView
@@ -293,8 +280,7 @@
                     android:gravity="center_vertical"
                     android:text="其他待遇"
                     android:textColor="@color/bule_low_color"
-                    android:textSize="@dimen/font_size_14"
-                    />
+                    android:textSize="@dimen/font_size_14" />
 
 
                 <TextView
@@ -325,13 +311,11 @@
                     android:gravity="center_vertical"
                     android:text="相似职位"
                     android:textColor="@color/bule_low_color"
-                    android:textSize="@dimen/font_size_14"
-                    />
+                    android:textSize="@dimen/font_size_14" />
 
                 <View
                     style="@style/line"
-                    android:layout_marginTop="@dimen/padding_small"
-                    ></View>
+                    android:layout_marginTop="@dimen/padding_small"></View>
 
                 <LinearLayout
                     android:id="@+id/job_similar_box"
@@ -348,7 +332,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_marginTop="@dimen/space_10"/>
+                android:layout_marginTop="@dimen/space_10" />
 
         </LinearLayout>
     </ScrollView>

@@ -31,7 +31,7 @@
                     android:layout_height="25dip"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:background="@mipmap/icon_share" />
+                    android:background="@drawable/icon_share" />
 
                 <TextView
                     android:id="@+id/tv_share"
@@ -78,7 +78,7 @@
                     android:layout_height="25dip"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:background="@mipmap/icon_collect" />
+                    android:background="@drawable/icon_collect" />
 
                 <TextView
                     android:id="@+id/tv_collect"

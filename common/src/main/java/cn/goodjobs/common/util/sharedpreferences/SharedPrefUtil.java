@@ -65,7 +65,7 @@ public class SharedPrefUtil {
 
     /**
      * 保存对象
-     * */
+     */
     public static void saveObjectToLoacl(Context context, String sp, String key, Object value) {
         // 加密
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
@@ -140,7 +140,7 @@ public class SharedPrefUtil {
         } else {
             temp = getDataFromLoacl(context, args[0], args[1]);
         }
-        return StringUtil.isEmpty(temp)?null:Integer.parseInt(temp);
+        return StringUtil.isEmpty(temp) ? null : Integer.parseInt(temp);
     }
 
     public static Integer getInt(String... args) {
@@ -150,7 +150,7 @@ public class SharedPrefUtil {
         } else {
             temp = getDataFromLoacl(args[0], args[1]);
         }
-        return StringUtil.isEmpty(temp)?null:Integer.parseInt(temp);
+        return StringUtil.isEmpty(temp) ? null : Integer.parseInt(temp);
     }
 
     public static Long getLong(Context context, String... args) {
@@ -160,7 +160,7 @@ public class SharedPrefUtil {
         } else {
             temp = getDataFromLoacl(context, args[0], args[1]);
         }
-        return StringUtil.isEmpty(temp)?null:Long.parseLong(temp);
+        return StringUtil.isEmpty(temp) ? null : Long.parseLong(temp);
     }
 
     public static Long getLong(String... args) {
@@ -170,7 +170,7 @@ public class SharedPrefUtil {
         } else {
             temp = getDataFromLoacl(args[0], args[1]);
         }
-        return StringUtil.isEmpty(temp)?null:Long.parseLong(temp);
+        return StringUtil.isEmpty(temp) ? null : Long.parseLong(temp);
     }
 
     public static Boolean getBoolean(Context context, String... args) {
@@ -180,7 +180,7 @@ public class SharedPrefUtil {
         } else {
             temp = getDataFromLoacl(context, args[0], args[1]);
         }
-        return StringUtil.isEmpty(temp)?null:Boolean.parseBoolean(temp);
+        return StringUtil.isEmpty(temp) ? null : Boolean.parseBoolean(temp);
     }
 
     public static Boolean getBoolean(String... args) {
@@ -190,7 +190,7 @@ public class SharedPrefUtil {
         } else {
             temp = getDataFromLoacl(args[0], args[1]);
         }
-        return StringUtil.isEmpty(temp)?null:Boolean.parseBoolean(temp);
+        return StringUtil.isEmpty(temp) ? null : Boolean.parseBoolean(temp);
     }
 
     public static JSONObject getJSONObject(Context context, String... args) {
@@ -201,7 +201,7 @@ public class SharedPrefUtil {
             temp = getDataFromLoacl(context, args[0], args[1]);
         }
         try {
-            return StringUtil.isEmpty(temp)?null:new JSONObject(temp);
+            return StringUtil.isEmpty(temp) ? null : new JSONObject(temp);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -216,7 +216,7 @@ public class SharedPrefUtil {
             temp = getDataFromLoacl(args[0], args[1]);
         }
         try {
-            return StringUtil.isEmpty(temp)?null:new JSONObject(temp);
+            return StringUtil.isEmpty(temp) ? null : new JSONObject(temp);
         } catch (JSONException e) {
             e.printStackTrace();
         }

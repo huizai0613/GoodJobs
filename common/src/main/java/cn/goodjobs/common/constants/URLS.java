@@ -150,7 +150,7 @@ public class URLS {
     //蓝领个人中心
     public final static String API_JOB_BlueMy = "blueuser/my";      //蓝领个人中心首页
     public final static String API_JOB_UserCorpviewhistory = "User/Corpviewhistory";      //蓝领个人中心谁看过我的简历
-    public final static String API_JOB_UserCampusoperationdel = "User/Campusoperationdel";      //蓝领个人中心谁看过我的简历删除
+    public final static String API_JOB_UserCampusoperationdel = "User/Corpviewhistorydel";      //蓝领个人中心谁看过我的简历删除
     public final static String API_JOB_BlueBasicsave = "Blueuser/Basicsave";      //蓝领简历保存数据
     public final static String API_JOB_BlueBasic = "Blueuser/Basic";      //蓝领简历修改数据显示
     public final static String API_JOB_UserUpdate = "User/Update";      //蓝领简历刷新
@@ -160,4 +160,5 @@ public class URLS {
     public final static String API_JOB_BlueuserFavorite = "Blueuser/Favorite";      // 收藏职位列表
     public final static String API_JOB_BlueuserFavoritedel = "Blueuser/Favoritedel";      // 收藏职位删除进入回收站操作
     public final static String API_JOB_CvPhotosave = "cv/photosave";      // 头像上传
+    public final static String API_JOB_UserFeedback = "user/Feedback";      // 意见反馈
 }

@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.umeng.update.UmengUpdateAgent;
+
 import java.util.ArrayList;
 
 import cn.goodjobs.campusjobs.R;
@@ -43,6 +45,8 @@ public class CampusActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Xiaoyuan.toString()); // 保存当前模块为默认模块
+
+        UmengUpdateAgent.update(this); // 检测版本更新
     }
 
     @Override

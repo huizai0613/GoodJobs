@@ -3,11 +3,9 @@ package cn.goodjobs.client.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,25 +14,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.goodjobs.applyjobs.activity.ApplyJobsActivity;
-import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
-import cn.goodjobs.campusjobs.activity.CampusActivity;
 import cn.goodjobs.client.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.util.DensityUtil;
-import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.TipsUtil;
-import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.imagemenu.MainMenuEntity;
 import cn.goodjobs.common.view.imagemenu.MyImageView;
-import cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity;
-import cn.goodjobs.parttimejobs.activity.PartJobDetailsActivity;
-import cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity;
-import cn.goodjobs.parttimejobs.activity.PartTimeJobActivity;
 
-public class MainActivity extends BaseActivity
-{
+public class MainActivity extends BaseActivity {
 
     private long backTime = 2000;
     private long curTime;
@@ -42,27 +30,23 @@ public class MainActivity extends BaseActivity
     int menuHeight;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
         MyImageView menuQuanzhi = (MyImageView) findViewById(R.id.menuQuanzhi);
         MyImageView menuLanling = (MyImageView) findViewById(R.id.menuLanling);
         MyImageView menuXiaoyuan = (MyImageView) findViewById(R.id.menuXiaoyuan);
@@ -75,7 +59,7 @@ public class MainActivity extends BaseActivity
         LinearLayout.LayoutParams menuParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, menuHeight);
         lvMenu.setLayoutParams(menuParams);
 
-        MyImageView[] menuImgs = new MyImageView[] { menuQuanzhi, menuLanling, menuXiaoyuan, menuLietou, menuJianzhi};
+        MyImageView[] menuImgs = new MyImageView[]{menuQuanzhi, menuLanling, menuXiaoyuan, menuLietou, menuJianzhi};
         for (int i = 0; i < menuImgs.length; ++i) {
             MainMenuEntity curMenuEntity = getMenuEntitys().get(i);
             initMyImageWithStyle(menuImgs[i], curMenuEntity);
@@ -84,11 +68,11 @@ public class MainActivity extends BaseActivity
                 @Override
                 public void onClick(MainMenuEntity menuEntity) {
                     if (menuEntity.intent != null) {
-                        menuEntity.intent.setClass(MainActivity.this, menuEntity.toClass);
+                        menuEntity.intent.setClassName(MainActivity.this, menuEntity.toClass);
                         startActivity(menuEntity.intent);
                     } else {
                         Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, menuEntity.toClass);
+                        intent.setClassName(MainActivity.this, menuEntity.toClass);
                         startActivity(intent);
                     }
                 }
@@ -98,7 +82,7 @@ public class MainActivity extends BaseActivity
 
     private void initMyImageWithStyle(MyImageView menuImg, MainMenuEntity menuEntity) {
         View view = LayoutInflater.from(this).inflate(R.layout.menu_layout, null);
-        int height = (int) ((menuHeight-menuEntity.padding)*menuEntity.scale);
+        int height = (int) ((menuHeight - menuEntity.padding) * menuEntity.scale);
         LinearLayout.LayoutParams viewParams = new LinearLayout.LayoutParams(menuWidth, height);
         view.setLayoutParams(viewParams);
         menuImg.setLayoutParams(viewParams);
@@ -124,14 +108,12 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
 
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (System.currentTimeMillis() - curTime > backTime) {
                 TipsUtil.show(MainActivity.this, R.string.exit_app);
@@ -155,7 +137,7 @@ public class MainActivity extends BaseActivity
         menuEntity.scale = 0.6f;
         menuEntity.title = "全职招聘";
         menuEntity.content = "30000家企业、80000热招职位任你搜索，总有一款适合你 ";
-        menuEntity.toClass = ApplyJobsActivity.class;
+        menuEntity.toClass = "cn.goodjobs.applyjobs.activity.ApplyJobsActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 55);
         menuEntity.imgH = DensityUtil.dip2px(this, 46);
         menuEntitys.add(menuEntity);
@@ -167,7 +149,7 @@ public class MainActivity extends BaseActivity
         menuEntity.scale = 0.4f;
         menuEntity.title = "蓝领招聘";
         menuEntity.content = "站着工作，你的辛勤付出必有丰厚回报。";
-        menuEntity.toClass = BlueCollarActivity.class;
+        menuEntity.toClass = "cn.goodjobs.bluecollar.activity.BlueCollarActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 40);
         menuEntity.imgH = DensityUtil.dip2px(this, 66);
         menuEntitys.add(menuEntity);
@@ -179,7 +161,7 @@ public class MainActivity extends BaseActivity
         menuEntity.scale = 0.36f;
         menuEntity.title = "新安猎聘";
         menuEntity.content = "千军易得，一将难求。\n够分量，你就来这里";
-        menuEntity.toClass = HeadHuntingActivity.class;
+        menuEntity.toClass = "cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 75);
         menuEntity.imgH = DensityUtil.dip2px(this, 45);
         menuEntitys.add(menuEntity);
@@ -191,7 +173,7 @@ public class MainActivity extends BaseActivity
         menuEntity.scale = 0.36f;
         menuEntity.title = "校园招聘";
         menuEntity.content = "追逐梦想，职业生涯第一份工作从这里开始。";
-        menuEntity.toClass = CampusActivity.class;
+        menuEntity.toClass = "cn.goodjobs.campusjobs.activity.CampusActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 54);
         menuEntity.imgH = DensityUtil.dip2px(this, 44);
         menuEntitys.add(menuEntity);
@@ -203,7 +185,7 @@ public class MainActivity extends BaseActivity
         menuEntity.scale = 0.28f;
         menuEntity.title = "兼职";
         menuEntity.content = "自由灵活的“第二职业。”";
-        menuEntity.toClass = PartTimeJobActivity.class;
+        menuEntity.toClass = "cn.goodjobs.parttimejobs.activity.PartJobDetailsActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 45);
         menuEntity.imgH = DensityUtil.dip2px(this, 45);
         menuEntitys.add(menuEntity);

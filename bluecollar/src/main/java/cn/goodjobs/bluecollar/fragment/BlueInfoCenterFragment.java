@@ -22,9 +22,7 @@ import cn.goodjobs.bluecollar.activity.InfoCenter.ItemApplyActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCheckActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCollectActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemInviteActivity;
-import cn.goodjobs.bluecollar.activity.InfoCenter.ItemMoreActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity;
-import cn.goodjobs.bluecollar.activity.InfoCenter.ItemSettingActivity;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
@@ -41,7 +39,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     private Button btnLogin;
     private TextView tvName, tvTime, tvResume, tvEntrust;
     private SimpleDraweeView myHeadImage, myImageview;
-    private SearchItemView itemZhaoping, itemSetting, itemMore, itemCollection, itemShenqing, itemChakan, itemJianli;
+    private SearchItemView itemZhaoping, itemSetting, itemCollection, itemShenqing, itemChakan, itemJianli;
     private boolean status, isFirst = false, isEntrust = false;
 
     public BlueInfoCenterFragment() {
@@ -71,7 +69,6 @@ public class BlueInfoCenterFragment extends BaseFragment {
         itemShenqing = (SearchItemView) view.findViewById(R.id.itemShenqing);
         itemChakan = (SearchItemView) view.findViewById(R.id.itemChakan);
         itemJianli = (SearchItemView) view.findViewById(R.id.itemJianli);
-        itemMore = (SearchItemView) view.findViewById(R.id.itemMore);
 
         btnLogin.setOnClickListener(this);
         tvResume.setOnClickListener(this);
@@ -84,7 +81,6 @@ public class BlueInfoCenterFragment extends BaseFragment {
         itemShenqing.setOnClickListener(this);
         itemChakan.setOnClickListener(this);
         itemJianli.setOnClickListener(this);
-        itemMore.setOnClickListener(this);
 
 
         if (GoodJobsApp.getInstance().isLogin()) {
@@ -164,9 +160,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         } else if (i == R.id.myImageview) {
             intent.setClass(getActivity(), LoginActivity.class);
         } else if (i == R.id.itemSetting) {
-            intent.setClass(getActivity(), ItemSettingActivity.class);
-        } else if (i == R.id.itemMore) {
-            intent.setClass(getActivity(), ItemMoreActivity.class);
+            intent.setClassName(getActivity(), "cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity");
         } else if (i == R.id.itemJianli) {
             intent.setClass(getActivity(), ItemResumeActivity.class);
         } else if (i == R.id.itemChakan) {

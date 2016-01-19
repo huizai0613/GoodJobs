@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.umeng.update.UmengUpdateAgent;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -54,6 +56,8 @@ public class PartTimeJobActivity extends BaseListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Jianzhi.toString()); // 保存当前模块为默认模块
+
+        UmengUpdateAgent.update(this); // 检测版本更新
         initView();
         mAdapter = new PartTimeJobAdapter(this);
         initList();
