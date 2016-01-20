@@ -28,6 +28,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +39,7 @@ import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.BlueCollarActivity;
 import cn.goodjobs.bluecollar.activity.BlueJobDetailActivity;
 import cn.goodjobs.bluecollar.activity.BlueSearchActivity;
+import cn.goodjobs.common.AndroidBUSBean;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.constants.URLS;
@@ -79,6 +82,32 @@ public class BlueHomeFragment extends BaseFragment
     private MyLocation myLocation;
     private BlueCollarActivity activity;
 
+
+    @Subscriber(tag = URLS.JOB_bluehome_login)
+    protected void acceptEventBus(AndroidBUSBean androidBUSBean)
+    {
+        int status = androidBUSBean.getStatus();
+
+        switch (status) {
+            case AndroidBUSBean.STATUSREFRESH:
+                //登陆成功刷新
+                getDataFromServer();
+                break;
+        }
+    }
+
+    @Subscriber(tag = URLS.JOB_bluehome_unlogin)
+    protected void acceptunEventBus(AndroidBUSBean androidBUSBean)
+    {
+        int status = androidBUSBean.getStatus();
+
+        switch (status) {
+            case AndroidBUSBean.STATUSREFRESH:
+                //登陆成功刷新
+                getDataFromServer();
+                break;
+        }
+    }
 
     private void getDataFromServer()
     {
@@ -134,9 +163,17 @@ public class BlueHomeFragment extends BaseFragment
     {
         View view = inflater.inflate(R.layout.fragment_blue_home, container, false);
         initView(view);
+        EventBus.getDefault().register(this);
         LogUtil.info("onCreateView");
         getDataFromServer();
         return view;
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -311,27 +348,33 @@ public class BlueHomeFragment extends BaseFragment
 
 
                 historyLayout.setVisibility(View.VISIBLE);
+
                 int screenW = DensityUtil.getScreenW(mActivity);
-                int width = historyLayout.getWidth();
+//                int width = historyLayout.getWidth();
                 int itemW = 0;
                 int padding = (int) getResources().getDimension(R.dimen.padding_default);
-                if (width == 0) {
+//                if (width == 0) {
                     itemW = (screenW - 4 * padding) / 3;
-                } else {
-                    itemW = (width - 2 * padding) / 3;
-                }
+//                } else {
+//                    itemW = (width - 2 * padding) / 3;
+//                }
 
-                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams paramL = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams paramR = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
                 LinearLayout.LayoutParams paramM = new LinearLayout.LayoutParams(itemW, LinearLayout.LayoutParams.MATCH_PARENT);
                 paramM.leftMargin = padding;
+                paramL.leftMargin = padding;
                 paramM.rightMargin = padding;
+                paramR.rightMargin = padding;
                 for (int i = 0; i < 3; i++) {
                     View inflate = View.inflate(mActivity, R.layout.item_bluehome_ad, null);
                     initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
                     if (i == 1) {
                         historyLayout.addView(inflate, paramM);
-                    } else {
-                        historyLayout.addView(inflate, param);
+                    } else if (i == 0) {
+                        historyLayout.addView(inflate, paramL);
+                    } else if (i == 2) {
+                        historyLayout.addView(inflate, paramR);
                     }
                 }
 
@@ -342,8 +385,10 @@ public class BlueHomeFragment extends BaseFragment
                         initItem(inflate, itemW, data.optJSONObject(i), charSequence, i);
                         if (i == 4) {
                             historyLayout2.addView(inflate, paramM);
-                        } else {
-                            historyLayout2.addView(inflate, param);
+                        } else if (i == 3) {
+                            historyLayout2.addView(inflate, paramL);
+                        } else if (i == 5) {
+                            historyLayout2.addView(inflate, paramR);
                         }
                     }
                 }

@@ -79,7 +79,6 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding_default"
                     android:visibility="gone">
 
                 </LinearLayout>
@@ -91,8 +90,6 @@
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/padding_default"
-                    android:paddingLeft="@dimen/padding_default"
-                    android:paddingRight="@dimen/padding_default"
                     android:visibility="gone"></LinearLayout>
 
                 <TextView

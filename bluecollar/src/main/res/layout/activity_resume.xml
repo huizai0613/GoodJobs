@@ -299,7 +299,7 @@
                     listitem:hint="请选择"
                     listitem:important="invisible"
                     listitem:showHLine="false"
-                    listitem:singleSelected="false"
+                    listitem:singleSelected="true"
                     listitem:source="jobfunc_l1;jobfunc_l2"
                     listitem:tvtitle="目前职位" />
 

@@ -1,6 +1,7 @@
 package cn.goodjobs.bluecollar.fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -163,6 +164,8 @@ public class BlueInfoCenterFragment extends BaseFragment {
             intent.setClassName(getActivity(), "cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity");
         } else if (i == R.id.itemJianli) {
             intent.setClass(getActivity(), ItemResumeActivity.class);
+            startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+            return;
         } else if (i == R.id.itemChakan) {
             intent.setClass(getActivity(), ItemCheckActivity.class);
         } else if (i == R.id.itemShenqing) {
@@ -189,6 +192,15 @@ public class BlueInfoCenterFragment extends BaseFragment {
             return;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Activity.RESULT_FIRST_USER && resultCode == 22) {
+            LoadingDialog.showDialog(getActivity());
+            HttpUtil.post(URLS.API_JOB_UserUpdate, this);
+        }
     }
 
     @Override
