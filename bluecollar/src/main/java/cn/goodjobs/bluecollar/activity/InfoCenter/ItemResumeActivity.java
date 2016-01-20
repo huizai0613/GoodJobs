@@ -50,6 +50,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     Uri fileUri;
     RelativeLayout headPhotoLayout;
     SimpleDraweeView headPhoto;
+    private LinearLayout llTop;
     private Intent intent;
     private RadioGroup sexGroup;
     private LinearLayout llBottom;
@@ -83,6 +84,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
 
         btnSave = (Button) findViewById(R.id.btn_save);
         llBottom = (LinearLayout) findViewById(R.id.ll_bottom);
+        llTop = (LinearLayout) findViewById(R.id.ll_top);
         itemWant = (SelectorItemView) findViewById(R.id.itemWant);
         itemAddress = (SelectorItemView) findViewById(R.id.itemAddress);
         itemBirthday = (SearchItemView) findViewById(R.id.itemBirthday);
@@ -210,6 +212,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
     }
 
     private void setDataToView(JSONObject jsonObject) {
+        llTop.setVisibility(View.VISIBLE);
         headPhoto.setImageURI(Uri.parse(jsonObject.optString("userLogo")));
         if (StringUtil.isEmpty(jsonObject.optString("realName"))) {
             llBottom.setVisibility(View.GONE);
