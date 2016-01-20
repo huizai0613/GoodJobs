@@ -96,7 +96,6 @@ public class ResumeOpenSettingActivity extends BaseActivity {
             setResult(RESULT_OK);
             finish();
         }
-
     }
 
     private void setStatus() {

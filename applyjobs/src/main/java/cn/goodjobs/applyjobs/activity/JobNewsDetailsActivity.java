@@ -1,7 +1,9 @@
 package cn.goodjobs.applyjobs.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -30,22 +32,20 @@ import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
+import cz.msebera.android.httpclient.Consts;
 
 /**
  * Created by zhuli on 2015/12/18.
  * 资讯详情
  */
-public class JobNewsDetailsActivity extends BaseActivity
-{
+public class JobNewsDetailsActivity extends BaseActivity {
 
     private TextView tv_tips, tv_title, tv_content;
     private ImageButton iv_right;
     private String type;
-    private Handler myHandler = new Handler()
-    {
+    private Handler myHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg)
-        {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1) {
                 tv_content.setText((CharSequence) msg.obj);
@@ -54,22 +54,18 @@ public class JobNewsDetailsActivity extends BaseActivity
     };
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_jobnews_details;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
     }
 
     @Override
-    protected void initWeight()
-    {
-        tv_tips = (TextView) findViewById(R.id.top_title);
-        tv_tips.setText("详情");
+    protected void initWeight() {
+        setTopTitle("详情");
         iv_right = (ImageButton) findViewById(R.id.btn_right);
         iv_right.setImageResource(R.mipmap.share);
         iv_right.setVisibility(View.VISIBLE);
@@ -78,8 +74,7 @@ public class JobNewsDetailsActivity extends BaseActivity
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         Intent intent = getIntent();
         int id = intent.getIntExtra("newsid", 0);
         type = intent.getStringExtra("type");
@@ -91,27 +86,22 @@ public class JobNewsDetailsActivity extends BaseActivity
 
 
     @Override
-    public void onSuccess(String tag, Object data)
-    {
+    public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
         final JSONObject object = (JSONObject) data;
         tv_title.setText(object.optString("newstitle"));
         if (type.equals("html")) {
             tv_content.setMovementMethod(LinkMovementMethod.getInstance());
             //加载html中的图片
-            Thread t = new Thread(new Runnable()
-            {
+            Thread t = new Thread(new Runnable() {
                 Message msg = Message.obtain();
 
                 @Override
-                public void run()
-                {
-                    Html.ImageGetter imageGetter = new Html.ImageGetter()
-                    {
+                public void run() {
+                    Html.ImageGetter imageGetter = new Html.ImageGetter() {
 
                         @Override
-                        public Drawable getDrawable(String source)
-                        {
+                        public Drawable getDrawable(String source) {
                             URL url;
                             Drawable drawable = null;
                             try {
@@ -119,8 +109,8 @@ public class JobNewsDetailsActivity extends BaseActivity
                                 drawable = Drawable.createFromStream(
                                         url.openStream(), null);
                                 drawable.setBounds(0, 0,
-                                        drawable.getIntrinsicWidth(),
-                                        drawable.getIntrinsicHeight());
+                                        drawable.getMinimumWidth(),
+                                        drawable.getMinimumWidth());
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -143,28 +133,23 @@ public class JobNewsDetailsActivity extends BaseActivity
 
 
     @Override
-    public void onFailure(int statusCode, String tag)
-    {
+    public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage)
-    {
+    public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
     }
 
-    public void rightBtnClick(View v)
-    {
+    public void rightBtnClick(View v) {
         UMShareUtil.setShareText(this, "http://m.goodjobs.cn/index.php/module/Corp/action/NewId?newId=", tv_title.getText().toString(), getIntent().getIntExtra("newsid", 0) + "");
         UMShareUtil.getUMSocialService().openShare(this, false);
     }
-
-
 }
+

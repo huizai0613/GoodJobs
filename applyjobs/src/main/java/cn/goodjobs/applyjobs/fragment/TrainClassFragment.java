@@ -5,31 +5,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import cn.goodjobs.applyjobs.R;
-import cn.goodjobs.applyjobs.adapter.DividerItemDecoration;
 import cn.goodjobs.applyjobs.adapter.TrainClassAdapter;
-import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.baseclass.BaseListFragment;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.LogUtil;
@@ -38,13 +27,6 @@ import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.MyRecycler.TrainDialog;
 import cn.goodjobs.common.view.empty.EmptyLayout;
-import cn.goodjobs.common.view.refresh.PullRefreshLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.loadmore.LoadMoreContainer;
-import in.srain.cube.views.ptr.loadmore.LoadMoreHandler;
-import in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer;
 
 /**
  * Created by zhuli on 2015/12/17.

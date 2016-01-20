@@ -77,7 +77,6 @@ public class BaseListActivity extends BaseActivity
             @Override
             public void onClick(View v)
             {
-                mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
                 startRefresh();
             }
         });
@@ -117,7 +116,9 @@ public class BaseListActivity extends BaseActivity
 
     protected void startRefresh()
     {
-        mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+        if (mEmptyLayout != null) {
+            mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+        }
         mPtrFrameLayout.postDelayed(new Runnable()
         {
             @Override

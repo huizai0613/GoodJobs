@@ -253,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_xueli"
                     android:text="不限"
-                    android:textColor="@color/light_color"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_age"
                     android:text="不限"
-                    android:textColor="@color/light_color"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
@@ -303,7 +303,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_sex"
                     android:text="不限"
-                    android:textColor="@color/light_color"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
@@ -335,7 +335,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_english"
                     android:text="不限"
-                    android:textColor="@color/light_color"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
@@ -360,7 +360,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/tv_man"
                     android:text="不限"
-                    android:textColor="@color/light_color"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>

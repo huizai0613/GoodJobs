@@ -18,6 +18,7 @@ import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.activity.personalcenter.PersonalCollectionActivity;
 import cn.goodjobs.common.activity.personalcenter.ResumeOpenSettingActivity;
+import cn.goodjobs.common.activity.personalcenter.UpdateMobileActivity;
 import cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity;
 import cn.goodjobs.common.activity.resume.MyResumeActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalApplyActivity;
@@ -122,6 +123,7 @@ public class PersonalCenterFragment extends BaseFragment {
         btnRefresh.setVisibility(View.VISIBLE);
         if ("0".equals(GoodJobsApp.getInstance().personalInfo.optString("ismb"))) {
             btnYanzheng.setImageResource(R.drawable.wyz);
+            btnYanzheng.setOnClickListener(this);
         } else {
             btnYanzheng.setImageResource(R.drawable.yyz);
         }
@@ -149,8 +151,8 @@ public class PersonalCenterFragment extends BaseFragment {
             intent.setClassName(getActivity(), "cn.goodjobs.campusjobs.activity.MyCampusActivity");
         } else if (v.getId() == R.id.itemLogin) {
             intent.setClass(getActivity(), UpdateUserInfoActivity.class);
-        } else {
-            intent.setClass(getActivity(), PersonalLookActivity.class);
+        } else if (v.getId() == R.id.btnYanzheng){
+            intent.setClass(getActivity(), UpdateMobileActivity.class);
         }
         startActivityForResult(intent, 111);
     }

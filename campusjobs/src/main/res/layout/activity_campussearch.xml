@@ -13,9 +13,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,18 +26,15 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/padding_small">
 
-                <ImageView
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
-                    android:src="@mipmap/fdj28_grey" />
-
                 <EditText
                     android:id="@+id/et_campussearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@color/transparent"
-                    android:hint="请输入职位/公司名称搜索" />
+                    android:drawableLeft="@mipmap/fdj28_grey"
+                    android:hint=" 输入职位/公司名称搜索"
+                    android:textSize="@dimen/text_small" />
 
                 <ImageButton
                     android:id="@+id/ib_clear"
@@ -49,7 +46,6 @@
                     android:visibility="invisible" />
             </LinearLayout>
 
-            <View style="@style/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,6 +84,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     listitem:hint="不限"
+                    listitem:showLine="false"
                     listitem:singleSelected="false"
                     listitem:source="indtype"
                     listitem:tvtitle="行业类别" />
