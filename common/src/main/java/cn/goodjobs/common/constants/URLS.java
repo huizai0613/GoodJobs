@@ -48,6 +48,7 @@ public class URLS
     public final static String API_USER_INBOX = "user/Inbox";
     public final static String API_USER_INBOX_MAILDETAIL = "user/Maildetail";
     public final static String API_USER_INBOXDEL = "user/Inboxdel";
+    public final static String API_USER_UPDATE = "user/Update";
 
     // 简历相关
     public final static String API_CV_RESUME = "cv/resume";

@@ -8,6 +8,7 @@
     <View style="@style/line"/>
 
     <Button
+        android:id="@+id/btnCamera"
         android:onClick="capturePhoto"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
@@ -17,6 +18,7 @@
         android:text="相机"/>
 
     <Button
+        android:id="@+id/btnAlbum"
         android:onClick="pickPhotoFromLocal"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
@@ -27,6 +29,7 @@
         android:text="本地相册"/>
 
     <Button
+        android:id="@+id/btnCancel"
         android:onClick="cancel"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
