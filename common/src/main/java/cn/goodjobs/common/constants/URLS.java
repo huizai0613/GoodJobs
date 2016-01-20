@@ -47,6 +47,7 @@ public class URLS {
     public final static String API_USER_INBOX = "user/Inbox";
     public final static String API_USER_INBOX_MAILDETAIL = "user/Maildetail";
     public final static String API_USER_INBOXDEL = "user/Inboxdel";
+    public final static String API_USER_UserChangename = "User/Changename";// 修改用户名显示账号
 
     // 简历相关
     public final static String API_CV_RESUME = "cv/resume";
@@ -139,6 +140,8 @@ public class URLS {
 
     //EventBus 相关
     public final static String JOB_search_login = "JOB_search_login";      // 职位搜索登陆事件
+    public final static String JOB_bluehome_login = "JOB_bluehome_login";      // 职位搜索登陆事件
+    public final static String JOB_bluehome_unlogin = "JOB_bluehome_unlogin";      // 职位搜索登陆事件
 
     public final static String API_JOB_Addapply = "Job/Addapply";      //职位申请
     public final static String API_JOB_Addfavorite = "Job/Addfavorite";      //职位收藏
