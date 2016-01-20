@@ -6,10 +6,13 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.view.refresh.CirclesDrawable;
 
 public class LoadingDialog {
 	private static Dialog dialog;
@@ -22,7 +25,7 @@ public class LoadingDialog {
 		if (context != null) {
 			if (dialog == null) {
 				dialog = new Dialog(context, R.style.Custom_Progress);
-				View view = LayoutInflater.from(context).inflate(R.layout.loading_view, null);
+				ViewGroup view = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.loading_view, null);
 				TextView tipTextView = (TextView) view.findViewById(R.id.tipTextView);
 				tipTextView.setText(strContent);
 				dialog.setContentView(view);
