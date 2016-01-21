@@ -240,15 +240,11 @@ public class BlueHomeFragment extends BaseFragment
 
         if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && myLocation != null) {
             Drawable iconDis = mActivity.getResources().getDrawable(R.mipmap.icon_bluedis);
-            iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 25), DensityUtil.dip2px(mActivity, 25));
+            iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 18), DensityUtil.dip2px(mActivity, 18));
             item_dis.setCompoundDrawables(iconDis, null, null, null);
             double distance = GeoUtils.
                     distance(myLocation.latitude, myLocation.longitude, Double.parseDouble(mapLat), Double.parseDouble(mapLng));
-            if (distance > 1000) {
-                item_dis.setText(distance / 1000 + "千米");
-            } else {
-                item_dis.setText(distance + "米");
-            }
+            item_dis.setText(" " + GeoUtils.friendlyDistance(distance));
         } else {
             item_dis.setText(cityName);
 
@@ -275,7 +271,7 @@ public class BlueHomeFragment extends BaseFragment
 
         if (treatment != null) {
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            int i1 = DensityUtil.dip2px(mActivity, 2);
+            int i1 = DensityUtil.dip2px(mActivity, 1);
             for (int i = 0; i < (treatment.length() > 3 ? 3 : treatment.length()); i++) {
 
                 TextView item = new TextView(mActivity);
@@ -293,7 +289,7 @@ public class BlueHomeFragment extends BaseFragment
                 }
 
                 item.setTextColor(Color.parseColor("#6bbd00"));
-                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
                 item_treatment_box.addView(item, p);
             }
         }
@@ -308,7 +304,7 @@ public class BlueHomeFragment extends BaseFragment
                 if (itemC.isChecked()) {
                     selectJobIds.add((Integer) data.optInt("blueJobID"));
                 } else {
-                    selectJobIds.remove((Integer) data.optInt("blueJobID  "));
+                    selectJobIds.remove((Integer) data.optInt("blueJobID"));
                 }
                 if (selectJobIds.size() > 0) {
                     applyjobBut.setVisibility(View.VISIBLE);
@@ -354,7 +350,7 @@ public class BlueHomeFragment extends BaseFragment
                 int itemW = 0;
                 int padding = (int) getResources().getDimension(R.dimen.padding_default);
 //                if (width == 0) {
-                    itemW = (screenW - 4 * padding) / 3;
+                itemW = (screenW - 4 * padding) / 3;
 //                } else {
 //                    itemW = (width - 2 * padding) / 3;
 //                }

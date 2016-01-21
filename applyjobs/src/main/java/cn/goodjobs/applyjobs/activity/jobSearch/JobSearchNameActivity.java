@@ -101,6 +101,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
     private String indId;
     private String wtId;
     private String degId;
+    private String kt;
     private String searchKeyWorld;
     private String searchName;
     private String searchID;
@@ -118,7 +119,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         btnClear.setOnClickListener(this);
         btnFinish.setOnClickListener(this);
         searchSwitch.setOnSegmentViewClickListener(this);
-
+        searchBoxET.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         searchBoxET.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
             @Override
@@ -133,6 +134,9 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
                         return false;
                     }
                     saveKeyWord(trim);
+                    if (!StringUtil.isEmpty(kt)) {
+                        hashMap.put("kt", kt);
+                    }
                     //跳转到搜索列表
                     hideSoftInputFromWindow();
                     JumpViewUtil.openActivityAndParam(mcontext, JobSearchResultActivity.class, hashMap);
@@ -237,6 +241,9 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
                     {
                         //跳转搜索列表
                         hashMap.put("searchKeyWorld", searchKeyWorld);
+                        if (!StringUtil.isEmpty(kt)) {
+                            hashMap.put("kt", kt);
+                        }
                         saveSearchLock(history, hashMap);
                         JumpViewUtil.openActivityAndParam(mcontext, JobSearchResultActivity.class, hashMap);
                     }
@@ -262,11 +269,10 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
         searchContent = (LinearLayout) findViewById(R.id.search_content);
         searchSwitch = (SegmentView) findViewById(R.id.search_switch);
 
-
         searchSwitch.setSegmentText("搜全文", 0);
         searchSwitch.setSegmentText("搜公司名", 1);
         searchSwitch.setSegmentText("搜职位名", 2);
-
+        searchSwitch.setOnSegmentViewClickListener(this);
         searchSwitch.perClick(0);
     }
 
@@ -300,6 +306,9 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
                             //跳转搜索列表
                             hashMap.put("searchKeyWorld", searchKeyWorld);
                             saveSearchLock(history, hashMap);
+                            if (!StringUtil.isEmpty(kt)) {
+                                hashMap.put("kt", kt);
+                            }
                             JumpViewUtil.openActivityAndParam(mcontext, JobSearchResultActivity.class, hashMap);
                         }
                     });
@@ -421,6 +430,9 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
                 return;
             }
             saveKeyWord(trim);
+            if (!StringUtil.isEmpty(kt)) {
+                hashMap.put("kt", kt);
+            }
             //跳转到搜索列表
             hideSoftInputFromWindow();
             JumpViewUtil.openActivityAndParam(this, JobSearchResultActivity.class, hashMap);
@@ -440,6 +452,7 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
             history = new HashMap<>();
         }
         hashMap.put("searchKeyWorld", trim);
+
         saveSearchLock(history, hashMap);
     }
 
@@ -448,10 +461,13 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
     {
         switch (position) {
             case 0:
+                kt = "0";
                 break;
             case 1:
+                kt = "2";
                 break;
             case 2:
+                kt = "1";
                 break;
         }
     }

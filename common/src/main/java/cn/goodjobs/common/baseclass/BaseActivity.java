@@ -45,14 +45,16 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         // 添加友盟统计代码
         MobclickAgent.onResume(this);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
         // 添加友盟统计代码
         MobclickAgent.onPause(this);

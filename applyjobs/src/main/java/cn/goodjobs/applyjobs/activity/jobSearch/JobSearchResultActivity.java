@@ -222,6 +222,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     private String oldAddressStr;
     private String oldAddressId;
     private String cepage;
+    private String kt;
 
 
     @Override
@@ -263,6 +264,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                                             JobSearchResultActivity.this.onGetDiscussCityInfo(cityData, CityId);
                                             isPro = false;
                                             oldAddressStr = showString;
+                                            oldAddressId = CityId + "";
                                             etvMenu.setTitle(showString, 0);
                                             startRefresh();
                                         }
@@ -280,8 +282,6 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                             etvMenu.setTitle(showString, 0);
                         }
                     }
-
-
                 } else {
                     isCur = true;
                     int i = Integer.parseInt(secondLevelKey);
@@ -299,8 +299,9 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                             dis = 3000;
                             break;
                     }
+                    etvMenu.setTitle("附近" + showString, 0);
                 }
-                etvMenu.setTitle("附近" + showString, 0);
+
                 startRefresh();
             }
 
@@ -424,7 +425,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
 
-        if (!StringUtil.isEmpty(cepage)&& page > 1)
+        if (!StringUtil.isEmpty(cepage) && page > 1)
             Object.put("cepage", cepage);
 
         if (!StringUtil.isEmpty(searchKeyWorld))//关键字
@@ -448,7 +449,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         if (!StringUtil.isEmpty(itemIndtypeId) && !"-1".equals(itemIndtypeId))//行业
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
 
-        if (!StringUtil.isEmpty(itemJobfuncId) && !"-1".equals(itemDegreeId))//岗位
+        if (!StringUtil.isEmpty(itemJobfuncId) && !"-1".equals(itemJobfuncId))//岗位
             Object.put("respon", itemJobfuncId.replaceAll("#", ","));
 
         if (!StringUtil.isEmpty(itemSalaryId) && !"-1".equals(itemSalaryId))//薪资
@@ -471,7 +472,8 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
         if (!StringUtil.isEmpty(searchID))//搜索器ID
             Object.put("searchID", searchID);
-
+        if (!StringUtil.isEmpty(kt))//关键字搜索类型
+            Object.put("kt", kt);
 
         HttpUtil.post(URLS.API_JOB_JobList, Object, this);
     }
@@ -528,6 +530,8 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         itemDegreeId = getIntent().getStringExtra("itemDegreeId");
         searchName = getIntent().getStringExtra("searchName");
         searchID = getIntent().getStringExtra("searchID");
+        kt = getIntent().getStringExtra("kt");
+
 
         String id = getIntent().getStringExtra("itemAddressId");
 

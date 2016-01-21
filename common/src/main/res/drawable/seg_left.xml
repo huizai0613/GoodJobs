@@ -7,11 +7,11 @@
         <!--&lt;!&ndash;    <corners android:topLeftRadius="3dp" android:bottomLeftRadius="3dp" android:topRightRadius="0dp" android:bottomRightRadius="0dp"/>&ndash;&gt;-->
         <!--</shape>-->
     </item>
-    <item android:state_selected="true">
-        <shape>
-            <stroke android:width="1dp" android:color="#FFFFFF"/>
-            <solid android:color="#FFFFFF"/>
-            <!--  <corners android:topLeftRadius="3dp" android:bottomLeftRadius="3dp" android:topRightRadius="0dp" android:bottomRightRadius="0dp"/>-->
-        </shape>
+    <item android:drawable="@drawable/f2" android:state_selected="true">
+        <!--<shape>-->
+        <!--<stroke android:width="1dp" android:color="#FFFFFF"/>-->
+        <!--<solid android:color="#FFFFFF"/>-->
+        <!--&lt;!&ndash;  <corners android:topLeftRadius="3dp" android:bottomLeftRadius="3dp" android:topRightRadius="0dp" android:bottomRightRadius="0dp"/>&ndash;&gt;-->
+        <!--</shape>-->
     </item>
 </selector>
