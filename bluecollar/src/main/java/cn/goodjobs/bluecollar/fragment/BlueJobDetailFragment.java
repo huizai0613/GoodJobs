@@ -344,7 +344,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                     item_treatment_box.removeAllViews();
                     if (treatment != null) {
                         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        int i1 = DensityUtil.dip2px(mActivity, 2);
+                        int i1 = DensityUtil.dip2px(mActivity, 1);
                         for (int j = 0; j < (treatment.length() > 3 ? 3 : treatment.length()); j++) {
                             TextView item = new TextView(mActivity);
                             item.setPadding(i1, i1, i1, i1);
@@ -361,7 +361,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                             }
 
                             item.setTextColor(Color.parseColor("#6bbd00"));
-                            item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_small));
+                            item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_litter));
                             item_treatment_box.addView(item, p);
                         }
                     }

@@ -130,9 +130,10 @@
                         android:id="@+id/item_certify"
                         android:layout_width="20dip"
                         android:layout_height="15dip"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginRight="@dimen/padding_small"
+                        android:layout_marginRight="23dip"
                         android:layout_toLeftOf="@id/item_vip"
                         android:scaleType="fitXY"
                         android:src="@mipmap/icon_uncertify"/>

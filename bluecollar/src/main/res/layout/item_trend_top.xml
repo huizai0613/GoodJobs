@@ -121,6 +121,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/padding_small"
         android:background="@color/bg_color"/>
-    <View style="@style/line"/>
+    <View android:id="@+id/spitLine" style="@style/line" android:visibility="invisible"/>
 
 </LinearLayout>

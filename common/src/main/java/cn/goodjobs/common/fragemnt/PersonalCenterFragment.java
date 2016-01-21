@@ -8,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+
+import java.io.FileNotFoundException;
 
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.R;
@@ -25,31 +30,37 @@ import cn.goodjobs.common.activity.personalcenter.PersonalApplyActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalInboxActivity;
 import cn.goodjobs.common.activity.personalcenter.PersonalLookActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
+import cn.goodjobs.common.baseclass.choosepic.BaseImageUploadFragment;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.ImageUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
 
 /**
  * Created by wanggang on 2015/12/22 0022.
  */
-public class PersonalCenterFragment extends BaseFragment {
+public class PersonalCenterFragment extends BaseImageUploadFragment {
 
     SimpleDraweeView myImageview;
     TextView tvUsername, tvPhone, tvUpdatetime;
     ImageButton btnYanzheng, btnRefresh;
+    RelativeLayout tipLayout;
+    Uri fileUri;
+    ScrollView scrollView;
     SearchItemView itemLogin, itemSetting, itemMessage, itemCollection, itemShenqing, itemChakan, itemXiaoyuan, itemJianli;
 
     public PersonalCenterFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personal_center, container, false);
+        isModify= true;
         initView(view);
         return view;
     }
@@ -72,6 +83,8 @@ public class PersonalCenterFragment extends BaseFragment {
         itemChakan = (SearchItemView) view.findViewById(R.id.itemChakan);
         itemXiaoyuan = (SearchItemView) view.findViewById(R.id.itemXiaoyuan);
         itemJianli = (SearchItemView) view.findViewById(R.id.itemJianli);
+        tipLayout = (RelativeLayout) view.findViewById(R.id.tipLayout);
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
 
         itemLogin.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
@@ -82,6 +95,8 @@ public class PersonalCenterFragment extends BaseFragment {
         itemXiaoyuan.setOnClickListener(this);
         itemJianli.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
+        myImageview.setOnClickListener(this);
+        tipLayout.setOnClickListener(this);
     }
 
     // 当fragment可见时调用
@@ -93,6 +108,11 @@ public class PersonalCenterFragment extends BaseFragment {
             isLoad = true;
             getDataFromServer();
         }
+    }
+
+    public void reflush() {
+        scrollView.scrollTo(0, 0);
+        getDataFromServer();
     }
 
     public void getDataFromServer() {
@@ -109,6 +129,9 @@ public class PersonalCenterFragment extends BaseFragment {
         } else if (tag.equals(URLS.API_USER_UPDATE)) {
             // 简历刷新
             TipsUtil.show(getActivity(), data+"");
+        } else if (tag.equals(URLS.API_CV_PHOTO)) {
+            TipsUtil.show(getActivity(), data+"");
+            myImageview.setImageURI(fileUri);
         }
     }
 
@@ -129,6 +152,13 @@ public class PersonalCenterFragment extends BaseFragment {
         if ("0".equals(GoodJobsApp.getInstance().personalInfo.optString("ismb"))) {
             btnYanzheng.setImageResource(R.drawable.wyz);
             btnYanzheng.setOnClickListener(this);
+            Boolean mobileTips = SharedPrefUtil.getBoolean(getActivity(), "mobileTips");
+            if (mobileTips == null || !mobileTips) {
+                tipLayout.setVisibility(View.INVISIBLE);
+            } else {
+                tipLayout.setVisibility(View.VISIBLE);
+            }
+            SharedPrefUtil.saveDataToLoacl(getActivity(), "mobileTips", false);
         } else {
             btnYanzheng.setImageResource(R.drawable.yyz);
         }
@@ -161,6 +191,14 @@ public class PersonalCenterFragment extends BaseFragment {
         } else if (v.getId() == R.id.btnRefresh){
             doRefresh();
             return;
+        } else if (v.getId() == R.id.myImageview){
+            showBottomBtns(getActivity());
+            return;
+        } else if (v.getId() == R.id.tipLayout){
+            tipLayout.setVisibility(View.GONE);
+            return;
+        } else {
+            return;
         }
         startActivityForResult(intent, 111);
     }
@@ -173,8 +211,22 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
             getDataFromServer();
         }
+    }
+
+    @Override
+    protected void onImageFinish(Uri fileUri) {
+        super.onImageFinish(fileUri);
+        this.fileUri = fileUri;
+        RequestParams requestParams = new RequestParams();
+        try {
+            requestParams.put("portrait", ImageUtil.scal(fileUri, 10240));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        LoadingDialog.showDialog(getActivity());
+        HttpUtil.uploadFile(URLS.API_CV_PHOTO, URLS.API_CV_PHOTO, requestParams, this);
     }
 }

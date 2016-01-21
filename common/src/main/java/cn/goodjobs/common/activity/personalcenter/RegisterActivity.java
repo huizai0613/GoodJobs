@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ public class RegisterActivity extends BaseActivity {
 
     InputItemView itemOldMobile, itemImgCode, itemVerCode, itemPassword;
     TextView btnVerCode;
+    RadioGroup radioGroup;
     ImageView imgCode;
     int min = 60; // 60秒后获取验证码
     Handler mHandler;
@@ -44,7 +46,16 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initWeightClick() {
-
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radio0) {
+                    itemPassword.setInputPasswordType(true);
+                } else {
+                    itemPassword.setInputPasswordType(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -54,6 +65,7 @@ public class RegisterActivity extends BaseActivity {
         itemImgCode = (InputItemView) findViewById(R.id.itemImgCode);
         itemVerCode = (InputItemView) findViewById(R.id.itemVerCode);
         itemPassword = (InputItemView) findViewById(R.id.itemPassword);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         imgCode = (ImageView) findViewById(R.id.imgCode);
         btnVerCode = (TextView) findViewById(R.id.btnVerCode);
         itemOldMobile.setEditGravityLeft();

@@ -52,6 +52,7 @@ public class TrendCommentAdapter extends JsonArrayAdapterBase<JSONObject> {
             holder.tvTime = (TextView)convertView.findViewById(R.id.tvTime);
             holder.tvContent = (TextView)convertView.findViewById(R.id.tvContent);
             holder.tvReplyContent = (TextView)convertView.findViewById(R.id.tvReplyContent);
+            holder.spitLine = convertView.findViewById(R.id.spitLine);
             convertView.setTag(holder);
         }else{
             holder= (ViewHolder) convertView.getTag();
@@ -78,11 +79,17 @@ public class TrendCommentAdapter extends JsonArrayAdapterBase<JSONObject> {
         } else {
             holder.tvReplyContent.setVisibility(View.GONE);
         }
+        if (position == getCount()-1) {
+            holder.spitLine.setVisibility(View.GONE);
+        } else {
+            holder.spitLine.setVisibility(View.VISIBLE);
+        }
         return convertView;
     }
 
     public class ViewHolder {
         SimpleDraweeView headPhoto;
         TextView tvName, tvTime, tvContent, tvReplyContent;
+        View spitLine;
     }
 }

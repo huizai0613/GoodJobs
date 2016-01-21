@@ -12,7 +12,9 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
 
 import org.json.JSONObject;
 
@@ -143,6 +145,8 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
 
         if (!StringUtil.isEmpty(jsonObject.optString("userPhoto"))) {
             Uri uri = Uri.parse(jsonObject.optString("userPhoto"));
+            ImagePipeline imagePipeline = Fresco.getImagePipeline();
+            imagePipeline.evictFromCache(uri);
             headPhoto.setImageURI(uri);
         }
         tvName.setText(jsonObject.optString("nickName"));
@@ -167,10 +171,12 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        JSONObject jsonObject = personalTrendAdapter.getItem(position-1);
-        Intent intent = new Intent(this, TrendDetailActivity.class);
-        intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
-        startActivity(intent);
+        if (position > 0) {
+            JSONObject jsonObject = personalTrendAdapter.getItem(position-1);
+            Intent intent = new Intent(this, TrendDetailActivity.class);
+            intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
+            startActivity(intent);
+        }
     }
 
     @Override

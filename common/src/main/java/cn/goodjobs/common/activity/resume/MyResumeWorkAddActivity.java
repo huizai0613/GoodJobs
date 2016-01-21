@@ -110,8 +110,8 @@ public class MyResumeWorkAddActivity extends BaseActivity {
     }
 
     private void doSave() {
-        if (itemStarttime.isEmpty() || itemEndtime.isEmpty() || itemJobDes.isEmpty() || itemCompanyName.isEmpty() ||
-                itemJobfunc.isEmpty() || itemDepart.isEmpty() || itemIndtype.isEmpty() || itemCorpkind.isEmpty()) {
+        if (itemStarttime.isEmpty() || itemEndtime.isEmpty() || itemCompanyName.isEmpty() || itemIndtype.isEmpty() ||
+                itemCorpkind.isEmpty() || itemDepart.isEmpty() || itemJobfunc.isEmpty() || itemJobDes.isEmpty()) {
             return;
         } else {
             HashMap<String, Object> params = new HashMap<String, Object>();
