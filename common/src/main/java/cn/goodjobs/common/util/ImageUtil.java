@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
@@ -71,6 +72,25 @@ public class ImageUtil {
 		context.startActivityForResult(intent, reuqestCode);
 	}
 
+	public static void getPicFromCaptureOrLocal(Fragment fragment,
+												Uri uri, boolean isCapture, int reuqestCode) {
+		Intent intent = null;
+		if (isCapture) {
+			intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			// 下面这句指定调用相机拍照后的照片存储的路径
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+		} else {
+			intent = new Intent(Intent.ACTION_PICK, null);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
+					"image/*");
+		}
+		fragment.startActivityForResult(intent, reuqestCode);
+	}
+
+
+
 	public static void startPhotoZoom(Activity context, Uri uri ,Uri urito, int aspectX,
 			int aspectY, int requestCode) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
@@ -87,6 +107,24 @@ public class ImageUtil {
         intent.putExtra("noFaceDetection", true);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 		context.startActivityForResult(intent, requestCode);
+	}
+
+	public static void startPhotoZoom(Fragment fragment, Uri uri ,Uri urito, int aspectX,
+									  int aspectY, int requestCode) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		// 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+		intent.putExtra("crop", "true");
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", aspectX);
+		intent.putExtra("aspectY", aspectY);
+		// outputX outputY 是裁剪图片宽高
+		intent.putExtra("return-data", false);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, urito);
+		intent.putExtra("scale", true);
+		intent.putExtra("noFaceDetection", true);
+		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+		fragment.startActivityForResult(intent, requestCode);
 	}
 
 	public static void saveBitmap(File file, Bitmap bitmap) {

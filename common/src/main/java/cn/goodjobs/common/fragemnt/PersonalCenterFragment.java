@@ -27,6 +27,7 @@ import cn.goodjobs.common.activity.personalcenter.PersonalLookActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.LogUtil;
+import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
@@ -80,6 +81,7 @@ public class PersonalCenterFragment extends BaseFragment {
         itemChakan.setOnClickListener(this);
         itemXiaoyuan.setOnClickListener(this);
         itemJianli.setOnClickListener(this);
+        btnRefresh.setOnClickListener(this);
     }
 
     // 当fragment可见时调用
@@ -104,6 +106,9 @@ public class PersonalCenterFragment extends BaseFragment {
         if (tag.equals(URLS.API_PERSON)) {
             GoodJobsApp.getInstance().personalInfo = (JSONObject) data;
             setDataToView();
+        } else if (tag.equals(URLS.API_USER_UPDATE)) {
+            // 简历刷新
+            TipsUtil.show(getActivity(), data+"");
         }
     }
 
@@ -153,16 +158,23 @@ public class PersonalCenterFragment extends BaseFragment {
             intent.setClass(getActivity(), UpdateUserInfoActivity.class);
         } else if (v.getId() == R.id.btnYanzheng){
             intent.setClass(getActivity(), UpdateMobileActivity.class);
+        } else if (v.getId() == R.id.btnRefresh){
+            doRefresh();
+            return;
         }
         startActivityForResult(intent, 111);
+    }
+
+    private void doRefresh() {
+        LoadingDialog.showDialog(getActivity());
+        HttpUtil.post(URLS.API_USER_UPDATE, this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            LoadingDialog.showDialog(getActivity());
-            HttpUtil.post(URLS.API_PERSON, this);
+            getDataFromServer();
         }
     }
 }
