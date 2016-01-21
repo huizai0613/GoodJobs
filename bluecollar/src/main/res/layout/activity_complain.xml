@@ -63,7 +63,7 @@
             android:gravity="right"
             android:paddingBottom="@dimen/padding_default"
             android:paddingRight="@dimen/padding_default"
-            android:text="100/200"
+            android:text="200/200"
             android:textColor="@color/main_color"
             android:textSize="@dimen/text_default"/>
     </LinearLayout>

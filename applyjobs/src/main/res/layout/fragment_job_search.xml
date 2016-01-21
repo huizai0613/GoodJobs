@@ -94,7 +94,7 @@
                     listitem:containAll="true"
                     listitem:hint="选择薪资要求"
                     listitem:singleSelected="true"
-                    listitem:source="salary_expected"
+                    listitem:source="salary"
                     listitem:tvtitle="薪资要求"/>
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView

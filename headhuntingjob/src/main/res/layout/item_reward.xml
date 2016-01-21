@@ -1,96 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/tv_jobName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/padding_default"
-            android:paddingTop="@dimen/padding_small"
-            android:text="会议兼职"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
-
-        <TextView
-            android:id="@+id/tv_cityName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/padding_small"
-            android:gravity="right"
-            android:paddingRight="@dimen/padding_default"
-            android:text="六安市"
-            android:textColor="@color/light_color"
-            android:textSize="@dimen/text_small" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_arrow"
+        style="@style/right_arrow_base"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/padding_small" />
 
     <LinearLayout
+        android:id="@+id/ll_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/padding_small"
-        android:paddingTop="@dimen/padding_small">
+        android:layout_toLeftOf="@id/iv_arrow"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_reward"
+                android:id="@+id/tv_jobName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/padding_default"
-                android:text="悬赏："
-                android:textColor="@color/light_color"
-                android:textSize="@dimen/text_small" />
+                android:paddingTop="@dimen/padding_small"
+                android:text="会议兼职"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default" />
 
             <TextView
-                android:id="@+id/tv_jobBonus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_reward"
-                android:text="10000元"
-                android:textColor="@color/red"
-                android:textSize="@dimen/text_small" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/tv_salary"
+                android:id="@+id/tv_cityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/padding_small"
+                android:gravity="right"
                 android:paddingRight="@dimen/padding_default"
-                android:text="20000-29999元"
-                android:textColor="@color/red"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/tv_salary"
-                android:paddingLeft="@dimen/padding_small"
-                android:text="月薪："
+                android:text="六安市"
                 android:textColor="@color/light_color"
                 android:textSize="@dimen/text_small" />
-
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_reward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_default"
+                    android:text="悬赏："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/tv_jobBonus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_reward"
+                    android:text="10000元"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_small" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_salary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="@dimen/padding_default"
+                    android:text="20000-29999元"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/tv_salary"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="月薪："
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_small" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
     </LinearLayout>
 
-    <View style="@style/line" />
+    <View
+        style="@style/line"
+        android:layout_below="@id/ll_left"
+        android:layout_marginTop="@dimen/padding_small" />
 
-</LinearLayout>
+</RelativeLayout>

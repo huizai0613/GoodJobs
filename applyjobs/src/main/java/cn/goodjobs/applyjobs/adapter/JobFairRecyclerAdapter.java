@@ -111,9 +111,11 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
                         Intent intent = new Intent(context, HeaderDetailsActivity.class);
                         intent.putExtra("catalogID", Integer.parseInt(id.get(position)));
                         if (type == 0) {
-                            intent.putExtra("type", "招聘会");
+                            intent.putExtra("type", content.get(position));
+                            intent.putExtra("typeID", 0);
                         } else if (type == 1) {
-                            intent.putExtra("type", "职场资讯");
+                            intent.putExtra("type", content.get(position));
+                            intent.putExtra("typeID", 1);
                         }
                         context.startActivity(intent);
                     }

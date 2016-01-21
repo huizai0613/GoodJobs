@@ -64,5 +64,4 @@ public class HeaderDetailsAdapter extends JsonArrayAdapterBase<JSONObject> {
         private TextView tvname;
     }
 
-
 }

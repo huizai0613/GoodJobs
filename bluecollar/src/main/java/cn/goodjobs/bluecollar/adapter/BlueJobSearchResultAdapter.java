@@ -179,7 +179,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
         item_treatment_box.removeAllViews();
         if (treatment != null) {
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            int i1 = DensityUtil.dip2px(context, 2);
+            int i1 = DensityUtil.dip2px(context, 1);
             for (int i = 0; i < (treatment.length() > 3 ? 3 : treatment.length()); i++) {
 
                 TextView item = new TextView(context);
@@ -197,7 +197,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
                 }
 
                 item.setTextColor(Color.parseColor("#6bbd00"));
-                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.text_small));
+                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.text_litter));
                 item_treatment_box.addView(item, p);
             }
         }

@@ -140,14 +140,14 @@ public class HeadDetailsFragment extends BaseFragment {
     private void initChildViews() {
         MarginLayoutParams lp = new MarginLayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        lp.leftMargin = 16;
-        lp.rightMargin = 16;
-        lp.topMargin = 16;
-        lp.bottomMargin = 16;
+        lp.leftMargin = 8;
+        lp.rightMargin = 8;
+        lp.topMargin = 8;
+        lp.bottomMargin = 8;
         for (int i = 0; i < treatment.size(); i++) {
             TextView tview = new TextView(getActivity());
             tview.setText(treatment.get(i));
-            tview.setTextSize(14);
+            tview.setTextSize(12);
             tview.setTextColor(getResources().getColor(R.color.main_color));
             tview.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_labelview));
             labelView.addView(tview, lp);

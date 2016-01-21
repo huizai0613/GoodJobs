@@ -78,6 +78,8 @@
             android:visibility="invisible" />
     </LinearLayout>
 
+    <View style="@style/line" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_jobmessage"
         android:layout_width="match_parent"

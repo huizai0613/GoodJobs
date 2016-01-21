@@ -1,12 +1,10 @@
 package cn.goodjobs.applyjobs.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 
 import org.json.JSONArray;
@@ -19,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 import cn.goodjobs.applyjobs.R;
-import cn.goodjobs.applyjobs.adapter.DividerItemDecoration;
 import cn.goodjobs.applyjobs.adapter.JobFairRecyclerAdapter;
 import cn.goodjobs.applyjobs.bean.JobFairChild;
 import cn.goodjobs.applyjobs.bean.JobfairGroup;
@@ -28,7 +25,6 @@ import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
-import cn.goodjobs.common.view.MyRecycler.MyRecyclerView;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
 /**
