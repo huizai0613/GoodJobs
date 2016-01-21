@@ -68,7 +68,7 @@ public class BaseListFragment extends BaseFragment {
         mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+
                 startRefresh();
             }
         });
@@ -101,6 +101,9 @@ public class BaseListFragment extends BaseFragment {
     }
 
     protected void startRefresh() {
+        if (mEmptyLayout != null) {
+            mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
+        }
         mPtrFrameLayout.postDelayed(new Runnable() {
             @Override
             public void run() {

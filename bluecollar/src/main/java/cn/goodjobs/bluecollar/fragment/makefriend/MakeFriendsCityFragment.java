@@ -92,6 +92,7 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
             public void onSelected(String selectedKey, String showString) {
                 sexType = selectedKey;
                 mAdapter.clear();
+
                 startRefresh();
                 if ("0".equals(sexType)) {
                     etv_career.setTitle("性别", 0);
