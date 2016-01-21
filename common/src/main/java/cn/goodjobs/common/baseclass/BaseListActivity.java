@@ -22,8 +22,7 @@ import in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer;
  * 包含下拉刷新列表基类
  */
 
-public class BaseListActivity extends BaseActivity
-{
+public class BaseListActivity extends BaseActivity {
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected EmptyLayout mEmptyLayout;
@@ -33,8 +32,7 @@ public class BaseListActivity extends BaseActivity
     protected ListView mListView;
     protected boolean isRefresh; //  是否是刷新操作
 
-    protected void initList(ListView listView)
-    {
+    protected void initList(ListView listView) {
         // pull to refresh
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.load_more_list_view_ptr_frame);
         loadMoreListViewContainer = (LoadMoreListViewContainer) findViewById(R.id.load_more_list_view_container);
@@ -44,18 +42,15 @@ public class BaseListActivity extends BaseActivity
             mListView = (ListView) findViewById(R.id.list_view);
         }
         mPtrFrameLayout.setLoadingMinTime(1000);
-        mPtrFrameLayout.setPtrHandler(new PtrHandler()
-        {
+        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header)
-            {
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 // here check list view, not content.
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, mListView, header);
             }
 
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame)
-            {
+            public void onRefreshBegin(PtrFrameLayout frame) {
                 refresh();
             }
         });
@@ -64,20 +59,16 @@ public class BaseListActivity extends BaseActivity
 
         loadMoreListViewContainer.useDefaultHeader();
 
-        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler()
-        {
+        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
-            public void onLoadMore(LoadMoreContainer loadMoreContainer)
-            {
+            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
                 loadMore();
             }
         });
 
-        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener()
-        {
+        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startRefresh();
             }
         });
@@ -85,21 +76,18 @@ public class BaseListActivity extends BaseActivity
         mListView.setAdapter(mAdapter);
     }
 
-    protected void initList()
-    {
+    protected void initList() {
         initList(null);
     }
 
-    protected void refresh()
-    {
+    protected void refresh() {
         LogUtil.info("开始下拉刷新...");
         page = 1;
         isRefresh = true;
         getDataFronServer();
     }
 
-    protected void loadMore()
-    {
+    protected void loadMore() {
         LogUtil.info("开始加载下一页...");
         page++;
         getDataFronServer();
@@ -108,53 +96,44 @@ public class BaseListActivity extends BaseActivity
     /**
      * 获取网络数据
      */
-    protected void getDataFronServer()
-    {
+    protected void getDataFronServer() {
 
     }
 
-    protected void startRefresh()
-    {
+    protected void startRefresh() {
         if (mEmptyLayout != null) {
             mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         }
-        mPtrFrameLayout.postDelayed(new Runnable()
-        {
+        mPtrFrameLayout.postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 mPtrFrameLayout.autoRefresh(false);
             }
         }, 250);
     }
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return 0;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
 
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
 
     }
 
     @Override
-    public void onSuccess(String tag, Object data)
-    {
+    public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
 
         if (isRefresh) {
@@ -182,16 +161,14 @@ public class BaseListActivity extends BaseActivity
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage)
-    {
+    public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
         mPtrFrameLayout.refreshComplete();
         mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
-    public void onFailure(int statusCode, String tag)
-    {
+    public void onFailure(int statusCode, String tag) {
         mPtrFrameLayout.refreshComplete();
         mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         super.onFailure(statusCode, tag);

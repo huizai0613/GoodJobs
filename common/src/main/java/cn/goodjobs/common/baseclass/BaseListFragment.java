@@ -89,13 +89,13 @@ public class BaseListFragment extends BaseFragment {
 
     protected void loadMore() {
         LogUtil.info("开始加载下一页...");
-        page ++;
+        page++;
         getDataFronServer();
     }
 
     /**
      * 获取网络数据
-     * */
+     */
     protected void getDataFronServer() {
 
     }
@@ -110,6 +110,24 @@ public class BaseListFragment extends BaseFragment {
                 mPtrFrameLayout.autoRefresh(false);
             }
         }, 150);
+    }
+
+    @Override
+    public void onFailure(int statusCode, String tag) {
+        super.onFailure(statusCode, tag);
+        if (mPtrFrameLayout != null)
+            mPtrFrameLayout.refreshComplete();
+        if (mEmptyLayout != null)
+            mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
+    }
+
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage) {
+        super.onError(errorCode, tag, errorMessage);
+        if (mPtrFrameLayout != null)
+            mPtrFrameLayout.refreshComplete();
+        if (mEmptyLayout != null)
+            mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     protected Runnable testRun = new Runnable() {
