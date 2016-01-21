@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.PopupWindow;
 
 import java.io.File;
@@ -63,6 +64,12 @@ public class BaseImageUploadActivity extends BaseActivity {
 		if (isSDExist()) {
 			LayoutInflater lay = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View photoView = lay.inflate(R.layout.bottom_btns, null);
+			Button btnCamera = (Button) photoView.findViewById(R.id.btnCamera);
+			Button btnAlbum = (Button) photoView.findViewById(R.id.btnAlbum);
+			Button btnCancel = (Button) photoView.findViewById(R.id.btnCancel);
+			btnCamera.setOnClickListener(this);
+			btnAlbum.setOnClickListener(this);
+			btnCancel.setOnClickListener(this);
 			window = new PopupWindow(photoView, LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT);
 			window.setAnimationStyle(R.style.AnimBottom);
 			window.setFocusable(true);
@@ -88,47 +95,32 @@ public class BaseImageUploadActivity extends BaseActivity {
 		}
 		return false;
 	}
-	
-	/**
-	 * 拍照
-	 * @param v
-	 */
-	public void capturePhoto(View v) {
-		String status = Environment.getExternalStorageState();
-		if (status.equals(Environment.MEDIA_MOUNTED)) {
-			try {
-				if (isModify) {
+
+	@Override
+	public void onClick(View v) {
+		super.onClick(v);
+		if (v.getId() == R.id.btnCamera) {
+			window.dismiss();
+			String status = Environment.getExternalStorageState();
+			if (status.equals(Environment.MEDIA_MOUNTED)) {
+				try {
 					ImageUtil.getPicFromCaptureOrLocal(this, Uri.parse(savePath), true,
 							FLAG_CHOOSE_PHONE) ;
-				} else {
-					ImageUtil.getPicFromCaptureOrLocal(this, Uri.parse(savePath), true,
-							FLAG_CHOOSE_PHONE) ;
+				} catch (ActivityNotFoundException e) {
 				}
-				window.dismiss();
-			} catch (ActivityNotFoundException e) {
 			}
+		} else if (v.getId() == R.id.btnAlbum) {
+			picSelect();
+		} else if (v.getId() == R.id.btnCancel) {
+			window.dismiss();
 		}
 	}
 
-	/**
-	 * 从本地获取图片
-	 * 
-	 * @param v
-	 */
-	public void pickPhotoFromLocal(View v) {
-		ImageUtil.getPicFromCaptureOrLocal(this, null, false, FLAG_CHOOSE_IMG);
+	protected void picSelect() {
 		window.dismiss();
+		ImageUtil.getPicFromCaptureOrLocal(this, null, false, FLAG_CHOOSE_IMG);
 	}
 
-	/**
-	 * 取消
-	 * 
-	 * @param v
-	 */
-	public void cancel(View v) {
-		window.dismiss();
-	}
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

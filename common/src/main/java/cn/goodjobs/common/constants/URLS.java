@@ -51,15 +51,11 @@ public class URLS
     public final static String API_USER_UPDATE = "user/Update";
 
     // 简历相关
-    public final static String API_CV_RESUME = "cv/resume";
     public final static String API_CV_SHOW = "cv/cvshow";
     public final static String API_CV_INDEX = "cv/index";
     public final static String API_CV_BASICSAVE = "cv/basicsave";
+    public final static String API_CV_PHOTO = "cv/photosave";
     public final static String API_CV_BASIC = "cv/basic";
-    public final static String API_CV_PERSON = "cv/personal";
-    public final static String API_CV_SAVE_PERSON = "cv/personalsave";
-    public final static String API_CV_SAVE_LINK = "cv/linksave";
-    public final static String API_CV_LINK = "cv/link";
     public final static String API_CV_WILL = "cv/will";
     public final static String API_CV_SAVE_WILL = "cv/willsave";
     public final static String API_CV_WEXP = "cv/Explist";

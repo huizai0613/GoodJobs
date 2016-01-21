@@ -115,7 +115,7 @@ public class SearchItemView extends CombinedBaseView{
 
     public boolean isEmpty() {
         if (StringUtil.isEmpty(getText())) {
-            TipsUtil.show(getContext(), title + "不能为空");
+            TipsUtil.show(getContext(), title.replaceAll(" +","") + "不能为空");
         }
         return StringUtil.isEmpty(getText());
     }

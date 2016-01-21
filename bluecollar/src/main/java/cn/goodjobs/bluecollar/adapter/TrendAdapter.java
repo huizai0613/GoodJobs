@@ -14,8 +14,11 @@ import org.json.JSONObject;
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
+import cn.goodjobs.common.util.GeoUtils;
 import cn.goodjobs.common.util.ImageUtil;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 
 /**
  * Created by 王刚 on 2015/12/21.
@@ -23,9 +26,11 @@ import cn.goodjobs.common.util.StringUtil;
  */
 public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
 
+    MyLocation myLocation;
 
     public TrendAdapter(Context context) {
         super(context);
+        myLocation = (MyLocation) SharedPrefUtil.getObject("location");
     }
 
     @Override
@@ -51,7 +56,12 @@ public class TrendAdapter extends JsonArrayAdapterBase<JSONObject> {
             holder.headPhoto.setImageResource(R.drawable.img_personal_default);
         }
         holder.tvName.setText(jsonObject.optString("nickName"));
-        holder.tvDistance.setText(jsonObject.optString("distance"));
+        if (myLocation != null && jsonObject.optDouble("fdLng") != 0 && jsonObject.optDouble("fdLat") != 0) {
+            holder.tvDistance.setVisibility(View.VISIBLE);
+            holder.tvDistance.setText(GeoUtils.friendlyDistance(GeoUtils.distance(myLocation.latitude, myLocation.longitude, jsonObject.optDouble("fdLat"), jsonObject.optDouble("fdLng"))));
+        } else {
+            holder.tvDistance.setVisibility(View.GONE);
+        }
         holder.tvAge.setText(jsonObject.optString("ageName"));
         if ("女".equals(jsonObject.optString("sexName"))) {
             ImageUtil.setDrawable(context, holder.tvAge, R.mipmap.img_female, 1);

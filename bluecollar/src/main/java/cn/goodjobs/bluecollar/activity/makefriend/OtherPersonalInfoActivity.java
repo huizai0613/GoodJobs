@@ -74,6 +74,7 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
                 }
             }
         });
+        myListView.setOnItemClickListener(this);
         getDataFromServer();
     }
 
@@ -151,8 +152,10 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
         tvAge.setText(jsonObject.optString("ageName"));
         if ("女".equals(jsonObject.optString("sexName"))) {
             ImageUtil.setDrawable(this, tvAge, R.mipmap.img_female, 1);
+            tvAge.setBackgroundResource(R.drawable.small_button_pink);
         } else {
             ImageUtil.setDrawable(this, tvAge, R.mipmap.img_mail, 1);
+            tvAge.setBackgroundResource(R.drawable.small_button_green);
         }
         if ("yes".equals(jsonObject.optString("followHas")) || "all".equals(jsonObject.optString("followHas"))) {
             btnLook.setText("取消关注");
@@ -187,10 +190,12 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        JSONObject jsonObject = personalTrendAdapter.getItem(position-1);
-        Intent intent = new Intent(this, TrendDetailActivity.class);
-        intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
-        startActivity(intent);
+        if (position > 0) {
+            JSONObject jsonObject = personalTrendAdapter.getItem(position-1);
+            Intent intent = new Intent(this, TrendDetailActivity.class);
+            intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
+            startActivity(intent);
+        }
     }
 
     @Override

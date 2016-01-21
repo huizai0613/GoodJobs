@@ -111,7 +111,7 @@ public class BlueHomeFragment extends BaseFragment
 
     private void getDataFromServer()
     {
-        LoadingDialog.showDialog(mActivity);
+        LoadingDialog.showDialog(getActivity());
 
         HashMap<String, Object> param = new HashMap<>();
         if (myLocation != null) {
@@ -164,7 +164,7 @@ public class BlueHomeFragment extends BaseFragment
         View view = inflater.inflate(R.layout.fragment_blue_home, container, false);
         initView(view);
         EventBus.getDefault().register(this);
-        LogUtil.info("onCreateView");
+        LogUtil.info("BlueHomeFragment----onCreateView");
         getDataFromServer();
         return view;
     }

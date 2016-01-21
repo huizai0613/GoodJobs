@@ -11,6 +11,7 @@ import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DatePickerUtil;
+import cn.goodjobs.common.util.DateUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
@@ -93,15 +94,21 @@ public class MyResumeEduAddActivity extends BaseActivity {
     }
 
     private void doSave() {
-        if (itemRuxue.isEmpty() || itemBiye.isEmpty() || itemDegree.isEmpty() || itemSchoolName.isEmpty()) {
+        if (itemRuxue.isEmpty() || itemSchoolName.isEmpty() || itemDegree.isEmpty()) {
             return;
         } else {
             HashMap<String, Object> params = new HashMap<String, Object>();
             if (!StringUtil.isEmpty(eduID)) {
                 params.put("eduID", eduID);
             }
+            if (DateUtil.compare(itemRuxue.getText(), itemBiye.getText()) == 0 || DateUtil.compare(itemRuxue.getText(), itemBiye.getText()) == 1) {
+                TipsUtil.show(this, "毕业时间不能小于入学时间");
+                return;
+            }
             params.put("fMonth", itemRuxue.getText() + "-01");
-            params.put("tMonth", itemBiye.getText() + "-01");
+            if (!StringUtil.isEmpty(itemBiye.getText())) {
+                params.put("tMonth", itemBiye.getText() + "-01");
+            }
             params.put("school", itemSchoolName.getText());
             params.put("degree", itemDegree.getSelectorIds());
             LoadingDialog.showDialog(this);

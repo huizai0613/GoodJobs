@@ -34,6 +34,7 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
     String pageTime = "0";
     MyLocation myLocation;
     boolean hasMore; // 是否包含下一页
+    public static boolean needRefresh; // 是否需要刷新
 
     public MakeFriendsNearFragment() {
 
@@ -49,6 +50,15 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
         mListView.setOnItemClickListener(this);
         startRefresh();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (needRefresh) {
+            startRefresh();
+        }
+        needRefresh = false;
     }
 
     @Override
@@ -117,17 +127,7 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
             getDataFronServer();
         } else if (v.getId() == R.id.btnAdd) {
             Intent intent = new Intent(getActivity(), AddTrendActivity.class);
-            startActivityForResult(intent, 111);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            mAdapter.clear();
-            page = 1;
-            startRefresh();
+            startActivity(intent);
         }
     }
 

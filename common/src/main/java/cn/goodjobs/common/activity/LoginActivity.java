@@ -177,6 +177,7 @@ public class LoginActivity extends BaseActivity
         progressBar.setVisibility(View.INVISIBLE);
         SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
         SharedPrefUtil.saveDataToLoacl("isLogin", true);
+        SharedPrefUtil.saveDataToLoacl(this, "mobileTips", true);
         if (formLogout) {
             String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
             Intent intent = new Intent();

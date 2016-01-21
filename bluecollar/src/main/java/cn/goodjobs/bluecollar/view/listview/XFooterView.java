@@ -72,7 +72,7 @@ public class XFooterView extends LinearLayout {
 //                if (mState == STATE_LOADING) {
 //                    mHintImage.clearAnimation();
 //                }
-                mProgressBar.setVisibility(View.INVISIBLE);
+                mProgressBar.setVisibility(View.GONE);
                 mHintView.setText(MyStrings.load_more) ;
                 break;
 

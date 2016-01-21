@@ -98,7 +98,7 @@
                 android:id="@+id/radioGroup"
                 android:layout_width="80dip"
                 android:layout_height="36dip"
-                android:checkedButton="@+id/radio0"
+                android:checkedButton="@+id/radio1"
                 android:orientation="horizontal"
                 android:layout_marginRight="@dimen/padding_small"
                 android:background="@drawable/radio_blue_bg">

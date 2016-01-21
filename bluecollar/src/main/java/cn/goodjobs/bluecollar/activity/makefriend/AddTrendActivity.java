@@ -1,11 +1,9 @@
 package cn.goodjobs.bluecollar.activity.makefriend;
 
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,13 +11,12 @@ import android.widget.EditText;
 
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsNearFragment;
 import cn.goodjobs.bluecollar.view.upload.UploadImageAdapter;
 import cn.goodjobs.bluecollar.view.upload.UploadImageView;
-import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseImageUploadActivity;
 import cn.goodjobs.common.baseclass.choosepic.ImgFileListActivity;
 import cn.goodjobs.common.constants.URLS;
@@ -95,23 +92,6 @@ public class AddTrendActivity extends BaseImageUploadActivity {
     }
 
     /**
-     * 拍照
-     *
-     * @param v
-     */
-    public void capturePhoto(View v) {
-        String status = Environment.getExternalStorageState();
-        if (status.equals(Environment.MEDIA_MOUNTED)) {
-            try {
-                ImageUtil.getPicFromCaptureOrLocal(this, Uri.parse(savePath), true,
-                        FLAG_CHOOSE_PHONE);
-                window.dismiss();
-            } catch (ActivityNotFoundException e) {
-            }
-        }
-    }
-
-    /**
      * 从本地获取图片
      *
      * @param v
@@ -121,6 +101,13 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         intent.putExtra("imageCount", uploadImageAdapter.getItemCount() - 1);
         startActivityForResult(intent, FLAG_CHOOSE_IMG);
         window.dismiss();
+    }
+
+    protected void picSelect() {
+        window.dismiss();
+        Intent intent = new Intent(this, ImgFileListActivity.class);
+        intent.putExtra("imageCount", uploadImageAdapter.getItemCount() - 1);
+        startActivityForResult(intent, FLAG_CHOOSE_IMG);
     }
 
     @Override
@@ -179,11 +166,11 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         super.onSuccess(tag, data);
         if (tag.equals(URLS.MAKEFRIEND_ADDTREND)) {
             JSONObject jsonObject = (JSONObject) data;
-            if (uploadImageAdapter.getItemCount() > 0) {
+            if (uploadImageAdapter.getItemCount() > 1) {
                 uploadImageAdapter.uploadImage(jsonObject.optString("dynamicID"), myLocation);
             } else {
                 TipsUtil.show(this, jsonObject.optString("message"));
-                setResult(RESULT_OK);
+                MakeFriendsNearFragment.needRefresh = true;
                 finish();
             }
         }
@@ -193,7 +180,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         uploadFinishCount ++;
         if (uploadFinishCount == uploadCount) {
             TipsUtil.show(this, "您的动态发布成功");
-            setResult(RESULT_OK);
+            MakeFriendsNearFragment.needRefresh = true;
             finish();
         }
     }
@@ -209,7 +196,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
             }, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    setResult(RESULT_OK);
+                    MakeFriendsNearFragment.needRefresh = true;
                     finish();
                 }
             });

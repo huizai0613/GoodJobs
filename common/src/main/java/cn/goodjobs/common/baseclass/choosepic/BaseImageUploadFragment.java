@@ -78,6 +78,7 @@ public class BaseImageUploadFragment extends BaseFragment {
 	public void onClick(View v) {
 		super.onClick(v);
 		if (v.getId() == R.id.btnCamera) {
+			window.dismiss();
 			String status = Environment.getExternalStorageState();
 			if (status.equals(Environment.MEDIA_MOUNTED)) {
 				try {
@@ -87,8 +88,8 @@ public class BaseImageUploadFragment extends BaseFragment {
 				}
 			}
 		} else if (v.getId() == R.id.btnAlbum) {
-			ImageUtil.getPicFromCaptureOrLocal(this, null, false, FLAG_CHOOSE_IMG);
 			window.dismiss();
+			ImageUtil.getPicFromCaptureOrLocal(this, null, false, FLAG_CHOOSE_IMG);
 		} else if (v.getId() == R.id.btnCancel) {
 			window.dismiss();
 		}

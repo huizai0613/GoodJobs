@@ -2,6 +2,7 @@ package cn.goodjobs.common.activity.personalcenter;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import java.util.HashMap;
 
@@ -17,7 +18,8 @@ import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.InputItemView;
 
 public class UpdatePasswordActivity extends BaseActivity {
-    InputItemView itemOldPass, itemNewPass, itemNewPassAgain;
+    InputItemView itemOldPass, itemNewPass;
+    RadioGroup radioGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,16 @@ public class UpdatePasswordActivity extends BaseActivity {
 
     @Override
     protected void initWeightClick() {
-
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radio0) {
+                    itemNewPass.setInputPasswordType(true);
+                } else {
+                    itemNewPass.setInputPasswordType(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -38,7 +49,10 @@ public class UpdatePasswordActivity extends BaseActivity {
         setTopTitle("修改密码");
         itemOldPass = (InputItemView) findViewById(R.id.itemOldPass);
         itemNewPass = (InputItemView) findViewById(R.id.itemNewPass);
-        itemNewPassAgain = (InputItemView) findViewById(R.id.itemNewPassAgain);
+
+        itemOldPass.setEditGravityLeft();
+        itemNewPass.setEditGravityLeft();
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
     }
 
     @Override
@@ -47,17 +61,13 @@ public class UpdatePasswordActivity extends BaseActivity {
     }
 
     public void doUpdate(View view) {
-        if (itemOldPass.isEmpty() || itemNewPass.isEmpty() || itemNewPassAgain.isEmpty()) {
-            return;
-        }
-        if (!itemNewPass.getText().equals(itemNewPassAgain.getText())) {
-            TipsUtil.show(this, "您两次输入的密码不一致");
+        if (itemOldPass.isEmpty() || itemNewPass.isEmpty()) {
             return;
         }
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("oldPassword", itemOldPass.getText());
         params.put("newsPassword", itemNewPass.getText());
-        params.put("chkPassword", itemNewPassAgain.getText());
+        params.put("chkPassword", itemNewPass.getText());
         LoadingDialog.showDialog(this);
         HttpUtil.post(URLS.API_USER_PASSWORDEDIT, params, this);
     }
