@@ -81,6 +81,7 @@ public class BlueHomeFragment extends BaseFragment
     private JSONObject jsonObject;
     private MyLocation myLocation;
     private BlueCollarActivity activity;
+    private boolean isLoadSuccess;
 
 
     @Subscriber(tag = URLS.JOB_bluehome_login)
@@ -165,8 +166,16 @@ public class BlueHomeFragment extends BaseFragment
         initView(view);
         EventBus.getDefault().register(this);
         LogUtil.info("onCreateView");
-        getDataFromServer();
         return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser)
+    {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isLoadSuccess) {
+            getDataFromServer();
+        }
     }
 
     @Override
@@ -180,6 +189,7 @@ public class BlueHomeFragment extends BaseFragment
     public void onSuccess(String tag, Object data)
     {
         super.onSuccess(tag, data);
+        isLoadSuccess = true;
         jsonObject = (JSONObject) data;
         activity.setCurSelectJobCate(jsonObject.optString("getBlueFunID"));
         JSONArray adsList = jsonObject.optJSONArray("adsList");
