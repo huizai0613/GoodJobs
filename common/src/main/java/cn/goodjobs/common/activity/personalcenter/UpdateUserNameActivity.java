@@ -44,8 +44,8 @@ public class UpdateUserNameActivity extends BaseActivity {
         itemNewUserName = (InputItemView) findViewById(R.id.itemNewUserName);
         itemPass = (InputItemView) findViewById(R.id.itemPass);
 
-        itemUserName.setHint(GoodJobsApp.getInstance().personalInfo.optString("username"));
-        itemUserName.setEditable(false);
+        LoadingDialog.showDialog(this);
+        HttpUtil.post(URLS.API_USER_UserChangename, this);
     }
 
     @Override
@@ -67,11 +67,16 @@ public class UpdateUserNameActivity extends BaseActivity {
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
-        TipsUtil.show(this, ((JSONObject) data).optString("message"));
-        LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
-        loginInfo.userName = itemNewUserName.getText();
-        SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
-        setResult(RESULT_OK);
-        finish();
+        if (tag.equals(URLS.API_USER_USERNAMEEDIT)) {
+            TipsUtil.show(this, ((JSONObject) data).optString("message"));
+            LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
+            loginInfo.userName = itemNewUserName.getText();
+            SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
+            setResult(RESULT_OK);
+            finish();
+        } else if (tag.equals(URLS.API_USER_UserChangename)) {
+            itemUserName.setHint(((JSONObject) data).optString("memberName"));
+            itemUserName.setEditable(false);
+        }
     }
 }

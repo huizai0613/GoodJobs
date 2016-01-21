@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import cn.goodjobs.common.GoodJobsApp;
@@ -57,9 +59,10 @@ public class UpdateMobileActivity extends BaseActivity {
         itemOldMobile.setEditGravityLeft();
         itemVerCode.setEditGravityLeft();
         itemImgCode.setEditGravityLeft();
-//        itemOldMobile.setText(GoodJobsApp.getInstance().personalInfo.optString("mb"));
 
-        changImageCode();
+        LoadingDialog.showDialog(this);
+        HttpUtil.post(URLS.API_USER_UserChangename, this);
+
     }
 
     public void changeVerCode(View view) {
@@ -123,6 +126,9 @@ public class UpdateMobileActivity extends BaseActivity {
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
             setResult(RESULT_OK);
             finish();
+        } else if (tag.equals(URLS.API_USER_UserChangename)) {
+            itemOldMobile.setText(((JSONObject) data).optString("mobile"));
+            changImageCode();
         }
     }
 

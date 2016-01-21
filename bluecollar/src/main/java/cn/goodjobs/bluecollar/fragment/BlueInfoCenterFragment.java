@@ -109,11 +109,15 @@ public class BlueInfoCenterFragment extends BaseFragment {
             }
             if (isFirst) {
                 //发送请求
-                LoadingDialog.showDialog(getActivity());
-                HttpUtil.post(URLS.API_JOB_BlueMy, this);
+                getDataFromServer();
                 isFirst = false;
             }
         }
+    }
+
+    public void getDataFromServer() {
+        LoadingDialog.showDialog(getActivity());
+        HttpUtil.post(URLS.API_JOB_BlueMy, this);
     }
 
 

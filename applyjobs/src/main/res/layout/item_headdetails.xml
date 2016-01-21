@@ -7,27 +7,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/padding_small">
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            style="@style/right_arrow_base"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_small" />
 
         <TextView
             android:id="@+id/tv_jobfair_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/padding_small"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_arrow"
+            android:padding="@dimen/padding_small"
             android:text="提高面试"
             android:textColor="@color/main_color"
             android:textSize="@dimen/text_default" />
 
-        <ImageView
-            android:layout_width="20dip"
-            android:layout_height="20dip"
-            android:layout_marginRight="@dimen/padding_default"
-            android:layout_alignParentRight="true"
-            android:src="@mipmap/icon_arrow" />
     </RelativeLayout>
 
-    <View
-        style="@style/line"
-        android:layout_marginTop="@dimen/padding_small" />
+    <View style="@style/line" />
 
 </LinearLayout>

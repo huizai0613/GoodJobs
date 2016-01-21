@@ -9,11 +9,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import cn.goodjobs.client.R;
+import cn.goodjobs.common.activity.HelpActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
+import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.http.MetaDataUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 
@@ -117,25 +119,34 @@ public class LauncherActivity extends BaseActivity {
 
     private void startApp() {
         if (canStart) {
-            String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
-            Intent intent = new Intent();
-            if (StringUtil.isEmpty(defaultModule)) {
-                intent.setClass(LauncherActivity.this, MainActivity.class);
-            } else {
-                if (defaultModule.equals(Constant.module.ApplyJobs.toString())) {
-                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
-                } else if (defaultModule.equals(Constant.module.Xiaoyuan.toString())) {
-                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.campusjobs.activity.CampusActivity");
-                } else if (defaultModule.equals(Constant.module.Liepin.toString())) {
-                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity");
-                } else if (defaultModule.equals(Constant.module.Jianzhi.toString())) {
-                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.parttimejobs.activity.PartTimeJobActivity");
-                } else if (defaultModule.equals(Constant.module.Lanling.toString())) {
-                    intent.setClassName(LauncherActivity.this, "cn.goodjobs.bluecollar.activity.BlueCollarActivity");
+            String versionName = SharedPrefUtil.getDataFromLoacl("versionName");
+            if (HttpUtil.getPackageInfo().versionName.equals(versionName)) {
+                String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+                Intent intent = new Intent();
+                if (StringUtil.isEmpty(defaultModule)) {
+                    intent.setClass(LauncherActivity.this, MainActivity.class);
+                } else {
+                    if (defaultModule.equals(Constant.module.ApplyJobs.toString())) {
+                        intent.setClassName(LauncherActivity.this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
+                    } else if (defaultModule.equals(Constant.module.Xiaoyuan.toString())) {
+                        intent.setClassName(LauncherActivity.this, "cn.goodjobs.campusjobs.activity.CampusActivity");
+                    } else if (defaultModule.equals(Constant.module.Liepin.toString())) {
+                        intent.setClassName(LauncherActivity.this, "cn.goodjobs.headhuntingjob.activity.HeadHuntingActivity");
+                    } else if (defaultModule.equals(Constant.module.Jianzhi.toString())) {
+                        intent.setClassName(LauncherActivity.this, "cn.goodjobs.parttimejobs.activity.PartTimeJobActivity");
+                    } else if (defaultModule.equals(Constant.module.Lanling.toString())) {
+                        intent.setClassName(LauncherActivity.this, "cn.goodjobs.bluecollar.activity.BlueCollarActivity");
+                    }
                 }
+                startActivity(intent);
+                return;
+            } else {
+                SharedPrefUtil.saveDataToLoacl("versionName", HttpUtil.getPackageInfo().versionName);
+                Intent intent = new Intent(this, HelpActivity.class);
+                startActivity(intent);
+                return;
             }
-            startActivity(intent);
-            return;
+
         }
         canStart = true;
     }
