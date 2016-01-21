@@ -186,6 +186,7 @@ public class BaseListActivity extends BaseActivity
     {
         super.onError(errorCode, tag, errorMessage);
         mPtrFrameLayout.refreshComplete();
+        loadMoreListViewContainer.loadMoreFinish(false, true);
         mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
@@ -193,6 +194,7 @@ public class BaseListActivity extends BaseActivity
     public void onFailure(int statusCode, String tag)
     {
         mPtrFrameLayout.refreshComplete();
+        loadMoreListViewContainer.loadMoreFinish(false, true);
         mEmptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
         super.onFailure(statusCode, tag);
     }
