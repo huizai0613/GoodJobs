@@ -566,11 +566,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
     }
 
-    @Override
-    public void onFailure(int statusCode, String tag)
-    {
-        super.onFailure(statusCode, tag);
-    }
 
     @Override
     protected void onResume()
