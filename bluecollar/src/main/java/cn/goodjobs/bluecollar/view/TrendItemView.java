@@ -41,7 +41,6 @@ public class TrendItemView extends CombinedBaseView implements View.OnClickListe
     ArrayList<String> picList;
     String dynamicID;
     int likeNum;
-    LayoutParams wrapLayout;
 
     public TrendItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,7 +64,6 @@ public class TrendItemView extends CombinedBaseView implements View.OnClickListe
         tvTime = (TextView) findViewById(R.id.tvTime);
         tvContent = (TextView) findViewById(R.id.tvContent);
         tvPics = (TextView) findViewById(R.id.tvPics);
-        wrapLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         myImageview.setOnClickListener(this);
     }
 
@@ -97,12 +95,9 @@ public class TrendItemView extends CombinedBaseView implements View.OnClickListe
         }
         tvTime.setText(jsonObject.optString("saveDate"));
         tvGuanzhu.setText(jsonObject.optString("lookNum"));
-        tvGuanzhu.setLayoutParams(wrapLayout);
         likeNum = jsonObject.optInt("likeNum");
         tvFans.setText(""+likeNum);
-        tvFans.setLayoutParams(wrapLayout);
         tvMsg.setText(jsonObject.optString("replyNum"));
-        tvMsg.setLayoutParams(wrapLayout);
         btnZan.setOnClickListener(this);
         dynamicID = jsonObject.optString("dynamicID");
     }

@@ -31,6 +31,7 @@ public class BaseListFragment extends BaseFragment {
     protected ListView mListView;
     public Handler mTestHandler;
     protected EmptyLayout mEmptyLayout;
+    protected boolean isRefresh; //  是否是刷新操作
 
     protected void initList(View view, ListView listView) {
         // pull to refresh
@@ -83,7 +84,7 @@ public class BaseListFragment extends BaseFragment {
     protected void refresh() {
         LogUtil.info("开始下拉刷新...");
         page = 1;
-        mAdapter.clear();
+        isRefresh = true;
         getDataFronServer();
     }
 
@@ -100,41 +101,29 @@ public class BaseListFragment extends BaseFragment {
 
     }
 
-    protected void startRefresh() {
+    protected void startRefresh()
+    {
         if (mEmptyLayout != null) {
             mEmptyLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         }
-        mPtrFrameLayout.postDelayed(new Runnable() {
+        mPtrFrameLayout.postDelayed(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 mPtrFrameLayout.autoRefresh(false);
             }
-        }, 150);
+        }, 250);
     }
 
-    protected Runnable testRun = new Runnable() {
-        @Override
-        public void run() {
-            JSONArray jsonArray = new JSONArray();
-            JSONObject jsonObject;
-
-            jsonObject = new JSONObject();
-            jsonArray.put(jsonObject);
-            jsonObject = new JSONObject();
-            jsonArray.put(jsonObject);
-            jsonObject = new JSONObject();
-            jsonArray.put(jsonObject);
-            jsonObject = new JSONObject();
-            jsonArray.put(jsonObject);
-            jsonObject = new JSONObject();
-            jsonArray.put(jsonObject);
-            jsonObject = new JSONObject();
-            jsonArray.put(jsonObject);
-
-            mAdapter.appendToList(jsonArray);
-
-            loadMoreListViewContainer.loadMoreFinish(false, true);
-            mPtrFrameLayout.refreshComplete();
+    @Override
+    public void onSuccess(String tag, Object data) {
+        super.onSuccess(tag, data);
+        if (isRefresh) {
+            if (mAdapter != null) {
+                mAdapter.clear();
+            }
+            isRefresh = false;
         }
-    };
+    }
 }

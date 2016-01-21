@@ -276,7 +276,7 @@ public class ImageUtil {
 			FileOutputStream fos = null;
 			try {
 				fos = new FileOutputStream(outputFile);
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
 				fos.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

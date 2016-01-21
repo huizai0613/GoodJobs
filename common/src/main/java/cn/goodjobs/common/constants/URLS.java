@@ -127,6 +127,7 @@ public class URLS
     public final static String MAKEFRIEND_CITYLIST = "Friend/Cityfriendlist";      //交友首页，同城交友
     public final static String MAKEFRIEND_COMMENT = "Friend/Replysave";      //动态评论与回复
     public final static String MAKEFRIEND_FOLLOW = "Friend/Followsave";      //交友关注和取消关注操作
+    public final static String MAKEFRIEND_TRENDDEL = "Friend/Dynamicdel";      //交友动态删除操作
     public final static String MAKEFRIEND_LIKE = "Friend/Dynamiclike";      //交友动态点赞
     public final static String MAKEFRIEND_FRIEND = "Friend/Friendshow";      //个人主页详情
     public final static String MAKEFRIEND_LOOKLIST = "Friend/Followlist";      //关注列表

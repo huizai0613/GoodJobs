@@ -6,8 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -35,6 +38,7 @@ import cn.goodjobs.common.view.LoadingDialog;
 public class AddTrendActivity extends BaseImageUploadActivity {
 
     EditText etContent;
+    TextView tvCount;
     RecyclerView recyclerView;
     MyLocation myLocation;
     private UploadImageAdapter uploadImageAdapter;
@@ -57,6 +61,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         super.initWeight();
         setTopTitle("添加动态");
         etContent = (EditText) findViewById(R.id.etContent);
+        tvCount = (TextView) findViewById(R.id.tvCount);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // 线性布局管理器
@@ -72,6 +77,23 @@ public class AddTrendActivity extends BaseImageUploadActivity {
             public void loaction(MyLocation location) {
                 SharedPrefUtil.saveObjectToLoacl("location", location);
                 myLocation = location;
+            }
+        });
+
+        etContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tvCount.setText("还能再输入"+(200-s.length()+"个字"));
             }
         });
     }
@@ -142,7 +164,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         if (myLocation == null) {
             myLocation = (MyLocation) SharedPrefUtil.getObject("location");
         }
-        uploadCount = uploadImageAdapter.getItemCount()-1;
+        uploadCount = uploadImageAdapter.uploadImaggeDatas.size()-1;
         if (!StringUtil.isEmpty(etContent.getText()) && StringUtil.isEmpty(uploadID)) {
             HashMap<String, Object> params = new HashMap<String, Object>();
             if (myLocation != null) {

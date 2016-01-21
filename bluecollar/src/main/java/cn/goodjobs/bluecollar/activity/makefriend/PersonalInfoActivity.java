@@ -175,7 +175,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
             JSONObject jsonObject = personalTrendAdapter.getItem(position-1);
             Intent intent = new Intent(this, TrendDetailActivity.class);
             intent.putExtra("dynamicID", jsonObject.optString("dynamicID"));
-            startActivity(intent);
+            startActivityForResult(intent, 101);
         }
     }
 
@@ -201,7 +201,15 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            getDataFromServer();
+            if (requestCode == 101) {
+                page = 1;
+                personalTrendAdapter.clear();
+                personalTrendAdapter.showLoading = true;
+                personalTrendAdapter.notifyDataSetChanged();
+                loadTend();
+            } else {
+                getDataFromServer();
+            }
         }
     }
 }
