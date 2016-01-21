@@ -48,7 +48,7 @@ public class GoodJobsApp extends Application
     public void onCreate()
     {
         super.onCreate();
-
+//        CrashHandler.getInstance().init(this);
         instance = this;
 
         Fresco.initialize(this);

@@ -173,7 +173,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                     String childPos = "null";
                     if (!StringUtil.isEmpty(itemJobfuncPrantId)) {
                         if (itemJobfuncPrantId.startsWith("-1")) {
-                            parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId.split("#")[1]));
+                            parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId.split(SelectorItemView.spitStr)[1]));
                         } else {
                             parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId));
                         }
@@ -263,6 +263,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private View applyjobBut;
     private String cepage;
 
+
     @Override
     protected int getLayoutID()
     {
@@ -301,6 +302,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                                             BlueJobSearchResultActivity.this.onGetDiscussCityInfo(cityData, CityId);
                                             isPro = false;
                                             oldAddressStr = showString;
+                                            oldAddressId = CityId + "";
                                             etvMenu.setTitle(showString, 0);
                                             startRefresh();
                                         }
@@ -412,6 +414,12 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                     if (key.equals("1")) {//行业
                         itemIndtypeId = entry.getValue();
                     }
+                    if (key.equals("2")) {//学历
+                        itemDegreeId = entry.getValue();
+                    }
+                    if (key.equals("3")) {//年限
+                        itemWorktimeId = entry.getValue();
+                    }
                 }
                 startRefresh();
             }
@@ -436,6 +444,8 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         HashMap<String, String> multiCheckMap = new HashMap<>();
         multiCheckMap.put("0", itemBenefitId == null ? "0" : itemBenefitId);
         multiCheckMap.put("1", "0");
+        multiCheckMap.put("2", "0");
+        multiCheckMap.put("3", "0");
         moreInfo.setCheckMult(multiCheckMap);
 
         applyjobBut.setOnClickListener(this);
@@ -507,7 +517,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
             Object.put("industry", itemIndtypeId.replaceAll("#", ","));
 
         if (!StringUtil.isEmpty(itemJobfuncId) && !"-1".equals(itemIndtypeId))//岗位
-
             if ("0".equals(itemJobfuncId) || itemJobfuncId.startsWith("-1")) {
                 Object.put("respon", itemJobfuncPrantId.replaceAll("#", ","));
             } else {

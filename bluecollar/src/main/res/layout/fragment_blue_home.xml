@@ -1,15 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:listitem="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color">
+                xmlns:listitem="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_color">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/topbar" />
+        <include layout="@layout/topbar"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                     android:id="@+id/adViewPager"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/main_banner_height"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                             android:background="@color/transparent"
                             android:clickable="false"
                             android:hint="输入关键字/职位/公司搜索"
-                            android:textSize="@dimen/text_default" />
+                            android:textSize="@dimen/text_default"/>
 
                         <Button
                             android:id="@+id/btnSearch"
@@ -66,7 +66,7 @@
                             android:clickable="false"
                             android:text="搜索"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text_default" />
+                            android:textSize="@dimen/text_default"/>
 
                     </LinearLayout>
 
@@ -97,11 +97,12 @@
                     android:layout_height="@dimen/space_40"
                     android:layout_marginTop="@dimen/padding_small"
                     android:background="@color/bule_low_color"
+                    android:drawableLeft="@mipmap/like"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/padding_large"
-                    android:text="猜你喜欢"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text=" 猜你喜欢"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_default" />
+                    android:textSize="@dimen/text_default"/>
 
 
                 <LinearLayout
@@ -125,9 +126,9 @@
         android:layout_marginRight="@dimen/padding_small"
         android:background="@drawable/bg_applyjob"
         android:gravity="center"
-        android:padding="8dip"
-        android:visibility="gone"
+        android:padding="10dip"
         android:text="申请职位"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_default" />
+        android:textSize="@dimen/text_default"
+        android:visibility="gone"/>
 </RelativeLayout>

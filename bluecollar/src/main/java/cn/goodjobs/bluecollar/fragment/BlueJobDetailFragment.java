@@ -77,6 +77,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
     private String lng;
     private String lat;
     private JSONObject jobDetailJson;
+    private View jobCroBox;
 
 
     public JSONObject getJobDetailJson()
@@ -116,6 +117,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
         jobContent = (TextView) inflate.findViewById(R.id.job_content);
         jobName = (TextView) inflate.findViewById(R.id.job_name);
         jobCro = (TextView) inflate.findViewById(R.id.job_cro);
+        jobCroBox = inflate.findViewById(R.id.job_cro_box);
 
         jobStore = (TextView) inflate.findViewById(R.id.job_store);
         jobShare = (TextView) inflate.findViewById(R.id.job_share);
@@ -124,13 +126,13 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
         jobStore.setOnClickListener(this);
         jobShare.setOnClickListener(this);
         jobSimilarBox.setOnClickListener(this);
-        jobCro.setOnClickListener(this);
+        jobCroBox.setOnClickListener(this);
         jobSend.setOnClickListener(this);
         jobPhone.setOnClickListener(this);
 
 
         Drawable iconPhone = getResources().getDrawable(R.mipmap.phone);
-        iconPhone.setBounds(0, 0, DensityUtil.dip2px(mActivity, 15), DensityUtil.dip2px(mActivity, 15));
+        iconPhone.setBounds(0, 0, DensityUtil.dip2px(mActivity, 25), DensityUtil.dip2px(mActivity, 25));
         jobPhone.setCompoundDrawables(null, null, iconPhone, null);
 
         Drawable iconStore = getResources().getDrawable(R.drawable.icon_wite_store);
@@ -204,7 +206,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                 view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
                 view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.light_color));
+                view.setTextColor(getResources().getColor(R.color.main_color));
                 jobBright.addView(view, lp);
             }
         }
@@ -215,7 +217,22 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
 
         setStrng2Bab(jobWorkSalary, "加班补贴: ", dataJson.optString("extraWorkFeeName"));
-        setStrng2Bab(jobSalary, "月薪: ", dataJson.optString("salaryName"));
+
+        if (StringUtil.isEmpty(dataJson.optString("salaryName"))) {
+            jobSalary.setVisibility(View.GONE);
+            return;
+        }
+        jobSalary.setVisibility(View.VISIBLE);
+        jobSalary.addPiece(new BabushkaText.Piece.Builder("月        薪:")
+                .textColor(Color.parseColor("#999999"))
+                .build());
+        // Add the second piece "1.2 mi"
+        jobSalary.addPiece(new BabushkaText.Piece.Builder(dataJson.optString("salaryName"))
+                .textColor(Color.parseColor("#ff0000"))
+                .build());
+
+        jobSalary.display();
+
         setStrng2Bab(jobWorkTime, "作息时间: ", dataJson.optString("relaxTime"));
         setStrng2Bab(jobNum, "招聘人数: ", dataJson.optString("jobOfferNum"));
         setStrng2Bab(jobRequirement, "职位要求: ", dataJson.optString("jobTypeName"));
@@ -289,7 +306,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
                     if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && activity.myLocation != null) {
                         Drawable iconDis = mActivity.getResources().getDrawable(R.mipmap.icon_bluedis);
-                        iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 25), DensityUtil.dip2px(mActivity, 25));
+                        iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 18), DensityUtil.dip2px(mActivity, 18));
                         item_dis.setCompoundDrawables(iconDis, null, null, null);
 
 
@@ -414,6 +431,12 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
         errorLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
+        super.onError(errorCode, tag, errorMessage);
+        errorLayout.setErrorType(EmptyLayout.NODATA);
+    }
 
     @Override
     public void onClick(View v)
@@ -482,7 +505,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                 {
                 }
             });
-        } else if (i == R.id.job_cro) {
+        } else if (i == R.id.job_cro_box) {
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("corpID", memCorpID);
@@ -490,7 +513,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
         } else if (i == R.id.job_share) {
             //分享
-            UMShareUtil.setShareText(getActivity(), jobName.getText().toString(), id+"");
+            UMShareUtil.setShareText(getActivity(), jobName.getText().toString(), id + "");
             UMShareUtil.getUMSocialService().openShare(getActivity(), false);
         } else if (i == R.id.job_phone) {
             PhoneUtils.makeCall(jobPhone.getText().toString(), mActivity);

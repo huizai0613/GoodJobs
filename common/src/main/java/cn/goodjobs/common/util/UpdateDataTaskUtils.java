@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
+import cn.goodjobs.common.view.searchItem.SelectorItemView;
 
 /**
  * Created by yexiangyu on 15/12/23.
@@ -318,7 +319,7 @@ public class UpdateDataTaskUtils
                     JSONObject jsondegreeObject = new JSONObject();
                     jsondegreeObject.put("name", "不限");
                     jsondegreeObject.put("id", 0);
-                    degreebjects.add(0, jsoncorptypeObject);
+                    degreebjects.add(0, jsondegreeObject);
 
 
                     LinkedHashMap<String, List<JSONObject>> linkedHashMap = new LinkedHashMap();
@@ -347,14 +348,16 @@ public class UpdateDataTaskUtils
             public void run()
             {
                 try {
-                    JSONArray workArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.WELFARE);
+                    JSONArray workArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.WORKTIME);
+                    JSONArray welArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.WELFARE);
                     JSONArray jobArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.INDTYPE);
+                    JSONArray degreeArray = (JSONArray) JsonMetaUtil.getObject(JsonMetaUtil.DEGREE);
                     ArrayList<JSONObject> workObjects = new ArrayList<JSONObject>();
-                    for (int i = 0; i < workArray.length(); i++) {
-                        if (workArray.optJSONObject(i).optString("name").equals("不限") || workArray.optJSONObject(i).optString("name").equals("全部")) {
+                    for (int i = 0; i < welArray.length(); i++) {
+                        if (welArray.optJSONObject(i).optString("name").equals("不限") || welArray.optJSONObject(i).optString("name").equals("全部")) {
                             continue;
                         }
-                        workObjects.add(workArray.optJSONObject(i));
+                        workObjects.add(welArray.optJSONObject(i));
                     }
                     JSONObject jsonWorkObject = new JSONObject();
                     jsonWorkObject.put("name", "不限");
@@ -374,11 +377,38 @@ public class UpdateDataTaskUtils
                     corpkindbjects.add(0, jsonCroObject);
 
 
+                    ArrayList<JSONObject> degreebjects = new ArrayList<JSONObject>();
+                    for (int i = 0; i < degreeArray.length(); i++) {
+                        if (degreeArray.optJSONObject(i).optString("name").equals("不限") || degreeArray.optJSONObject(i).optString("name").equals("全部")) {
+                            continue;
+                        }
+                        degreebjects.add(degreeArray.optJSONObject(i));
+                    }
+                    JSONObject jsondegreeObject = new JSONObject();
+                    jsondegreeObject.put("name", "不限");
+                    jsondegreeObject.put("id", 0);
+                    degreebjects.add(0, jsondegreeObject);
+
+                    ArrayList<JSONObject> workObjects1 = new ArrayList<JSONObject>();
+                    for (int i = 0; i < workArray.length(); i++) {
+                        if (workArray.optJSONObject(i).optString("name").equals("不限") || workArray.optJSONObject(i).optString("name").equals("全部")) {
+                            continue;
+                        }
+                        workObjects1.add(workArray.optJSONObject(i));
+                    }
+                    JSONObject jsonWorkObject1 = new JSONObject();
+                    jsonWorkObject.put("name", "不限");
+                    jsonWorkObject.put("id", 0);
+                    workObjects1.add(0, jsonWorkObject);
+
+
                     LinkedHashMap<String, List<JSONObject>> linkedHashMap = new LinkedHashMap();
 
 
                     linkedHashMap.put("福利", workObjects);
                     linkedHashMap.put("行业", corpkindbjects);
+                    linkedHashMap.put("学历", degreebjects);
+                    linkedHashMap.put("工作年限", workObjects1);
 
                     if (listener != null)
                         listener.onGetDiscussMoreInfo(linkedHashMap);
@@ -630,7 +660,7 @@ public class UpdateDataTaskUtils
                                                           JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
 
                                                           JSONObject jsonObject = new JSONObject();
-                                                          JSONArray jsonArray = object.getJSONArray(pro.split("#")[1]);
+                                                          JSONArray jsonArray = object.getJSONArray(pro.split(SelectorItemView.spitStr)[1]);
                                                           if (jsonArray != null) {
                                                               for (int i = 0; i < jsonArray.length(); i++) {
                                                                   if (jsonArray.getJSONObject(i).getString("name").equals("不限") || jsonArray.getJSONObject(i).getString("name").equals("全部")) {

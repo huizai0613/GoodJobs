@@ -799,7 +799,7 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < split.length; i++) {
                 if (split[i].startsWith("-1")) {
-                    split[i] = split[i].split("#")[1];
+                    split[i] = split[i].split(SelectorItemView.spitStr)[1];
                 }
                 builder.append(split[i] + ",");
             }
