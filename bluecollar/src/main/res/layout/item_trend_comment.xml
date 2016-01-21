@@ -72,5 +72,5 @@
                 android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
-    <View style="@style/line" android:layout_marginLeft="56dip"/>
+    <View android:id="@+id/spitLine" style="@style/line" android:layout_marginLeft="56dip"/>
 </LinearLayout>

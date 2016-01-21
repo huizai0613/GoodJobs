@@ -151,7 +151,7 @@ public class InputItemView extends CombinedBaseView{
 
     public boolean isEmpty() {
         if (StringUtil.isEmpty(getText())) {
-            TipsUtil.show(getContext(), title + "不能为空");
+            TipsUtil.show(getContext(), title.replaceAll(" +","") + "不能为空");
         }
         return StringUtil.isEmpty(getText());
     }
@@ -164,5 +164,14 @@ public class InputItemView extends CombinedBaseView{
     public void setEditGravityLeft() {
         EditText editText = (EditText) findViewById(R.id.editText);
         editText.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+    }
+
+    public void setInputPasswordType(boolean password) {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        if (password) {
+            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        } else {
+            editText.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
+        }
     }
 }

@@ -31,6 +31,7 @@ public class BaseListActivity extends BaseActivity
     protected int page = 1; // 分页索引
     protected JsonArrayAdapterBase mAdapter;
     protected ListView mListView;
+    protected boolean isRefresh; //  是否是刷新操作
 
     protected void initList(ListView listView)
     {
@@ -93,9 +94,7 @@ public class BaseListActivity extends BaseActivity
     {
         LogUtil.info("开始下拉刷新...");
         page = 1;
-        if (mAdapter != null) {
-            mAdapter.clear();
-        }
+        isRefresh = true;
         getDataFronServer();
     }
 
@@ -158,6 +157,12 @@ public class BaseListActivity extends BaseActivity
     {
         super.onSuccess(tag, data);
 
+        if (isRefresh) {
+            if (mAdapter != null) {
+                mAdapter.clear();
+            }
+            isRefresh = false;
+        }
         JSONObject jsonObject = (JSONObject) data;
 
         int maxPage = Integer.parseInt(jsonObject.optString("maxPage"));

@@ -27,12 +27,15 @@ import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.bluecollar.view.upload.CustomerListView;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.GeoUtils;
 import cn.goodjobs.common.util.ImageUtil;
 import cn.goodjobs.common.util.KeyBoardUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
+import cn.goodjobs.common.util.bdlocation.MyLocation;
 import cn.goodjobs.common.util.http.HttpUtil;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.MyListView;
 
@@ -45,6 +48,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
     TextView btnSend;
     TextView btnLook;
     EditText editText;
+    View spitLine;
     JSONObject replyObject;
     int myHas = 0;
     String friendID;
@@ -53,10 +57,12 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
     View footView;
     View headView;
     boolean hasMore; // 是否包含更多
+    MyLocation myLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myLocation = (MyLocation) SharedPrefUtil.getObject("location");
     }
 
     @Override
@@ -135,6 +141,11 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
                 myListView.removeFooterView(footView);
             }
             pageTime = jsonObject.optInt("pageTime");
+            if (trendCommentAdapter.getCount() == 0) {
+                spitLine.setVisibility(View.GONE);
+            } else {
+                spitLine.setVisibility(View.VISIBLE);
+            }
         } else if (tag.equals(URLS.MAKEFRIEND_COMMENT)) {
             editText.setText("");
             page = 1;
@@ -164,6 +175,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
         TextView tvName = (TextView) findViewById(R.id.tvName);
         TextView tvDistance = (TextView) findViewById(R.id.tvDistance);
         btnLook = (TextView) findViewById(R.id.btnLook);
+        spitLine = findViewById(R.id.spitLine);
         TextView btnMsg = (TextView) findViewById(R.id.btnMsg);
         TextView tvAge = (TextView) findViewById(R.id.tvAge);
         TrendItemView viewTrend = (TrendItemView) findViewById(R.id.viewTrend);
@@ -175,7 +187,12 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
         }
         nickName = jsonObject.optString("nickName");
         tvName.setText(nickName);
-        tvDistance.setText(jsonObject.optString("distance"));
+        if (myLocation != null && jsonObject.optDouble("fdLng") != 0 && jsonObject.optDouble("fdLat") != 0) {
+            tvDistance.setVisibility(View.VISIBLE);
+            tvDistance.setText(GeoUtils.friendlyDistance(GeoUtils.distance(myLocation.latitude, myLocation.longitude, jsonObject.optDouble("fdLat"), jsonObject.optDouble("fdLng"))));
+        } else {
+            tvDistance.setVisibility(View.GONE);
+        }
         tvAge.setText(jsonObject.optString("ageName"));
         if ("女".equals(jsonObject.optString("sexName"))) {
             ImageUtil.setDrawable(this, tvAge, R.mipmap.img_female, 1);
@@ -272,7 +289,9 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        replyObject = trendCommentAdapter.getItem(position-1);
-        KeyBoardUtil.show(editText);
+        if (position > 0) {
+            replyObject = trendCommentAdapter.getItem(position-1);
+            KeyBoardUtil.show(editText);
+        }
     }
 }

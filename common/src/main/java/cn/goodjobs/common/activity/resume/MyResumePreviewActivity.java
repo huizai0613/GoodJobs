@@ -243,6 +243,9 @@ public class MyResumePreviewActivity extends BaseActivity {
         resumePreviewAdapter.mapList = mapList;
         expandableListView.setAdapter(resumePreviewAdapter);
 
+        for(int i = 0; i < resumePreviewAdapter.getGroupCount(); i++){
+            expandableListView.expandGroup(i);
+        }
     }
 
     private void addChildInfo(List<ResumePreviewInfo> resumePreviewInfoList, String title, String content) {

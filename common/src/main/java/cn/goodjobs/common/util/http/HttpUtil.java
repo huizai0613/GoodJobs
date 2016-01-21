@@ -50,6 +50,7 @@ public class HttpUtil
 {
     public static final String SUCCESS = "SUCCESS";
     public static final String INFO = "INFO";
+    public static final int NETERROR = 9008;
 
     public static final String HOST = "220.178.31.125:3721";
 
@@ -268,6 +269,8 @@ public class HttpUtil
     {
         // 首先检测网络连接
         if (!ConnecStatus.isNetworkAvailable(ScreenManager.getScreenManager().currentActivity())) {
+            responseHandler.onFailure(NETERROR, tag);
+            LoadingDialog.hide();
             AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, "检测到您未连接网络，请检测您的网络连接！", true,
                     "去检测", "退出APP", new DialogInterface.OnClickListener()
                     {

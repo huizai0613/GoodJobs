@@ -9,7 +9,6 @@
 
     <Button
         android:id="@+id/btnCamera"
-        android:onClick="capturePhoto"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
         android:layout_margin="@dimen/padding_small"
@@ -19,7 +18,6 @@
 
     <Button
         android:id="@+id/btnAlbum"
-        android:onClick="pickPhotoFromLocal"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
         android:layout_marginLeft="@dimen/padding_small"
@@ -30,7 +28,6 @@
 
     <Button
         android:id="@+id/btnCancel"
-        android:onClick="cancel"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/list_item_height"
         android:layout_margin="@dimen/padding_small"

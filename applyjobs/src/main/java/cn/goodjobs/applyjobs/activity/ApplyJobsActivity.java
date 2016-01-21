@@ -105,7 +105,7 @@ public class ApplyJobsActivity extends BaseActivity
             onClick(btnFooter1);
         } else if (pageIndex == 3) {
             onClick(btnFooter4);
-            ((PersonalCenterFragment) fragmentList.get(3)).getDataFromServer();
+            ((PersonalCenterFragment) fragmentList.get(3)).reflush();
         }
     }
 
