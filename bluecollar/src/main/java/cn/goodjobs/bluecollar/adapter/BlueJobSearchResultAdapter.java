@@ -66,7 +66,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
         super(context);
         this.context = context;
         iconDis = context.getResources().getDrawable(R.mipmap.icon_bluedis);
-        iconDis.setBounds(0, 0, DensityUtil.dip2px(context, 25), DensityUtil.dip2px(context, 25));
+        iconDis.setBounds(0, 0, DensityUtil.dip2px(context, 18), DensityUtil.dip2px(context, 18));
         this.jobSearchResultActivity = jobSearchResultActivity;
 
         UpdateDataTaskUtils.getReadJob(context, new UpdateDataTaskUtils.OnGetDiscussReadJobListener()

@@ -159,7 +159,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
                 view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.light_color));
+                view.setTextColor(getResources().getColor(R.color.main_color));
                 jobBright.addView(view, lp);
             }
         }
@@ -277,6 +277,13 @@ public class JobDetailFragment extends BaseViewPagerFragment
         JSONObject jobDetailJson = (JSONObject) data;
         setData(jobDetailJson);
 
+    }
+
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
+        super.onError(errorCode, tag, errorMessage);
+        errorLayout.setErrorType(EmptyLayout.NODATA);
     }
 
     @Override

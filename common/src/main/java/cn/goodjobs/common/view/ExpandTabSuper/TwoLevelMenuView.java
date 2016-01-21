@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import cn.goodjobs.common.R;
 
@@ -20,6 +22,7 @@ public class TwoLevelMenuView extends LinearLayout implements
 {
     private boolean isMultiCheck;//是否可多选
     private HashMap<String, String> multiCheckMap;
+    private Map<String, String> mFristSelectLevelData = new HashMap<String, String>();
     private ListView mFirstLevelListView;
     private ListView mSecondLevelListView;
     private MultiFirstLevelMenuAdapter mFirstLevelAdatper;
@@ -84,6 +87,14 @@ public class TwoLevelMenuView extends LinearLayout implements
         this.mFirstLevelKey = firstLevelSelcetKey;
         this.mSecondLevelKey = secondLevelSelectKey;
 
+        Set<String> strings = mFristLevelData.keySet();
+
+        Iterator<String> iterator = strings.iterator();
+        while (iterator.hasNext()) {
+            mFristSelectLevelData.put(iterator.next(), "");
+        }
+
+
         if (multiCheckMap != null) {
             this.mSecondLevelKey = multiCheckMap.get(this.mFirstLevelKey);
         }
@@ -92,6 +103,7 @@ public class TwoLevelMenuView extends LinearLayout implements
                 firstLevelData,
                 R.drawable.choose_frist_select_bg,
                 R.drawable.choose_first_level_item_selector, R.color.main_color, firstLevelImg);
+        mFirstLevelAdatper.setmSelectData(mFristSelectLevelData);
         mFirstLevelAdatper.setTextSize(15);
         mFirstLevelAdatper.setSelectedKeyNoNotify(mFirstLevelKey);
         mCurrentChildData.clear();
@@ -169,6 +181,7 @@ public class TwoLevelMenuView extends LinearLayout implements
                     if (mFirstLevelKey != mTempFirstLevelKey) {
                         mFirstLevelKey = mTempFirstLevelKey;
                     }
+                    mFristSelectLevelData.put(mFirstLevelKey, (mSecondLevelKey.equals("0") || !isMultiCheck ? "" : mCurrentChildData.get(key)));
 
                     if (isMultiCheck) {
                         if (multiCheckMap == null) {

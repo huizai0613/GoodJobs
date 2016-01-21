@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.ViewHolderUtil;
 
 
@@ -26,6 +27,7 @@ public class MultiFirstLevelMenuAdapter extends BaseAdapter
 {
     private Context mContext;
     private Map<String, String> mData;
+    private Map<String, String> mSelectData;
     private List<String> mKey;
     private OnClickListener mOnClickListener;
     private OnItemClickListener mOnItemClickListener;
@@ -49,6 +51,10 @@ public class MultiFirstLevelMenuAdapter extends BaseAdapter
         init();
     }
 
+    public void setmSelectData(Map<String, String> mSelectData)
+    {
+        this.mSelectData = mSelectData;
+    }
 
     public void init()
     {
@@ -108,7 +114,19 @@ public class MultiFirstLevelMenuAdapter extends BaseAdapter
         }
 
         TextView tv = ViewHolderUtil.get(view, R.id.content);
+        TextView selectContent = ViewHolderUtil.get(view, R.id.select_content);
         ImageView img = ViewHolderUtil.get(view, R.id.img);
+
+
+        if (mSelectData != null && mKey != null) {
+            String s = mSelectData.get(mKey.get(position));
+            if (StringUtil.isEmpty(s)) {
+                selectContent.setVisibility(View.GONE);
+            } else {
+                selectContent.setVisibility(View.VISIBLE);
+                selectContent.setText(s);
+            }
+        }
 
         if (firstLevelImg == null || firstLevelImg[position] == 0) {
             img.setVisibility(View.GONE);

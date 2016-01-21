@@ -3,18 +3,20 @@ package cn.goodjobs.common.util;
 import android.location.Location;
 
 
-public class GeoUtils {
+public class GeoUtils
+{
     public static final double EARTHRADIUS = 6370996.81;
     public static final int SELFTYPE = 0;
     public static final int XIAOQUTYPE = 1;
 
 
-
-    public static long distance(Location loc1, Location loc2) {
+    public static long distance(Location loc1, Location loc2)
+    {
         return distance(loc1.getLatitude(), loc1.getLongitude(), loc2.getLatitude(), loc2.getLongitude());
     }
 
-    public static long distance(double lat1, double lon1, double lat2, double lon2) {
+    public static long distance(double lat1, double lon1, double lat2, double lon2)
+    {
         double delta_lat = lat2 - lat1;
         double delta_lon = lon2 - lon1;
 
@@ -28,7 +30,8 @@ public class GeoUtils {
         return Math.round(distance);
     }
 
-    public static String friendlyDistance(long d) {
+    public static String friendlyDistance(long d)
+    {
         if (d < 1000 && d > 0) {
             return (int) d + "m";
         } else if (d == 0) {
@@ -38,19 +41,22 @@ public class GeoUtils {
         }
     }
 
-    public static String friendlyDistance(double d) {
+    public static String friendlyDistance(double d)
+    {
         if (d < 1000) {
             return (int) d + "米";
         } else {
-            return String.format("%.1f公里", d / 1000);
+            return String.format("%.1f千米", d / 1000);
         }
     }
 
-    private static double deg2rad(double deg) {
+    private static double deg2rad(double deg)
+    {
         return (deg * Math.PI / 180.0);
     }
 
-    private static double rad2deg(double rad) {
+    private static double rad2deg(double rad)
+    {
         return (rad * 180.0 / Math.PI);
     }
 
@@ -86,7 +92,8 @@ public class GeoUtils {
             {-0.0003218135878613132, 111320.7020701615, 0.00369383431289, 823725.6402795718, 0.46104986909093,
                     2351.343141331292, 1.58060784298199, 8.77738589078284, 0.37238884252424, 7.45}};
 
-    public static double[] convertMC2LL(double[] cy) {
+    public static double[] convertMC2LL(double[] cy)
+    {
         double cz[] = {Math.abs(cy[0]), Math.abs(cy[1])};
 
         double[] cB = {};
@@ -99,7 +106,8 @@ public class GeoUtils {
         return convertor(cy, cB);
     }
 
-    public static double[] convertLL2MC(double[] point) {
+    public static double[] convertLL2MC(double[] point)
+    {
         double[] cL = {};
         for (int cK = 0; cK < LLBAND.length; cK++) {
             if (point[1] >= LLBAND[cK]) {
@@ -119,7 +127,8 @@ public class GeoUtils {
         return convertor(point, cL);
     }
 
-    public static double[] convertor(double[] cz, double[] cA) {
+    public static double[] convertor(double[] cz, double[] cA)
+    {
         double T = cA[0] + cA[1] * Math.abs(cz[0]);
         double cy = Math.abs(cz[1]) / cA[9];
         double cB = cA[2] + cA[3] * cy + cA[4] * cy * cy + cA[5] * cy * cy * cy + cA[6] * cy * cy * cy * cy + cA[7]
