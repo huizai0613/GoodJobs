@@ -1,0 +1,196 @@
+package cn.goodjobs.common.view.highlight.view;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BlurMaskFilter;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import java.util.List;
+
+import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.view.highlight.HighLight;
+
+
+/**
+ * Created by zhy on 15/10/8.
+ */
+public class HightLightView extends FrameLayout
+{
+    private static int DEFAULT_WIDTH_BLUR = 15;
+    private static int DEFAULT_RADIUS = 100;
+    private static final PorterDuffXfermode MODE_DST_OUT = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
+
+    private Bitmap mMaskBitmap;
+    private Paint mPaint;
+    private List<HighLight.ViewPosInfo> mViewRects;
+    private HighLight mHighLight;
+    private LayoutInflater mInflater;
+
+    //some config
+    private boolean isBlur = true;
+    private int maskColor = 0xCC000000;
+
+
+    public HightLightView(Context context, HighLight highLight, int maskColor, boolean isBlur, List<HighLight.ViewPosInfo> viewRects)
+    {
+        super(context);
+        mHighLight = highLight;
+        mInflater = LayoutInflater.from(context);
+        mViewRects = viewRects;
+        this.maskColor = maskColor;
+        this.isBlur = isBlur;
+        setWillNotDraw(false);
+        init();
+    }
+
+    private void init()
+    {
+        mPaint = new Paint();
+        mPaint.setDither(true);
+        mPaint.setAntiAlias(true);
+        if (isBlur)
+            mPaint.setMaskFilter(new BlurMaskFilter(DEFAULT_WIDTH_BLUR, BlurMaskFilter.Blur.SOLID));
+        mPaint.setStyle(Paint.Style.FILL);
+
+        addViewForTip();
+
+
+    }
+
+    private void addViewForTip()
+    {
+        for (HighLight.ViewPosInfo viewPosInfo : mViewRects) {
+            View view = mInflater.inflate(viewPosInfo.layoutId, this, false);
+            LayoutParams lp = buildTipLayoutParams(view, viewPosInfo);
+
+            if (lp == null) continue;
+
+            lp.leftMargin = (int) viewPosInfo.marginInfo.leftMargin;
+            lp.topMargin = (int) viewPosInfo.marginInfo.topMargin;
+            lp.rightMargin = (int) viewPosInfo.marginInfo.rightMargin;
+            lp.bottomMargin = (int) viewPosInfo.marginInfo.bottomMargin;
+
+            if (lp.leftMargin == 0 && lp.topMargin == 0) {
+                lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+            }
+            addView(view, lp);
+        }
+    }
+
+    private void buildMask()
+    {
+        mMaskBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(mMaskBitmap);
+        canvas.drawColor(maskColor);
+        mPaint.setXfermode(MODE_DST_OUT);
+        mHighLight.updateInfo();
+        for (HighLight.ViewPosInfo viewPosInfo : mViewRects) {
+
+
+            float r = viewPosInfo.rectF.right + DensityUtil.dip2px(getContext(), 10);
+            float l = viewPosInfo.rectF.left - DensityUtil.dip2px(getContext(), 10);
+            float t = viewPosInfo.rectF.top - DensityUtil.dip2px(getContext(), 10);
+            float b = viewPosInfo.rectF.bottom + DensityUtil.dip2px(getContext(), 10);
+
+
+            float h = b - t;
+            float w = r - l;
+
+            if (w > h) {
+                float v = w - h;
+                viewPosInfo.rectF.left = l;
+                viewPosInfo.rectF.right = r;
+                viewPosInfo.rectF.top = t - v / 2;
+                viewPosInfo.rectF.bottom = b + v / 2;
+            } else if (w < h) {
+                float v = h - w;
+                viewPosInfo.rectF.top = t;
+                viewPosInfo.rectF.bottom = b;
+                viewPosInfo.rectF.left = l - v / 2;
+                viewPosInfo.rectF.right = r + v / 2;
+            } else {
+                viewPosInfo.rectF.top = t;
+                viewPosInfo.rectF.bottom = b;
+                viewPosInfo.rectF.left = l;
+                viewPosInfo.rectF.right = r;
+            }
+
+
+            DEFAULT_RADIUS = (int) (viewPosInfo.rectF.right - viewPosInfo.rectF.left);
+//            canvas.drawRoundRect(viewPosInfo.rectF, DEFAULT_RADIUS, DEFAULT_RADIUS, mPaint);
+            canvas.drawArc(viewPosInfo.rectF, 0, 360, true, mPaint);
+        }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+
+        measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),//
+                MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+        setMeasuredDimension(width, height);
+
+
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+    {
+        super.onLayout(changed, left, top, right, bottom);
+        if (changed) {
+            buildMask();
+            updateTipPos();
+        }
+
+    }
+
+    private void updateTipPos()
+    {
+        for (int i = 0, n = getChildCount(); i < n; i++) {
+            View view = getChildAt(i);
+            HighLight.ViewPosInfo viewPosInfo = mViewRects.get(i);
+
+            LayoutParams lp = buildTipLayoutParams(view, viewPosInfo);
+            if (lp == null) continue;
+            view.setLayoutParams(lp);
+        }
+    }
+
+    private LayoutParams buildTipLayoutParams(View view, HighLight.ViewPosInfo viewPosInfo)
+    {
+        LayoutParams lp = (LayoutParams) view.getLayoutParams();
+        if (lp.leftMargin == (int) viewPosInfo.marginInfo.leftMargin &&
+                lp.topMargin == (int) viewPosInfo.marginInfo.topMargin &&
+                lp.rightMargin == (int) viewPosInfo.marginInfo.rightMargin &&
+                lp.bottomMargin == (int) viewPosInfo.marginInfo.bottomMargin) return null;
+
+        lp.leftMargin = (int) viewPosInfo.marginInfo.leftMargin;
+        lp.topMargin = (int) viewPosInfo.marginInfo.topMargin;
+        lp.rightMargin = (int) viewPosInfo.marginInfo.rightMargin;
+        lp.bottomMargin = (int) viewPosInfo.marginInfo.bottomMargin;
+
+        if (lp.leftMargin == 0 && lp.topMargin == 0) {
+            lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+        }
+        return lp;
+    }
+
+
+    @Override
+    protected void onDraw(Canvas canvas)
+    {
+
+        canvas.drawBitmap(mMaskBitmap, 0, 0, null);
+        super.onDraw(canvas);
+
+    }
+}

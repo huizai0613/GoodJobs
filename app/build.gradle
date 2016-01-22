@@ -12,6 +12,12 @@ android {
         versionName "3.0.0"
     }
     buildTypes {
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

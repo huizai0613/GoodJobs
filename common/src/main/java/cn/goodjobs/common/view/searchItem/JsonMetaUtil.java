@@ -20,7 +20,7 @@ public class JsonMetaUtil
     public final static String JOBLOCDISTRICT = "jobloc_district"; // 区列表
     public final static String SALARY = "salary"; // 月薪
     public final static String WORKTIME = "worktime"; // 工作年限
-    public final static String WELFARE = "welfare"; // 工作年限
+    public final static String WELFARE = "welfare"; // 福利
     public final static String DEGREE = "degree"; // 学历
     public final static String SEX = "sex"; // 性别
     public final static String JOBTYPE = "jobtype"; // 工作性质
