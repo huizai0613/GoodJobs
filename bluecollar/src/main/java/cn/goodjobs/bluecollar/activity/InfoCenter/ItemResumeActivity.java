@@ -135,7 +135,11 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 TipsUtil.show(this, ((JSONObject) data).optString("message"));
             }
         } else if (tag.equals(URLS.API_JOB_CvPhotosave)) {
-            TipsUtil.show(this, (String) data);
+            if (data instanceof String) {
+                TipsUtil.show(this, (String) data);
+            } else if (data instanceof JSONObject) {
+                TipsUtil.show(this, ((JSONObject) data).optString("message"));
+            }
             headPhoto.setImageURI(fileUri);
         }
     }

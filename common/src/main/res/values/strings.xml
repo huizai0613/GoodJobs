@@ -6,10 +6,16 @@
     <string name="service_error">服务器连接中断，请稍候重试</string>
     <string name="request_error">请求错误,再请求一次试试</string>
     <string name="title_activity_selector">SelectorActivity</string>
-	<string name="no_data">没有符合条件的职业推荐</string>
+    <string name="no_data">没有符合条件的职业推荐</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="tag">tag</string>
+    <string name="about">新安人才网是安徽网才信息技术有限公司全资运营的人力资源服务平台，也是安徽省成立最早、规模最大的人力资源网站。服务范围包括：网络招聘、现场招聘、高级猎头、职业培训、企业培训、人才测评等众多方面。公司旗下已成立新安人才网人才服务中心、合肥新安人才网职业培训学校、芜湖市新安人才网职业培训学校等多家人才服务机构。
+
+自2000年成立至今，经过16年高速发展，新安人才网累计服务企业39000多家，占据全省网络招聘市场70％以上的份额，成为众多企业和求职者心目中的第一选择。2011年，习近平同志视察新安人才网。
+
+未来，新安人才网将立足安徽，辐射华东，力争成为全国一流的人力资源网站，为更多企业和人才提供专业的人力资源一站式服务。
+</string>
 
 
     <!-- Error View -->

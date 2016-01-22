@@ -15,11 +15,25 @@
             android:id="@+id/etContent"
             android:layout_width="match_parent"
             android:layout_height="120dip"
-            android:layout_margin="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginLeft="@dimen/padding_default"
+            android:layout_marginRight="@dimen/padding_default"
             android:background="@color/transparent"
             android:gravity="left|top"
             android:hint="这一刻的想法..."
-            android:textSize="@dimen/text_small"/>
+            android:maxLength="200"
+            android:textSize="@dimen/text_default"/>
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/topbar_bg"
+            android:textSize="@dimen/text_small"
+            android:layout_margin="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:gravity="right"
+            android:text="还能再输入200个字"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
