@@ -39,9 +39,7 @@ import cn.goodjobs.common.util.bdlocation.MyLocationListener;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
-import cn.goodjobs.common.view.ExpandTab.DoubleListView;
 import cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView;
-import cn.goodjobs.common.view.ExpandTab.SingleListView;
 import cn.goodjobs.common.view.ExpandTabSuper.SingleLevelMenuView;
 import cn.goodjobs.common.view.ExpandTabSuper.TwoLevelMenuView;
 import cn.goodjobs.common.view.empty.EmptyLayout;
@@ -60,13 +58,11 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     private Map<String, Map<String, String>> twoCate;
 
 
-    Handler handler = new Handler()
-    {
+    Handler handler = new Handler() {
 
 
         @Override
-        public void dispatchMessage(Message msg)
-        {
+        public void dispatchMessage(Message msg) {
             super.dispatchMessage(msg);
             switch (msg.what) {
                 case UpdateDataTaskUtils.CITYDATA:
@@ -96,11 +92,9 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                     twoCate.put("1", twoCate_two);
                     cityInfo.setValue(oneCate, twoCate, 0 + "", 0 + "", new int[]{0, 0});
 
-                    LocationUtil.newInstance(JobSearchResultActivity.this.getApplication()).startLoction(new MyLocationListener()
-                    {
+                    LocationUtil.newInstance(JobSearchResultActivity.this.getApplication()).startLoction(new MyLocationListener() {
                         @Override
-                        public void loaction(MyLocation location)
-                        {
+                        public void loaction(MyLocation location) {
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
                             GoodJobsApp.getInstance().setMyLocation(location);
@@ -226,22 +220,18 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_searchresult;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
 
         //区域选择
-        cityInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
-        {
+        cityInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener() {
             @Override
-            public void onSelected(String firstLevelKey, final String secondLevelKey, final String showString)
-            {
+            public void onSelected(String firstLevelKey, final String secondLevelKey, final String showString) {
                 if (firstLevelKey.equals("0")) {
                     isCur = false;
 
@@ -251,16 +241,12 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
                             itemAddressId = oldAddressId;
                             etvMenu.setTitle(oldAddressStr, 0);
                         } else {
-                            UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), new UpdateDataTaskUtils.OnGetDiscussCityInfoListener()
-                            {
+                            UpdateDataTaskUtils.selectCityInfo(mcontext, cityData.get(Integer.parseInt(secondLevelKey)).optString("name"), new UpdateDataTaskUtils.OnGetDiscussCityInfoListener() {
                                 @Override
-                                public void onGetDiscussCityInfo(final List<JSONObject> cityData, final int CityId)
-                                {
-                                    mcontext.runOnUiThread(new Runnable()
-                                    {
+                                public void onGetDiscussCityInfo(final List<JSONObject> cityData, final int CityId) {
+                                    mcontext.runOnUiThread(new Runnable() {
                                         @Override
-                                        public void run()
-                                        {
+                                        public void run() {
                                             JobSearchResultActivity.this.onGetDiscussCityInfo(cityData, CityId);
                                             isPro = false;
                                             oldAddressStr = showString;
@@ -306,34 +292,28 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
             }
 
             @Override
-            public void onSelectedMuilt(HashMap<String, String> muiltMap)
-            {
+            public void onSelectedMuilt(HashMap<String, String> muiltMap) {
             }
         });
         //区域薪资
-        salaryInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener()
-        {
+        salaryInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
             @Override
-            public void onSelected(String selectedKey, String showString)
-            {
+            public void onSelected(String selectedKey, String showString) {
                 itemSalaryId = selectedKey;
                 etvMenu.setTitle(showString, 1);
                 startRefresh();
             }
         });
         //更多选择
-        moreInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener()
-        {
+        moreInfo.setOnSelectListener(new TwoLevelMenuView.OnSelectListener() {
 
 
             @Override
-            public void onSelected(String firstLevelKey, String secondLevelKey, String showString)
-            {
+            public void onSelected(String firstLevelKey, String secondLevelKey, String showString) {
             }
 
             @Override
-            public void onSelectedMuilt(HashMap<String, String> muiltMap)
-            {
+            public void onSelectedMuilt(HashMap<String, String> muiltMap) {
                 Set<Map.Entry<String, String>> entries = muiltMap.entrySet();
 
                 for (Map.Entry<String, String> entry : entries) {
@@ -359,8 +339,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
         setTopTitle("搜索结果");
         mAdapter = new JobSearchResultAdapter(this);
         ((JobSearchResultAdapter) mAdapter).setJobSearchResultActivity(this);
@@ -408,19 +387,16 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         integers.add(10 * i);
         etvMenu.setValue(strings, views, integers);
 
-        etvMenu.postDelayed(new Runnable()
-        {
+        etvMenu.postDelayed(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 startRefresh();
             }
         }, 500);
     }
 
     @Override
-    protected void getDataFronServer()
-    {
+    protected void getDataFronServer() {
 
         HashMap<String, Object> Object = new HashMap<String, Object>();
         Object.put("page", page);
@@ -480,8 +456,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
 
     @Override
-    public void onSuccess(String tag, Object data)
-    {
+    public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
 
         JSONObject object = (JSONObject) data;
@@ -501,20 +476,17 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
     @Override
-    public void onFailure(int statusCode, String tag)
-    {
+    public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         searchKeyWorld = getIntent().getStringExtra("searchKeyWorld");
         oldAddressStr = itemAddress = getIntent().getStringExtra("itemAddress");
         itemSalary = getIntent().getStringExtra("itemSalary");
@@ -556,8 +528,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
     @Override
-    public void onGetDiscussCityInfo(List<JSONObject> cityData, int CityId)
-    {
+    public void onGetDiscussCityInfo(List<JSONObject> cityData, int CityId) {
         Message message = new Message();
         message.what = UpdateDataTaskUtils.CITYDATA;
         message.obj = cityData;
@@ -567,8 +538,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
     @Override
-    public void onGetDiscussSalaryInfo(List<JSONObject> salaryData)
-    {
+    public void onGetDiscussSalaryInfo(List<JSONObject> salaryData) {
         Message message = new Message();
         message.what = UpdateDataTaskUtils.SALARYDATA;
         message.obj = salaryData;
@@ -577,8 +547,7 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
     @Override
-    public void onGetDiscussMoreInfo(Map<String, List<JSONObject>> MoreData)
-    {
+    public void onGetDiscussMoreInfo(Map<String, List<JSONObject>> MoreData) {
         Message message = new Message();
         message.what = UpdateDataTaskUtils.MOREDATA;
         message.obj = MoreData;
@@ -587,15 +556,13 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     }
 
 
-    public void setBottomVisible(Boolean isShow)
-    {
+    public void setBottomVisible(Boolean isShow) {
         bottomBar.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         super.onClick(v);
         ArrayList<Integer> checkPosition = ((JobSearchResultAdapter) mAdapter).getCheckPosition();
         List<JSONObject> list = mAdapter.getList();
@@ -614,28 +581,23 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("jobID", ids);
-            HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler()
-            {
+            HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler() {
                 @Override
-                public void onFailure(int statusCode, String tag)
-                {
+                public void onFailure(int statusCode, String tag) {
                     TipsUtil.show(mcontext, "收藏失败");
                 }
 
                 @Override
-                public void onSuccess(String tag, Object data)
-                {
+                public void onSuccess(String tag, Object data) {
                     TipsUtil.show(mcontext, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
-                public void onError(int errorCode, String tag, String errorMessage)
-                {
+                public void onError(int errorCode, String tag, String errorMessage) {
                 }
 
                 @Override
-                public void onProgress(String tag, int progress)
-                {
+                public void onProgress(String tag, int progress) {
                 }
             });
 
@@ -647,28 +609,23 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
             HashMap<String, Object> param = new HashMap<>();
             param.put("jobID", ids);
             param.put("ft", 2);
-            HttpUtil.post(URLS.API_JOB_apply, param, new HttpResponseHandler()
-            {
+            HttpUtil.post(URLS.API_JOB_apply, param, new HttpResponseHandler() {
                 @Override
-                public void onFailure(int statusCode, String tag)
-                {
+                public void onFailure(int statusCode, String tag) {
                     TipsUtil.show(mcontext, "简历投递失败");
                 }
 
                 @Override
-                public void onSuccess(String tag, Object data)
-                {
+                public void onSuccess(String tag, Object data) {
                     TipsUtil.show(mcontext, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
-                public void onError(int errorCode, String tag, String errorMessage)
-                {
+                public void onError(int errorCode, String tag, String errorMessage) {
                 }
 
                 @Override
-                public void onProgress(String tag, int progress)
-                {
+                public void onProgress(String tag, int progress) {
                 }
             });
         }
