@@ -57,6 +57,7 @@ public class HeadHuntingActivity extends BaseActivity {
     @Override
     protected void initWeight() {
         setTopTitle("新安猎聘");
+        changeLeftBg(R.mipmap.icon_head);
         vp = (ViewPager) findViewById(R.id.vp_headhunt);
         tv_jobFair = (TextView) findViewById(R.id.tv_headhunt);
         tv_jobMessage = (TextView) findViewById(R.id.tv_reward);
