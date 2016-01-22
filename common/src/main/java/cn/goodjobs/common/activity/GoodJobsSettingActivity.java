@@ -50,14 +50,14 @@ public class GoodJobsSettingActivity extends BaseActivity {
         itemModule = (SearchItemView) findViewById(R.id.itemModule);
         String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
         if (!StringUtil.isEmpty(defaultModule)) {
-            itemModule.setText("当前频道："+moduleNames.get(defaultModule));
+            itemModule.setText("当前频道：" + moduleNames.get(defaultModule));
         }
         itemModule.setOnClickListener(this);
 
         itemFeedBack = (SearchItemView) findViewById(R.id.itemFeedBack);
         itemClear = (SearchItemView) findViewById(R.id.itemClear);
         itemCheck = (SearchItemView) findViewById(R.id.itemCheck);
-        itemCheck.setHint("当前版本：V"+HttpUtil.getPackageInfo().versionName);
+        itemCheck.setHint("当前版本：V" + HttpUtil.getPackageInfo().versionName);
         itemHelp = (SearchItemView) findViewById(R.id.itemHelp);
         itemAbout = (SearchItemView) findViewById(R.id.itemAbout);
 
@@ -89,7 +89,7 @@ public class GoodJobsSettingActivity extends BaseActivity {
         } else if (v.getId() == R.id.itemHelp) {
             return;
         } else if (v.getId() == R.id.itemAbout) {
-            return;
+            intent.setClass(this, AboutActivity.class);
         }
         startActivity(intent);
     }
