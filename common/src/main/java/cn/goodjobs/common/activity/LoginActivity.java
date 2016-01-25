@@ -290,4 +290,16 @@ public class LoginActivity extends BaseActivity
             super.back();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (SharedPrefUtil.getObject("loginInfo") != null) {
+                // 表示已经登录过了
+                loginInfo = (LoginInfo) SharedPrefUtil.getObject("loginInfo");
+                etUser.setText(loginInfo.userName);
+            }
+        }
+    }
 }

@@ -86,9 +86,11 @@ public class HeadDetailsActivity extends BaseActivity {
         share.setOnClickListener(this);
         collect.setOnClickListener(this);
 
-        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
-        if (zy == null || zy) {
-            tipLayout.setVisibility(View.VISIBLE);
+        if (data != null && data.size() > 0) {
+            Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+            if (zy == null || zy) {
+                tipLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

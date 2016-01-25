@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -128,6 +129,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
     private String job;
     private String searchKeyWorld;
     private MyLocation myLocation;
+    private RelativeLayout tipLayout;
     private Button btnSearch;
     private Map<Long, Map<String, String>> history;
 
@@ -201,7 +203,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
 
         etSearch = (EditText) view.findViewById(R.id.etSearch);
         clean = view.findViewById(R.id.search_clean);
-
+        tipLayout = (RelativeLayout) view.findViewById(R.id.tipLayout);
 
         historyLayout = view.findViewById(R.id.historyLayout);
         tvHistory = (TextView) view.findViewById(R.id.tvHistory);
@@ -209,7 +211,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
         itemJobfunc = (SelectorItemView) view.findViewById(R.id.item_jobfunc);
         btnSearch = (Button) view.findViewById(R.id.btnSearch);
 
-
+        tipLayout.setOnClickListener(this);
         clean.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -218,21 +220,17 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
                 etSearch.setText("");
             }
         });
-        etSearch.addTextChangedListener(new TextWatcher()
-        {
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
                     clean.setVisibility(View.VISIBLE);
                 } else {
@@ -241,11 +239,9 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
 
             }
         });
-        etSearch.setOnClickListener(new View.OnClickListener()
-        {
+        etSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 add = itemAddress.getText();
                 if (StringUtil.isEmpty(add)) {
                     TipsUtil.show(mActivity, "请选择工作地点");
@@ -257,6 +253,11 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             }
         });
         btnSearch.setOnClickListener(this);
+
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        if (tipChange == null || tipChange) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -277,6 +278,9 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             saveSearchLock(history, searchHashMap);
             //跳转搜索列表
             JumpViewUtil.openActivityAndParam(mActivity, JobSearchResultActivity.class, searchHashMap);
+        } else if (i == R.id.tipLayout) {
+            tipLayout.setVisibility(View.INVISIBLE);
+            SharedPrefUtil.saveDataToLoacl("tipChange", false);
         }
     }
 

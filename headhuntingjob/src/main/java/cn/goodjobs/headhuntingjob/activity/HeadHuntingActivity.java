@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umeng.update.UmengUpdateAgent;
@@ -31,6 +32,7 @@ public class HeadHuntingActivity extends BaseActivity {
     private long backTime = 2000;
     private long curTime;
     private TextView tv_jobFair, tv_jobMessage, tv_trainClass, line1, line2, line3;
+    private RelativeLayout tipLayout;
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
     private List<TextView> lineView = new ArrayList<TextView>();
     private List<TextView> textView = new ArrayList<TextView>();
@@ -62,6 +64,7 @@ public class HeadHuntingActivity extends BaseActivity {
         tv_jobFair = (TextView) findViewById(R.id.tv_headhunt);
         tv_jobMessage = (TextView) findViewById(R.id.tv_reward);
         tv_trainClass = (TextView) findViewById(R.id.tv_agency);
+        tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
         tv_jobFair.setOnClickListener(this);
         tv_jobMessage.setOnClickListener(this);
         tv_trainClass.setOnClickListener(this);
@@ -107,6 +110,11 @@ public class HeadHuntingActivity extends BaseActivity {
 
             }
         });
+        tipLayout.setOnClickListener(this);
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        if (tipChange == null || tipChange) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -139,6 +147,9 @@ public class HeadHuntingActivity extends BaseActivity {
             vp.setCurrentItem(0);
         } else if (v.getId() == R.id.tv_reward) {
             vp.setCurrentItem(1);
+        } else if (v.getId() == R.id.tipLayout) {
+            tipLayout.setVisibility(View.INVISIBLE);
+            SharedPrefUtil.saveDataToLoacl("tipChange", false);
         }
     }
 

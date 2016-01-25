@@ -1,113 +1,131 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+    android:background="@color/bg_color">
 
-    <include layout="@layout/topbar" />
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:orientation="vertical">
+        <include layout="@layout/topbar" />
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- 广告位  -->
-            <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
-                android:id="@+id/adViewPager"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/main_banner_height"
-                android:visibility="gone" />
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:background="@color/white"
                 android:orientation="vertical">
+
+                <!-- 广告位  -->
+                <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+                    android:id="@+id/adViewPager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/main_banner_height"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_small"
-                    android:background="@drawable/edittext_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/padding_small">
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/etSearch"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/transparent"
-                        android:drawableLeft="@mipmap/fdj28_grey"
-                        android:focusable="false"
-                        android:hint=" 输入关键字/职位/公司搜索"
-                        android:textSize="@dimen/text_small" />
+                        android:layout_margin="@dimen/padding_small"
+                        android:background="@drawable/edittext_bg"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_small">
 
-                    <ImageButton
-                        android:id="@+id/search_clean"
-                        android:layout_width="20dip"
-                        android:layout_height="20dip"
-                        android:background="@color/transparent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_clear"
-                        android:visibility="invisible" />
+                        <EditText
+                            android:id="@+id/etSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:drawableLeft="@mipmap/fdj28_grey"
+                            android:focusable="false"
+                            android:hint=" 输入关键字/职位/公司搜索"
+                            android:textSize="@dimen/text_small" />
+
+                        <ImageButton
+                            android:id="@+id/search_clean"
+                            android:layout_width="20dip"
+                            android:layout_height="20dip"
+                            android:background="@color/transparent"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_clear"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <View style="@style/line" />
+
                 </LinearLayout>
 
-                <View style="@style/line" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_small"
-                android:background="@color/white"
-                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/padding_small"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/padding_small">
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="3dip"
-                        android:layout_height="20dip"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_small"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/padding_small">
+
+                        <TextView
+                            android:layout_width="3dip"
+                            android:layout_height="20dip"
+                            android:background="@color/topbar_bg" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/padding_small"
+                            android:text="校招职位"
+                            android:textColor="@color/topbar_bg"
+                            android:textSize="@dimen/text_default" />
+                    </LinearLayout>
+
+                    <View
+                        style="@style/line"
                         android:background="@color/topbar_bg" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:text="校招职位"
-                        android:textColor="@color/topbar_bg"
-                        android:textSize="@dimen/text_default" />
+
+                    <cn.goodjobs.common.view.MyListView
+                        android:id="@+id/lv_campus"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"></cn.goodjobs.common.view.MyListView>
                 </LinearLayout>
 
-                <View
-                    style="@style/line"
-                    android:background="@color/topbar_bg" />
-
-
-                <cn.goodjobs.common.view.MyListView
-                    android:id="@+id/lv_campus"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@null"></cn.goodjobs.common.view.MyListView>
             </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/tipLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="#aa000000"
+        android:visibility="invisible">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/tip_change"
+            android:layout_marginRight="4dip"
+            android:layout_marginTop="8dip"
+            android:scaleType="fitEnd"/>
+    </RelativeLayout>
+</RelativeLayout>

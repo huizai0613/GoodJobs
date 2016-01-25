@@ -172,6 +172,12 @@ public class HighLight
         mHightLightView = hightLightView;
     }
 
+    public void addClickListener(View.OnClickListener listener) {
+        if (mHightLightView != null) {
+            mHightLightView.setOnClickListener(listener);
+        }
+    }
+
     public void remove()
     {
         if (mHightLightView == null) return;

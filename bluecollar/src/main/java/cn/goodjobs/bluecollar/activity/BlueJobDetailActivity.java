@@ -74,16 +74,12 @@ public class BlueJobDetailActivity extends BaseActivity
         super.onResume();
         myLocation = GoodJobsApp.getInstance().getMyLocation();
         if (!isLoad && myLocation == null) {
-            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener()
-            {
+            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener() {
                 @Override
-                public void loaction(final MyLocation location)
-                {
-                    mcontext.runOnUiThread(new Runnable()
-                    {
+                public void loaction(final MyLocation location) {
+                    mcontext.runOnUiThread(new Runnable() {
                         @Override
-                        public void run()
-                        {
+                        public void run() {
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
                             BlueJobDetailActivity.this.myLocation = location;
@@ -133,9 +129,11 @@ public class BlueJobDetailActivity extends BaseActivity
         viewPager.setCurrentItem(position, false);
         setTopTitle("职位详情");
 
-        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
-        if (zy == null || zy) {
-            tipLayout.setVisibility(View.VISIBLE);
+        if (split != null && split.length > 1) {
+            Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+            if (zy == null || zy) {
+                tipLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

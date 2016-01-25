@@ -197,15 +197,17 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
             lp.topMargin = 5;
             lp.bottomMargin = 5;
             for (int i = 0; i < treatmentArr.length(); i++) {
-                TextView view = new TextView(mActivity);
-                view.setText(treatmentArr.optString(i));
-                view.setGravity(Gravity.CENTER);
-                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
-                view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
-                view.setHeight(DensityUtil.dip2px(mActivity, 25));
-                view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.main_color));
-                jobBright.addView(view, lp);
+                if (mActivity != null) {
+                    TextView view = new TextView(mActivity);
+                    view.setText(treatmentArr.optString(i));
+                    view.setGravity(Gravity.CENTER);
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                    view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
+                    view.setHeight(DensityUtil.dip2px(mActivity, 25));
+                    view.setBackgroundResource(R.drawable.bright_bg);
+                    view.setTextColor(getResources().getColor(R.color.main_color));
+                    jobBright.addView(view, lp);
+                }
             }
         }
 

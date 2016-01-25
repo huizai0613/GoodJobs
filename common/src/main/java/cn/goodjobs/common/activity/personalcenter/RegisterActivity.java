@@ -133,7 +133,7 @@ public class RegisterActivity extends BaseActivity {
             btnVerCode.setEnabled(false);
             mHandler.post(verCodeRun);
         } else if (tag.equals(URLS.API_USER_REGISTERNEW)) {
-            TipsUtil.show(this, data + "");
+            TipsUtil.show(this, "注册成功");
             LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
             loginInfo.userName = itemOldMobile.getText();
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
