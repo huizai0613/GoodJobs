@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.baidu.mapapi.search.core.SearchResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
