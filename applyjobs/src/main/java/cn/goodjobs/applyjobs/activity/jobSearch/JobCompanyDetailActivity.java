@@ -175,7 +175,7 @@ public class JobCompanyDetailActivity extends BaseActivity
 
         String phone = corpData.optString("phone");
 
-        if (StringUtil.isEmpty(phone) && !"0".equals(corpData.optString("hidePhone"))) {
+        if (StringUtil.isEmpty(phone) || !"0".equals(corpData.optString("hidePhone"))) {
             comPhoneBox.setVisibility(View.GONE);
         } else {
             comPhone.setText(phone + " ");

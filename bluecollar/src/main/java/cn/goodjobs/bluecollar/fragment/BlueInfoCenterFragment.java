@@ -36,6 +36,7 @@ import cn.goodjobs.common.view.searchItem.SearchItemView;
 
 public class BlueInfoCenterFragment extends BaseFragment {
 
+    private String url;
     private LinearLayout show;
     private Button btnLogin;
     private TextView tvName, tvTime, tvResume, tvEntrust;
@@ -158,6 +159,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         if (!isLogin) {
             if (i == R.id.itemZhaoping) {
                 intent.setClass(getActivity(), ItemInviteActivity.class);
+                intent.putExtra("url", url);
             } else {
                 intent.setClass(getActivity(), LoginActivity.class);
                 startActivity(intent);
@@ -182,6 +184,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
                 intent.setClass(getActivity(), ItemCollectActivity.class);
             } else if (i == R.id.itemZhaoping) {
                 intent.setClass(getActivity(), ItemInviteActivity.class);
+                intent.putExtra("url", url);
             } else if (i == R.id.tv_entrust) {
                 HashMap<String, Object> params = new HashMap<String, Object>();
                 if (isEntrust) {
@@ -245,6 +248,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     }
 
     private void setDataToView() {
+        url = GoodJobsApp.getInstance().bluePersonalInfo.optString("jobFairUrl");
         Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
         myHeadImage.setImageURI(uri);
         tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));

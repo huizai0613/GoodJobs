@@ -35,7 +35,8 @@ public class ItemInviteActivity extends BaseActivity {
         setTopTitle("我要招聘");
         wv = (WebView) findViewById(R.id.wv_invite);
         LoadingDialog.showDialog(this);
-        wv.loadUrl("http://m.czz.goodjobs.lab/index.php/module/Blue/action/Attend");//页面请求地址
+        String url = getIntent().getStringExtra("url");
+        wv.loadUrl(url);//页面请求地址
         WebSettings webSettings = wv.getSettings();
         wv.setWebViewClient(new WebViewClient() {
             @Override

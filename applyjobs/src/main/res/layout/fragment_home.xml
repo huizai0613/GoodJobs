@@ -139,6 +139,17 @@
                 android:layout_marginTop="@dimen/padding_default"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:background="@color/bule_low_color"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="其它求职频道"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_default"/>
+
                 <include layout="@layout/include_main_bottom"/>
             </LinearLayout>
 
