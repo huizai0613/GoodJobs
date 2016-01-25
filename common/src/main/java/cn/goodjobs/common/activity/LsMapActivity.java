@@ -8,25 +8,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
-import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.model.LatLng;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdate;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.CoordinateConverter;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.util.StringUtil;
-import cn.goodjobs.common.util.TipsUtil;
-
 
 /**
  * Created by YeXiangYu on 15-10-10.
@@ -35,12 +29,11 @@ public class LsMapActivity extends BaseActivity
 {
 
     private MapView map;
-    private BaiduMap aMap;
+    private AMap aMap;
     private double lat;
     private double lng;
     private String content;
     private String title;
-    boolean isShow;
 
 
 //    @Override
@@ -61,8 +54,18 @@ public class LsMapActivity extends BaseActivity
     public static void openMap(Context mContext, double lat, double lng, String title, String content)
     {
         Intent intent = new Intent();
-        intent.putExtra("LAT", lat);
-        intent.putExtra("LNG", lng);
+
+        CoordinateConverter coordinateConverter = new CoordinateConverter();
+
+        coordinateConverter.from(CoordinateConverter.CoordType.BAIDU);
+
+        coordinateConverter.coord(new LatLng(lng, lat));
+
+        LatLng convert = coordinateConverter.convert();
+
+
+        intent.putExtra("LAT", convert.latitude);
+        intent.putExtra("LNG", convert.longitude);
         intent.putExtra("CONTENT", content);
         intent.putExtra("TITLE", title);
         intent.setClass(mContext, LsMapActivity.class);
@@ -72,31 +75,23 @@ public class LsMapActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        SDKInitializer.initialize(getApplicationContext());
         super.onCreate(savedInstanceState);
+        map.onCreate(savedInstanceState);
     }
 
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        map.onResume();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
-        map.onPause();
-    }
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
         map.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        map.onSaveInstanceState(outState);
     }
 
     @Override
@@ -117,61 +112,90 @@ public class LsMapActivity extends BaseActivity
         setTopTitle("地图");
         map = (MapView) findViewById(R.id.map);
         aMap = this.map.getMap();
+        LatLng latLng = new LatLng(lat, lng);
+        CameraPosition cameraPosition = new CameraPosition(latLng, 20, 0, 0);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        MarkerOptions markerOptions = new MarkerOptions();
 
-        //定义Maker坐标点
-        LatLng point = new LatLng(lng, lat);
-//构建Marker图标
-        BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.map);
-//构建MarkerOption，用于在地图上添加Marker
-        OverlayOptions option = new MarkerOptions()
-                .position(point)
-                .icon(bitmap);
-//在地图上添加Marker，并显示
+//        position(Required) 在地图上标记位置的经纬度值。参数不能为空。
+//        title 当用户点击标记，在信息窗口上显示的字符串。
+//        snippet 附加文本，显示在标题下方。
+//        draggable 如果您允许用户可以自由移动标记，设置为“ true ”。默认情况下为“ false ”。
+//        visible 设置“ false ”，标记不可见。默认情况下为“ true ”。
+//        anchor图标摆放在地图上的基准点。默认情况下，锚点是从图片下沿的中间处。
+//        perspective设置 true，标记有近大远小效果。默认情况下为 false。
+//        可以通过Marker.setRotateAngle() 方法设置标记的旋转角度，从正北开始，逆时针计算。如设置旋转90度，Marker.setRotateAngle(90)，效果如下图所示：
 
-//定义用于显示该InfoWindow的坐标点
+        if (!StringUtil.isEmpty(content)) {
+            markerOptions.title(title);
+            markerOptions.snippet(content);
+        }
+        markerOptions.position(latLng);
+        markerOptions.draggable(false);
+        markerOptions.draggable(true);
+        Marker marker = aMap.addMarker(markerOptions);
+        aMap.moveCamera(cameraUpdate);
 
-        LinearLayout box = new LinearLayout(mcontext);
-        box.setOrientation(LinearLayout.VERTICAL);
-        box.setBackgroundResource(R.color.white);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        TextView title = new TextView(mcontext);
-        View line = new View(mcontext);
-        line.setBackgroundResource(R.color.line_color);
-        TextView address = new TextView(mcontext);
-        title.setText(this.title);
-        title.setPadding(20, 20, 20, 20);
-        address.setPadding(20, 20, 20, 20);
-        title.setBackgroundResource(R.color.window_background);
-        address.setText(this.content);
-        box.addView(title, params);
-        box.addView(line, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1));
-        box.addView(address, params);
-//创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
-        final InfoWindow mInfoWindow = new InfoWindow(box, point, -90);
-//显示InfoWindow
-
-
-        aMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener()
+        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener()
         {
             @Override
             public boolean onMarkerClick(Marker marker)
             {
-
-                if (isShow) {
-                    isShow = false;
-                    aMap.hideInfoWindow();
+                if (marker.isInfoWindowShown()) {
+                    marker.hideInfoWindow();
                 } else {
-                    isShow = true;
-                    aMap.showInfoWindow(mInfoWindow);
+                    marker.showInfoWindow();
                 }
                 return false;
             }
         });
 
-        MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newLatLngZoom(point, 15);
-        aMap.animateMapStatus(mapStatusUpdate);
-        aMap.addOverlay(option);
+        aMap.setOnInfoWindowClickListener(new AMap.OnInfoWindowClickListener()
+        {
+            @Override
+            public void onInfoWindowClick(Marker marker)
+            {
+                if (marker.isInfoWindowShown()) {
+                    marker.hideInfoWindow();
+                } else {
+                    marker.showInfoWindow();
+                }
+
+            }
+        });
+
+        aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter()
+        {
+            @Override
+            public View getInfoWindow(Marker marker)
+            {
+
+                LinearLayout box = new LinearLayout(mcontext);
+                box.setOrientation(LinearLayout.VERTICAL);
+                box.setBackgroundResource(R.color.white);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                TextView titleView = new TextView(mcontext);
+                View line = new View(mcontext);
+                line.setBackgroundResource(R.color.line_color);
+                TextView address = new TextView(mcontext);
+                titleView.setText(title);
+                titleView.setPadding(20, 20, 20, 20);
+                address.setPadding(20, 20, 20, 20);
+                titleView.setBackgroundResource(R.color.window_background);
+                address.setText(content);
+                box.addView(titleView, params);
+                box.addView(line, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1));
+                box.addView(address, params);
+
+                return box;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker)
+            {
+                return null;
+            }
+        });
 
     }
 
@@ -183,6 +207,5 @@ public class LsMapActivity extends BaseActivity
         content = getIntent().getStringExtra("CONTENT");
         title = getIntent().getStringExtra("TITLE");
     }
-
 
 }
