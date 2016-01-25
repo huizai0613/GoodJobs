@@ -2,6 +2,7 @@ package cn.goodjobs.bluecollar.fragment;
 
 
 import android.graphics.Color;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExtendedTouchView;
 import cn.goodjobs.common.view.LoadingDialog;
+import cn.goodjobs.common.view.highlight.HighLight;
 import cn.goodjobs.common.view.searchItem.SelectorItemView;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
@@ -82,6 +84,7 @@ public class BlueHomeFragment extends BaseFragment
     private MyLocation myLocation;
     private BlueCollarActivity activity;
     private boolean isLoadSuccess;
+    private HighLight mHightLight;
 
 
     @Subscriber(tag = URLS.JOB_bluehome_login)
@@ -216,6 +219,12 @@ public class BlueHomeFragment extends BaseFragment
                     View inflate = View.inflate(mActivity, R.layout.item_bluejob, null);
                     initnterestView(data.optJSONObject(i), inflate, charSequence, i);
                     jobBox.addView(inflate);
+                    if (i == 0) {
+                        Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
+                        if (blue_first == null || !blue_first)
+                            showTipMask(inflate);
+                        SharedPrefUtil.saveDataToLoacl("blue_first", true);
+                    }
                 }
             }
         }
@@ -429,7 +438,7 @@ public class BlueHomeFragment extends BaseFragment
         });
     }
 
-    private void initView(View view)
+    private void initView(final View view)
     {
         setTopTitle(view, "蓝领招聘");
         ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
@@ -447,6 +456,46 @@ public class BlueHomeFragment extends BaseFragment
         blueSearchBut.setOnClickListener(this);
         applyjobBut = view.findViewById(R.id.applyjob_but);
         applyjobBut.setOnClickListener(this);
+
+
+    }
+
+
+    private void showTipMask(View view)
+    {
+        if (mHightLight != null) {
+            mHightLight.remove();
+            mHightLight = null;
+        }
+        mHightLight = new HighLight(mActivity)//
+                .addHighLight(R.id.item_certify, R.layout.blue_introduce,
+                        new HighLight.OnPosCallback()
+                        {
+                            @Override
+                            public void getPos(float rightMargin, float bottomMargin, RectF rectF, HighLight.MarginInfo marginInfo)
+                            {
+                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, 200);
+                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, 170);
+                            }
+                        });
+//                .addHighLight(R.id.id_btn_amazing, R.layout.info_down, new HighLight.OnPosCallback()
+//                {
+//                    /**
+//                     * @param rightMargin  高亮view在anchor中的右边距
+//                     * @param bottomMargin 高亮view在anchor中的下边距
+//                     * @param rectF        高亮view的l,t,r,b,w,h都有
+//                     * @param marginInfo   设置你的布局的位置，一般设置l,t或者r,b
+//                     */
+//                    @Override
+//                    public void getPos(float rightMargin, float bottomMargin, RectF rectF, HighLight.MarginInfo marginInfo)
+//                    {
+//                        marginInfo.rightMargin = rightMargin + rectF.width() / 2;
+//                        marginInfo.bottomMargin = bottomMargin + rectF.height();
+//                    }
+//
+//                });
+
+        mHightLight.show();
     }
 
     @Override

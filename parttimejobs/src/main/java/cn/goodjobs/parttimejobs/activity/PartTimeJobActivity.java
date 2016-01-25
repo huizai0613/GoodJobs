@@ -67,6 +67,7 @@ public class PartTimeJobActivity extends BaseListActivity {
 
     private void initView() {
         setTopTitle("兼职信息");
+        changeLeftBg(R.mipmap.icon_part);
         emptyLayout = (EmptyLayout) findViewById(R.id.empty_view);
         et = (EditText) findViewById(R.id.et_career);
         btnClear = (ImageButton) findViewById(R.id.ib_clear);
