@@ -181,24 +181,26 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int i1 = DensityUtil.dip2px(context, 1);
             for (int i = 0; i < (treatment.length() > 3 ? 3 : treatment.length()); i++) {
+                String s = treatment.optString(i);
+                if (!StringUtil.isEmpty(s)) {
+                    TextView item = new TextView(context);
+                    item.setPadding(i1, i1, i1, i1);
+                    item.setBackgroundResource(R.drawable.bg_welfare);
+                    item.setGravity(Gravity.CENTER);
+                    if (i == 2) {
+                        item.setText("·  ·  ·");
+                    } else {
+                        item.setText(s);
+                    }
 
-                TextView item = new TextView(context);
-                item.setPadding(i1, i1, i1, i1);
-                item.setBackgroundResource(R.drawable.bg_welfare);
-                item.setGravity(Gravity.CENTER);
-                if (i == 2) {
-                    item.setText("·  ·  ·");
-                } else {
-                    item.setText(treatment.optString(i));
+                    if (i == 1) {
+                        p.rightMargin = p.leftMargin = DensityUtil.dip2px(context, 2);
+                    }
+
+                    item.setTextColor(Color.parseColor("#6bbd00"));
+                    item.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.text_litter));
+                    item_treatment_box.addView(item, p);
                 }
-
-                if (i == 1) {
-                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(context, 2);
-                }
-
-                item.setTextColor(Color.parseColor("#6bbd00"));
-                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(R.dimen.text_litter));
-                item_treatment_box.addView(item, p);
             }
         }
         itemC.setChecked(checkPosition.contains((Integer) position));

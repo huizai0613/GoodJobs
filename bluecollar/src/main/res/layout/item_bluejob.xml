@@ -56,16 +56,24 @@
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/font_size_14"/>
 
-                <TextView
-                    android:id="@+id/item_dis"
+                <RelativeLayout
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/padding_small"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|left"
-                    android:text="多岁的发生"
-                    android:textColor="@color/light_color"
-                    android:textSize="@dimen/font_size_12"/>
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/item_dis"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|right"
+                        android:text="多岁的发生"
+                        android:textColor="@color/light_color"
+                        android:textSize="@dimen/font_size_12"/>
+                </RelativeLayout>
+
 
             </LinearLayout>
 
@@ -156,7 +164,7 @@
                     android:layout_marginLeft="@dimen/padding_small"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:singleLine="true"
                     android:text="2016-12-12"
                     android:textColor="@color/light_color"
