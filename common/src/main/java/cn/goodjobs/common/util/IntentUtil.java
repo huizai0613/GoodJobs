@@ -1,5 +1,6 @@
 package cn.goodjobs.common.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +18,13 @@ public class IntentUtil {
     public static void toLoginActivity() {
         Intent intent = new Intent(ScreenManager.getScreenManager().currentActivity(), LoginActivity.class);
         ScreenManager.getScreenManager().currentActivity().startActivity(intent);
+    }
+
+    public static void toLanlingPersonalActivity(Activity activity) {
+        Intent intent = new Intent();
+        intent.setClassName(ScreenManager.getScreenManager().currentActivity(), "cn.goodjobs.bluecollar.activity.makefriend.MakeFriendPersonalInfoActivity");
+        activity.startActivity(intent);
+        activity.finish();
     }
 
     /**

@@ -129,7 +129,7 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
     @Override
     public void onSuccess(String tag, Object data) {
         if (tag.equals(URLS.MAKEFRIEND_FOLLOW)) {
-            if ("yes".equals(itemObject.optString("followHas"))) {
+            if ("yes".equals(itemObject.optString("followHas")) || "all".equals(itemObject.optString("followHas"))) {
                 try {
                     itemObject.put("followHas", "no");
                 } catch (JSONException e) {
@@ -138,6 +138,11 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
             } else if ("no".equals(itemObject.optString("followHas"))) {
                 try {
                     itemObject.put("followHas", "yes");
+                    JSONObject jsonObject = (JSONObject) data;
+                    if (jsonObject.has("arr")) {
+                        JSONObject jsonObject1 = jsonObject.optJSONObject("arr").optJSONObject(itemObject.optString("friendID"));
+                        itemObject.put("smsHas", jsonObject1.optString("smsHas"));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

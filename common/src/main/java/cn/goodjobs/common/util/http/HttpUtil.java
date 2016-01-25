@@ -364,6 +364,9 @@ public class HttpUtil
                                     doLogin();
                                     return;
                                 }
+                            } else if (errorCode == 20002) {
+                                // 蓝领交友信息不完整
+                                IntentUtil.toLanlingPersonalActivity(ScreenManager.getScreenManager().currentActivity());
                             }
                             LoadingDialog.hide();
                             requstEntityStack.pop();
