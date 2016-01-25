@@ -298,8 +298,7 @@ public class ImageUtil {
 		// Create an image file name
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
-		File storageDir = Environment.getExternalStoragePublicDirectory(
-				Environment.DIRECTORY_PICTURES);
+		File storageDir = FileUtils.checkFolder("goodjobsPics");
 		File image = null;
 		try {
 			image = File.createTempFile(imageFileName,".jpg", storageDir);

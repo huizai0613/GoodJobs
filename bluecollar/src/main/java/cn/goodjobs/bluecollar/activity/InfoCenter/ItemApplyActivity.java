@@ -32,7 +32,7 @@ public class ItemApplyActivity extends BasePersonalListActivity implements Adapt
         idKey = "mailID";
         paramKey = "mailID";
         resIDs = new int[]{R.id.tvJobname, R.id.tvAddress, R.id.tvCompany, R.id.tvNumber, R.id.tvTime};
-        keys = new String[]{"jobName", "cityName", "corpName", "jobStatus", "sendDate"};
+        keys = new String[]{"jobName", "cityName", "corpName", "applyNum", "sendDate"};
         textStatus = new PersonalListAdapter.TextStatus(new String[]{"jobStatus"}, new int[]{0}, new String[]{"2"});
         super.onCreate(savedInstanceState);
         mListView.setOnItemClickListener(this);
