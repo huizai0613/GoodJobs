@@ -2,18 +2,26 @@ package cn.goodjobs.common.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipeline;
 import com.umeng.update.UmengUpdateAgent;
 
+import java.io.File;
 import java.util.HashMap;
 
 import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
+import cn.goodjobs.common.util.AlertDialogUtil;
+import cn.goodjobs.common.util.FileUtils;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
+import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
 
 public class GoodJobsSettingActivity extends BaseActivity {
@@ -60,6 +68,7 @@ public class GoodJobsSettingActivity extends BaseActivity {
         itemCheck.setHint("当前版本：V" + HttpUtil.getPackageInfo().versionName);
         itemHelp = (SearchItemView) findViewById(R.id.itemHelp);
         itemAbout = (SearchItemView) findViewById(R.id.itemAbout);
+        itemClear.setHint(getCacheSize());
 
         itemFeedBack.setOnClickListener(this);
         itemClear.setOnClickListener(this);
@@ -82,6 +91,7 @@ public class GoodJobsSettingActivity extends BaseActivity {
         } else if (v.getId() == R.id.itemFeedBack) {
             intent.setClass(this, FeedBackActivity.class);
         } else if (v.getId() == R.id.itemClear) {
+            clearCache();
             return;
         } else if (v.getId() == R.id.itemCheck) {
             UmengUpdateAgent.forceUpdate(this);
@@ -92,5 +102,29 @@ public class GoodJobsSettingActivity extends BaseActivity {
             intent.setClass(this, AboutActivity.class);
         }
         startActivity(intent);
+    }
+
+    private String getCacheSize() {
+        long size = 0;
+        File storageDir = FileUtils.checkFolder("goodjobsPics"); // 裁剪后图片保存路径
+        size = FileUtils.getFileOrFilesSize(storageDir);
+        LogUtil.info("size:"+size);
+        long imageSize = Fresco.getImagePipelineFactory().getMainDiskStorageCache().getSize();
+        size += imageSize; // 图片缓存大小
+        LogUtil.info("imageSize:"+imageSize);
+        if (size <= 0) {
+            size = Math.round(100);
+        }
+        LogUtil.info("size:"+size);
+        return FileUtils.formetFileSize(size);
+    }
+
+    private void clearCache() {
+        LoadingDialog.showDialog(this, "正在清除缓存...");
+        File storageDir = FileUtils.checkFolder("goodjobsPics"); // 裁剪后图片保存路径
+        FileUtils.deleteFile(storageDir);
+        Fresco.getImagePipeline().clearDiskCaches(); // 清除文件缓存
+        itemClear.setHint("已清空");
+        LoadingDialog.hide();
     }
 }
