@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/window_background">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window_background">
 
-    <include android:id="@+id/action_bar" layout="@layout/actionbar"/>
+    <include
+        android:id="@+id/action_bar"
+        layout="@layout/actionbar" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/action_bar"
-        ></android.support.v4.view.ViewPager>
+        android:layout_below="@+id/action_bar"></android.support.v4.view.ViewPager>
 
     <RelativeLayout
         android:id="@+id/tipLayout"
@@ -21,12 +22,13 @@
         android:clickable="true"
         android:onClick="hideTip"
         android:visibility="invisible">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="220dip"
-            android:src="@drawable/tip_zouy"
+            android:layout_centerInParent="true"
             android:scaleType="fitCenter"
-            android:layout_centerInParent="true"/>
+            android:src="@drawable/tip_zouy" />
     </RelativeLayout>
 
 </RelativeLayout>
