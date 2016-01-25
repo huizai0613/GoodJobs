@@ -31,8 +31,7 @@ import cn.goodjobs.common.view.CustomViewPager;
  * 原求职端首页
  */
 
-public class ApplyJobsActivity extends BaseActivity
-{
+public class ApplyJobsActivity extends BaseActivity {
 
     private long backTime = 2000;
     private long curTime;
@@ -42,8 +41,7 @@ public class ApplyJobsActivity extends BaseActivity
     public ArrayList<BaseFragment> fragmentList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.ApplyJobs.toString()); // 保存当前模块为默认模块
 
@@ -51,20 +49,17 @@ public class ApplyJobsActivity extends BaseActivity
     }
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_apply_jobs;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
         btnFooter1 = (LinearLayout) findViewById(R.id.btnFooter1);
         btnFooter2 = (LinearLayout) findViewById(R.id.btnFooter2);
         btnFooter3 = (LinearLayout) findViewById(R.id.btnFooter3);
@@ -92,8 +87,7 @@ public class ApplyJobsActivity extends BaseActivity
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
 
     }
 
@@ -110,8 +104,7 @@ public class ApplyJobsActivity extends BaseActivity
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event)
-    {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
         if (!StringUtil.isEmpty(defaultModule) && Constant.module.ApplyJobs.toString().equals(defaultModule)) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -130,8 +123,7 @@ public class ApplyJobsActivity extends BaseActivity
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         super.onClick(v);
         btnFooter.setSelected(false);
         if (v.getId() == R.id.btnFooter1) {
@@ -156,8 +148,7 @@ public class ApplyJobsActivity extends BaseActivity
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == LoginActivity.LOGIN_REQUEST_CODE) {
@@ -169,8 +160,7 @@ public class ApplyJobsActivity extends BaseActivity
         }
     }
 
-    public void bottomClick(View view)
-    {
+    public void bottomClick(View view) {
         int tag = Integer.parseInt(view.getTag().toString());
         Intent intent = new Intent();
         switch (tag) {

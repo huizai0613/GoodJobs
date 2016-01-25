@@ -139,19 +139,21 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 TipsUtil.show(this, (String) data);
             } else if (data instanceof JSONObject) {
                 TipsUtil.show(this, ((JSONObject) data).optString("message"));
+                headPhoto.setImageURI(Uri.parse(((JSONObject) data).optString("photo")));
             }
-            headPhoto.setImageURI(fileUri);
         }
     }
 
     @Override
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
+        TipsUtil.show(this, tag);
     }
 
     @Override
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
+        TipsUtil.show(this, errorMessage);
     }
 
     public void doSave(View v) {
