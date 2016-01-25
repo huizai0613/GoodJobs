@@ -299,7 +299,7 @@ public class ImageUtil {
 		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		String imageFileName = "JPEG_" + timeStamp + "_";
 		File storageDir = Environment.getExternalStoragePublicDirectory(
-				Environment.DIRECTORY_PICTURES);
+				"goodjobsPics");
 		File image = null;
 		try {
 			image = File.createTempFile(imageFileName,".jpg", storageDir);
