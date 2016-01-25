@@ -222,7 +222,7 @@ public class BlueHomeFragment extends BaseFragment
                     jobBox.addView(inflate);
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
-//                        if (blue_first == null || !blue_first)
+                        if (blue_first == null || !blue_first)
                         showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
@@ -485,7 +485,7 @@ public class BlueHomeFragment extends BaseFragment
 //                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, (screenH <= 800 ? 0 : 100));
 //                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, (screenH <= 800 ? -20 : 100));
                                 marginInfo.leftMargin = (int)(rectF.left - rectF.left/1.1);
-                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ?0 : rectF.bottom/3);
+                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ? -70: rectF.bottom/3);
                             }
                         });
 //                .addHighLight(R.id.id_btn_amazing, R.layout.info_down, new HighLight.OnPosCallback()
