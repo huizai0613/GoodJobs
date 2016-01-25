@@ -17,9 +17,11 @@ import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.FileUtils;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
+import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
 
 public class GoodJobsSettingActivity extends BaseActivity {
@@ -104,16 +106,25 @@ public class GoodJobsSettingActivity extends BaseActivity {
 
     private String getCacheSize() {
         long size = 0;
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                "goodjobsPics"); // 裁剪后图片保存路径
+        File storageDir = FileUtils.checkFolder("goodjobsPics"); // 裁剪后图片保存路径
         size = FileUtils.getFileOrFilesSize(storageDir);
-        size += Fresco.getImagePipelineFactory().getMainDiskStorageCache().getSize(); // 图片缓存大小
-
+        LogUtil.info("size:"+size);
+        long imageSize = Fresco.getImagePipelineFactory().getMainDiskStorageCache().getSize();
+        size += imageSize; // 图片缓存大小
+        LogUtil.info("imageSize:"+imageSize);
+        if (size <= 0) {
+            size = Math.round(100);
+        }
+        LogUtil.info("size:"+size);
         return FileUtils.formetFileSize(size);
     }
 
     private void clearCache() {
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                "goodjobsPics"); // 裁剪后图片保存路径
+        LoadingDialog.showDialog(this, "正在清除缓存...");
+        File storageDir = FileUtils.checkFolder("goodjobsPics"); // 裁剪后图片保存路径
+        FileUtils.deleteFile(storageDir);
+        Fresco.getImagePipeline().clearDiskCaches(); // 清除文件缓存
+        itemClear.setHint("已清空");
+        LoadingDialog.hide();
     }
 }
