@@ -197,9 +197,10 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
             lp.topMargin = 5;
             lp.bottomMargin = 5;
             for (int i = 0; i < treatmentArr.length(); i++) {
-                if (mActivity != null) {
+                String s = treatmentArr.optString(i);
+                if (!StringUtil.isEmpty(s)) {
                     TextView view = new TextView(mActivity);
-                    view.setText(treatmentArr.optString(i));
+                    view.setText(s);
                     view.setGravity(Gravity.CENTER);
                     view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
                     view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
@@ -346,23 +347,26 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         int i1 = DensityUtil.dip2px(mActivity, 1);
                         for (int j = 0; j < (treatment.length() > 3 ? 3 : treatment.length()); j++) {
-                            TextView item = new TextView(mActivity);
-                            item.setPadding(i1, i1, i1, i1);
-                            item.setBackgroundResource(R.drawable.bg_welfare);
-                            item.setGravity(Gravity.CENTER);
-                            if (j == 2) {
-                                item.setText("·  ·  ·");
-                            } else {
-                                item.setText(treatment.optString(i));
-                            }
+                            String s = treatment.optString(i);
+                            if (!StringUtil.isEmpty(s)) {
+                                TextView item = new TextView(mActivity);
+                                item.setPadding(i1, i1, i1, i1);
+                                item.setBackgroundResource(R.drawable.bg_welfare);
+                                item.setGravity(Gravity.CENTER);
+                                if (j == 2) {
+                                    item.setText("·  ·  ·");
+                                } else {
+                                    item.setText(s);
+                                }
 
-                            if (j == 1) {
-                                p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
-                            }
+                                if (j == 1) {
+                                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
+                                }
 
-                            item.setTextColor(Color.parseColor("#6bbd00"));
-                            item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_litter));
-                            item_treatment_box.addView(item, p);
+                                item.setTextColor(Color.parseColor("#6bbd00"));
+                                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_litter));
+                                item_treatment_box.addView(item, p);
+                            }
                         }
                     }
 

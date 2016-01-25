@@ -222,8 +222,8 @@ public class BlueHomeFragment extends BaseFragment
                     jobBox.addView(inflate);
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
-                        if (blue_first == null || !blue_first)
-                            showTipMask(inflate);
+//                        if (blue_first == null || !blue_first)
+                        showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
                 }
@@ -469,15 +469,23 @@ public class BlueHomeFragment extends BaseFragment
             mHightLight.remove();
             mHightLight = null;
         }
+
+        final int screenH = DensityUtil.getScreenH(mActivity);
+
+
         mHightLight = new HighLight(mActivity)//
-                .addHighLight(R.id.item_certify, R.layout.blue_introduce,
+                .addHighLight(R.id.item_certify, (screenH <= 800 ? R.layout.blue_introduce_small : R.layout.blue_introduce),
                         new HighLight.OnPosCallback()
                         {
                             @Override
                             public void getPos(float rightMargin, float bottomMargin, RectF rectF, HighLight.MarginInfo marginInfo)
                             {
-                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, 200);
-                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, 170);
+
+
+//                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, (screenH <= 800 ? 0 : 100));
+//                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, (screenH <= 800 ? -20 : 100));
+                                marginInfo.leftMargin = (int)(rectF.left - rectF.left/1.1);
+                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ?0 : rectF.bottom/3);
                             }
                         });
 //                .addHighLight(R.id.id_btn_amazing, R.layout.info_down, new HighLight.OnPosCallback()
