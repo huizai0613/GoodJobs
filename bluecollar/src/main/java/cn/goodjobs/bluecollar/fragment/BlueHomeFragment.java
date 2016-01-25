@@ -483,7 +483,7 @@ public class BlueHomeFragment extends BaseFragment
 //                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, (screenH <= 800 ? 0 : 100));
 //                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, (screenH <= 800 ? -20 : 100));
                                 marginInfo.leftMargin = (int)(rectF.left - rectF.left/1.1);
-                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ?0 : rectF.bottom/3);
+                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ? rectF.bottom/8: rectF.bottom/3);
                             }
                         });
 //                .addHighLight(R.id.id_btn_amazing, R.layout.info_down, new HighLight.OnPosCallback()
