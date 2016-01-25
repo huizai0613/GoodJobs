@@ -214,7 +214,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
 
         itemCertify.setImageResource(dataJson.optInt("certStatus") == 0 ? R.mipmap.icon_uncertify : R.mipmap.icon_certify);
-        itemCertify.setVisibility(dataJson.optInt("blueFlag") == 0 ? View.VISIBLE : View.GONE);
+        itemVip.setVisibility(dataJson.optInt("blueFlag") == 0 ? View.VISIBLE : View.GONE);
 
 
         setStrng2Bab(jobWorkSalary, "加班补贴: ", dataJson.optString("extraWorkFeeName"));
@@ -334,7 +334,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                         item_certify.setImageResource(R.mipmap.icon_uncertify);
                     }
 
-                    if ("0".equals(certStatus)) {
+                    if ("0".equals(blueFlag)) {
                         item_vip.setVisibility(View.VISIBLE);
                     } else {
                         item_vip.setVisibility(View.GONE);
