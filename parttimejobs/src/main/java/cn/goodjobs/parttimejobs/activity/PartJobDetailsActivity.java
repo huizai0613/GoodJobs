@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.json.JSONObject;
 
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.goodjobs.common.baseclass.BaseActivity;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.parttimejobs.R;
 import cn.goodjobs.parttimejobs.adapter.PartDetailsPagerAdapter;
 
@@ -23,6 +26,7 @@ public class PartJobDetailsActivity extends BaseActivity {
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
     public List<Integer> data = new ArrayList<Integer>();
     private int item;
+    RelativeLayout tipLayout;
     public JSONObject[] jsonObjects;
 
     @Override
@@ -44,9 +48,20 @@ public class PartJobDetailsActivity extends BaseActivity {
     protected void initWeight() {
         setTopTitle("兼职详情");
         vp = (ViewPager) findViewById(R.id.vp_partdetails);
+        tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
         vp.setOffscreenPageLimit(2);
         vp.setAdapter(new PartDetailsPagerAdapter(getSupportFragmentManager(), data));
         vp.setCurrentItem(item);
+
+        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+        if (zy == null || zy) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideTip(View view) {
+        tipLayout.setVisibility(View.INVISIBLE);
+        SharedPrefUtil.saveDataToLoacl("zy_tip", false);
     }
 
     @Override

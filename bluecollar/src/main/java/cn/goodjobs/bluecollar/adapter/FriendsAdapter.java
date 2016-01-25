@@ -75,10 +75,16 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
         }
         holder.btnFans.setVisibility(View.VISIBLE);
         holder.btnFans.setTag(position);
+        holder.btnMsg.setVisibility(View.GONE);
         if ("yes".equals(jsonObject.optString("followHas")) || "all".equals(jsonObject.optString("followHas"))) {
             holder.btnFans.setText("取消关注");
             holder.btnFans.setBackgroundResource(R.drawable.small_button_grey);
             holder.btnFans.setTextColor(context.getResources().getColor(R.color.main_color));
+            if ("1".equals(jsonObject.optString("smsHas"))) {
+                holder.btnMsg.setVisibility(View.VISIBLE);
+                holder.btnMsg.setOnClickListener(this);
+                holder.btnMsg.setTag(position);
+            }
         } else if ("no".equals(jsonObject.optString("followHas"))) {
             holder.btnFans.setText("    关注    ");
             holder.btnFans.setBackgroundResource(R.drawable.small_button_green);
@@ -86,13 +92,7 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
         } else {
             holder.btnFans.setVisibility(View.INVISIBLE);
         }
-        if ("1".equals(jsonObject.optString("smsHas"))) {
-            holder.btnMsg.setVisibility(View.VISIBLE);
-            holder.btnMsg.setOnClickListener(this);
-            holder.btnMsg.setTag(position);
-        } else {
-            holder.btnMsg.setVisibility(View.GONE);
-        }
+
         return convertView;
     }
 

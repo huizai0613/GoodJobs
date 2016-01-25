@@ -21,6 +21,7 @@ import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.headhuntingjob.R;
 import cn.goodjobs.headhuntingjob.adapter.HeadDetailsPagerAdapter;
@@ -38,6 +39,7 @@ public class HeadDetailsActivity extends BaseActivity {
     private int item;
     private int type;
     public JSONObject[] jsonObjects;
+    RelativeLayout tipLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class HeadDetailsActivity extends BaseActivity {
             recommend.setOnClickListener(this);
         }
         apply = (Button) findViewById(R.id.btn_apply);
+        tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
         apply.setOnClickListener(this);
         vp = (ViewPager) findViewById(R.id.vp_headdetails);
         vp.setOffscreenPageLimit(2);
@@ -82,6 +85,16 @@ public class HeadDetailsActivity extends BaseActivity {
         collect = (RelativeLayout) findViewById(R.id.rl_collect);
         share.setOnClickListener(this);
         collect.setOnClickListener(this);
+
+        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+        if (zy == null || zy) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideTip(View view) {
+        tipLayout.setVisibility(View.INVISIBLE);
+        SharedPrefUtil.saveDataToLoacl("zy_tip", false);
     }
 
     @Override

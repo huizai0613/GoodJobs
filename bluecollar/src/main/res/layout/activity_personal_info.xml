@@ -63,4 +63,13 @@
             android:background="@drawable/topbar_btn_bg"
             android:padding="10dip"/>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/padding_large"
+        android:background="@mipmap/post_add"/>
 </RelativeLayout>

@@ -193,6 +193,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
             } else {
                 TipsUtil.show(this, jsonObject.optString("message"));
                 MakeFriendsNearFragment.needRefresh = true;
+                setResult(RESULT_OK);
                 finish();
             }
         }
@@ -202,6 +203,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         uploadFinishCount ++;
         if (uploadFinishCount == uploadCount) {
             TipsUtil.show(this, "您的动态发布成功");
+            setResult(RESULT_OK);
             MakeFriendsNearFragment.needRefresh = true;
             finish();
         }
@@ -219,6 +221,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     MakeFriendsNearFragment.needRefresh = true;
+                    setResult(RESULT_OK);
                     finish();
                 }
             });

@@ -239,6 +239,10 @@
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"></activity>
         <activity
+            android:name=".activity.UserHelpActivity"
+            android:label="@string/title_activity_register"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".activity.HelpActivity"
             android:label="@string/title_activity_register"
             android:screenOrientation="portrait"></activity>

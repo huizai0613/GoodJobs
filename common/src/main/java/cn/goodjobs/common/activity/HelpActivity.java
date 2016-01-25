@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,12 +32,12 @@ import cn.goodjobs.common.view.imagemenu.MyImageView;
  */
 public class HelpActivity extends BaseActivity {
 
-    private Button btnBottom;
+    private ImageButton btnBottom;
     private ImageView[] image;
     private ViewPager help;
     private List<TextView> list = new ArrayList<TextView>();
     private LinearLayout llPoint;
-    private String[] names = {"zt1.jpg", "zt2.jpg", "zt3.jpg", "zt4.jpg"};
+    private String[] names = {"zt1.jpg", "zt2.jpg", "zt3.jpg"};
 
     @Override
     protected int getLayoutID() {
@@ -81,14 +82,14 @@ public class HelpActivity extends BaseActivity {
 
     @Override
     protected void initWeight() {
-        btnBottom = (Button) findViewById(R.id.btn_bottom);
+        btnBottom = (ImageButton) findViewById(R.id.btn_bottom);
         help = (ViewPager) findViewById(R.id.vp_help);
         llPoint = (LinearLayout) findViewById(R.id.ll_point);
         image = new ImageView[names.length];
         for (int i = 0; i < names.length; i++) {
             ImageView iv = new ImageView(this);
             iv.setImageDrawable(getDrawableFromAssets(this, names[i]));
-            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
             image[i] = iv;
             TextView tv = new TextView(this);
             if (i == 0) {

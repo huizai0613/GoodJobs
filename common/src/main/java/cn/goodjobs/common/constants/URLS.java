@@ -35,6 +35,7 @@ public class URLS {
     // 登录相关
     public final static String API_PERSON_LOGIN = "user/Login"; // 登录
     public final static String API_USER_LOGOUT = "user/logout"; // 退出登录
+    public final static String HELP = "User/Help";  // 帮助
 
     // 个人中心
     public final static String API_PERSON = "user/index"; // 个人中心
