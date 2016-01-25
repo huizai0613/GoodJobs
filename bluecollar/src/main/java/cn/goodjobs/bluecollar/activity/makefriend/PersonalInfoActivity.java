@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
+import cn.goodjobs.common.view.empty.EmptyLayout;
 import cn.goodjobs.common.view.pulltozoomview.PullToZoomListViewEx;
 
 public class PersonalInfoActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -37,6 +39,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     RelativeLayout topLayout;
     ImageButton btnEdit;
     ImageButton btnMsg;
+    Button btnAdd;
     View headView;
     int page = 1;
     PersonalTrendAdapter personalTrendAdapter;
@@ -67,6 +70,8 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
         listView = (PullToZoomListViewEx) findViewById(R.id.listview);
         btnEdit = (ImageButton) findViewById(R.id.btn_right);
         btnMsg = (ImageButton) findViewById(R.id.btn_msg);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(this);
         listView.setTopBarView(topLayout);
         headView = listView.getHeaderView();
         footView = LayoutInflater.from(this).inflate(R.layout.item_loading, null);
@@ -194,6 +199,9 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
         } else if (v.getId() == R.id.btn_msg) {
             Intent intent = new Intent(this, MsgListActivity.class);
             startActivityForResult(intent, 111);
+        } else if (v.getId() == R.id.btnAdd) {
+            Intent intent = new Intent(this, AddTrendActivity.class);
+            startActivityForResult(intent, 101);
         }
     }
 

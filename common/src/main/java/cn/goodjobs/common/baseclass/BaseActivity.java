@@ -195,4 +195,5 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         HttpUtil.cancelAllRequests();
         super.onStop();
     }
+
 }

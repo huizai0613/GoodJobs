@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import org.json.JSONObject;
 
@@ -42,6 +43,7 @@ public class BlueJobDetailActivity extends BaseActivity
     private boolean isLoad;
     public MyLocation myLocation;
     private JobDetailAdapter jobDetailAdapter;
+    RelativeLayout tipLayout;
 
 
     public HashMap<Integer, JSONObject> getCacheData()
@@ -98,6 +100,7 @@ public class BlueJobDetailActivity extends BaseActivity
     protected void initWeight()
     {
         ImageButton btn_right = (ImageButton) findViewById(R.id.btn_right);
+        tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
         btn_right.setImageResource(R.mipmap.icon_complaint);
         btn_right.setVisibility(View.VISIBLE);
         btn_right.setOnClickListener(new View.OnClickListener()
@@ -129,6 +132,16 @@ public class BlueJobDetailActivity extends BaseActivity
         viewPager.setOffscreenPageLimit(1);
         viewPager.setCurrentItem(position, false);
         setTopTitle("职位详情");
+
+        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+        if (zy == null || zy) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideTip(View view) {
+        tipLayout.setVisibility(View.INVISIBLE);
+        SharedPrefUtil.saveDataToLoacl("zy_tip", false);
     }
 
     @Override

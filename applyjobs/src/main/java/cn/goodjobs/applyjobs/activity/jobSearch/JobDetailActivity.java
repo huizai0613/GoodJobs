@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ import cn.goodjobs.applyjobs.R;
 import cn.goodjobs.applyjobs.activity.jobSearch.fragment.JobDetailFragment;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseViewPagerFragment;
+import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 
 /**
  * Created by yexiangyu on 15/12/28.
@@ -27,6 +29,7 @@ public class JobDetailActivity extends BaseActivity
     private int position;
     private HashMap<Integer, JSONObject> cacheData = new HashMap<>();
     private JobDetailAdapter jobDetailAdapter;
+    RelativeLayout tipLayout;
 
 
     public HashMap<Integer, JSONObject> getCacheData()
@@ -56,10 +59,21 @@ public class JobDetailActivity extends BaseActivity
     {
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
+        tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
         jobDetailAdapter = new JobDetailAdapter(getSupportFragmentManager());
         viewPager.setAdapter(jobDetailAdapter);
         viewPager.setCurrentItem(position, false);
         setTopTitle("职位详情");
+
+        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+        if (zy == null || zy) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideTip(View view) {
+        tipLayout.setVisibility(View.INVISIBLE);
+        SharedPrefUtil.saveDataToLoacl("zy_tip", false);
     }
 
     @Override

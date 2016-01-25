@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#d9effb">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_help"
@@ -18,20 +19,17 @@
         android:gravity="center"
         android:orientation="horizontal"></LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
+        android:layout_width="125dp"
+        android:layout_height="33dp"
         android:layout_above="@id/ll_point"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/padding_small"
-        android:background="@drawable/button_bg"
         android:onClick="click"
-        android:paddingLeft="@dimen/padding_default"
-        android:paddingRight="@dimen/padding_default"
-        android:text="立即体验"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_default"
+        android:src="@mipmap/tybtn"
+        android:scaleType="fitXY"
+        android:background="@color/transparent"
         android:visibility="invisible" />
 
 </RelativeLayout>

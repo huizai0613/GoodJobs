@@ -18,7 +18,7 @@ public class LoadingDialog {
 	private static Dialog dialog;
 
 	public static void showDialog(Activity context) {
-		showDialog(context, "请稍候...");
+		showDialog(context, "数据加载中...");
 	}
 
 	public static void showDialog(Activity context,String strContent) {

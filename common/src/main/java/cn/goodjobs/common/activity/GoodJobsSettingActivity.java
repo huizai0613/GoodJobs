@@ -87,7 +87,7 @@ public class GoodJobsSettingActivity extends BaseActivity {
             UmengUpdateAgent.forceUpdate(this);
             return;
         } else if (v.getId() == R.id.itemHelp) {
-            return;
+            intent.setClass(this, UserHelpActivity.class);
         } else if (v.getId() == R.id.itemAbout) {
             intent.setClass(this, AboutActivity.class);
         }

@@ -53,6 +53,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
     TextView btnSend;
     TextView btnLook;
     EditText editText;
+    TextView btnMsg;
     ImageButton btnDel;
     View spitLine;
     JSONObject replyObject;
@@ -169,11 +170,22 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
                 btnLook.setBackgroundResource(R.drawable.small_button_grey);
                 btnLook.setTextColor(getResources().getColor(R.color.main_color));
                 btnLook.setTag("1");
+                JSONObject jsonObject = (JSONObject) data;
+                if (jsonObject.has("arr")) {
+                    JSONObject jsonObject1 = jsonObject.optJSONObject("arr").optJSONObject(friendID);
+                    if ("1".equals(jsonObject1.optString("smsHas"))) {
+                        btnMsg.setVisibility(View.VISIBLE);
+                        btnMsg.setOnClickListener(this);
+                    } else {
+                        btnMsg.setVisibility(View.GONE);
+                    }
+                }
             } else {
                 btnLook.setText("    关注    ");
                 btnLook.setBackgroundResource(R.drawable.small_button_green);
                 btnLook.setTextColor(getResources().getColor(R.color.white));
                 btnLook.setTag("2");
+                btnMsg.setVisibility(View.GONE);
             }
         } else if (tag.equals(URLS.MAKEFRIEND_TRENDDEL)) {
             JSONObject jsonObject = (JSONObject) data;
@@ -191,7 +203,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
         btnLook = (TextView) findViewById(R.id.btnLook);
         btnDel = (ImageButton) findViewById(R.id.btnDel);
         spitLine = findViewById(R.id.spitLine);
-        TextView btnMsg = (TextView) findViewById(R.id.btnMsg);
+        btnMsg = (TextView) findViewById(R.id.btnMsg);
         TextView tvAge = (TextView) findViewById(R.id.tvAge);
         TrendItemView viewTrend = (TrendItemView) findViewById(R.id.viewTrend);
 
@@ -231,6 +243,12 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
                 btnLook.setBackgroundResource(R.drawable.small_button_grey);
                 btnLook.setTextColor(getResources().getColor(R.color.main_color));
                 btnLook.setTag("1");
+                if ("1".equals(jsonObject.optString("smsHas"))) {
+                    btnMsg.setVisibility(View.VISIBLE);
+                    btnMsg.setOnClickListener(this);
+                } else {
+                    btnMsg.setVisibility(View.GONE);
+                }
             } else if ("no".equals(jsonObject.optString("followHas"))) {
                 btnLook.setText("    关注    ");
                 btnLook.setBackgroundResource(R.drawable.small_button_green);
@@ -239,12 +257,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             } else {
                 btnLook.setVisibility(View.INVISIBLE);
             }
-            if ("1".equals(jsonObject.optString("smsHas"))) {
-                btnMsg.setVisibility(View.VISIBLE);
-                btnMsg.setOnClickListener(this);
-            } else {
-                btnMsg.setVisibility(View.GONE);
-            }
+
         }
         friendID = jsonObject.optString("friendID");
         viewTrend.showView(jsonObject);

@@ -218,7 +218,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#60000000"
+        android:background="#aa000000"
         android:id="@+id/tipLayout"
         android:clickable="true"
         android:visibility="invisible">
