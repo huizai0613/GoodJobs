@@ -78,6 +78,7 @@ public class BlueHomeFragment extends BaseFragment
     private Button btnSearch;
     private View blueSearchBut;
     private LinearLayout jobBox;
+    private RelativeLayout tipLayout;
     ArrayList<Integer> selectJobIds = new ArrayList<Integer>();
     private View applyjobBut;
     private JSONObject jsonObject;
@@ -221,7 +222,7 @@ public class BlueHomeFragment extends BaseFragment
                     jobBox.addView(inflate);
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
-//                        if (blue_first == null || !blue_first)
+                        if (blue_first == null || !blue_first)
                         showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
@@ -442,6 +443,7 @@ public class BlueHomeFragment extends BaseFragment
     {
         setTopTitle(view, "蓝领招聘");
         ImageButton backBtn = (ImageButton) view.findViewById(R.id.btn_left);
+        tipLayout = (RelativeLayout) view.findViewById(R.id.tipLayout);
         backBtn.getLayoutParams().width = RelativeLayout.LayoutParams.WRAP_CONTENT;
         ((RelativeLayout.LayoutParams) backBtn.getLayoutParams()).leftMargin = DensityUtil.dip2px(mActivity, 10);
         ((RelativeLayout.LayoutParams) backBtn.getLayoutParams()).rightMargin = DensityUtil.dip2px(mActivity, 5);
@@ -456,7 +458,7 @@ public class BlueHomeFragment extends BaseFragment
         blueSearchBut.setOnClickListener(this);
         applyjobBut = view.findViewById(R.id.applyjob_but);
         applyjobBut.setOnClickListener(this);
-
+        tipLayout.setOnClickListener(this);
 
     }
 
@@ -483,7 +485,7 @@ public class BlueHomeFragment extends BaseFragment
 //                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, (screenH <= 800 ? 0 : 100));
 //                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, (screenH <= 800 ? -20 : 100));
                                 marginInfo.leftMargin = (int)(rectF.left - rectF.left/1.1);
-                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ?0 : rectF.bottom/3);
+                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ? -70: rectF.bottom/3);
                             }
                         });
 //                .addHighLight(R.id.id_btn_amazing, R.layout.info_down, new HighLight.OnPosCallback()
@@ -504,6 +506,13 @@ public class BlueHomeFragment extends BaseFragment
 //                });
 
         mHightLight.show();
+        mHightLight.addClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHightLight.remove();
+                tipLayout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -556,7 +565,9 @@ public class BlueHomeFragment extends BaseFragment
                 TipsUtil.show(mActivity, "您未选择职位");
             }
 
-
+        } else if (i == R.id.tipLayout) {
+            tipLayout.setVisibility(View.INVISIBLE);
+            SharedPrefUtil.saveDataToLoacl("tipChange", false);
         }
     }
 }

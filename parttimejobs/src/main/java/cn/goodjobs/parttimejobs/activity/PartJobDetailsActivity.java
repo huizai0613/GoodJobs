@@ -53,9 +53,11 @@ public class PartJobDetailsActivity extends BaseActivity {
         vp.setAdapter(new PartDetailsPagerAdapter(getSupportFragmentManager(), data));
         vp.setCurrentItem(item);
 
-        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
-        if (zy == null || zy) {
-            tipLayout.setVisibility(View.VISIBLE);
+        if (data != null && data.size() > 0) {
+            Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+            if (zy == null || zy) {
+                tipLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

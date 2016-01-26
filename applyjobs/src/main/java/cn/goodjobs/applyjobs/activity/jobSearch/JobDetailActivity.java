@@ -59,9 +59,11 @@ public class JobDetailActivity extends BaseActivity {
         viewPager.setCurrentItem(position, false);
         setTopTitle("职位详情");
 
-        Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
-        if (zy == null || zy) {
-            tipLayout.setVisibility(View.VISIBLE);
+        if (split != null && split.length > 1) {
+            Boolean zy = SharedPrefUtil.getBoolean("zy_tip");
+            if (zy == null || zy) {
+                tipLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 

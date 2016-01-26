@@ -25,6 +25,7 @@ import cn.goodjobs.common.baseclass.choosepic.ImgFileListActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.ImageUtil;
+import cn.goodjobs.common.util.KeyBoardUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.TipsUtil;
@@ -99,6 +100,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
     }
 
     public void showBottomMenu(UploadImageView uploadImageView) {
+        KeyBoardUtil.hide(this); // 隐藏软键盘
         switch (uploadImageView.uploadImaggeData.status) {
             case 0:
                 super.showBottomBtns();
@@ -139,7 +141,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
         uploadImaggeData.addTrendActivity = this;
         uploadImaggeData.status = 1;
         uploadImaggeData.file = ImageUtil.scal(fileUri);
-        uploadImageAdapter.uploadImaggeDatas.add(uploadImaggeData);
+        uploadImageAdapter.uploadImaggeDatas.add(uploadImageAdapter.uploadImaggeDatas.size() - 1, uploadImaggeData);
         uploadImageAdapter.notifyDataSetChanged();
     }
 

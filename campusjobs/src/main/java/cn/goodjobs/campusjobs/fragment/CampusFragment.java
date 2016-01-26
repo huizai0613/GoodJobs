@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,6 +45,7 @@ public class CampusFragment extends BaseListFragment {
     private EditText etSearch;
     private MyListView lv_campus;
     private CampusAdapter adapter;
+    private RelativeLayout tipLayout;
     private boolean isSuccess = false;
 
     public CampusFragment() {
@@ -62,9 +64,16 @@ public class CampusFragment extends BaseListFragment {
         lv_campus = (MyListView) view.findViewById(R.id.lv_campus);
         adViewPager = (AutoScrollViewPager) view.findViewById(R.id.adViewPager);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
+        tipLayout = (RelativeLayout) view.findViewById(R.id.tipLayout);
         etSearch.setOnClickListener(this);
+        tipLayout.setOnClickListener(this);
         adapter = new CampusAdapter(getActivity());
         lv_campus.setAdapter(adapter);
+
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        if (tipChange == null || tipChange) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     // 当fragment可见时调用
@@ -105,6 +114,9 @@ public class CampusFragment extends BaseListFragment {
         if (v.getId() == R.id.etSearch) {
             Intent intent = new Intent(getActivity(), CampusSearchActivity.class);
             startActivity(intent);
+        } else if (v.getId() == R.id.tipLayout) {
+            tipLayout.setVisibility(View.INVISIBLE);
+            SharedPrefUtil.saveDataToLoacl("tipChange", false);
         }
     }
 }

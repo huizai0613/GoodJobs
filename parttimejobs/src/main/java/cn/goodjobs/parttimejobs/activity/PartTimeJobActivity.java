@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umeng.update.UmengUpdateAgent;
@@ -49,6 +50,7 @@ public class PartTimeJobActivity extends BaseListActivity {
     private ImageButton btnClear;
     private EditText et;
     private EmptyLayout emptyLayout;
+    private RelativeLayout tipLayout;
     private boolean isSuccess = false;
     private String keyword = "", runType = "", schoolType = "";
 
@@ -72,6 +74,7 @@ public class PartTimeJobActivity extends BaseListActivity {
         et = (EditText) findViewById(R.id.et_career);
         btnClear = (ImageButton) findViewById(R.id.ib_clear);
         etv_career = (ExpandTabView) findViewById(R.id.etv_career);
+        tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
         search = (LinearLayout) findViewById(R.id.ll_search);
         emptyLayout = (EmptyLayout) findViewById(R.id.empty_view);
         search.setOnClickListener(this);
@@ -128,6 +131,12 @@ public class PartTimeJobActivity extends BaseListActivity {
                 etv_career.setTitle(showString, 0);
             }
         });
+
+        tipLayout.setOnClickListener(this);
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        if (tipChange == null || tipChange) {
+            tipLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -202,6 +211,9 @@ public class PartTimeJobActivity extends BaseListActivity {
             startRefresh();
         } else if (v.getId() == R.id.ib_clear) {
             et.setText("");
+        } else if (v.getId() == R.id.tipLayout) {
+            tipLayout.setVisibility(View.INVISIBLE);
+            SharedPrefUtil.saveDataToLoacl("tipChange", false);
         }
     }
 
