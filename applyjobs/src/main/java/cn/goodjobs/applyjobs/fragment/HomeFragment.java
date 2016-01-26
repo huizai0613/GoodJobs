@@ -220,17 +220,21 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
                 etSearch.setText("");
             }
         });
-        etSearch.addTextChangedListener(new TextWatcher() {
+        etSearch.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 if (s.length() > 0) {
                     clean.setVisibility(View.VISIBLE);
                 } else {
@@ -239,9 +243,11 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
 
             }
         });
-        etSearch.setOnClickListener(new View.OnClickListener() {
+        etSearch.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 add = itemAddress.getText();
                 if (StringUtil.isEmpty(add)) {
                     TipsUtil.show(mActivity, "请选择工作地点");
@@ -342,13 +348,13 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
         }
         if (!StringUtil.isEmpty(jobId)) {
 
-            String[] split = jobId.split(",");
+            String[] split = jobId.split(SelectorItemView.spitStr);
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < split.length; i++) {
                 if (split[i].startsWith("-1")) {
-                    split[i] = split[i].split(SelectorItemView.spitStr)[1];
+                    split[i] = split[i].split(SelectorItemView.parentSpitStr)[1];
                 }
-                builder.append(split[i] + ",");
+                builder.append(split[i] + SelectorItemView.spitStr);
             }
             CharSequence charSequence = builder.subSequence(0, builder.length() - 1);
 

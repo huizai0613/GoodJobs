@@ -173,7 +173,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                     String childPos = "null";
                     if (!StringUtil.isEmpty(itemJobfuncPrantId)) {
                         if (itemJobfuncPrantId.startsWith("-1")) {
-                            parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId.split(SelectorItemView.spitStr)[1]));
+                            parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId.split(SelectorItemView.parentSpitStr)[1]));
                         } else {
                             parentPos = parentCate.get(Integer.parseInt(itemJobfuncPrantId));
                         }
@@ -604,7 +604,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
 
         if (id.startsWith("-1")) {
-            oldAddressId = this.itemAddressId = id.split(SelectorItemView.spitStr)[1];
+            oldAddressId = this.itemAddressId = id.split(SelectorItemView.parentSpitStr)[1];
         } else {
             oldAddressId = this.itemAddressId = id;
         }

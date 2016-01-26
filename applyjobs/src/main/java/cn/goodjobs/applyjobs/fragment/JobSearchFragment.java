@@ -795,13 +795,13 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
         }
         if (!StringUtil.isEmpty(jobId)) {
 
-            String[] split = jobId.split(",");
+            String[] split = jobId.split(SelectorItemView.spitStr);
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < split.length; i++) {
                 if (split[i].startsWith("-1")) {
-                    split[i] = split[i].split(SelectorItemView.spitStr)[1];
+                    split[i] = split[i].split(SelectorItemView.parentSpitStr)[1];
                 }
-                builder.append(split[i] + ",");
+                builder.append(split[i] + SelectorItemView.spitStr);
             }
             CharSequence charSequence = builder.subSequence(0, builder.length() - 1);
 

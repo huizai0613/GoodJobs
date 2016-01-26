@@ -660,7 +660,7 @@ public class UpdateDataTaskUtils
                                                           JSONObject object = (JSONObject) JsonMetaUtil.getObject(JsonMetaUtil.JOBLOCCITY);
 
                                                           JSONObject jsonObject = new JSONObject();
-                                                          JSONArray jsonArray = object.getJSONArray(pro.split(SelectorItemView.spitStr)[1]);
+                                                          JSONArray jsonArray = object.getJSONArray(pro.split(SelectorItemView.parentSpitStr)[1]);
                                                           if (jsonArray != null) {
                                                               for (int i = 0; i < jsonArray.length(); i++) {
                                                                   if (jsonArray.getJSONObject(i).getString("name").equals("不限") || jsonArray.getJSONObject(i).getString("name").equals("全部")) {
