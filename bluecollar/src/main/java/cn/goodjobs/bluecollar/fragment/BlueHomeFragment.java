@@ -222,7 +222,7 @@ public class BlueHomeFragment extends BaseFragment
                     jobBox.addView(inflate);
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
-//                        if (blue_first == null || !blue_first)
+                        if (blue_first == null || !blue_first)
                         showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
