@@ -41,6 +41,7 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
     TextView btnLook;
     View footView;
     View headView;
+    TextView btnMsg;
     boolean hasMore; // 是否包含更多
 
     @Override
@@ -127,11 +128,22 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
                 btnLook.setBackgroundResource(R.drawable.small_button_grey);
                 btnLook.setTextColor(getResources().getColor(R.color.main_color));
                 btnLook.setTag("1");
+
+                JSONObject jsonObject = (JSONObject) data;
+                if (jsonObject.has("arr")) {
+                    JSONObject jsonObject1 = jsonObject.optJSONObject("arr").optJSONObject(friendID);
+                    if ("1".equals(jsonObject1.optString("smsHas"))) {
+                        btnMsg.setVisibility(View.VISIBLE);
+                    } else {
+                        btnMsg.setVisibility(View.GONE);
+                    }
+                }
             } else {
                 btnLook.setText("    关注    ");
                 btnLook.setBackgroundResource(R.drawable.small_button_green);
                 btnLook.setTextColor(getResources().getColor(R.color.white));
                 btnLook.setTag("2");
+                btnMsg.setVisibility(View.GONE);
             }
         }
     }
@@ -143,7 +155,7 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
         TextView tvLook = (TextView) headView.findViewById(R.id.tvLook);
         TextView tvAge = (TextView) headView.findViewById(R.id.tvAge);
         btnLook = (TextView) headView.findViewById(R.id.btnLook);
-        TextView btnMsg = (TextView) headView.findViewById(R.id.btnMsg);
+        btnMsg = (TextView) headView.findViewById(R.id.btnMsg);
 
         btnLook.setOnClickListener(this);
         if (!StringUtil.isEmpty(jsonObject.optString("userPhoto"))) {

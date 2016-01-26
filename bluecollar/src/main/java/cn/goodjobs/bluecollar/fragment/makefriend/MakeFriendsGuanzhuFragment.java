@@ -58,7 +58,7 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
     @Override
     public void onResume() {
         super.onResume();
-        if (needRefresh) {
+        if (isLoad && needRefresh) {
             startRefresh();
         }
         needRefresh = false;

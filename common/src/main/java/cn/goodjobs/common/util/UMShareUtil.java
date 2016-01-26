@@ -62,14 +62,14 @@ public class UMShareUtil {
             mController = UMServiceFactory.getUMSocialService("com.umeng.share");
             init();
         }
+        String shareContent = "HI，我在新安人才网发现这条招聘信息，快来看看吧！" + jobName
+                + "(找好工作就上新安人才网)" ;
         // 设置分享内容
-        mController.setShareContent(jobName
-                + "(" + "找好工作就上新安人才网"
-                + ")," + url + jobID);
+        mController.setShareContent(shareContent + "," + url + jobID);
 
         //设置QQ分享文字
         QQShareContent qqShareContent = new QQShareContent();
-        qqShareContent.setShareContent(jobName + "(" + "找好工作就上新安人才网" + ")");
+        qqShareContent.setShareContent(shareContent);
         qqShareContent.setTitle(jobName); //设置分享title
         qqShareContent.setShareImage(new UMImage(context, R.drawable.ic_launcher)); //设置分享图片
         qqShareContent.setTargetUrl(url + jobID); //设置点击分享内容的跳转链接
@@ -77,8 +77,7 @@ public class UMShareUtil {
 
         //设置QQ空间分享文字
         QZoneShareContent qzone = new QZoneShareContent();
-        qzone.setShareContent(jobName + "(" + "找好工作就上新安人才网"
-                + ")");
+        qzone.setShareContent(shareContent);
         qzone.setTargetUrl(url + jobID); //设置点击消息的跳转URL
         qzone.setTitle(jobName); //设置分享内容的标题
         qzone.setShareImage(new UMImage(context, R.drawable.ic_launcher)); //设置分享图片
@@ -86,10 +85,10 @@ public class UMShareUtil {
 
         //设置新浪微博分享文字
 //        SinaShareContent sinaShareContent=new SinaShareContent();
-//        sinaShareContent.setShareContent(jobName + "(" + "找好工作就上新安人才网" + ")");
+//        sinaShareContent.setShareContent(shareContent);
 //        sinaShareContent.setTitle(jobName); //设置分享title
 //        sinaShareContent.setShareImage(new UMImage(context, R.drawable.ic_launcher)); //设置分享图片
-//        sinaShareContent.setTargetUrl("http://m.goodjobs.cn/job.php?jobID=" + jobID); //设置点击分享内容的跳转链接
+//        sinaShareContent.setTargetUrl(url + jobID); //设置点击分享内容的跳转链接
 //        mController.setShareMedia(sinaShareContent);
     }
 }

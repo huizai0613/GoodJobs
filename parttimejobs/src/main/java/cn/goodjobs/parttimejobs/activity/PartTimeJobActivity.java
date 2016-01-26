@@ -133,7 +133,7 @@ public class PartTimeJobActivity extends BaseListActivity {
         });
 
         tipLayout.setOnClickListener(this);
-        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange5");
         if (tipChange == null || tipChange) {
             tipLayout.setVisibility(View.VISIBLE);
         }
@@ -213,7 +213,7 @@ public class PartTimeJobActivity extends BaseListActivity {
             et.setText("");
         } else if (v.getId() == R.id.tipLayout) {
             tipLayout.setVisibility(View.INVISIBLE);
-            SharedPrefUtil.saveDataToLoacl("tipChange", false);
+            SharedPrefUtil.saveDataToLoacl("tipChange5", false);
         }
     }
 

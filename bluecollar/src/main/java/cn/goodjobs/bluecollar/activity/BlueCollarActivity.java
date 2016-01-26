@@ -15,6 +15,7 @@ import cn.goodjobs.bluecollar.fragment.BlueHomeFragment;
 import cn.goodjobs.bluecollar.fragment.BlueInfoCenterFragment;
 import cn.goodjobs.bluecollar.fragment.BlueJobFragment;
 import cn.goodjobs.bluecollar.fragment.MakeFriendsFragment;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsGuanzhuFragment;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
@@ -157,6 +158,10 @@ public class BlueCollarActivity extends BaseActivity {
                 btnFooter = btnFooter4;
                 viewPager.setCurrentItem(3);
                 btnFooter.setSelected(true);
+            }
+            if (requestCode == 111) {
+                // 完善资料
+                MakeFriendsGuanzhuFragment.needRefresh = true;
             }
         }
     }

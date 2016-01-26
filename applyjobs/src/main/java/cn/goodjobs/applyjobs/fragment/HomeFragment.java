@@ -260,7 +260,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
         });
         btnSearch.setOnClickListener(this);
 
-        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange1");
         if (tipChange == null || tipChange) {
             tipLayout.setVisibility(View.VISIBLE);
         }
@@ -286,7 +286,7 @@ public class HomeFragment extends BaseFragment implements UpdateDataTaskUtils.On
             JumpViewUtil.openActivityAndParam(mActivity, JobSearchResultActivity.class, searchHashMap);
         } else if (i == R.id.tipLayout) {
             tipLayout.setVisibility(View.INVISIBLE);
-            SharedPrefUtil.saveDataToLoacl("tipChange", false);
+            SharedPrefUtil.saveDataToLoacl("tipChange1", false);
         }
     }
 

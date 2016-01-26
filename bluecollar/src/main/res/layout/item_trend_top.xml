@@ -113,6 +113,7 @@
                     android:drawablePadding="2dip"
                     android:drawableLeft="@mipmap/img_makefriend_msg"
                     android:layout_marginLeft="@dimen/padding_small"
+                    android:visibility="gone"
                     android:background="@drawable/small_button_green"/>
             </LinearLayout>
         </LinearLayout>

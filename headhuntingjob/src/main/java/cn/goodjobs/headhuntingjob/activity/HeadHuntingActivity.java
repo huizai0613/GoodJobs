@@ -111,7 +111,7 @@ public class HeadHuntingActivity extends BaseActivity {
             }
         });
         tipLayout.setOnClickListener(this);
-        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange4");
         if (tipChange == null || tipChange) {
             tipLayout.setVisibility(View.VISIBLE);
         }
@@ -149,7 +149,7 @@ public class HeadHuntingActivity extends BaseActivity {
             vp.setCurrentItem(1);
         } else if (v.getId() == R.id.tipLayout) {
             tipLayout.setVisibility(View.INVISIBLE);
-            SharedPrefUtil.saveDataToLoacl("tipChange", false);
+            SharedPrefUtil.saveDataToLoacl("tipChange4", false);
         }
     }
 

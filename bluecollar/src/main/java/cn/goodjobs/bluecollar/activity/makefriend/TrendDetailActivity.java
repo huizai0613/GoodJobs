@@ -339,4 +339,13 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             KeyBoardUtil.show(editText);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            // 完善资料
+            getDataFromServer();
+        }
+    }
 }

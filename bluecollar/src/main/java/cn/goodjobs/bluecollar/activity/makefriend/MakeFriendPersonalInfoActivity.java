@@ -139,9 +139,9 @@ public class MakeFriendPersonalInfoActivity extends BaseImageUploadActivity {
 
     public void doSave(View view) {
         HashMap<String, Object> params = new HashMap<String, Object>();
-        if (itemName.isEmpty()) {
-            return;
-        }
+//        if (itemName.isEmpty()) {
+//            return;
+//        }
         params.put("nickName", itemName.getText());
         if (sexGroup.getCheckedRadioButtonId() == R.id.radioMan) {
             params.put("sex", "1");

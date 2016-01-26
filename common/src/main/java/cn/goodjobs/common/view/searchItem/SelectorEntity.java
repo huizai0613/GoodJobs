@@ -33,7 +33,7 @@ public class SelectorEntity {
         if (StringUtil.isEmpty(parentName)) {
             return name;
         } else {
-            return parentName + " " + name;
+            return "[" + parentName + "] " + name;
         }
     }
 }

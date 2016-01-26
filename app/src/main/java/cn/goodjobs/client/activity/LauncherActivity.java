@@ -139,11 +139,13 @@ public class LauncherActivity extends BaseActivity {
                     }
                 }
                 startActivity(intent);
+                finish();
                 return;
             } else {
                 SharedPrefUtil.saveDataToLoacl("versionName", HttpUtil.getPackageInfo().versionName);
                 Intent intent = new Intent(this, HelpActivity.class);
                 startActivity(intent);
+                finish();
                 return;
             }
 
@@ -164,5 +166,9 @@ public class LauncherActivity extends BaseActivity {
         canStart = true;
         mHandler.removeCallbacks(startAppRunnable);
         startApp();
+    }
+
+    @Override
+    protected void back() {
     }
 }
