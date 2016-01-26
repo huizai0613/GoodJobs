@@ -142,13 +142,16 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
 
         switch (curType) {
             case CURDIS:
-                item_dis.setCompoundDrawables(iconDis, null, null, null);
-                double distance = GeoUtils.
-                        distance(GoodJobsApp.getInstance().getMyLocation().latitude, GoodJobsApp.getInstance().getMyLocation().longitude, Double.parseDouble(data.optString("mapLat")), Double.parseDouble(data.optString("mapLng")));
-                if (distance > 1000) {
-                    item_dis.setText(distance / 1000 + "千米");
+                String mapLat = data.optString("mapLat");
+                String mapLng = data.optString("mapLng");
+                if (!StringUtil.isEmpty(mapLat) && !StringUtil.isEmpty(mapLng)) {
+                    item_dis.setCompoundDrawables(iconDis, null, null, null);
+                    double distance = GeoUtils.
+                            distance(GoodJobsApp.getInstance().getMyLocation().latitude, GoodJobsApp.getInstance().getMyLocation().longitude, Double.parseDouble(data.optString("mapLat")), Double.parseDouble(data.optString("mapLng")));
+                    item_dis.setText(" " + GeoUtils.friendlyDistance(distance));
                 } else {
-                    item_dis.setText(distance + "米");
+                    item_dis.setCompoundDrawables(null, null, null, null);
+                    item_dis.setText(data.optString("cityName"));
                 }
                 break;
             case REGIONDIS:

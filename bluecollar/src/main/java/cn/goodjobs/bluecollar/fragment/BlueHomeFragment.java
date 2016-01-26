@@ -222,7 +222,7 @@ public class BlueHomeFragment extends BaseFragment
                     jobBox.addView(inflate);
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
-                        if (blue_first == null || !blue_first)
+//                        if (blue_first == null || !blue_first)
                         showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
@@ -292,24 +292,26 @@ public class BlueHomeFragment extends BaseFragment
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             int i1 = DensityUtil.dip2px(mActivity, 1);
             for (int i = 0; i < (treatment.length() > 3 ? 3 : treatment.length()); i++) {
+                String s = treatment.optString(i);
+                if (!StringUtil.isEmpty(s)) {
+                    TextView item = new TextView(mActivity);
+                    item.setPadding(i1, i1, i1, i1);
+                    item.setBackgroundResource(R.drawable.bg_welfare);
+                    item.setGravity(Gravity.CENTER);
+                    if (i == 2) {
+                        item.setText("·  ·  ·");
+                    } else {
+                        item.setText(s);
+                    }
 
-                TextView item = new TextView(mActivity);
-                item.setPadding(i1, i1, i1, i1);
-                item.setBackgroundResource(R.drawable.bg_welfare);
-                item.setGravity(Gravity.CENTER);
-                if (i == 2) {
-                    item.setText("·  ·  ·");
-                } else {
-                    item.setText(treatment.optString(i));
+                    if (i == 1) {
+                        p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
+                    }
+
+                    item.setTextColor(Color.parseColor("#6bbd00"));
+                    item.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
+                    item_treatment_box.addView(item, p);
                 }
-
-                if (i == 1) {
-                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
-                }
-
-                item.setTextColor(Color.parseColor("#6bbd00"));
-                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
-                item_treatment_box.addView(item, p);
             }
         }
 
@@ -484,8 +486,8 @@ public class BlueHomeFragment extends BaseFragment
 
 //                                marginInfo.leftMargin = rectF.left - DensityUtil.dip2px(mActivity, (screenH <= 800 ? 0 : 100));
 //                                marginInfo.topMargin = rectF.bottom - DensityUtil.dip2px(mActivity, (screenH <= 800 ? -20 : 100));
-                                marginInfo.leftMargin = (int)(rectF.left - rectF.left/1.1);
-                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ? -70: rectF.bottom/3);
+                                marginInfo.leftMargin = (int) (rectF.left - rectF.left / 1.1);
+                                marginInfo.topMargin = rectF.bottom - (screenH <= 800 ? -70 : rectF.bottom / 3);
                             }
                         });
 //                .addHighLight(R.id.id_btn_amazing, R.layout.info_down, new HighLight.OnPosCallback()

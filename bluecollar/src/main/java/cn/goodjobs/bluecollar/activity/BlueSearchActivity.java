@@ -282,12 +282,7 @@ public class BlueSearchActivity extends BaseActivity
             hashMap.put("itemAddressId", addId);
         }
         if (!StringUtil.isEmpty(jobId)) {
-
-            if (jobId.startsWith("-1")) {
-                hashMap.put("itemJobfuncId", jobId.split(SelectorItemView.spitStr)[1]);
-            } else {
-                hashMap.put("itemJobfuncId", jobId);
-            }
+            hashMap.put("itemJobfuncId", jobId);
             hashMap.put("jobpraentId", jobpraentId);
         }
         if (!StringUtil.isEmpty(indId)) {

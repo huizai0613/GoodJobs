@@ -224,7 +224,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
             return;
         }
         jobSalary.setVisibility(View.VISIBLE);
-        jobSalary.addPiece(new BabushkaText.Piece.Builder("月        薪:")
+        jobSalary.addPiece(new BabushkaText.Piece.Builder("月        薪: ")
                 .textColor(Color.parseColor("#999999"))
                 .build());
         // Add the second piece "1.2 mi"
@@ -313,12 +313,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
                         double distance = GeoUtils.
                                 distance(activity.myLocation.latitude, activity.myLocation.longitude, Double.parseDouble(mapLat), Double.parseDouble(mapLng));
-                        if (distance > 1000) {
-                            item_dis.setText(distance / 1000 + "千米");
-                        } else {
-                            item_dis.setText(distance + "米");
-                        }
-
+                        item_dis.setText(" " + GeoUtils.friendlyDistance(distance));
                     } else {
                         item_dis.setText(cityName);
 
@@ -347,7 +342,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         int i1 = DensityUtil.dip2px(mActivity, 1);
                         for (int j = 0; j < (treatment.length() > 3 ? 3 : treatment.length()); j++) {
-                            String s = treatment.optString(i);
+                            String s = treatment.optString(j);
                             if (!StringUtil.isEmpty(s)) {
                                 TextView item = new TextView(mActivity);
                                 item.setPadding(i1, i1, i1, i1);

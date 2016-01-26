@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.view.highlight.util.ViewUtils;
 import cn.goodjobs.common.view.highlight.view.HightLightView;
 
@@ -27,6 +28,7 @@ public class HighLight
         public MarginInfo marginInfo;
         public View view;
         public OnPosCallback onPosCallback;
+        public boolean isLayout;
     }
 
     public static class MarginInfo
@@ -96,14 +98,42 @@ public class HighLight
     public void updateInfo()
     {
         ViewGroup parent = (ViewGroup) mAnchor;
-        for (ViewPosInfo viewPosInfo : mViewRects)
-        {
+        for (ViewPosInfo viewPosInfo : mViewRects) {
 
             RectF rect = new RectF(ViewUtils.getLocationInView(parent, viewPosInfo.view));
 //            if (!rect.equals(viewPosInfo.rectF))//TODO bug dismissed...fc...
             {
                 viewPosInfo.rectF = rect;
-                viewPosInfo.onPosCallback.getPos(parent.getWidth() - rect.right, parent.getHeight() - rect.bottom, rect, viewPosInfo.marginInfo);
+                float r = viewPosInfo.rectF.right + DensityUtil.dip2px(parent.getContext(), 10);
+                float l = viewPosInfo.rectF.left - DensityUtil.dip2px(parent.getContext(), 10);
+                float t = viewPosInfo.rectF.top - DensityUtil.dip2px(parent.getContext(), 10);
+                float b = viewPosInfo.rectF.bottom + DensityUtil.dip2px(parent.getContext(), 10);
+
+
+                float h = b - t;
+                float w = r - l;
+
+                if (w > h) {
+                    float v = w - h;
+                    viewPosInfo.rectF.left = l;
+                    viewPosInfo.rectF.right = r;
+                    viewPosInfo.rectF.top = t - v / 2;
+                    viewPosInfo.rectF.bottom = b + v / 2;
+                } else if (w < h) {
+                    float v = h - w;
+                    viewPosInfo.rectF.top = t;
+                    viewPosInfo.rectF.bottom = b;
+                    viewPosInfo.rectF.left = l - v / 2;
+                    viewPosInfo.rectF.right = r + v / 2;
+                } else {
+                    viewPosInfo.rectF.top = t;
+                    viewPosInfo.rectF.bottom = b;
+                    viewPosInfo.rectF.left = l;
+                    viewPosInfo.rectF.right = r;
+                }
+
+
+                viewPosInfo.onPosCallback.getPos(parent.getWidth() - viewPosInfo.rectF.right, parent.getHeight() - viewPosInfo.rectF.bottom, viewPosInfo.rectF, viewPosInfo.marginInfo);
             }
         }
 
@@ -114,12 +144,12 @@ public class HighLight
     {
         ViewGroup parent = (ViewGroup) mAnchor;
         RectF rect = new RectF(ViewUtils.getLocationInView(parent, view));
+
         ViewPosInfo viewPosInfo = new ViewPosInfo();
         viewPosInfo.layoutId = decorLayoutId;
         viewPosInfo.rectF = rect;
         viewPosInfo.view = view;
-        if (onPosCallback == null && decorLayoutId != -1)
-        {
+        if (onPosCallback == null && decorLayoutId != -1) {
             throw new IllegalArgumentException("onPosCallback can not be null.");
         }
         MarginInfo marginInfo = new MarginInfo();
@@ -138,14 +168,12 @@ public class HighLight
         if (mHightLightView != null) return;
 
         HightLightView hightLightView = new HightLightView(mContext, this, maskColor, shadow, mViewRects);
-        if (mAnchor.getClass().getSimpleName().equals("FrameLayout"))
-        {
+        if (mAnchor.getClass().getSimpleName().equals("FrameLayout")) {
             ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams
                     (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             ((ViewGroup) mAnchor).addView(hightLightView, ((ViewGroup) mAnchor).getChildCount(), lp);
 
-        } else
-        {
+        } else {
             FrameLayout frameLayout = new FrameLayout(mContext);
             ViewGroup parent = (ViewGroup) mAnchor.getParent();
             parent.removeView(mAnchor);
@@ -157,8 +185,7 @@ public class HighLight
             frameLayout.addView(hightLightView);
         }
 
-        if (intercept)
-        {
+        if (intercept) {
             hightLightView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
@@ -172,7 +199,8 @@ public class HighLight
         mHightLightView = hightLightView;
     }
 
-    public void addClickListener(View.OnClickListener listener) {
+    public void addClickListener(View.OnClickListener listener)
+    {
         if (mHightLightView != null) {
             mHightLightView.setOnClickListener(listener);
         }
@@ -182,11 +210,9 @@ public class HighLight
     {
         if (mHightLightView == null) return;
         ViewGroup parent = (ViewGroup) mHightLightView.getParent();
-        if (parent instanceof RelativeLayout || parent instanceof FrameLayout)
-        {
+        if (parent instanceof RelativeLayout || parent instanceof FrameLayout) {
             parent.removeView(mHightLightView);
-        } else
-        {
+        } else {
             parent.removeView(mHightLightView);
             View origin = parent.getChildAt(0);
             ViewGroup graParent = (ViewGroup) parent.getParent();

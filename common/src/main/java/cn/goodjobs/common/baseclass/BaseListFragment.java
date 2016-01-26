@@ -22,7 +22,8 @@ import in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer;
  * 包含下拉刷新列表基类
  */
 
-public class BaseListFragment extends BaseFragment {
+public class BaseListFragment extends BaseFragment
+{
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected LoadMoreListViewContainer loadMoreListViewContainer;
@@ -33,7 +34,8 @@ public class BaseListFragment extends BaseFragment {
     protected EmptyLayout mEmptyLayout;
     protected boolean isRefresh; //  是否是刷新操作
 
-    protected void initList(View view, ListView listView) {
+    protected void initList(View view, ListView listView)
+    {
         // pull to refresh
         mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.load_more_list_view_ptr_frame);
         loadMoreListViewContainer = (LoadMoreListViewContainer) view.findViewById(R.id.load_more_list_view_container);
@@ -43,15 +45,18 @@ public class BaseListFragment extends BaseFragment {
         }
         mEmptyLayout = (EmptyLayout) view.findViewById(R.id.empty_view);
         mPtrFrameLayout.setLoadingMinTime(1000);
-        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
+        mPtrFrameLayout.setPtrHandler(new PtrHandler()
+        {
             @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header)
+            {
                 // here check list view, not content.
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, mListView, header);
             }
 
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
+            public void onRefreshBegin(PtrFrameLayout frame)
+            {
                 refresh();
             }
         });
@@ -60,15 +65,19 @@ public class BaseListFragment extends BaseFragment {
 
         loadMoreListViewContainer.useDefaultHeader();
 
-        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
+        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler()
+        {
             @Override
-            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+            public void onLoadMore(LoadMoreContainer loadMoreContainer)
+            {
                 loadMore();
             }
         });
-        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
+        mEmptyLayout.setOnLayoutClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 startRefresh();
             }
@@ -77,18 +86,21 @@ public class BaseListFragment extends BaseFragment {
         mTestHandler = new Handler();
     }
 
-    protected void initList(View view) {
+    protected void initList(View view)
+    {
         initList(view, null);
     }
 
-    protected void refresh() {
+    protected void refresh()
+    {
         LogUtil.info("开始下拉刷新...");
         page = 1;
         isRefresh = true;
         getDataFronServer();
     }
 
-    protected void loadMore() {
+    protected void loadMore()
+    {
         LogUtil.info("开始加载下一页...");
         page++;
         getDataFronServer();
@@ -97,7 +109,8 @@ public class BaseListFragment extends BaseFragment {
     /**
      * 获取网络数据
      */
-    protected void getDataFronServer() {
+    protected void getDataFronServer()
+    {
 
     }
 
@@ -111,13 +124,14 @@ public class BaseListFragment extends BaseFragment {
             @Override
             public void run()
             {
-                mPtrFrameLayout.autoRefresh(false);
+                mPtrFrameLayout.autoRefresh(true);
             }
         }, 250);
     }
 
     @Override
-    public void onSuccess(String tag, Object data) {
+    public void onSuccess(String tag, Object data)
+    {
         super.onSuccess(tag, data);
         if (isRefresh) {
             if (mAdapter != null) {
@@ -127,7 +141,8 @@ public class BaseListFragment extends BaseFragment {
         }
     }
 
-    public void onFailure(int statusCode, String tag) {
+    public void onFailure(int statusCode, String tag)
+    {
         super.onFailure(statusCode, tag);
         if (mPtrFrameLayout != null)
             mPtrFrameLayout.refreshComplete();
@@ -136,7 +151,8 @@ public class BaseListFragment extends BaseFragment {
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
         super.onError(errorCode, tag, errorMessage);
         if (mPtrFrameLayout != null)
             mPtrFrameLayout.refreshComplete();

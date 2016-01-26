@@ -37,7 +37,8 @@ import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 /**
  * Created by zhuli on 2015/12/29.
  */
-public class CareerTalkFragment extends BaseListFragment {
+public class CareerTalkFragment extends BaseListFragment
+{
 
     private Map<String, String> schoolData = new LinkedHashMap<String, String>();
     private Map<String, String> dateData = new LinkedHashMap<String, String>();
@@ -51,7 +52,8 @@ public class CareerTalkFragment extends BaseListFragment {
     private String keyword = "", runType = "", schoolType = "";
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_career, null);
         initView(view);
         mAdapter = new CareerTalkAdapter(getActivity());
@@ -59,7 +61,8 @@ public class CareerTalkFragment extends BaseListFragment {
         return view;
     }
 
-    private void initView(View view) {
+    private void initView(View view)
+    {
         setTopTitle(view, "宣讲会");
         hideBackBtn(view);
         et = (EditText) view.findViewById(R.id.et_career);
@@ -70,19 +73,23 @@ public class CareerTalkFragment extends BaseListFragment {
         search.setOnClickListener(this);
         schoolInfo = new SingleLevelMenuView(getActivity());
         dateInfo = new SingleLevelMenuView(getActivity());
-        et.addTextChangedListener(new TextWatcher() {
+        et.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
                 if (!StringUtil.isEmpty(s.toString())) {
                     btnClear.setVisibility(View.VISIBLE);
                 } else {
@@ -103,20 +110,24 @@ public class CareerTalkFragment extends BaseListFragment {
         integers.add(9 * i);
         etv_career.setValue(strings, views, integers);
 
-        schoolInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
+        schoolInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener()
+        {
             @Override
-            public void onSelected(String selectedKey, String showString) {
+            public void onSelected(String selectedKey, String showString)
+            {
                 schoolType = selectedKey;
-                mAdapter.clear();
+//                mAdapter.clear();
                 startRefresh();
                 etv_career.setTitle(showString, 0);
             }
         });
-        dateInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener() {
+        dateInfo.setOnSelectListener(new SingleLevelMenuView.OnSelectListener()
+        {
             @Override
-            public void onSelected(String selectedKey, String showString) {
+            public void onSelected(String selectedKey, String showString)
+            {
                 runType = selectedKey;
-                mAdapter.clear();
+//                mAdapter.clear();
                 startRefresh();
                 etv_career.setTitle(showString, 1);
             }
@@ -124,7 +135,8 @@ public class CareerTalkFragment extends BaseListFragment {
     }
 
     @Override
-    protected void getDataFronServer() {
+    protected void getDataFronServer()
+    {
         super.getDataFronServer();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("page", page);
@@ -137,7 +149,8 @@ public class CareerTalkFragment extends BaseListFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(boolean isVisibleToUser)
+    {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
@@ -148,7 +161,8 @@ public class CareerTalkFragment extends BaseListFragment {
     }
 
     @Override
-    public void onSuccess(String tag, Object data) {
+    public void onSuccess(String tag, Object data)
+    {
         super.onSuccess(tag, data);
         JSONObject object = (JSONObject) data;
         if (!isSuccess) {
@@ -163,7 +177,8 @@ public class CareerTalkFragment extends BaseListFragment {
         isSuccess = true;
     }
 
-    private void initSearch(JSONObject object) {
+    private void initSearch(JSONObject object)
+    {
         JSONArray array = object.optJSONArray("schoolTypeArr");
         String key = "0";
         for (int i = 0; i < array.length(); i++) {
@@ -185,19 +200,22 @@ public class CareerTalkFragment extends BaseListFragment {
 
 
     @Override
-    public void onFailure(int statusCode, String tag) {
+    public void onFailure(int statusCode, String tag)
+    {
         super.onFailure(statusCode, tag);
         emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage) {
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
         super.onError(errorCode, tag, errorMessage);
         emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         super.onClick(v);
         if (v.getId() == R.id.ll_search) {
             keyword = et.getText().toString();
