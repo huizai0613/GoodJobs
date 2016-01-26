@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import java.util.List;
 
 import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.view.highlight.HighLight;
 
 
@@ -92,37 +93,7 @@ public class HightLightView extends FrameLayout
         mPaint.setXfermode(MODE_DST_OUT);
         mHighLight.updateInfo();
         for (HighLight.ViewPosInfo viewPosInfo : mViewRects) {
-
-
-            float r = viewPosInfo.rectF.right + DensityUtil.dip2px(getContext(), 10);
-            float l = viewPosInfo.rectF.left - DensityUtil.dip2px(getContext(), 10);
-            float t = viewPosInfo.rectF.top - DensityUtil.dip2px(getContext(), 10);
-            float b = viewPosInfo.rectF.bottom + DensityUtil.dip2px(getContext(), 10);
-
-
-            float h = b - t;
-            float w = r - l;
-
-            if (w > h) {
-                float v = w - h;
-                viewPosInfo.rectF.left = l;
-                viewPosInfo.rectF.right = r;
-                viewPosInfo.rectF.top = t - v / 2;
-                viewPosInfo.rectF.bottom = b + v / 2;
-            } else if (w < h) {
-                float v = h - w;
-                viewPosInfo.rectF.top = t;
-                viewPosInfo.rectF.bottom = b;
-                viewPosInfo.rectF.left = l - v / 2;
-                viewPosInfo.rectF.right = r + v / 2;
-            } else {
-                viewPosInfo.rectF.top = t;
-                viewPosInfo.rectF.bottom = b;
-                viewPosInfo.rectF.left = l;
-                viewPosInfo.rectF.right = r;
-            }
-
-
+            LogUtil.info("left"+viewPosInfo.rectF.left+"--top:"+viewPosInfo.rectF.top+"--right:"+viewPosInfo.rectF.right+"--bottom:"+viewPosInfo.rectF.bottom);
             DEFAULT_RADIUS = (int) (viewPosInfo.rectF.right - viewPosInfo.rectF.left);
 //            canvas.drawRoundRect(viewPosInfo.rectF, DEFAULT_RADIUS, DEFAULT_RADIUS, mPaint);
             canvas.drawArc(viewPosInfo.rectF, 0, 360, true, mPaint);
