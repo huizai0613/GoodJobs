@@ -30,9 +30,9 @@ import cn.goodjobs.common.util.http.CryptUtils;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 
-public class LoginActivity extends BaseActivity
-{
+public class LoginActivity extends BaseActivity {
 
+    TextView tvFound;
     EditText etUser;
     EditText etPassword;
     ImageButton btnClearUser, btnClearPwd;
@@ -47,35 +47,28 @@ public class LoginActivity extends BaseActivity
     boolean formLogout; // 来源于退出登录
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_login;
     }
 
     @Override
-    protected void initWeightClick()
-    {
-        etUser.addTextChangedListener(new TextWatcher()
-        {
+    protected void initWeightClick() {
+        etUser.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 if (StringUtil.isEmpty(s.toString())) {
                     btnClearUser.setVisibility(View.INVISIBLE);
                 } else {
@@ -83,21 +76,17 @@ public class LoginActivity extends BaseActivity
                 }
             }
         });
-        etPassword.addTextChangedListener(new TextWatcher()
-        {
+        etPassword.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 if (StringUtil.isEmpty(s.toString())) {
                     btnClearPwd.setVisibility(View.INVISIBLE);
                 } else {
@@ -109,12 +98,13 @@ public class LoginActivity extends BaseActivity
         btnClearPwd.setOnClickListener(this);
         rlLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
+        tvFound.setOnClickListener(this);
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
         setTopTitle("登录");
+        tvFound = (TextView) findViewById(R.id.tv_found);
         etUser = (EditText) findViewById(R.id.etUser);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnClearUser = (ImageButton) findViewById(R.id.btnClearUser);
@@ -135,8 +125,7 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         if (v.getId() == R.id.btnClearUser) {
             etUser.setText("");
         } else if (v.getId() == R.id.btnClearPwd) {
@@ -148,11 +137,13 @@ public class LoginActivity extends BaseActivity
         } else if (v.getId() == R.id.btnRegister) {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
+        } else if (v.getId() == R.id.tv_found) {
+            Intent intent = new Intent(this, FoundPasswordActivity.class);
+            startActivity(intent);
         }
     }
 
-    private void login()
-    {
+    private void login() {
         progressBar.setVisibility(View.VISIBLE);
         textView.setText("正在登录...");
         rlLogin.setEnabled(false);
@@ -165,8 +156,7 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    public void onSuccess(String tag, Object data)
-    {
+    public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
 
         JSONObject jsonObject = (JSONObject) data;
@@ -207,8 +197,7 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    public void onError(int errorCode, String tag, String errorMessage)
-    {
+    public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
         textView.setText("登录");
         rlLogin.setEnabled(true);
@@ -241,8 +230,7 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    public void onFailure(int statusCode, String tag)
-    {
+    public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
         textView.setText("登录");
         rlLogin.setEnabled(true);
@@ -252,8 +240,7 @@ public class LoginActivity extends BaseActivity
     /**
      * 验证输入
      */
-    public boolean validate()
-    {
+    public boolean validate() {
         if (StringUtil.isEmpty(etUser.getText().toString().trim())) {
             TipsUtil.show(this, "请输入用户名");
             return false;
@@ -266,14 +253,12 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         tag = getIntent().getStringExtra("tag");
     }
 
     @Override
-    protected void back()
-    {
+    protected void back() {
         if (formLogout) {
             // 登录直接返回到改模块的首页
             String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
