@@ -143,12 +143,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/space_40"
-                    android:layout_marginTop="@dimen/padding_small"
-                    android:background="@color/bule_low_color"
+                    android:background="@color/white"
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/padding_small"
                     android:text="其它求职频道"
-                    android:textColor="@color/white"
+                    android:textColor="@color/main_color"
                     android:textSize="@dimen/text_default"/>
 
                 <include layout="@layout/include_main_bottom"/>

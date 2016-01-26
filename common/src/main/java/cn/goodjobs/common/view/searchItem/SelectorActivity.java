@@ -188,6 +188,11 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
             }
         } else if (v.getId() == R.id.btn_right) {
             sure();
+        } else if (v.getId() == R.id.imgExpand) {
+            SelectorEntity selectorEntity = selectorItemView.selectedItems.get(0);
+            selectorEntity.isSelected = false;
+            selectorItemView.selectedItems.remove(0);
+            refreshUI();
         }
     }
 
@@ -261,10 +266,12 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         if (selectorItemView.singleSelected) {
             if (selectorItemView.selectedItems != null && selectorItemView.selectedItems.size() > 0) {
                 tvSelected.setText(selectorItemView.selectedItems.get(0).getAllName());
+                imgExpand.setImageResource(R.drawable.selector_delete);
+                imgExpand.setOnClickListener(this);
             } else {
                 tvSelected.setText("未选择");
+                imgExpand.setVisibility(View.GONE);
             }
-            imgExpand.setVisibility(View.GONE);
         } else {
             if (selectorItemView.selectedItems != null) {
                 tvSelected.setText(selectorItemView.selectedItems.size() + "/" + selectorItemView.maxSelected);

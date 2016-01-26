@@ -70,10 +70,12 @@ public class MainActivity extends BaseActivity {
                     if (menuEntity.intent != null) {
                         menuEntity.intent.setClassName(MainActivity.this, menuEntity.toClass);
                         startActivity(menuEntity.intent);
+                        finish();
                     } else {
                         Intent intent = new Intent();
                         intent.setClassName(MainActivity.this, menuEntity.toClass);
                         startActivity(intent);
+                        finish();
                     }
                 }
             });

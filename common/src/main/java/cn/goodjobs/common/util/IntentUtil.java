@@ -23,8 +23,7 @@ public class IntentUtil {
     public static void toLanlingPersonalActivity(Activity activity) {
         Intent intent = new Intent();
         intent.setClassName(ScreenManager.getScreenManager().currentActivity(), "cn.goodjobs.bluecollar.activity.makefriend.MakeFriendPersonalInfoActivity");
-        activity.startActivity(intent);
-        activity.finish();
+        activity.startActivityForResult(intent, 111);
     }
 
     /**

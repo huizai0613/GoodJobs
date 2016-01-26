@@ -70,7 +70,7 @@ public class CampusFragment extends BaseListFragment {
         adapter = new CampusAdapter(getActivity());
         lv_campus.setAdapter(adapter);
 
-        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange");
+        Boolean tipChange = SharedPrefUtil.getBoolean("tipChange3");
         if (tipChange == null || tipChange) {
             tipLayout.setVisibility(View.VISIBLE);
         }
@@ -116,7 +116,7 @@ public class CampusFragment extends BaseListFragment {
             startActivity(intent);
         } else if (v.getId() == R.id.tipLayout) {
             tipLayout.setVisibility(View.INVISIBLE);
-            SharedPrefUtil.saveDataToLoacl("tipChange", false);
+            SharedPrefUtil.saveDataToLoacl("tipChange3", false);
         }
     }
 }

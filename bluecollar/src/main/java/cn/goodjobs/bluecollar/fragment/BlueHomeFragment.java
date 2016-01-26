@@ -569,7 +569,6 @@ public class BlueHomeFragment extends BaseFragment
 
         } else if (i == R.id.tipLayout) {
             tipLayout.setVisibility(View.INVISIBLE);
-            SharedPrefUtil.saveDataToLoacl("tipChange", false);
         }
     }
 }

@@ -90,6 +90,7 @@ public class HelpActivity extends BaseActivity {
             ImageView iv = new ImageView(this);
             iv.setImageDrawable(getDrawableFromAssets(this, names[i]));
             iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            iv.setPadding(20, 40, 20, 40);
             image[i] = iv;
             TextView tv = new TextView(this);
             if (i == 0) {
@@ -156,6 +157,7 @@ public class HelpActivity extends BaseActivity {
         Intent intent = new Intent();
         intent.setClassName(this, "cn.goodjobs.client.activity.MainActivity");
         startActivity(intent);
+        finish();
     }
 
 }
