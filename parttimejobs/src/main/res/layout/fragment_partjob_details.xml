@@ -63,6 +63,14 @@
                 <View style="@style/line" />
 
                 <cn.goodjobs.common.view.PartTimeItemView
+                    android:id="@+id/piv_worktime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    listitem:tvtitle="工作时间："></cn.goodjobs.common.view.PartTimeItemView>
+
+                <View style="@style/line" />
+
+                <cn.goodjobs.common.view.PartTimeItemView
                     android:id="@+id/piv_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

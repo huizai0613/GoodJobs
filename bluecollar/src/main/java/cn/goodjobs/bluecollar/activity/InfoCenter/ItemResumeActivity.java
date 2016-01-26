@@ -130,6 +130,12 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         } else if (tag.equals(URLS.API_JOB_BlueBasicsave)) {
             if (isContinue) {
                 Intent intent = new Intent(this, ResumeMoreActivity.class);
+                intent.putExtra("realname", realname);
+                intent.putExtra("sex", sex);
+                intent.putExtra("birthday", birthday);
+                intent.putExtra("cityID", cityID);
+                intent.putExtra("sFunction", sFunction);
+                intent.putExtra("autoSend", autoSend);
                 startActivity(intent);
             } else {
                 TipsUtil.show(this, ((JSONObject) data).optString("message"));
@@ -238,7 +244,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         itemDegree.setSelectorIds(jsonObject.optString("degree"));
         itemWorktime.setText(jsonObject.optString("fmtWorktime"));
         itemWorktime.setSelectorIds(jsonObject.optString("worktime"));
-        itemCheckIn.setText(jsonObject.optString("fmtWorktime"));
+        itemCheckIn.setText(jsonObject.optString("checkInTime"));
         itemCheckIn.setSelectorIds(jsonObject.optString("checkInTime"));
         itemSalary.setText(jsonObject.optString("salaryName"));
         itemSalary.setSelectorIds(jsonObject.optString("salary"));

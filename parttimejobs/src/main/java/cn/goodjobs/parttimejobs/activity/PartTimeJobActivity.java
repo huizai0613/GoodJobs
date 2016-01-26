@@ -151,7 +151,7 @@ public class PartTimeJobActivity extends BaseListActivity {
         params.put("page", page);
         params.put("ttype", schoolType);
         params.put("ptime", runType);
-        params.put("keyword", keyword);
+        params.put("keyword", et.getText().toString());
         HttpUtil.post(URLS.API_JOB_ParttimeJob, params, this);
     }
 

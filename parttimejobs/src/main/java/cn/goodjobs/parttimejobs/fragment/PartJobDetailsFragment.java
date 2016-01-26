@@ -31,7 +31,7 @@ public class PartJobDetailsFragment extends BaseFragment {
     private View view;
     private TextView tvDetails;
     public PartJobDetailsActivity partJobDetailsActivity;
-    private PartTimeItemView pivJob, pivCompany, pivSalary, pivPlace, pivDate, pivEndDate, pivConnect, pivPhone;
+    private PartTimeItemView pivJob, pivCompany, pivSalary, pivPlace, pivDate, pivEndDate, pivConnect, pivPhone, pivWorktime;
 
 
     public PartJobDetailsFragment() {
@@ -58,6 +58,7 @@ public class PartJobDetailsFragment extends BaseFragment {
 
     public void initView(View view) {
         view.setVisibility(View.INVISIBLE);
+        pivWorktime = (PartTimeItemView) view.findViewById(R.id.piv_worktime);
         pivJob = (PartTimeItemView) view.findViewById(R.id.piv_job);
         pivCompany = (PartTimeItemView) view.findViewById(R.id.piv_company);
         pivSalary = (PartTimeItemView) view.findViewById(R.id.piv_salary);
@@ -97,6 +98,7 @@ public class PartJobDetailsFragment extends BaseFragment {
     }
 
     private void initJsonData(JSONObject object) {
+        pivWorktime.setText(object.optString("workTypeName"));
         pivJob.setText(object.optString("jobName"));
         pivCompany.setText(object.optString("corpName"));
         pivSalary.setText(object.optString("jobSalary"));

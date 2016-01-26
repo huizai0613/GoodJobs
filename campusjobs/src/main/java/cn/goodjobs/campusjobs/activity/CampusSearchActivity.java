@@ -1,6 +1,5 @@
 package cn.goodjobs.campusjobs.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
@@ -253,20 +252,30 @@ public class CampusSearchActivity extends BaseActivity {
             hashMap.put("itemAddressId", addId);
         }
         if (!StringUtil.isEmpty(jobId)) {
-            String[] split = jobId.split(",");
+            String[] split = jobId.split(SelectorItemView.spitStr);
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < split.length; i++) {
                 if (split[i].startsWith("-1")) {
-                    split[i] = split[i].split("#")[1];
+                    split[i] = split[i].split(SelectorItemView.parentSpitStr)[1];
                 }
-                builder.append(split[i] + ",");
+                builder.append(split[i] + SelectorItemView.spitStr);
             }
             CharSequence charSequence = builder.subSequence(0, builder.length() - 1);
 
             hashMap.put("itemJobfuncId", charSequence.toString());
         }
         if (!StringUtil.isEmpty(indId)) {
-            hashMap.put("itemIndtypeId", indId);
+            String[] split = indId.split(SelectorItemView.spitStr);
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < split.length; i++) {
+                if (split[i].startsWith("-1")) {
+                    split[i] = split[i].split(SelectorItemView.parentSpitStr)[1];
+                }
+                builder.append(split[i] + SelectorItemView.spitStr);
+            }
+            CharSequence charSequence = builder.subSequence(0, builder.length() - 1);
+
+            hashMap.put("itemIndtypeId", charSequence.toString());
         }
 
         return hashMap;
