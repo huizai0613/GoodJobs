@@ -113,7 +113,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         List<SelectorEntity> selectorEntityList = new ArrayList<SelectorEntity>();
         if (containAll && keyIndex == keys.length) {
             SelectorEntity selectorEntity2 = new SelectorEntity(parentId, "不限", parentId, parantName);
-            if (selectorIds.contains(spitStr + parentId + spitStr)) {
+            if (selectorIds.contains(spitStr + parentId.replaceAll(allId + parentSpitStr, "") + spitStr)) {
                 selectorEntity2.isSelected = true;
                 selectedItems.add(selectorEntity2); // 不限被选中
             }
