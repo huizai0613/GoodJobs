@@ -26,6 +26,7 @@ import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.adapter.PersonalTrendAdapter;
 import cn.goodjobs.bluecollar.adapter.TrendCommentAdapter;
 import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsCityFragment;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsGuanzhuFragment;
 import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsNearFragment;
 import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.bluecollar.view.upload.CustomerListView;
@@ -165,6 +166,8 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             getCommentList();
         } else if (tag.equals(URLS.MAKEFRIEND_FOLLOW)) {
             String look = btnLook.getTag().toString();
+            MakeFriendsCityFragment.needRefresh = true;
+            MakeFriendsGuanzhuFragment.needRefresh = true;
             if ("2".equals(look)) {
                 btnLook.setText("取消关注");
                 btnLook.setBackgroundResource(R.drawable.small_button_grey);

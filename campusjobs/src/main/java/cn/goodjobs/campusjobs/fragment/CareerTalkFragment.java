@@ -107,7 +107,6 @@ public class CareerTalkFragment extends BaseListFragment {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 schoolType = selectedKey;
-                mAdapter.clear();
                 startRefresh();
                 etv_career.setTitle(showString, 0);
             }
@@ -116,7 +115,6 @@ public class CareerTalkFragment extends BaseListFragment {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 runType = selectedKey;
-                mAdapter.clear();
                 startRefresh();
                 etv_career.setTitle(showString, 1);
             }

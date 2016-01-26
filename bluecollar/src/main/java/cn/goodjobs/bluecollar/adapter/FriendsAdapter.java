@@ -18,6 +18,8 @@ import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.makefriend.MsgDetailActivity;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsCityFragment;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsGuanzhuFragment;
 import cn.goodjobs.bluecollar.view.TrendItemView;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
 import cn.goodjobs.common.constants.URLS;
@@ -129,6 +131,7 @@ public class FriendsAdapter extends JsonArrayAdapterBase<JSONObject> implements 
     @Override
     public void onSuccess(String tag, Object data) {
         if (tag.equals(URLS.MAKEFRIEND_FOLLOW)) {
+            MakeFriendsGuanzhuFragment.needRefresh = true;
             if ("yes".equals(itemObject.optString("followHas")) || "all".equals(itemObject.optString("followHas"))) {
                 try {
                     itemObject.put("followHas", "no");

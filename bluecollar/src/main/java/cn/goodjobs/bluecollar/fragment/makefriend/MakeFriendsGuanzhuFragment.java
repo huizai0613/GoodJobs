@@ -38,6 +38,7 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
     public int preItem = 1;
     boolean hasMore; // 是否包含下一页
     public boolean firstLoad; // 是否直接加载数据
+    public static boolean needRefresh; // 是否需要刷新
 
     public MakeFriendsGuanzhuFragment() {
     }
@@ -52,6 +53,15 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
             }
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (needRefresh) {
+            startRefresh();
+        }
+        needRefresh = false;
     }
 
     // 当fragment可见时调用
@@ -79,6 +89,11 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
                 loadView();
                 isLoad=true;
             }
+
+            if (needRefresh) {
+                startRefresh();
+            }
+            needRefresh = false;
         }
     }
 

@@ -279,7 +279,7 @@ public class BlueHomeFragment extends BaseFragment
             item_certify.setImageResource(R.mipmap.icon_uncertify);
         }
 
-        if ("0".equals(certStatus)) {
+        if ("0".equals(blueFlag)) {
             item_vip.setVisibility(View.VISIBLE);
         } else {
             item_vip.setVisibility(View.GONE);
@@ -367,7 +367,7 @@ public class BlueHomeFragment extends BaseFragment
                 int screenW = DensityUtil.getScreenW(mActivity);
 //                int width = historyLayout.getWidth();
                 int itemW = 0;
-                int padding = (int) getResources().getDimension(R.dimen.padding_default);
+                int padding = (int) getResources().getDimension(R.dimen.padding_small);
 //                if (width == 0) {
                 itemW = (screenW - 4 * padding) / 3;
 //                } else {
@@ -506,9 +506,11 @@ public class BlueHomeFragment extends BaseFragment
 //                });
 
         mHightLight.show();
-        mHightLight.addClickListener(new View.OnClickListener() {
+        mHightLight.addClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 mHightLight.remove();
                 tipLayout.setVisibility(View.VISIBLE);
             }

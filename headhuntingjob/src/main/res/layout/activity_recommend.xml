@@ -220,27 +220,60 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding_default"
-                    android:text="工作经历"
-                    android:textColor="@color/main_color"
-                    android:textSize="@dimen/text_default" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_bJobhistory"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="2dip"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_default"
+                        android:text="工作经历"
+                        android:textColor="@color/main_color"
+                        android:textSize="@dimen/text_default" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/padding_default"
-                    android:layout_marginRight="@dimen/padding_default"
-                    android:background="@drawable/login_edit_bg"
-                    android:gravity="left|top"
-                    android:hint="请输入工作经历"
-                    android:lines="10"
-                    android:padding="@dimen/padding_small"
-                    android:textColor="@color/main_color"
-                    android:textColorHint="@color/light_color" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/padding_default"
+                        android:layout_marginRight="2dip"
+                        android:text="*"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="invisible" />
+
+                    <EditText
+                        android:id="@+id/et_bJobhistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/padding_default"
+                        android:background="@drawable/login_edit_bg"
+                        android:gravity="left|top"
+                        android:hint="请输入工作经历"
+                        android:lines="10"
+                        android:padding="@dimen/padding_small"
+                        android:textColor="@color/main_color"
+                        android:textColorHint="@color/light_color" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -306,7 +339,7 @@
                 android:background="@drawable/button_bg"
                 android:paddingBottom="@dimen/padding_small"
                 android:paddingTop="@dimen/padding_small"
-                android:text="保存"
+                android:text="提交"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_large" />
 

@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dip"
-        android:layout_marginLeft="@dimen/padding_default"
+        android:layout_marginLeft="@dimen/padding_small"
         android:layout_marginRight="@dimen/space_10"
         android:orientation="horizontal"
         android:paddingTop="@dimen/padding_small">
@@ -64,9 +64,9 @@
 
                     <TextView
                         android:id="@+id/item_dis"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
                         android:layout_marginLeft="@dimen/padding_small"
                         android:gravity="center_vertical|right"
                         android:text="多岁的发生"
@@ -82,7 +82,6 @@
                 android:id="@+id/middle_box"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_marginRight="70dip"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:orientation="horizontal">
@@ -104,8 +103,6 @@
                     android:layout_marginLeft="@dimen/padding_small"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-
                 </LinearLayout>
             </LinearLayout>
 
