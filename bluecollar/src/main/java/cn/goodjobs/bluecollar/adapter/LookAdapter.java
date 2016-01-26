@@ -18,6 +18,7 @@ import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.activity.makefriend.MsgDetailActivity;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsCityFragment;
 import cn.goodjobs.common.baseclass.JsonArrayAdapterBase;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.ImageUtil;
@@ -123,6 +124,7 @@ public class LookAdapter extends JsonArrayAdapterBase<JSONObject> implements Vie
     @Override
     public void onSuccess(String tag, Object data) {
         if (tag.equals(URLS.MAKEFRIEND_FOLLOW)) {
+            MakeFriendsCityFragment.needRefresh = true;
             lookListener.remove();
         }
     }

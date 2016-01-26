@@ -16,6 +16,8 @@ import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.adapter.PersonalTrendAdapter;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsCityFragment;
+import cn.goodjobs.bluecollar.fragment.makefriend.MakeFriendsGuanzhuFragment;
 import cn.goodjobs.bluecollar.view.upload.CustomerListView;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
@@ -118,6 +120,8 @@ public class OtherPersonalInfoActivity extends BaseActivity implements AdapterVi
             }
         } else if (tag.equals(URLS.MAKEFRIEND_FOLLOW)) {
             String look = btnLook.getTag().toString();
+            MakeFriendsCityFragment.needRefresh = true;
+            MakeFriendsGuanzhuFragment.needRefresh = true;
             if ("2".equals(look)) {
                 btnLook.setText("取消关注");
                 btnLook.setBackgroundResource(R.drawable.small_button_grey);
