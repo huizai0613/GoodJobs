@@ -21,8 +21,7 @@ import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 /**
  * Created by yexiangyu on 15/12/28.
  */
-public class JobDetailActivity extends BaseActivity
-{
+public class JobDetailActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private String[] split;
@@ -32,31 +31,26 @@ public class JobDetailActivity extends BaseActivity
     RelativeLayout tipLayout;
 
 
-    public HashMap<Integer, JSONObject> getCacheData()
-    {
+    public HashMap<Integer, JSONObject> getCacheData() {
         return cacheData;
     }
 
-    public void setCacheData(HashMap<Integer, JSONObject> cacheData)
-    {
+    public void setCacheData(HashMap<Integer, JSONObject> cacheData) {
         this.cacheData = cacheData;
     }
 
     @Override
-    protected int getLayoutID()
-    {
+    protected int getLayoutID() {
         return R.layout.activity_job_deail;
     }
 
     @Override
-    protected void initWeightClick()
-    {
+    protected void initWeightClick() {
 
     }
 
     @Override
-    protected void initWeight()
-    {
+    protected void initWeight() {
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tipLayout = (RelativeLayout) findViewById(R.id.tipLayout);
@@ -79,30 +73,25 @@ public class JobDetailActivity extends BaseActivity
     }
 
     @Override
-    protected void initData()
-    {
+    protected void initData() {
         String ids = getIntent().getStringExtra("IDS");
         split = ids.split(",");
         position = getIntent().getIntExtra("POSITION", 0);
     }
 
-    class JobDetailAdapter extends FragmentStatePagerAdapter
-    {
+    class JobDetailAdapter extends FragmentStatePagerAdapter {
 
-        public JobDetailAdapter(FragmentManager fm)
-        {
+        public JobDetailAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
-        public BaseViewPagerFragment getItem(int position)
-        {
+        public BaseViewPagerFragment getItem(int position) {
             return BaseViewPagerFragment.newInstance(Integer.parseInt(split[position]), JobDetailFragment.class);
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return split.length;
         }
     }

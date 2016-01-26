@@ -45,6 +45,7 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
     String pageTime = "0";
     MyLocation myLocation;
     boolean hasMore; // 是否包含下一页
+    public static boolean needRefresh; // 是否需要刷新
 
     public MakeFriendsCityFragment() {
 
@@ -54,6 +55,15 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.makefriend_city, container, false);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (needRefresh) {
+            startRefresh();
+        }
+        needRefresh = false;
     }
 
     // 当fragment可见时调用
@@ -66,6 +76,11 @@ public class MakeFriendsCityFragment extends BaseListFragment implements Adapter
                 loadView();
                 isLoad=true;
             }
+
+            if (needRefresh) {
+                startRefresh();
+            }
+            needRefresh = false;
         }
     }
 

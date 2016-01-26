@@ -222,9 +222,11 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         headPhoto.setImageURI(Uri.parse(jsonObject.optString("userLogo")));
         if (StringUtil.isEmpty(jsonObject.optString("realName"))) {
             llBottom.setVisibility(View.GONE);
+            btnSave.setText("保存并完善简历");
             isContinue = true;
         } else {
             llBottom.setVisibility(View.VISIBLE);
+            btnSave.setText("保存");
             isContinue = false;
         }
         itemName.setText(jsonObject.optString("realName"));

@@ -36,6 +36,7 @@ import cn.goodjobs.common.view.searchItem.SearchItemView;
 
 public class BlueInfoCenterFragment extends BaseFragment {
 
+    private String url;
     private LinearLayout show;
     private Button btnLogin;
     private TextView tvName, tvTime, tvResume, tvEntrust;
@@ -156,44 +157,51 @@ public class BlueInfoCenterFragment extends BaseFragment {
         Intent intent = new Intent();
         boolean isLogin = GoodJobsApp.getInstance().isLogin();
         if (!isLogin) {
-            intent.setClass(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            return;
-        }
-        if (i == R.id.btn_login) {
-            intent.setClass(getActivity(), LoginActivity.class);
-        } else if (i == R.id.myImageview) {
-            intent.setClass(getActivity(), LoginActivity.class);
-        } else if (i == R.id.itemSetting) {
-            intent.setClassName(getActivity(), "cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity");
-        } else if (i == R.id.itemJianli) {
-            intent.setClass(getActivity(), ItemResumeActivity.class);
-            startActivityForResult(intent, Activity.RESULT_FIRST_USER);
-            return;
-        } else if (i == R.id.itemChakan) {
-            intent.setClass(getActivity(), ItemCheckActivity.class);
-        } else if (i == R.id.itemShenqing) {
-            intent.setClass(getActivity(), ItemApplyActivity.class);
-        } else if (i == R.id.itemCollection) {
-            intent.setClass(getActivity(), ItemCollectActivity.class);
-        } else if (i == R.id.itemZhaoping) {
-            intent.setClass(getActivity(), ItemInviteActivity.class);
-        } else if (i == R.id.tv_entrust) {
-            HashMap<String, Object> params = new HashMap<String, Object>();
-            if (isEntrust) {
-                params.put("type", "del");
+            if (i == R.id.itemZhaoping) {
+                intent.setClass(getActivity(), ItemInviteActivity.class);
+                intent.putExtra("url", url);
             } else {
-                params.put("type", "add");
+                intent.setClass(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                return;
             }
-            LoadingDialog.showDialog(getActivity());
-            HttpUtil.post(URLS.API_JOB_BlueuserEntrustcv, params, this);
-            return;
-        } else if (i == R.id.tv_resume) {
-            LoadingDialog.showDialog(getActivity());
-            HttpUtil.post(URLS.API_JOB_UserUpdate, this);
-            return;
-        } else if (i == R.id.myHeadImage) {
-            return;
+        } else {
+            if (i == R.id.btn_login) {
+                intent.setClass(getActivity(), LoginActivity.class);
+            } else if (i == R.id.myImageview) {
+                intent.setClass(getActivity(), LoginActivity.class);
+            } else if (i == R.id.itemSetting) {
+                intent.setClassName(getActivity(), "cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity");
+            } else if (i == R.id.itemJianli) {
+                intent.setClass(getActivity(), ItemResumeActivity.class);
+                startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+                return;
+            } else if (i == R.id.itemChakan) {
+                intent.setClass(getActivity(), ItemCheckActivity.class);
+            } else if (i == R.id.itemShenqing) {
+                intent.setClass(getActivity(), ItemApplyActivity.class);
+            } else if (i == R.id.itemCollection) {
+                intent.setClass(getActivity(), ItemCollectActivity.class);
+            } else if (i == R.id.itemZhaoping) {
+                intent.setClass(getActivity(), ItemInviteActivity.class);
+                intent.putExtra("url", url);
+            } else if (i == R.id.tv_entrust) {
+                HashMap<String, Object> params = new HashMap<String, Object>();
+                if (isEntrust) {
+                    params.put("type", "del");
+                } else {
+                    params.put("type", "add");
+                }
+                LoadingDialog.showDialog(getActivity());
+                HttpUtil.post(URLS.API_JOB_BlueuserEntrustcv, params, this);
+                return;
+            } else if (i == R.id.tv_resume) {
+                LoadingDialog.showDialog(getActivity());
+                HttpUtil.post(URLS.API_JOB_UserUpdate, this);
+                return;
+            } else if (i == R.id.myHeadImage) {
+                return;
+            }
         }
         startActivity(intent);
     }
@@ -220,11 +228,12 @@ public class BlueInfoCenterFragment extends BaseFragment {
             if (isEntrust) {
                 tvEntrust.setText("委托投递");
                 isEntrust = false;
+                AlertDialogUtil.show(getActivity(), "委托投递", ((JSONObject) data).optString("message"), false, "我知道了", null, null, null);
             } else {
                 tvEntrust.setText("取消委托");
                 isEntrust = true;
+                AlertDialogUtil.show(getActivity(), "委托投递", "委托投递设置成功！\n  7天内，系统根据您的求职意向针对合适岗位自动投递简历！请保持手机畅通。", false, "我知道了", null, null, null);
             }
-            AlertDialogUtil.show(getActivity(), "委托投递", ((JSONObject) data).optString("message"), false, "我知道了", null, null, null);
         }
     }
 
@@ -239,6 +248,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     }
 
     private void setDataToView() {
+        url = GoodJobsApp.getInstance().bluePersonalInfo.optString("jobFairUrl");
         Uri uri = Uri.parse(GoodJobsApp.getInstance().bluePersonalInfo.optString("userLogo"));
         myHeadImage.setImageURI(uri);
         tvName.setText(GoodJobsApp.getInstance().bluePersonalInfo.optString("userName"));
