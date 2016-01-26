@@ -1,5 +1,6 @@
 package cn.goodjobs.bluecollar.activity.InfoCenter;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ import cn.goodjobs.common.view.searchItem.SelectorItemView;
 public class ResumeMoreActivity extends BaseActivity {
 
     private SelectorItemView itemDegree, itemCheckIn, itemWorkAddress, itemSalary, itemJobFunc, itemWorktime;
-    private String degree, salary, ckTime, sWorkPlace, jobName, worktime, selfIntro;
+    private String realname, sex, birthday, cityID, sFunction, autoSend, degree, salary, ckTime, sWorkPlace, jobName, worktime, selfIntro;
     private EditText etContent;
 
     @Override
@@ -46,6 +47,14 @@ public class ResumeMoreActivity extends BaseActivity {
         itemJobFunc = (SelectorItemView) findViewById(R.id.itemJobFunc);
         itemWorktime = (SelectorItemView) findViewById(R.id.itemWorktime);
         etContent = (EditText) findViewById(R.id.etContent);
+
+        Intent intent = getIntent();
+        realname = intent.getStringExtra("realname");
+        sex = intent.getStringExtra("sex");
+        birthday = intent.getStringExtra("birthday");
+        cityID = intent.getStringExtra("cityID");
+        sFunction = intent.getStringExtra("sFunction");
+        autoSend = intent.getStringExtra("autoSend");
     }
 
     @Override
@@ -65,6 +74,12 @@ public class ResumeMoreActivity extends BaseActivity {
 
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("cvType", 2);
+        params.put("realname", realname);
+        params.put("sex", sex);
+        params.put("birthday", birthday);
+        params.put("cityID", cityID);
+        params.put("sFunction", sFunction);
+        params.put("autoSend", autoSend);
         params.put("degree", degree);
         params.put("ckTime", ckTime);
         params.put("salary", salary);

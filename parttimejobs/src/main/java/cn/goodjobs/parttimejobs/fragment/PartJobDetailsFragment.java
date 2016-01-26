@@ -98,7 +98,7 @@ public class PartJobDetailsFragment extends BaseFragment {
     }
 
     private void initJsonData(JSONObject object) {
-        pivWorktime.setText(object.optString("jobName"));
+        pivWorktime.setText(object.optString("workTypeName"));
         pivJob.setText(object.optString("jobName"));
         pivCompany.setText(object.optString("corpName"));
         pivSalary.setText(object.optString("jobSalary"));

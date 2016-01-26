@@ -130,6 +130,12 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         } else if (tag.equals(URLS.API_JOB_BlueBasicsave)) {
             if (isContinue) {
                 Intent intent = new Intent(this, ResumeMoreActivity.class);
+                intent.putExtra("realname", realname);
+                intent.putExtra("sex", sex);
+                intent.putExtra("birthday", birthday);
+                intent.putExtra("cityID", cityID);
+                intent.putExtra("sFunction", sFunction);
+                intent.putExtra("autoSend", autoSend);
                 startActivity(intent);
             } else {
                 TipsUtil.show(this, ((JSONObject) data).optString("message"));

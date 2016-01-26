@@ -35,7 +35,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     public Stack<List<SelectorEntity>> selectorEntityStack; // 保存要显示的数据
     public List<SelectorEntity> selectedItems; // 已经选中的数据
     public static String spitStr = ";";
-    public static String parentSpitStr = "|";
+    public static String parentSpitStr = "#";
     public boolean isInit; //是否初始化
     public static String allId = "-1"; // 默认不限的id
 
@@ -113,7 +113,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         List<SelectorEntity> selectorEntityList = new ArrayList<SelectorEntity>();
         if (containAll && keyIndex == keys.length) {
             SelectorEntity selectorEntity2 = new SelectorEntity(parentId, "不限", parentId, parantName);
-            if (selectorIds.contains(spitStr + parentId + spitStr)) {
+            if (selectorIds.contains(spitStr + parentId.replaceAll(allId + parentSpitStr, "") + spitStr)) {
                 selectorEntity2.isSelected = true;
                 selectedItems.add(selectorEntity2); // 不限被选中
             }
@@ -185,7 +185,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         StringBuilder sb = new StringBuilder();
         for (SelectorEntity selectorEntity : selectedItems) {
             if (sb.length() > 0) {
-                sb.append(",");
+                sb.append(spitStr);
             }
             if (selectorEntity.id.startsWith(allId)) {
                 sb.append(selectorEntity.parentId);
@@ -213,7 +213,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         StringBuilder sb = new StringBuilder();
         for (SelectorEntity selectorEntity : selectedItems) {
             if (sb.length() > 0) {
-                sb.append(",");
+                sb.append(spitStr);
             }
             sb.append(selectorEntity.parentId.split(parentSpitStr)[1]);
         }

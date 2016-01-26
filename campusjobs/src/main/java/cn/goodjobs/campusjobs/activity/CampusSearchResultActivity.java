@@ -37,6 +37,7 @@ import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExpandTabSuper.ExpandTabView;
 import cn.goodjobs.common.view.ExpandTabSuper.SingleLevelMenuView;
 import cn.goodjobs.common.view.ExpandTabSuper.TwoLevelMenuView;
+import cn.goodjobs.common.view.searchItem.SelectorItemView;
 
 /**
  * Created by zhuli on 2015/12/31.
@@ -273,10 +274,10 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         }
 
         if (!StringUtil.isEmpty(itemIndtypeId))//行业
-            Object.put("industry", itemIndtypeId.replaceAll("#", ","));
+            Object.put("industry", itemIndtypeId.replaceAll(SelectorItemView.spitStr, ","));
 
         if (!StringUtil.isEmpty(itemJobfuncId))//岗位
-            Object.put("respon", itemJobfuncId.replaceAll("#", ","));
+            Object.put("respon", itemJobfuncId.replaceAll(SelectorItemView.spitStr, ","));
 
         if (!StringUtil.isEmpty(itemSalaryId))//薪资
             Object.put("salary", itemSalaryId);
