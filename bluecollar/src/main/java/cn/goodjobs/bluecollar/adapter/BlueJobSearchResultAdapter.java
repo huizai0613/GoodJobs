@@ -168,7 +168,7 @@ public class BlueJobSearchResultAdapter extends JsonArrayAdapterBase<JSONObject>
             item_certify.setImageResource(R.mipmap.icon_uncertify);
         }
 
-        if ("0".equals(certStatus)) {
+        if ("0".equals(blueFlag)) {
             item_vip.setVisibility(View.VISIBLE);
         } else {
             item_vip.setVisibility(View.GONE);
