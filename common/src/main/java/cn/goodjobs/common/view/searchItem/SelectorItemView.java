@@ -184,7 +184,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         StringBuilder sb = new StringBuilder();
         for (SelectorEntity selectorEntity : selectedItems) {
             if (sb.length() > 0) {
-                sb.append(",");
+                sb.append(spitStr);
             }
             if (selectorEntity.id.startsWith(allId)) {
                 sb.append(selectorEntity.parentId);
@@ -212,7 +212,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         StringBuilder sb = new StringBuilder();
         for (SelectorEntity selectorEntity : selectedItems) {
             if (sb.length() > 0) {
-                sb.append(",");
+                sb.append(spitStr);
             }
             sb.append(selectorEntity.parentId.split(spitStr)[1]);
         }
