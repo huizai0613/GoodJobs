@@ -35,6 +35,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     public Stack<List<SelectorEntity>> selectorEntityStack; // 保存要显示的数据
     public List<SelectorEntity> selectedItems; // 已经选中的数据
     public static String spitStr = ";";
+    public static String parentSpitStr = "|";
     public boolean isInit; //是否初始化
     public static String allId = "-1"; // 默认不限的id
 
@@ -126,7 +127,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             if (jsonObject != null && jsonObject.has(id1)) {
                 // 该列表包含下级选择项
                 JSONArray jsonArray1 = jsonObject.optJSONArray(id1);
-                selectorEntity.array = initWithJSONOArray(allId + spitStr + id1, jsonObject1.optString("name"), jsonArray1, keyIndex + 1);
+                selectorEntity.array = initWithJSONOArray(allId + parentSpitStr + id1, jsonObject1.optString("name"), jsonArray1, keyIndex + 1);
             } else {
                 if (selectorIds.contains(spitStr + id1 + spitStr)) {
                     selectorEntity.isSelected = true;
@@ -214,7 +215,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             if (sb.length() > 0) {
                 sb.append(spitStr);
             }
-            sb.append(selectorEntity.parentId.split(spitStr)[1]);
+            sb.append(selectorEntity.parentId.split(parentSpitStr)[1]);
         }
         return sb.toString();
     }
