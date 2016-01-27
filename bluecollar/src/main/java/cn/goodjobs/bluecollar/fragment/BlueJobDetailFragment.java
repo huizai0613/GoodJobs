@@ -25,6 +25,7 @@ import cn.goodjobs.bluecollar.activity.BlueJobDetailActivity;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LsMapActivity;
 import cn.goodjobs.common.baseclass.BaseViewPagerFragment;
+import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
 import cn.goodjobs.common.util.GeoUtils;
@@ -512,7 +513,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
         } else if (i == R.id.job_share) {
             //分享
-            UMShareUtil.setShareText(getActivity(), jobName.getText().toString(), id + "");
+            UMShareUtil.setShareText(getActivity(), Constant.SHARE_BLUE_JOBDETAIL, jobName.getText().toString(), id + "");
             UMShareUtil.getUMSocialService().openShare(getActivity(), false);
         } else if (i == R.id.job_phone) {
             PhoneUtils.makeCall(jobPhone.getText().toString(), mActivity);

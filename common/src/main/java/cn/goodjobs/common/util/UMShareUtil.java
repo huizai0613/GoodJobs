@@ -14,6 +14,7 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.constants.Constant;
 
 /**
  * Created by 王刚 on 2015/10/30 0030.
@@ -53,7 +54,7 @@ public class UMShareUtil {
 
     // 设置职位分享的文字图片信息
     public static void setShareText(Context context, String jobName, String jobID) {
-        setShareText(context, "http://m.goodjobs.cn/job.php?jobID=", jobName, jobID);
+        setShareText(context, Constant.SHARE_JOBDETAIL, jobName, jobID);
     }
 
     // 设置职位分享的文字图片信息
