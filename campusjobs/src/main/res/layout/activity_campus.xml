@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:text="首页"
                 android:textColor="@drawable/campus_footer_text"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_litter" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:text="宣讲会"
                 android:textColor="@drawable/campus_footer_text"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_litter" />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +101,7 @@
                 android:gravity="center"
                 android:text="招聘会"
                 android:textColor="@drawable/campus_footer_text"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_litter" />
         </LinearLayout>
 
         <LinearLayout
@@ -130,7 +130,7 @@
                 android:gravity="center"
                 android:text="个人中心"
                 android:textColor="@drawable/campus_footer_text"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_litter" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
