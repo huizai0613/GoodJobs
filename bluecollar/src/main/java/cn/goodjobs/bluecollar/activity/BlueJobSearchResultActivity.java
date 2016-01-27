@@ -151,6 +151,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
                     Set<Map.Entry<JSONObject, List<JSONObject>>> entries1 = jobTypeyData.entrySet();
                     Map<String, String> jobOneCate = new LinkedHashMap<String, String>();
+                    jobOneCate.put("全部职位", "全部职位");
                     Map<String, Map<String, String>> joTwoCate = new LinkedHashMap<String, Map<String, String>>();
                     int index = 0;
                     for (Map.Entry<JSONObject, List<JSONObject>> jsonObjectListEntry : entries1) {
@@ -169,7 +170,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                     }
 
 
-                    String parentPos = "0";
+                    String parentPos = "全部职位";
                     String childPos = "null";
                     if (!StringUtil.isEmpty(itemJobfuncPrantId)) {
                         if (itemJobfuncPrantId.startsWith("-1")) {
@@ -185,6 +186,8 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                             childPos = "0";
                         }
                     }
+
+
                     jobType.setValue(jobOneCate, joTwoCate, parentPos, childPos, new int[index]);
 
                     break;
@@ -374,13 +377,19 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
             {
                 //筛选职位
                 etvMenu.setTitle(showString, 1);
+                try {
+                    int i = Integer.parseInt(firstLevelKey);
+                    if ("0".equals(secondLevelKey)) {
+                        itemJobfuncId = jopTypeParent.get(Integer.parseInt(firstLevelKey)).optInt("id") + "";
+                    } else {
+                        itemJobfuncId = "" + jopTypeChild.get(Integer.parseInt(firstLevelKey)).get(Integer.parseInt(secondLevelKey)).optInt("id");
+                    }
 
-                if ("0".equals(secondLevelKey)) {
-                    itemJobfuncId = jopTypeParent.get(Integer.parseInt(firstLevelKey)).optInt("id") + "";
-                } else {
-                    itemJobfuncId = "" + jopTypeChild.get(Integer.parseInt(firstLevelKey)).get(Integer.parseInt(secondLevelKey)).optInt("id");
+                } catch (Exception e) {
+                    itemJobfuncId = "";
+                }finally {
+                    startRefresh();
                 }
-                startRefresh();
 
             }
 

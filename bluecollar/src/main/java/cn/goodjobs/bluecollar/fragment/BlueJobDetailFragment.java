@@ -135,11 +135,11 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
         jobPhone.setCompoundDrawables(null, null, iconPhone, null);
 
         Drawable iconStore = getResources().getDrawable(R.drawable.icon_wite_store);
-        iconStore.setBounds(0, 0, DensityUtil.dip2px(mActivity, 30), DensityUtil.dip2px(mActivity, 30));
+        iconStore.setBounds(0, 0, DensityUtil.dip2px(mActivity, 20), DensityUtil.dip2px(mActivity, 20));
         jobStore.setCompoundDrawables(null, iconStore, null, null);
 
         Drawable iconShare = getResources().getDrawable(R.drawable.share);
-        iconShare.setBounds(0, 0, DensityUtil.dip2px(mActivity, 30), DensityUtil.dip2px(mActivity, 30));
+        iconShare.setBounds(0, 0, DensityUtil.dip2px(mActivity, 20), DensityUtil.dip2px(mActivity, 20));
         jobShare.setCompoundDrawables(null, iconShare, null, null);
 
         jobOtherBox = inflate.findViewById(R.id.job_other_box);
@@ -203,7 +203,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                     TextView view = new TextView(mActivity);
                     view.setText(s);
                     view.setGravity(Gravity.CENTER);
-                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
                     view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
                     view.setHeight(DensityUtil.dip2px(mActivity, 25));
                     view.setBackgroundResource(R.drawable.bright_bg);

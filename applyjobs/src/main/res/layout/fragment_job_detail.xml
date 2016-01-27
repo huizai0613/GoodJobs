@@ -21,8 +21,8 @@
 
             <ImageView
                 android:id="@+id/iv_share"
-                android:layout_width="25dip"
-                android:layout_height="25dip"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/padding_small"
                 android:background="@drawable/icon_share"/>
@@ -37,7 +37,7 @@
                 android:paddingTop="2dip"
                 android:text="分享"
                 android:textColor="@color/topbar_bg"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_litter"/>
 
         </RelativeLayout>
 
@@ -68,8 +68,8 @@
 
             <ImageView
                 android:id="@+id/iv_collect"
-                android:layout_width="25dip"
-                android:layout_height="25dip"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/padding_small"
                 android:background="@drawable/icon_collect"/>
@@ -84,7 +84,7 @@
                 android:paddingTop="2dip"
                 android:text="收藏"
                 android:textColor="@color/topbar_bg"
-                android:textSize="@dimen/text_small"/>
+                android:textSize="@dimen/text_litter"/>
 
         </RelativeLayout>
 
