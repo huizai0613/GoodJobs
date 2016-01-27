@@ -39,6 +39,7 @@ public abstract class PullToZoomBase<T extends View> extends LinearLayout implem
     private boolean isZoomEnabled = true;
     private boolean isParallax = true;
     private boolean isZooming = false;
+    protected boolean isRefreshZooming = false;
     private boolean isHideHeader = false;
 
     private int mTouchSlop;
@@ -243,6 +244,7 @@ public abstract class PullToZoomBase<T extends View> extends LinearLayout implem
                             onPullZoomListener.onPullZoomEnd();
                         }
                         isZooming = false;
+                        isRefreshZooming = false;
                         return true;
                     }
                     return true;

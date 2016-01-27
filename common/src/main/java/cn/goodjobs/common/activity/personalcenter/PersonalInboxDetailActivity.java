@@ -19,7 +19,6 @@ import cn.goodjobs.common.view.LoadingDialog;
 public class PersonalInboxDetailActivity extends BaseActivity {
 
     TextView tvCorpName, tvTime, tvTitle, tvContent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +70,7 @@ public class PersonalInboxDetailActivity extends BaseActivity {
     public void toCrop(View view) {
         Intent intent = new Intent();
         intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobCompanyDetailActivity");
-        intent.putExtra("corpID", getIntent().getStringExtra("corpID"));
+        intent.putExtra("corpID", getIntent().getIntExtra("corpID", 0));
         startActivity(intent);
     }
 }
