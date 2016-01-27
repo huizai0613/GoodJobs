@@ -66,6 +66,7 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
     private View com_phone_box;
     private LinearLayout jobBox;
     private TextView comStatus;
+    private View comContentBox;
 
     @Override
     protected int getLayoutID()
@@ -98,6 +99,7 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
         comMap = (TextView) findViewById(R.id.com_map);
         comPhone = (TextView) findViewById(R.id.com_phone);
         comPhoneBox = (View) findViewById(R.id.com_phone_box);
+        comContentBox = (View) findViewById(R.id.com_content_box);
         comContent = (TextView) findViewById(R.id.com_content);
         comUpdown = (ImageView) findViewById(R.id.com_updown);
         jobSimilarBox = findViewById(R.id.job_similar_box);
@@ -186,7 +188,15 @@ public class BlueJobCompanyDetailActivity extends BaseActivity
         } else {
             comPhone.setText(phone + " ");
         }
-        comContent.setText(corpData.optString("intro"));
+
+
+        String intro = corpData.optString("intro");
+
+        if (StringUtil.isEmpty(intro)) {
+            comContentBox.setVisibility(View.GONE);
+        } else {
+            comContent.setText(intro);
+        }
 
         loc = corpData.optString("loc");
         if (StringUtil.isEmpty(loc)) {
