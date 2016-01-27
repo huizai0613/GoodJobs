@@ -216,6 +216,15 @@ public class BlueSearchActivity extends BaseActivity
     public void saveSearchLock(Map<Long, Map<String, String>> saveData, Map<String, String> put)
     {
         Set<Map.Entry<Long, Map<String, String>>> entries = saveData.entrySet();
+        ArrayList<String> deleteKey = new ArrayList<>();
+        for (Map.Entry<String, String> stringStringEntry : put.entrySet()) {
+            if ("不限".equals(stringStringEntry.getValue()) || "-1".equals(stringStringEntry.getValue())) {
+                deleteKey.add(stringStringEntry.getKey());
+            }
+        }
+        for (String s : deleteKey) {
+            put.remove(s);
+        }
 
         ArrayList<Long> keys = new ArrayList<>();
         for (Map.Entry<Long, Map<String, String>> en : entries) {
@@ -328,10 +337,10 @@ public class BlueSearchActivity extends BaseActivity
                 builder.delete(0, builder.length());
 
                 builder.append(StringUtil.isEmpty(value.get("searchKeyWorld")) ? "" : value.get("searchKeyWorld") + " + ");
-                builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
                 builder.append(StringUtil.isEmpty(value.get("itemJobfunc")) ? "" : value.get("itemJobfunc") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemAddress")) ? "" : value.get("itemAddress") + " + ");
+                builder.append(StringUtil.isEmpty(value.get("itemSalary")) ? "" : value.get("itemSalary") + " + ");
                 builder.append(StringUtil.isEmpty(value.get("itemBenefit")) ? "" : value.get("itemBenefit") + " + ");
-
                 if (builder.length() == 0) {
                     continue;
                 }
@@ -373,7 +382,7 @@ public class BlueSearchActivity extends BaseActivity
                         }
 
                         if (!StringUtil.isEmpty(itemJobfuncStr)) {
-                            itemJobfunc.setSelectorIds(itemJobfuncId);
+                            itemJobfunc.setSelectorIds(itemJobfuncId.startsWith("-1") ? itemJobfuncId.split("#")[1] : itemJobfuncId);
                             itemJobfunc.setSpID(jobpraentId);
                             itemJobfunc.setText(itemJobfuncStr);
                         } else {

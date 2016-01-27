@@ -4,6 +4,7 @@ public class Type
 {
     private int id;
     private String typename;
+    private String typePrantname;
 
     public int getPranetId()
     {
@@ -17,6 +18,15 @@ public class Type
 
     private int pranetId;
 
+    public String getTypePrantname()
+    {
+        return typePrantname;
+    }
+
+    public void setTypePrantname(String typePrantname)
+    {
+        this.typePrantname = typePrantname;
+    }
 
     public int getId()
     {

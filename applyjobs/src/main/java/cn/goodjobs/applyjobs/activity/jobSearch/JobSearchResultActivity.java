@@ -480,6 +480,11 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
     @Override
     public void onSuccess(String tag, Object data)
     {
+        if (isRefresh) {
+            ArrayList<Integer> checkPosition = ((JobSearchResultAdapter) mAdapter).getCheckPosition();
+            checkPosition.clear();
+            setBottomVisible(checkPosition.size() > 0);
+        }
         super.onSuccess(tag, data);
 
         JSONObject object = (JSONObject) data;
@@ -598,7 +603,6 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
         ArrayList<Integer> checkPosition = ((JobSearchResultAdapter) mAdapter).getCheckPosition();
         List<JSONObject> list = mAdapter.getList();
         StringBuilder builder = new StringBuilder();
-
         for (int i = 0; i < checkPosition.size(); i++) {
             builder.append(list.get(checkPosition.get(i)).optInt("jobID") + ",");
         }
@@ -671,4 +675,5 @@ public class JobSearchResultActivity extends BaseListActivity implements UpdateD
             });
         }
     }
+
 }

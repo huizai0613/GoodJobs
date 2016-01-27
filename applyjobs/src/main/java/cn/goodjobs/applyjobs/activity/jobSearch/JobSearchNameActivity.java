@@ -478,6 +478,16 @@ public class JobSearchNameActivity extends BaseActivity implements SegmentView.o
             saveData = new HashMap<>();
         }
 
+        ArrayList<String> deleteKey = new ArrayList<>();
+        for (Map.Entry<String, String> stringStringEntry : put.entrySet()) {
+            if ("不限".equals(stringStringEntry.getValue())||"-1".equals(stringStringEntry.getValue())) {
+                deleteKey.add(stringStringEntry.getKey());
+            }
+        }
+        for (String s : deleteKey) {
+            put.remove(s);
+        }
+
         Set<Map.Entry<Long, Map<String, String>>> entries = saveData.entrySet();
 
         ArrayList<Long> keys = new ArrayList<>();

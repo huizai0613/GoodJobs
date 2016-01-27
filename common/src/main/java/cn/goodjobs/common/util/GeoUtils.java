@@ -44,9 +44,9 @@ public class GeoUtils
     public static String friendlyDistance(double d)
     {
         if (d < 1000) {
-            return (int) d + "米";
+            return (int) d + "m";
         } else {
-            return String.format("%.1f千米", d / 1000);
+            return String.format("%.1fKm", d / 1000);
         }
     }
 
