@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import cn.goodjobs.common.util.LogUtil;
 
@@ -35,6 +36,7 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
     private ScalingRunnable mScalingRunnable;
     private ScrollListener scrollListener;
     private View topBarView;
+    private boolean isRefresh = false; // 是否正在刷新
 
     private static final Interpolator sInterpolator = new Interpolator() {
         public float getInterpolation(float paramAnonymousFloat) {
@@ -262,6 +264,11 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
                     topBarView.getBackground().setAlpha(255);
                 }
             }
+            if (!isRefresh && !isRefreshZooming && mScalingRunnable!=null && scrollListener!=null && mScalingRunnable.isFinished() && (-f > mHeaderHeight/3)) {
+                isRefresh = true;
+                isRefreshZooming = true;
+                scrollListener.refresh();
+            }
             if (isParallax()) {
                 if ((f > 0.0F) && (f < mHeaderHeight)) {
                     int i = (int) (0.65D * f);
@@ -324,5 +331,10 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
 
     public interface ScrollListener {
         public void toFoot();
+        public void refresh();
+    }
+
+    public void stopRefresh() {
+        isRefresh = false;
     }
 }

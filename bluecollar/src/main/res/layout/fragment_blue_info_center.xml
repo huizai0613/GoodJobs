@@ -243,4 +243,14 @@
         android:text="个人中心"
         android:textColor="@color/white"
         android:textSize="@dimen/text_large" />
+
+    <ImageButton
+        android:id="@+id/btn_right"
+        android:layout_width="@dimen/topbar_height"
+        android:layout_height="@dimen/topbar_height"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/img_refresh"
+        android:scaleType="fitCenter"
+        android:background="@color/transparent"
+        android:padding="@dimen/padding_small"/>
 </RelativeLayout>

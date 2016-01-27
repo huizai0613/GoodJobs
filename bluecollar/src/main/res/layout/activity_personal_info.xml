@@ -33,13 +33,25 @@
             android:padding="14dip"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="我的主页"
             android:id="@+id/top_title"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="@dimen/text_large"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginRight="@dimen/padding_small"
+            android:layout_toLeftOf="@+id/top_title"
+            android:layout_centerVertical="true"
+            android:indeterminateDrawable="@drawable/iamge_progress"
+            android:indeterminateDuration="1000"
+            android:visibility="invisible"/>
 
         <ImageButton
             android:id="@+id/btn_right"

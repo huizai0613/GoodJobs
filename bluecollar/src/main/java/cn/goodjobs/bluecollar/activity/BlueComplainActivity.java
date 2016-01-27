@@ -36,7 +36,7 @@ public class BlueComplainActivity extends BaseActivity
     private CheckBox radio0;
     private CheckBox radio1;
     private CheckBox radio2;
-    private String radio = "虚假招聘";
+    private String radio = "";
     private int maxContent = 200;
     private TextView text;
 
@@ -127,7 +127,12 @@ public class BlueComplainActivity extends BaseActivity
         int id = v.getId();
 
         if (id == R.id.btnSubmit) {
-            String info = "职位\"" + jobName + "\"(职位ID:" + blueJobID + ")," + radio + "," + content.getText().toString() + ")";
+            String s = content.getText().toString();
+            if (StringUtil.isEmpty(radio) && StringUtil.isEmpty(s)) {
+                TipsUtil.show(mcontext, "请填写您要投诉的内容");
+                return;
+            }
+            String info = "职位\"" + jobName + "\"(职位ID:" + blueJobID + ")," + radio + "," + s + ")";
             HashMap<String, Object> stringObjectHashMap = new HashMap<>();
 
             stringObjectHashMap.put("fromType", 1);

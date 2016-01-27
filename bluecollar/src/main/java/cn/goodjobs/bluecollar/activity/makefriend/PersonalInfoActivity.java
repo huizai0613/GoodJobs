@@ -10,6 +10,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     ImageButton btnEdit;
     ImageButton btnMsg;
     Button btnAdd;
+    ProgressBar progressBar;
     View headView;
     int page = 1;
     PersonalTrendAdapter personalTrendAdapter;
@@ -74,6 +76,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
         btnAdd.setOnClickListener(this);
         listView.setTopBarView(topLayout);
         headView = listView.getHeaderView();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         footView = LayoutInflater.from(this).inflate(R.layout.item_loading, null);
         DisplayMetrics localDisplayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
@@ -92,6 +95,15 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
                     page++;
                     loadTend();
                 }
+            }
+
+            @Override
+            public void refresh() {
+                // 刷新
+                progressBar.setVisibility(View.VISIBLE);
+                HashMap<String, Object> params = new HashMap<String, Object>();
+                params.put("tp", "my");
+                HttpUtil.post(URLS.MAKEFRIEND_FRIEND, params, PersonalInfoActivity.this);
             }
         });
         getDataFromServer();
@@ -113,6 +125,8 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
         if (tag.equals(URLS.MAKEFRIEND_FRIEND)) {
+            progressBar.setVisibility(View.INVISIBLE);
+            listView.stopRefresh();
             JSONObject jsonObject = (JSONObject) data;
             setDataToView(jsonObject);
             if (firstIn) {
