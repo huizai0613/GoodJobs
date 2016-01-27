@@ -136,7 +136,7 @@ public class LoginActivity extends BaseActivity {
             }
         } else if (v.getId() == R.id.btnRegister) {
             Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 111);
         } else if (v.getId() == R.id.tv_found) {
             Intent intent = new Intent(this, FoundPasswordActivity.class);
             startActivity(intent);
@@ -242,7 +242,7 @@ public class LoginActivity extends BaseActivity {
      */
     public boolean validate() {
         if (StringUtil.isEmpty(etUser.getText().toString().trim())) {
-            TipsUtil.show(this, "请输入用户名");
+            TipsUtil.show(this, "请输入用户名/手机号");
             return false;
         }
         if (StringUtil.isEmpty(etPassword.getText().toString().trim())) {

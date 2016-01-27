@@ -59,7 +59,7 @@ public class XFooterView extends LinearLayout {
                 mHintView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.INVISIBLE);
             } else {
-                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
             }
 //            mHintImage.setVisibility(View.VISIBLE);
         }
@@ -80,6 +80,7 @@ public class XFooterView extends LinearLayout {
                 if (mState != STATE_READY) {
 //                    mHintImage.clearAnimation();
 //                    mHintImage.startAnimation(mRotateUpAnim);
+                    mProgressBar.setVisibility(View.GONE);
                     mHintView.setText(MyStrings.load_ready);
                 }
                 break;

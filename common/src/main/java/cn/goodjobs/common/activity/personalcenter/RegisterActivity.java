@@ -135,6 +135,9 @@ public class RegisterActivity extends BaseActivity {
         } else if (tag.equals(URLS.API_USER_REGISTERNEW)) {
             TipsUtil.show(this, "注册成功");
             LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
+            if (loginInfo == null) {
+                loginInfo = new LoginInfo();
+            }
             loginInfo.userName = itemOldMobile.getText();
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
             setResult(RESULT_OK);
