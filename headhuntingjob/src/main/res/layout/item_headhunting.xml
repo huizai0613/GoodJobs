@@ -23,16 +23,6 @@
             android:layout_marginTop="@dimen/padding_small">
 
             <TextView
-                android:id="@+id/tv_jobName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:paddingLeft="@dimen/padding_default"
-                android:text="会议兼职"
-                android:textColor="@color/main_color"
-                android:textSize="@dimen/text_default" />
-
-            <TextView
                 android:id="@+id/tv_salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,6 +32,21 @@
                 android:text="20000-29000元"
                 android:textColor="@color/red"
                 android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/tv_jobName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/tv_salary"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/padding_default"
+                android:text="会议兼职"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default" />
+
+
         </RelativeLayout>
 
 

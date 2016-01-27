@@ -23,16 +23,6 @@
             android:layout_gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_jobName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/padding_default"
-                android:paddingTop="@dimen/padding_small"
-                android:text="会议兼职"
-                android:textColor="@color/main_color"
-                android:textSize="@dimen/text_default" />
-
-            <TextView
                 android:id="@+id/tv_cityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,6 +33,20 @@
                 android:text="六安市"
                 android:textColor="@color/light_color"
                 android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/tv_jobName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/tv_cityName"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/padding_default"
+                android:paddingTop="@dimen/padding_small"
+                android:text="会议兼职"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_default" />
+
         </RelativeLayout>
 
         <LinearLayout
@@ -55,7 +59,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <TextView
                     android:id="@+id/tv_reward"
