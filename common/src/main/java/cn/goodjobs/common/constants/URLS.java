@@ -55,7 +55,7 @@ public class URLS {
     public final static String API_CV_SHOW = "cv/cvshow";
     public final static String API_CV_INDEX = "cv/index";
     public final static String API_CV_BASICSAVE = "cv/basicsave";
-    public final static String API_CV_PHOTO = "cv/photosave";
+    public final static String API_CV_PHOTO = "cv/Photosave";
     public final static String API_CV_BASIC = "cv/basic";
     public final static String API_CV_WILL = "cv/will";
     public final static String API_CV_SAVE_WILL = "cv/willsave";

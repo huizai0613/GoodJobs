@@ -44,12 +44,12 @@ public class ItemCheckActivity extends BasePersonalListActivity implements Adapt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
-        if ("0".equals(jsonObject.optString("buleFlag"))) {
+        if ("0".equals(jsonObject.optString("blueFlag"))) {
             Intent intent = new Intent();
             intent.setClassName(this, "cn.goodjobs.applyjobs.activity.jobSearch.JobCompanyDetailActivity");
             intent.putExtra("corpID", jsonObject.optInt("memCorpID"));
             startActivity(intent);
-        } else if ("1".equals(jsonObject.optString("buleFlag"))) {
+        } else if ("1".equals(jsonObject.optString("blueFlag"))) {
             Intent intent = new Intent();
             intent.setClass(this, BlueJobCompanyDetailActivity.class);
             intent.putExtra("corpID", jsonObject.optInt("memCorpID"));

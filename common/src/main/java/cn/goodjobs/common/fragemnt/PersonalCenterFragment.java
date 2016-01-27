@@ -47,7 +47,7 @@ public class PersonalCenterFragment extends BaseImageUploadFragment {
 
     SimpleDraweeView myImageview;
     TextView tvUsername, tvPhone, tvUpdatetime;
-    ImageButton btnYanzheng, btnRefresh;
+    ImageButton btnYanzheng, btnRefresh, btnRight;
     RelativeLayout tipLayout;
     Uri fileUri;
     ScrollView scrollView;
@@ -70,6 +70,7 @@ public class PersonalCenterFragment extends BaseImageUploadFragment {
         hideBackBtn(view);
 
         myImageview = (SimpleDraweeView) view.findViewById(R.id.myImageview);
+        btnRight = (ImageButton) view.findViewById(R.id.btn_right);
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
         tvPhone = (TextView) view.findViewById(R.id.tvPhone);
         tvUpdatetime = (TextView) view.findViewById(R.id.tvUpdatetime);
@@ -85,6 +86,10 @@ public class PersonalCenterFragment extends BaseImageUploadFragment {
         itemJianli = (SearchItemView) view.findViewById(R.id.itemJianli);
         tipLayout = (RelativeLayout) view.findViewById(R.id.tipLayout);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+
+        btnRight.setVisibility(View.VISIBLE);
+        btnRight.setImageResource(R.drawable.img_refresh);
+        btnRight.setOnClickListener(this);
 
         itemLogin.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
@@ -130,7 +135,8 @@ public class PersonalCenterFragment extends BaseImageUploadFragment {
             // 简历刷新
             TipsUtil.show(getActivity(), data+"");
         } else if (tag.equals(URLS.API_CV_PHOTO)) {
-            TipsUtil.show(getActivity(), data+"");
+            JSONObject jsonObject = (JSONObject) data;
+            TipsUtil.show(getActivity(), jsonObject.optString("message"));
             myImageview.setImageURI(fileUri);
         }
     }
@@ -196,6 +202,9 @@ public class PersonalCenterFragment extends BaseImageUploadFragment {
             return;
         } else if (v.getId() == R.id.tipLayout){
             tipLayout.setVisibility(View.GONE);
+            return;
+        } else if (v.getId() == R.id.btn_right){
+            getDataFromServer();
             return;
         } else {
             return;

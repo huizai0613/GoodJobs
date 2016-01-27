@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     private String url;
     private LinearLayout show;
     private Button btnLogin;
+    ImageButton btnRight;
     private TextView tvName, tvTime, tvResume, tvEntrust;
     private SimpleDraweeView myHeadImage, myImageview;
     private SearchItemView itemZhaoping, itemSetting, itemCollection, itemShenqing, itemChakan, itemJianli;
@@ -59,6 +61,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     private void initView(View view) {
         show = (LinearLayout) view.findViewById(R.id.ll_show);
         btnLogin = (Button) view.findViewById(R.id.btn_login);
+        btnRight = (ImageButton) view.findViewById(R.id.btn_right);
         tvName = (TextView) view.findViewById(R.id.tv_name);
         tvTime = (TextView) view.findViewById(R.id.tv_update);
         tvResume = (TextView) view.findViewById(R.id.tv_resume);
@@ -73,6 +76,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         itemJianli = (SearchItemView) view.findViewById(R.id.itemJianli);
 
         btnLogin.setOnClickListener(this);
+        btnRight.setOnClickListener(this);
         tvResume.setOnClickListener(this);
         tvEntrust.setOnClickListener(this);
         myHeadImage.setOnClickListener(this);
@@ -170,7 +174,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
                 intent.setClass(getActivity(), LoginActivity.class);
             } else if (i == R.id.myImageview) {
                 intent.setClass(getActivity(), LoginActivity.class);
-            } else if (i == R.id.itemSetting) {
+            }  else if (i == R.id.itemSetting) {
                 intent.setClassName(getActivity(), "cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity");
             } else if (i == R.id.itemJianli) {
                 intent.setClass(getActivity(), ItemResumeActivity.class);
@@ -199,6 +203,10 @@ public class BlueInfoCenterFragment extends BaseFragment {
                 LoadingDialog.showDialog(getActivity());
                 HttpUtil.post(URLS.API_JOB_UserUpdate, this);
                 return;
+            } else if (i == R.id.btn_right) {
+                LoadingDialog.showDialog(getActivity());
+                HttpUtil.post(URLS.API_JOB_BlueMy, this);
+                return;
             } else if (i == R.id.myHeadImage) {
                 return;
             }
@@ -211,7 +219,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Activity.RESULT_FIRST_USER && resultCode == 22) {
             LoadingDialog.showDialog(getActivity());
-            HttpUtil.post(URLS.API_JOB_UserUpdate, this);
+            HttpUtil.post(URLS.API_JOB_BlueMy, this);
         }
     }
 
@@ -222,7 +230,6 @@ public class BlueInfoCenterFragment extends BaseFragment {
             GoodJobsApp.getInstance().bluePersonalInfo = (JSONObject) data;
             setDataToView();
         } else if (tag.equals(URLS.API_JOB_UserUpdate)) {
-            HttpUtil.post(URLS.API_JOB_BlueMy, this);
             TipsUtil.show(getActivity(), (String) data);
         } else if (tag.equals(URLS.API_JOB_BlueuserEntrustcv)) {
             if (isEntrust) {

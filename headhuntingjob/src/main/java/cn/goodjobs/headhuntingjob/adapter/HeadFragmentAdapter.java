@@ -41,7 +41,7 @@ public class HeadFragmentAdapter extends JsonArrayAdapterBase<JSONObject> {
         if (convertView == null) {
             holder = new ViewHolder();
             if (type == 0 || type == 2) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_headhunting, null);
+                convertView =   LayoutInflater.from(context).inflate(R.layout.item_headhunting, null);
                 holder.jobName = (TextView) convertView.findViewById(R.id.tv_jobName);
                 holder.salary = (TextView) convertView.findViewById(R.id.tv_salary);
                 holder.cityName = (TextView) convertView.findViewById(R.id.tv_place);
