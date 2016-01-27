@@ -230,6 +230,7 @@ public class BlueJobFragment extends BaseFragment implements UpdateDataTaskUtils
                 t.setId(cates2Child.get(arg0).get(i).optInt("id"));
                 t.setTypename(cates2Child.get(arg0).get(i).optString("name"));
                 t.setPranetId(jsonObject.optInt("id"));
+                t.setTypePrantname(jsonObject.optString("name"));
                 types.add(t);
             }
             fragment.setTypeList(mActivity, types);
