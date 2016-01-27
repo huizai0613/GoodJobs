@@ -244,8 +244,8 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
         itemDegree.setSelectorIds(jsonObject.optString("degree"));
         itemWorktime.setText(jsonObject.optString("fmtWorktime"));
         itemWorktime.setSelectorIds(jsonObject.optString("worktime"));
-        itemCheckIn.setText(jsonObject.optString("checkInTime"));
         itemCheckIn.setSelectorIds(jsonObject.optString("checkInTime"));
+        itemCheckIn.setText(jsonObject.optString("checkInTimeName"));
         itemSalary.setText(jsonObject.optString("salaryName"));
         itemSalary.setSelectorIds(jsonObject.optString("salary"));
         itemWant.setText(jsonObject.optString("fmtPosition"));

@@ -142,11 +142,11 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
                 TextView view = new TextView(mActivity);
                 view.setText(treatmentArr.optString(i));
                 view.setGravity(Gravity.CENTER);
-                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
+                view.setTextColor(getResources().getColor(R.color.main_color));
                 view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
                 view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.light_color));
                 jobBright.addView(view, lp);
             }
         }

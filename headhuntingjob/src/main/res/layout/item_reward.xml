@@ -29,7 +29,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/padding_small"
                 android:gravity="right"
-                android:paddingRight="@dimen/padding_default"
+                android:paddingRight="@dimen/padding_small"
                 android:text="六安市"
                 android:textColor="@color/light_color"
                 android:textSize="@dimen/text_small" />
@@ -59,7 +59,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2">
+                android:layout_weight="3">
 
                 <TextView
                     android:id="@+id/tv_reward"
@@ -83,14 +83,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="2">
 
                 <TextView
                     android:id="@+id/tv_salary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:paddingRight="@dimen/padding_default"
+                    android:paddingRight="@dimen/padding_small"
                     android:text="20000-29999元"
                     android:textColor="@color/red"
                     android:textSize="@dimen/text_small" />
