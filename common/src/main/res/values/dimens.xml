@@ -5,11 +5,11 @@
 
     <!--  字号设定 -->
     <!--  默认字号 -->
-    <dimen name="text_default">15sp</dimen>
+    <dimen name="text_default">16sp</dimen>
     <!--  小号字 -->
-    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
     <!--  超小号字 -->
-    <dimen name="text_litter">10sp</dimen>
+    <dimen name="text_litter">12sp</dimen>
     <dimen name="text_litter_small">8sp</dimen>
     <!--  大号字 -->
     <dimen name="text_large">18sp</dimen>
