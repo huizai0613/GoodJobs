@@ -1,7 +1,6 @@
 package cn.goodjobs.applyjobs.activity.jobSearch;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import java.util.HashMap;
 import cn.goodjobs.applyjobs.R;
 import cn.goodjobs.common.activity.ImagePreviewActivity;
 import cn.goodjobs.common.activity.LsMapActivity;
-import cn.goodjobs.common.activity.WebViewActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.DensityUtil;
@@ -31,7 +29,6 @@ import cn.goodjobs.common.util.JumpViewUtil;
 import cn.goodjobs.common.util.PhoneUtils;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
-import cn.goodjobs.common.view.BabushkaText;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
 /**
@@ -62,6 +59,7 @@ public class JobCompanyDetailActivity extends BaseActivity
     private View com_industry_box;
     private View com_add_box;
     private View com_phone_box;
+    private View comContentBox;
 
     @Override
     protected int getLayoutID()
@@ -93,6 +91,7 @@ public class JobCompanyDetailActivity extends BaseActivity
         comMap = (TextView) findViewById(R.id.com_map);
         comPhone = (TextView) findViewById(R.id.com_phone);
         comPhoneBox = (View) findViewById(R.id.com_phone_box);
+        comContentBox = (View) findViewById(R.id.com_content_box);
         comContent = (TextView) findViewById(R.id.com_content);
         comUpdown = (ImageView) findViewById(R.id.com_updown);
         jobSimilarBox = findViewById(R.id.job_similar_box);
@@ -166,7 +165,7 @@ public class JobCompanyDetailActivity extends BaseActivity
 
     private void setData()
     {
-        comName.setText( corpData.optString("corpName"));
+        comName.setText(corpData.optString("corpName"));
         setStrng2Bab(comNature, com_nature_box, corpData.optString("corpkind"));
         setStrng2Bab(comNum, com_num_box, corpData.optString("corpsize"));
         setStrng2Bab(comIndustry, com_industry_box, corpData.optString("industry"));
@@ -180,7 +179,15 @@ public class JobCompanyDetailActivity extends BaseActivity
         } else {
             comPhone.setText(phone + " ");
         }
-        comContent.setText(corpData.optString("intro"));
+
+        String intro = corpData.optString("intro");
+
+        if (StringUtil.isEmpty(intro)) {
+            comContentBox.setVisibility(View.GONE);
+        } else {
+            comContent.setText(intro);
+        }
+
 
         loc = corpData.optString("loc");
         if (StringUtil.isEmpty(loc)) {

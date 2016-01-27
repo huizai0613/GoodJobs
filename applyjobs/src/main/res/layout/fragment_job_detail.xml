@@ -133,7 +133,6 @@
                     android:background="@drawable/list_item_bg"
                     android:drawableRight="@drawable/r_icon"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/space_5"
                     android:textColor="@color/main_color"
                     android:textSize="@dimen/font_size_14"/>
             </LinearLayout>

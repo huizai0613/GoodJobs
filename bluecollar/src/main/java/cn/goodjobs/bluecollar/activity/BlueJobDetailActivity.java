@@ -74,12 +74,16 @@ public class BlueJobDetailActivity extends BaseActivity
         super.onResume();
         myLocation = GoodJobsApp.getInstance().getMyLocation();
         if (!isLoad && myLocation == null) {
-            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener() {
+            LocationUtil.newInstance(mcontext.getApplication()).startLoction(new MyLocationListener()
+            {
                 @Override
-                public void loaction(final MyLocation location) {
-                    mcontext.runOnUiThread(new Runnable() {
+                public void loaction(final MyLocation location)
+                {
+                    mcontext.runOnUiThread(new Runnable()
+                    {
                         @Override
-                        public void run() {
+                        public void run()
+                        {
                             LogUtil.info(location.toString());
                             SharedPrefUtil.saveObjectToLoacl("location", location);
                             BlueJobDetailActivity.this.myLocation = location;
@@ -112,13 +116,15 @@ public class BlueJobDetailActivity extends BaseActivity
 
                 BlueJobDetailFragment item = blueJobDetailFragments.get(viewPager.getCurrentItem());
                 JSONObject jobDetailJson = item.getJobDetailJson();
+                if (jobDetailJson != null) {
+                    HashMap<String, Object> param = new HashMap<String, Object>();
+                    param.put("cropName", jobDetailJson.optString("corpName"));
+                    param.put("jobName", jobDetailJson.optString("jobName"));
+                    param.put("blueJobID", jobDetailJson.optString("blueJobID"));
 
-                HashMap<String, Object> param = new HashMap<String, Object>();
-                param.put("cropName", jobDetailJson.optString("corpName"));
-                param.put("jobName", jobDetailJson.optString("jobName"));
-                param.put("blueJobID", jobDetailJson.optString("blueJobID"));
+                    JumpViewUtil.openActivityAndParam(mcontext, BlueComplainActivity.class, param);
 
-                JumpViewUtil.openActivityAndParam(mcontext, BlueComplainActivity.class, param);
+                }
             }
         });
 
@@ -137,7 +143,8 @@ public class BlueJobDetailActivity extends BaseActivity
         }
     }
 
-    public void hideTip(View view) {
+    public void hideTip(View view)
+    {
         tipLayout.setVisibility(View.INVISIBLE);
         SharedPrefUtil.saveDataToLoacl("zy_tip", false);
     }
