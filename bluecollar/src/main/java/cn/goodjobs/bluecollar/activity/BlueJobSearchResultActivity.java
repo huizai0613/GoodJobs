@@ -548,6 +548,13 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     @Override
     public void onSuccess(String tag, Object data)
     {
+
+        if (isRefresh) {
+            ArrayList<Integer> checkPosition = ((BlueJobSearchResultAdapter) mAdapter).getCheckPosition();
+            checkPosition.clear();
+            setBottomVisible(checkPosition.size() > 0);
+        }
+
         super.onSuccess(tag, data);
 
         JSONObject object = (JSONObject) data;
@@ -753,5 +760,6 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
             });
         }
     }
+
 
 }
