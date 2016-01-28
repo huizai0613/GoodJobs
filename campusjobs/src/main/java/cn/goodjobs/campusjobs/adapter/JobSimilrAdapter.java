@@ -31,7 +31,7 @@ public class JobSimilrAdapter extends JsonArrayAdapterBase<JSONObject> {
     @Override
     protected View getExView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_jobsearchresult, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_csearchresult, null);
         }
         TextView title = ViewHolderUtil.get(convertView, R.id.item_title);
         TextView address = ViewHolderUtil.get(convertView, R.id.item_address);

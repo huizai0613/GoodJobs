@@ -25,7 +25,7 @@
             android:padding="@dimen/padding_small"
             android:text="大型招聘会"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <View style="@style/line" />

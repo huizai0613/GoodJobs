@@ -127,10 +127,11 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
     private String itemIndtype;
     private String itemJobfuncId;
     private String itemIndtypeId;
-    private boolean isPro;
+    private boolean isPro, isAnhu;
     private double lat, lng;
 
-
+    private String proId;
+    private String addressId;
     private String itemAddressId;
     private String itemSalaryId = "";
     private String corpkindId;
@@ -194,11 +195,21 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
                         if (isPro) {
                             if (!entry.getValue().equals("0")) {
                                 itemAddressId = entry.getValue();
+                                addressId = itemAddressId;
+                                if (isAnhu) {
+                                    isPro = false;
+                                } else {
+                                    isPro = true;
+                                }
                                 UpdateDataTaskUtils.selectCompusInfo(CampusSearchResultActivity.this, false, itemAddressId, CampusSearchResultActivity.this);
+                            } else {
+                                itemAddressId = proId;
                             }
                         } else {
                             if (!entry.getValue().equals("0")) {
                                 itemAddressId = entry.getValue();
+                            } else {
+                                itemAddressId = addressId;
                             }
                         }
                     }
@@ -247,9 +258,9 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
 
         ArrayList<Integer> integers = new ArrayList<Integer>();
         int i = DensityUtil.dip2px(mcontext, 45);
-        integers.add(5 * i);
-        integers.add(5 * i);
-        integers.add(5 * i);
+        integers.add(10 * i);
+        integers.add(10 * i);
+        integers.add(10 * i);
         etvMenu.setValue(strings, views, integers);
 
         etvMenu.postDelayed(new Runnable() {
@@ -339,12 +350,20 @@ public class CampusSearchResultActivity extends BaseListActivity implements Upda
         itemJobfunc = getIntent().getStringExtra("itemJobfunc");
         itemIndtype = getIntent().getStringExtra("itemIndtype");
 
+        if (itemAddress.equals("安徽省")) {
+            isAnhu = true;
+        } else {
+            isAnhu = false;
+        }
+
         itemAddressId = getIntent().getStringExtra("itemAddressId");
+        addressId = itemAddressId;
         itemJobfuncId = getIntent().getStringExtra("itemJobfuncId");
         itemIndtypeId = getIntent().getStringExtra("itemIndtypeId");
 
         if (!StringUtil.isEmpty(itemAddressId) && itemAddressId.startsWith("-1")) {
             isPro = true;
+            proId = itemAddressId;
         } else {
             isPro = false;
         }
