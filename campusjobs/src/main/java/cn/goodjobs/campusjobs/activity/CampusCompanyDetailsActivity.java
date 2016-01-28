@@ -53,6 +53,12 @@ public class CampusCompanyDetailsActivity extends BaseActivity {
     private EmptyLayout error_layout;
     private JSONObject corpData;
     private String loc;
+    private View com_nature_box;
+    private View com_num_box;
+    private View com_industry_box;
+    private View com_add_box;
+    private View com_phone_box;
+    private View comContentBox;
 
     @Override
     protected int getLayoutID() {
@@ -81,11 +87,20 @@ public class CampusCompanyDetailsActivity extends BaseActivity {
         comMap = (TextView) findViewById(R.id.com_map);
         comPhone = (TextView) findViewById(R.id.com_phone);
         comPhoneBox = (View) findViewById(R.id.com_phone_box);
+        comContentBox = (View) findViewById(R.id.com_content_box);
         comContent = (TextView) findViewById(R.id.com_content);
         comUpdown = (ImageView) findViewById(R.id.com_updown);
         jobSimilarBox = findViewById(R.id.job_similar_box);
         mCompanyImgBox = (LinearLayout) findViewById(R.id.company_img_box);
         companyImg = findViewById(R.id.company_img);
+
+
+        com_nature_box = findViewById(R.id.com_nature_box);
+        com_num_box = findViewById(R.id.com_num_box);
+        com_industry_box = findViewById(R.id.com_industry_box);
+        com_add_box = findViewById(R.id.com_add_box);
+        com_phone_box = findViewById(R.id.com_phone_box);
+
 
         Drawable iconPhone = getResources().getDrawable(R.drawable.phone);
         iconPhone.setBounds(0, 0, DensityUtil.dip2px(mcontext, 15), DensityUtil.dip2px(mcontext, 15));
@@ -96,6 +111,14 @@ public class CampusCompanyDetailsActivity extends BaseActivity {
         comMap.setCompoundDrawables(iconMap, null, null, null);
 
         error_layout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        error_layout.setOnLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("corpID", corpID);
+                HttpUtil.post(URLS.API_JOB_Corpshow, param, CampusCompanyDetailsActivity.this);
+            }
+        });
         HashMap<String, Object> param = new HashMap<>();
         param.put("corpID", corpID);
         HttpUtil.post(URLS.API_JOB_Corpshow, param, this);
@@ -121,22 +144,40 @@ public class CampusCompanyDetailsActivity extends BaseActivity {
     }
 
 
+    private void setStrng2Bab(TextView tv, View box, String content) {
+
+        if (StringUtil.isEmpty(content)) {
+            box.setVisibility(View.GONE);
+            return;
+        }
+
+        tv.setText(content);
+    }
+
     private void setData() {
         comName.setText(corpData.optString("corpName"));
-        comNature.setText(corpData.optString("corpkind"));
-        comNum.setText(corpData.optString("corpsize"));
-        comIndustry.setText(corpData.optString("industry"));
-        comAdd.setText(corpData.optString("address"));
+        setStrng2Bab(comNature, com_nature_box, corpData.optString("corpkind"));
+        setStrng2Bab(comNum, com_num_box, corpData.optString("corpsize"));
+        setStrng2Bab(comIndustry, com_industry_box, corpData.optString("industry"));
+        setStrng2Bab(comAdd, com_add_box, corpData.optString("address"));
+
+
         String phone = corpData.optString("phone");
-        if (StringUtil.isEmpty(phone) && !"0".equals(corpData.optString("hidePhone"))) {
+
+        if (StringUtil.isEmpty(phone) || !"0".equals(corpData.optString("hidePhone"))) {
             comPhoneBox.setVisibility(View.GONE);
-//            comPhone.setCompoundDrawables(null, null, null, null);
-//            comPhone.setText("暂无");
-//            comPhone.setOnClickListener(null);
         } else {
             comPhone.setText(phone + " ");
         }
-        comContent.setText(corpData.optString("intro"));
+
+        String intro = corpData.optString("intro");
+
+        if (StringUtil.isEmpty(intro)) {
+            comContentBox.setVisibility(View.GONE);
+        } else {
+            comContent.setText(intro);
+        }
+
 
         loc = corpData.optString("loc");
         if (StringUtil.isEmpty(loc)) {
@@ -179,7 +220,7 @@ public class CampusCompanyDetailsActivity extends BaseActivity {
 
         int i = v.getId();
         if (i == R.id.com_updown) {
-            if (comContent.getMaxLines() < 100) {
+            if (Math.floor(comContent.getHeight() / comContent.getLineHeight()) <= 5) {
                 comContent.setMaxLines(100);
                 comUpdown.setImageResource(R.drawable.companyarticle_up);
             } else {
@@ -202,7 +243,6 @@ public class CampusCompanyDetailsActivity extends BaseActivity {
 
 
     public void setPhotos(final ArrayList<String> photos) {
-        photos.add("http://sdifisdjf.sdfjisd");
         int dip2pxBig = DensityUtil.dip2px(mcontext, 15);
         int dip2pxSmall = DensityUtil.dip2px(mcontext, 5);
         int itemW = 0;
