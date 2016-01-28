@@ -35,6 +35,15 @@
             android:gravity="right"
             android:text="还能再输入200个字"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_color"
+            android:textSize="@dimen/text_litter"
+            android:layout_margin="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:text="添加图片（最多4张）"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

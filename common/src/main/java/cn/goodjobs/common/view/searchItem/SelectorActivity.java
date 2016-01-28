@@ -39,12 +39,13 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
 
     TranslateAnimation mShowAction;
     TranslateAnimation mHiddenAction;
+    int level;
+    boolean needRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        selectorItemView.init();
         initView();
     }
 
@@ -72,6 +73,7 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         selectorItemView.init();
         setTopTitle(selectorItemView.title);
 
+        level = getIntent().getIntExtra("level", 0);
         myListView = (MyListView) findViewById(R.id.myListView);
         tvSelected = (TextView) findViewById(R.id.tvSelected);
         imgExpand = (ImageView) findViewById(R.id.imgExpand);
@@ -91,6 +93,10 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         initAnim();
         handler = new Handler();
         initRightBtn();
+
+        if (selectorItemView.selectedItems.size() > 0) {
+            refreshSelectedNum();
+        }
     }
 
     @Override
@@ -124,8 +130,9 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
                 // 包含下级列表
                 Intent intent = new Intent(this, SelectorActivity.class);
                 intent.putExtra("title", selectorEntity.name);
+                intent.putExtra("level", level++);
                 selectorItemView.selectorEntityStack.add(selectorEntity.array);
-                startActivity(intent);
+                startActivityForResult(intent, 111);
             } else {
                 if (selectorEntity.isSelected && !selectorItemView.singleSelected) {
                     selectorEntity.isSelected = false;
@@ -159,6 +166,7 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
                     selectorEntity.isSelected = true;
                     selectorItemView.selectedItems.add(selectorEntity);
                 }
+                needRefresh = true;
                 refreshUI();
                 if (selectorItemView.singleSelected) {
                     sure();
@@ -168,6 +176,7 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
             selectorEntity = selectedAdapter.getItem(position);
             selectorEntity.isSelected = false;
             selectorItemView.selectedItems.remove(selectorEntity);
+            needRefresh = true;
             refreshUI();
         }
     }
@@ -192,6 +201,7 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
             SelectorEntity selectorEntity = selectorItemView.selectedItems.get(0);
             selectorEntity.isSelected = false;
             selectorItemView.selectedItems.remove(0);
+            needRefresh = true;
             refreshUI();
         }
     }
@@ -207,8 +217,28 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
     {
         selectedAdapter.clear();
         selectedAdapter.appendToList(selectorItemView.selectedItems);
-        selectorAdapter.notifyDataSetChanged();
         initTopSelectedText();
+        selectorAdapter.notifyDataSetChanged();
+    }
+
+    // 刷新选中数目
+    private void refreshSelectedNum() {
+        if (level < selectorItemView.getLevelCount() - 1) {
+            for (int j=0; j<selectorAdapter.getCount();++j) {
+                SelectorEntity selectorEntity = selectorAdapter.getItem(j);
+                if (selectorEntity.array != null && selectorItemView.selectedItems != null) {
+                    int count = 0;
+                    int size = selectorItemView.selectedItems.size();
+                    for (int i=0;i<size;++i) {
+                        SelectorEntity temp = selectorItemView.selectedItems.get(i);
+                        if (temp.parentId.equals(SelectorItemView.allId+SelectorItemView.parentSpitStr+selectorEntity.id)) {
+                            count++;
+                        }
+                    }
+                    selectorEntity.selectedNum = count;
+                }
+            }
+        }
     }
 
     @Override
@@ -218,6 +248,9 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
             sure();
         } else {
             selectorItemView.selectorEntityStack.pop();
+            if (needRefresh) {
+                setResult(RESULT_OK);
+            }
             super.back();
         }
     }
@@ -281,4 +314,11 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (RESULT_OK == resultCode && requestCode == 111) {
+            refreshSelectedNum();
+        }
+    }
 }

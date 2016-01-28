@@ -87,7 +87,7 @@ public class Pro_type_adapter extends BaseAdapter
                 Type item = getItem(position);
                 param.put("itemAddress", "合肥市");
                 param.put("itemAddressId", "1043");
-                param.put("itemJobfunc", item.getTypename());
+                param.put("itemJobfunc", item.getTypename().equals("不限") ? item.getTypePrantname() : item.getTypename());
                 param.put("itemJobfuncId", item.getId() + "");
                 param.put("jobpraentId", item.getPranetId() + "");
                 JumpViewUtil.openActivityAndParam(context, BlueJobSearchResultActivity.class, param);

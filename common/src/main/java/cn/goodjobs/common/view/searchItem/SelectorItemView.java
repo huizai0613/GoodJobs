@@ -76,6 +76,10 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         a.recycle();
     }
 
+    public int getLevelCount() {
+        // 获取选择等级
+        return keys.length;
+    }
 
     @Override
     public void onClick(View v)
@@ -99,12 +103,12 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             selectorEntityStack = new Stack<List<SelectorEntity>>();
             selectedItems = new ArrayList<SelectorEntity>();
             JSONArray jsonArray = (JSONArray) JsonMetaUtil.getObject(keys[0]);
-            selectorEntityStack.add(initWithJSONOArray(allId, "", jsonArray, 1));
+            selectorEntityStack.add(initWithJSONOArray(null, allId, "", jsonArray, 1));
             isInit = true;
         }
     }
 
-    private List<SelectorEntity> initWithJSONOArray(String parentId, String parantName, JSONArray jsonArray, int keyIndex)
+    private List<SelectorEntity> initWithJSONOArray(SelectorEntity parantEntity, String parentId, String parantName, JSONArray jsonArray, int keyIndex)
     {
         JSONObject jsonObject = null;
         if (keyIndex < keys.length) {
@@ -120,6 +124,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             selectorEntityList.add(selectorEntity2);
         }
         int len1 = jsonArray.length();
+        int count = 0;
         for (int i = 0; i < len1; ++i) {
             JSONObject jsonObject1 = jsonArray.optJSONObject(i);
             String id1 = jsonObject1.optString("id");
@@ -127,14 +132,25 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             if (jsonObject != null && jsonObject.has(id1)) {
                 // 该列表包含下级选择项
                 JSONArray jsonArray1 = jsonObject.optJSONArray(id1);
-                selectorEntity.array = initWithJSONOArray(allId + parentSpitStr + id1, jsonObject1.optString("name"), jsonArray1, keyIndex + 1);
+                String parantName1;
+                if (!StringUtil.isEmpty(parantName)) {
+                    parantName1 = parantName + " " + jsonObject1.optString("name");
+                } else {
+                    parantName1 = jsonObject1.optString("name");
+                }
+                selectorEntity.array = initWithJSONOArray(selectorEntity,allId + parentSpitStr + id1, parantName1, jsonArray1, keyIndex + 1);
+                count += selectorEntity.selectedNum;
             } else {
                 if (selectorIds.contains(spitStr + id1 + spitStr)) {
                     selectorEntity.isSelected = true;
                     selectedItems.add(selectorEntity);
+                    count++;
                 }
             }
             selectorEntityList.add(selectorEntity);
+        }
+        if (parantEntity != null && count > 0) {
+            parantEntity.selectedNum = count;
         }
         return selectorEntityList;
     }
