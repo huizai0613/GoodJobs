@@ -117,7 +117,6 @@ public class PartTimeJobActivity extends BaseListActivity {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 schoolType = selectedKey;
-                mAdapter.clear();
                 startRefresh();
                 etv_career.setTitle(showString, 1);
             }
@@ -126,7 +125,6 @@ public class PartTimeJobActivity extends BaseListActivity {
             @Override
             public void onSelected(String selectedKey, String showString) {
                 runType = selectedKey;
-                mAdapter.clear();
                 startRefresh();
                 etv_career.setTitle(showString, 0);
             }
@@ -149,8 +147,8 @@ public class PartTimeJobActivity extends BaseListActivity {
         super.getDataFronServer();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("page", page);
-        params.put("ttype", schoolType);
-        params.put("ptime", runType);
+        params.put("ttype", runType);
+        params.put("ptime", schoolType);
         params.put("keyword", et.getText().toString());
         HttpUtil.post(URLS.API_JOB_ParttimeJob, params, this);
     }

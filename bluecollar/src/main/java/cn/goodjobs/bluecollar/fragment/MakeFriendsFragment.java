@@ -127,7 +127,6 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
         super.onClick(v);
         if (v.getId() == R.id.btn_right) {
             if (GoodJobsApp.getInstance().isLogin()) {
-//                Intent intent = new Intent(getActivity(), MakeFriendPersonalInfoActivity.class);
                 Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
                 startActivity(intent);
             } else {

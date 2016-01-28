@@ -13,6 +13,7 @@ public class SelectorEntity {
     public String name;
     public String parentName; // 父节点名称
     public String parentId; // 父节点名称
+    public int selectedNum; // 被选中的数量
     public boolean isSelected; // 是否被选中
     public List<SelectorEntity> array; // 下级列表
 

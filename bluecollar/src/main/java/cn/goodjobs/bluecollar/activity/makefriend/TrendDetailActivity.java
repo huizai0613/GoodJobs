@@ -211,6 +211,7 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
         TrendItemView viewTrend = (TrendItemView) findViewById(R.id.viewTrend);
 
         btnLook.setOnClickListener(this);
+        headPhoto.setOnClickListener(this);
         if (!StringUtil.isEmpty(jsonObject.optString("userPhoto"))) {
             Uri uri = Uri.parse(jsonObject.optString("userPhoto"));
             headPhoto.setImageURI(uri);
@@ -260,7 +261,6 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             } else {
                 btnLook.setVisibility(View.INVISIBLE);
             }
-
         }
         friendID = jsonObject.optString("friendID");
         viewTrend.showView(jsonObject);
@@ -301,6 +301,18 @@ public class TrendDetailActivity extends BaseActivity implements TextView.OnEdit
             intent.putExtra("nickName", nickName);
             intent.putExtra("friendID", friendID);
             startActivity(intent);
+        } else if (v.getId() == R.id.headPhoto) {
+            Intent intent = new Intent();
+            if (myHas == 1) {
+                // 当前是自己发表的动态
+                intent.setClass(this, PersonalInfoActivity.class);
+                startActivity(intent);
+            } else {
+                intent.setClass(this, OtherPersonalInfoActivity.class);
+                intent.putExtra("friendID", friendID);
+                intent.putExtra("nickName", nickName);
+                startActivity(intent);
+            }
         } else if (v.getId() == R.id.btnDel) {
             // 删除动态
             AlertDialogUtil.show(this, R.string.app_name, "您确定删除这条动态吗？", true, "确定", "取消", new DialogInterface.OnClickListener() {

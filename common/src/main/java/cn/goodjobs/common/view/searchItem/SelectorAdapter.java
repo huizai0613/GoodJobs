@@ -27,6 +27,7 @@ public class SelectorAdapter extends AdapterBase<SelectorEntity> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_select, null);
             viewHolder = new ViewHolder();
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            viewHolder.tvCount = (TextView) convertView.findViewById(R.id.tvCount);
             viewHolder.imgSelected = (ImageView) convertView.findViewById(R.id.imgSelected);
             convertView.setTag(viewHolder);
         } else {
@@ -34,16 +35,26 @@ public class SelectorAdapter extends AdapterBase<SelectorEntity> {
         }
         SelectorEntity selectorEntity = getItem(position);
         viewHolder.tvTitle.setText(selectorEntity.name);
-        if (selectorEntity.isSelected) {
-            viewHolder.imgSelected.setVisibility(View.VISIBLE);
+        if (selectorEntity.array != null) {
+            viewHolder.imgSelected.setImageResource(R.drawable.icon_arrow);
+            if (selectorEntity.selectedNum > 0) {
+                viewHolder.tvCount.setVisibility(View.VISIBLE);
+                viewHolder.tvCount.setText("已选择"+selectorEntity.selectedNum+"项");
+            } else {
+                viewHolder.tvCount.setVisibility(View.INVISIBLE);
+            }
         } else {
-            viewHolder.imgSelected.setVisibility(View.INVISIBLE);
+            if (selectorEntity.isSelected) {
+                viewHolder.imgSelected.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.imgSelected.setVisibility(View.INVISIBLE);
+            }
         }
         return convertView;
 }
 
     static class ViewHolder {
-        TextView tvTitle;
+        TextView tvTitle, tvCount;
         ImageView imgSelected;
     }
 }

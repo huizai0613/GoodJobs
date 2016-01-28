@@ -150,7 +150,7 @@ public class MsgDetailActivity extends BaseXListViewActivity implements TextView
             listView.stopLoadMore();
         } else {
             JSONObject jsonObject = (JSONObject) data;
-            TipsUtil.show(this, jsonObject.optString("message"));
+//            TipsUtil.show(this, jsonObject.optString("message"));
             msgDetailAdapter.removeObject(sendMap.get(tag));
             msgDetailAdapter.appendToList(jsonObject.optJSONArray("list"));
             JSONObject jsonObject1 = (JSONObject) msgDetailAdapter.getItem(msgDetailAdapter.getCount()-1);

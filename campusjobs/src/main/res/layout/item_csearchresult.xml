@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dip"
-        android:layout_marginLeft="@dimen/space_10"
-        android:layout_marginRight="@dimen/space_10"
+        android:paddingLeft="@dimen/space_10"
+        android:paddingRight="@dimen/space_10"
+        android:background="@drawable/list_item_bg"
         android:orientation="horizontal">
 
         <CheckBox
@@ -18,8 +19,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/checkbox_selector"
             android:button="@null"
-            android:padding="@dimen/space_10"
-            />
+            android:padding="@dimen/space_10" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/main_color"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textSize="@dimen/font_size_14" />
 
                 <TextView
                     android:id="@+id/item_address"
@@ -51,7 +51,7 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical|right"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/font_size_12"/>
+                    android:textSize="@dimen/font_size_12" />
 
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textColor="@color/light_color"
-                android:textSize="@dimen/font_size_14"/>
+                android:textSize="@dimen/font_size_14" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textSize="@dimen/font_size_14" />
 
                 <TextView
                     android:id="@+id/item_time"
@@ -90,7 +90,7 @@
                     android:layout_weight="2"
                     android:gravity="center_vertical|right"
                     android:textColor="@color/light_color"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textSize="@dimen/font_size_14" />
 
             </LinearLayout>
 
@@ -98,7 +98,5 @@
 
     </LinearLayout>
 
-    <View
-        style="@style/line"
-        ></View>
+    <View style="@style/line"></View>
 </LinearLayout>
