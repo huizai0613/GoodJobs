@@ -77,6 +77,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
     private String lat;
     private JSONObject jobDetailJson;
     private View jobCroBox;
+    private LinearLayout job_similar_bigbox;
 
 
     public JSONObject getJobDetailJson()
@@ -111,6 +112,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
         jobBrightBox = inflate.findViewById(R.id.job_bright_box);
         jobSimilarBox = (LinearLayout) inflate.findViewById(R.id.job_similar_box);
+        job_similar_bigbox = (LinearLayout) inflate.findViewById(R.id.job_similar_bigbox);
         jobBright = (XCFlowLayout) inflate.findViewById(R.id.job_bright);
 
         jobContent = (TextView) inflate.findViewById(R.id.job_content);
@@ -270,6 +272,7 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
             final JSONArray list = dataJson.optJSONArray("list");
 
             if (list != null && list.length() > 0) {
+                job_similar_bigbox.setVisibility(View.VISIBLE);
                 jobSimilarBox.removeAllViews();
                 StringBuilder builder = new StringBuilder();
                 int length = list.length();
@@ -389,6 +392,8 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
                     }
 
                 }
+            } else {
+                job_similar_bigbox.setVisibility(View.GONE);
             }
         }
     }

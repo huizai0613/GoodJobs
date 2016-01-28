@@ -53,8 +53,7 @@
             <in.srain.cube.views.ptr.loadmore.LoadMoreListViewContainer
                 android:id="@id/load_more_list_view_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffffff">
+                android:layout_height="match_parent">
 
                 <ListView
                     android:id="@id/list_view"
