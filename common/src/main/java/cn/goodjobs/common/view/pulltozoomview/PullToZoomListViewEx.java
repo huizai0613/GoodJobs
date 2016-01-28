@@ -260,8 +260,10 @@ public class PullToZoomListViewEx extends PullToZoomBase<ListView> implements Ab
             if (topBarView != null) {
                 if (topBarView.getHeight() < mHeaderContainer.getBottom()) {
                     topBarView.getBackground().setAlpha(0);
+                    topBarView.setTag(0);
                 } else {
                     topBarView.getBackground().setAlpha(255);
+                    topBarView.setTag(255);
                 }
             }
             if (!isRefresh && !isRefreshZooming && mScalingRunnable!=null && scrollListener!=null && mScalingRunnable.isFinished() && (-f > mHeaderHeight/3)) {

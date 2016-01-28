@@ -8,9 +8,10 @@
         android:id="@+id/btn_left"
         android:layout_width="110dip"
         android:layout_height="match_parent"
-        android:background="@drawable/topbar_btn_bg"
         android:paddingBottom="@dimen/padding_small"
         android:paddingTop="@dimen/padding_small"
+        android:onClick="toModule"
+        android:background="@color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/logo_white" />
 

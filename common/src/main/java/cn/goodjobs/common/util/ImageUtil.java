@@ -259,39 +259,42 @@ public class ImageUtil {
 		File outputFile = new File(path);
 		long fileSize = outputFile.length();
 		LogUtil.info("filesize:"+fileSize);
-		if (fileSize >= fileMaxSize) {
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inJustDecodeBounds = true;
-			BitmapFactory.decodeFile(path, options);
-			int height = options.outHeight;
-			int width = options.outWidth;
-			double scale = Math.sqrt((float) fileSize / fileMaxSize);
-			options.outHeight = (int) (height / scale);
-			options.outWidth = (int) (width / scale);
-			options.inSampleSize = (int) (scale + 0.5);
-			options.inJustDecodeBounds = false;
+		if (outputFile.exists() && fileSize > 0) {
+			if (fileSize >= fileMaxSize) {
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inJustDecodeBounds = true;
+				BitmapFactory.decodeFile(path, options);
+				int height = options.outHeight;
+				int width = options.outWidth;
+				double scale = Math.sqrt((float) fileSize / fileMaxSize);
+				options.outHeight = (int) (height / scale);
+				options.outWidth = (int) (width / scale);
+				options.inSampleSize = (int) (scale + 0.5);
+				options.inJustDecodeBounds = false;
 
-			Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-			outputFile = new File(createImageFile().getPath());
-			FileOutputStream fos = null;
-			try {
-				fos = new FileOutputStream(outputFile);
-				bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
-				fos.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (!bitmap.isRecycled()) {
-				bitmap.recycle();
-			}else{
-				File tempFile = outputFile;
+				Bitmap bitmap = BitmapFactory.decodeFile(path, options);
 				outputFile = new File(createImageFile().getPath());
-				copyFileUsingFileChannels(tempFile, outputFile);
-			}
+				FileOutputStream fos = null;
+				try {
+					fos = new FileOutputStream(outputFile);
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+					fos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (!bitmap.isRecycled()) {
+					bitmap.recycle();
+				}else{
+					File tempFile = outputFile;
+					outputFile = new File(createImageFile().getPath());
+					copyFileUsingFileChannels(tempFile, outputFile);
+				}
 
+			}
+			return outputFile;
 		}
-		return outputFile;
+		return null;
 	}
 
 	public static Uri createImageFile(){

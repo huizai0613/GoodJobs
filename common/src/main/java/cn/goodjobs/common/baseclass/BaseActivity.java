@@ -124,6 +124,15 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         startActivity(intent);
     }
 
+    /**
+     * 跳转到模块选择界面
+     */
+    public void toModule(View view) {
+        Intent intent = new Intent();
+        intent.setClassName(this, "cn.goodjobs.client.activity.MainActivity");
+        startActivity(intent);
+    }
+
     protected void back() {
         HttpUtil.cancelRequest(); // 返回上级界面前取消当前界面的网络请求
         hideSoftInputFromWindow();

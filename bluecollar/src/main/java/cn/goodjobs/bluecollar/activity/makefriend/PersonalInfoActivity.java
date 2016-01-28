@@ -48,6 +48,7 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     View footView;
     boolean hasMore; // 是否包含更多
     boolean firstIn = true;
+    int alpha = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,6 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
     protected void initWeight() {
         setTopTitle("我的主页");
         topLayout = (RelativeLayout) findViewById(R.id.topLayout);
-        topLayout.getBackground().setAlpha(0); // 设置背景透明
         listView = (PullToZoomListViewEx) findViewById(R.id.listview);
         btnEdit = (ImageButton) findViewById(R.id.btn_right);
         btnMsg = (ImageButton) findViewById(R.id.btn_msg);
@@ -217,6 +217,20 @@ public class PersonalInfoActivity extends BaseActivity implements AdapterView.On
             Intent intent = new Intent(this, AddTrendActivity.class);
             startActivityForResult(intent, 101);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        topLayout.getBackground().setAlpha(alpha);
+        topLayout.setTag(alpha);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        alpha = (int) topLayout.getTag();
+        topLayout.getBackground().setAlpha(255);
+        super.onPause();
     }
 
     @Override

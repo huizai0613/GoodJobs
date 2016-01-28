@@ -154,7 +154,6 @@ public class AddTrendActivity extends BaseImageUploadActivity {
             uploadImaggeData = new UploadImageAdapter.UploadImaggeData();
             uploadImaggeData.addTrendActivity = this;
             uploadImaggeData.file = ImageUtil.scal(Uri.parse(file));
-            LogUtil.info("filename:"+file);
             uploadImaggeData.status = 1;
             uploadImageAdapter.uploadImaggeDatas.add(uploadImageAdapter.uploadImaggeDatas.size() - 1, uploadImaggeData);
         }
