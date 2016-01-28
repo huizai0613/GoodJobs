@@ -66,6 +66,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
     private View jobSend;
     private int memCorpID;
     private View job_share;
+    private View job_similar_bigbox;
 
 
     @Override
@@ -90,6 +91,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
         jobAddress = (BabushkaText) inflate.findViewById(R.id.job_address);
 
         jobBrightBox = inflate.findViewById(R.id.job_bright_box);
+        job_similar_bigbox = inflate.findViewById(R.id.job_similar_bigbox);
         jobSimilarBox = (LinearLayout) inflate.findViewById(R.id.job_similar_box);
         jobBright = (XCFlowLayout) inflate.findViewById(R.id.job_bright);
 
@@ -187,6 +189,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
             final JSONArray list = dataJson.optJSONArray("list");
 
             if (list != null && list.length() > 0) {
+                job_similar_bigbox.setVisibility(View.VISIBLE);
                 jobSimilarBox.removeAllViews();
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < list.length(); i++) {
@@ -243,6 +246,8 @@ public class JobDetailFragment extends BaseViewPagerFragment
                     jobSimilarBox.addView(inflate, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 }
 
+            } else {
+                job_similar_bigbox.setVisibility(View.GONE);
             }
         }
     }
