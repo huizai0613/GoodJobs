@@ -20,10 +20,11 @@
             android:background="@drawable/job_detail_collect_but_selector"
             android:ellipsize="end"
             android:gravity="center"
+            android:paddingTop="5dip"
             android:singleLine="true"
             android:text="收藏"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_small"/>
+            android:textSize="@dimen/text_litter"/>
 
         <View
             android:layout_width="1px"
@@ -33,6 +34,7 @@
         <TextView
             android:id="@+id/job_share"
             android:layout_width="match_parent"
+            android:paddingTop="5dip"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@drawable/job_detail_collect_but_selector"
@@ -41,7 +43,7 @@
             android:singleLine="true"
             android:text="分享"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_small"/>
+            android:textSize="@dimen/text_litter"/>
 
         <View
             android:layout_width="1px"

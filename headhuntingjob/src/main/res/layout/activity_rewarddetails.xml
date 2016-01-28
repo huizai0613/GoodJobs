@@ -55,7 +55,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <Button
@@ -65,8 +65,10 @@
                         android:layout_centerVertical="true"
                         android:layout_marginTop="@dimen/padding_small"
                         android:background="@drawable/button_bg"
+                        android:paddingBottom="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_small"
                         android:text="申请职位"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_default" />
@@ -80,8 +82,10 @@
                         android:layout_marginLeft="@dimen/padding_small"
                         android:layout_marginTop="@dimen/padding_small"
                         android:background="@drawable/button_bg_yellow"
+                        android:paddingBottom="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_default"
                         android:paddingRight="@dimen/padding_default"
+                        android:paddingTop="@dimen/padding_small"
                         android:text="推荐人才"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_default" />

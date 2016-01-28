@@ -107,8 +107,11 @@ public class TwoLevelMenuView extends LinearLayout implements
         mFirstLevelAdatper.setTextSize(15);
         mFirstLevelAdatper.setSelectedKeyNoNotify(mFirstLevelKey);
         mCurrentChildData.clear();
-        mCurrentChildData.putAll(mSecondLevelData.get(mFirstLevelAdatper
-                .getSelectedKey()));
+        Map<String, String> stringStringMap = mSecondLevelData.get(mFirstLevelAdatper
+                .getSelectedKey());
+        if (stringStringMap != null) {
+            mCurrentChildData.putAll(stringStringMap);
+        }
         mFirstLevelListView.setAdapter(mFirstLevelAdatper);
         mFirstLevelAdatper.setOnItemClickListener(new MultiFirstLevelMenuAdapter.OnItemClickListener()
         {
@@ -151,7 +154,14 @@ public class TwoLevelMenuView extends LinearLayout implements
                         }
                     }
                 } else {
-                    mSecondLevelListView.setVisibility(View.GONE);
+                    ExpandTabView tag = (ExpandTabView) TwoLevelMenuView.this.getTag();
+                    if (tag != null) {
+                        tag.onPressBack();
+                    }
+                    mCurrentChildData.clear();
+                    mSecondLevelAdapter.init();
+                    mSecondLevelAdapter.notifyDataSetChanged();
+//                    mSecondLevelListView.setVisibility(View.GONE);
                     if (mOnSelectListener != null) {
                         mOnSelectListener.onSelected(key, "", mFristLevelData.get(key));
                     }

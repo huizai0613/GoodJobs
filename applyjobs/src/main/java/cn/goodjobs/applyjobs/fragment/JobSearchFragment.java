@@ -866,7 +866,15 @@ public class JobSearchFragment extends BaseFragment implements SegmentView.onSeg
     public void saveSearchLock(Map<Long, Map<String, String>> saveData, Map<String, String> put)
     {
         Set<Map.Entry<Long, Map<String, String>>> entries = saveData.entrySet();
-
+        ArrayList<String> deleteKey = new ArrayList<>();
+        for (Map.Entry<String, String> stringStringEntry : put.entrySet()) {
+            if ("不限".equals(stringStringEntry.getValue())||"-1".equals(stringStringEntry.getValue())) {
+                deleteKey.add(stringStringEntry.getKey());
+            }
+        }
+        for (String s : deleteKey) {
+            put.remove(s);
+        }
         ArrayList<Long> keys = new ArrayList<>();
         for (Map.Entry<Long, Map<String, String>> en : entries) {
             boolean isEqu = true;

@@ -155,7 +155,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 TextView view = new TextView(mActivity);
                 view.setText(treatmentArr.optString(i));
                 view.setGravity(Gravity.CENTER);
-                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_small));
+                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
                 view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
                 view.setHeight(DensityUtil.dip2px(mActivity, 25));
                 view.setBackgroundResource(R.drawable.bright_bg);
@@ -205,7 +205,6 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 BabushkaText salary = ViewHolderUtil.get(inflate, R.id.item_salary);
                 TextView time = ViewHolderUtil.get(inflate, R.id.item_time);
                 CheckBox check = ViewHolderUtil.get(inflate, R.id.item_check);
-                check.setVisibility(View.GONE);
 
                 final JSONObject item = list.optJSONObject(i);
 

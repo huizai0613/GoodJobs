@@ -184,7 +184,7 @@ public class CampusDetailsFragment extends BaseViewPagerFragment {
 
                 final int curPosition = i;
 
-                View inflate = View.inflate(mActivity, R.layout.item_jobsearchresult, null);
+                View inflate = View.inflate(mActivity, R.layout.item_csearchresult, null);
 
                 TextView title = ViewHolderUtil.get(inflate, R.id.item_title);
                 TextView address = ViewHolderUtil.get(inflate, R.id.item_address);
