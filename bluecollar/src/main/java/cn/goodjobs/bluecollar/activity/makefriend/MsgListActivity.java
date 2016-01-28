@@ -92,7 +92,7 @@ public class MsgListActivity extends BaseListActivity implements AdapterView.OnI
         JSONObject jsonObject = (JSONObject) mAdapter.getItem(position);
         Intent intent = new Intent(this, MsgDetailActivity.class);
         intent.putExtra("nickName", jsonObject.optString("nickName"));
-        intent.putExtra("friendID", jsonObject.optString("myID"));
+        intent.putExtra("friendID", jsonObject.optString("friendID"));
         startActivity(intent);
     }
 }
