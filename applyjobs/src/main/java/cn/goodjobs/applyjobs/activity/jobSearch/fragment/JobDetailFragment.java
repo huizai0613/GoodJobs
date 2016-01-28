@@ -206,7 +206,7 @@ public class JobDetailFragment extends BaseViewPagerFragment
                     BabushkaText salary = ViewHolderUtil.get(inflate, R.id.item_salary);
                     TextView time = ViewHolderUtil.get(inflate, R.id.item_time);
                     CheckBox check = ViewHolderUtil.get(inflate, R.id.item_check);
-
+                    check.setVisibility(View.GONE);
                     final JSONObject item = list.optJSONObject(i);
 
                     title.setText(item.optString("jobName"));
