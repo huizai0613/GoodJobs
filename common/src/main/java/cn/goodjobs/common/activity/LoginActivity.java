@@ -136,7 +136,7 @@ public class LoginActivity extends BaseActivity {
             }
         } else if (v.getId() == R.id.btnRegister) {
             Intent intent = new Intent(this, RegisterActivity.class);
-            startActivityForResult(intent, 111);
+            startActivityForResult(intent, 121);
         } else if (v.getId() == R.id.tv_found) {
             Intent intent = new Intent(this, FoundPasswordActivity.class);
             startActivity(intent);
@@ -280,10 +280,26 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (SharedPrefUtil.getObject("loginInfo") != null) {
-                // 表示已经登录过了
-                loginInfo = (LoginInfo) SharedPrefUtil.getObject("loginInfo");
-                etUser.setText(loginInfo.userName);
+            if (requestCode == 121) {
+                // 注册成功
+                if (formLogout) {
+                    String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
+                    Intent intent = new Intent();
+                    if (Constant.module.ApplyJobs.toString().equals(defaultModule)) {
+                        // 全职
+                        intent.setClassName(this, "cn.goodjobs.applyjobs.activity.ApplyJobsActivity");
+                    } else if (Constant.module.Lanling.toString().equals(defaultModule)) {
+                        // 蓝领
+                        intent.setClassName(this, "cn.goodjobs.bluecollar.activity.BlueCollarActivity");
+                    }
+                    intent.putExtra("pageIndex", 3); // 返回到个人中心
+                    startActivity(intent);
+                    finish();
+                    return;
+                } else {
+                    setResult(RESULT_OK);
+                    finish();
+                }
             }
         }
     }

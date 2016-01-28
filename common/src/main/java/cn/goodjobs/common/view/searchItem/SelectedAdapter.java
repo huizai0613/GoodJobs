@@ -13,7 +13,7 @@ import cn.goodjobs.common.baseclass.AdapterBase;
  * Created by wanggang on 2015/10/19 0019.
  * 以选中的
  */
-public class SelectedAdapter extends AdapterBase<SelectorEntity> {
+public class SelectedAdapter extends AdapterBase<SelectorEntity[]> {
     public SelectedAdapter(Context context) {
         super(context);
     }
@@ -24,8 +24,8 @@ public class SelectedAdapter extends AdapterBase<SelectorEntity> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_selected, null);
         }
         TextView textView = (TextView) convertView.findViewById(R.id.tvTitle);
-        SelectorEntity selectorEntity = getItem(position);
-        textView.setText(selectorEntity.getAllName());
+        SelectorEntity[] selectorEntitys = getItem(position);
+        textView.setText(selectorEntitys[0].getAllName());
         return convertView;
     }
 }

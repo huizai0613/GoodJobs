@@ -40,7 +40,6 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
     TranslateAnimation mShowAction;
     TranslateAnimation mHiddenAction;
     int level;
-    boolean needRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -93,10 +92,6 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         initAnim();
         handler = new Handler();
         initRightBtn();
-
-        if (selectorItemView.selectedItems.size() > 0) {
-            refreshSelectedNum();
-        }
     }
 
     @Override
@@ -123,39 +118,39 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        SelectorEntity selectorEntity = null;
         if (parent.getId() == R.id.listView) {
+            SelectorEntity selectorEntity = null;
             selectorEntity = selectorAdapter.getItem(position);
+            selectorItemView.curSelectedItems[level] = selectorEntity;
             if (selectorEntity.array != null) {
                 // 包含下级列表
                 Intent intent = new Intent(this, SelectorActivity.class);
                 intent.putExtra("title", selectorEntity.name);
-                intent.putExtra("level", level++);
+                intent.putExtra("level", level+1);
                 selectorItemView.selectorEntityStack.add(selectorEntity.array);
-                startActivityForResult(intent, 111);
+                startActivity(intent);
             } else {
                 if (selectorEntity.isSelected && !selectorItemView.singleSelected) {
-                    selectorEntity.isSelected = false;
-                    selectorItemView.selectedItems.remove(selectorEntity);
+                    selectorItemView.removeSelectedItem(selectorEntity);
                 } else {
                     if (selectorItemView.singleSelected) {
                         // 单选
                         if (selectorItemView.selectedItems.size() > 0) {
-                            selectorItemView.selectedItems.get(0).isSelected = false;
-                            selectorItemView.selectedItems.remove(0); // 移除上一个
+                            removePre();
                         }
                     } else {
                         if (selectorEntity.id.startsWith(SelectorItemView.allId)) {
                             // 选择不限
+//                            selectedAll();
                             for (SelectorEntity entity : selectorItemView.selectorEntityStack.lastElement()) {
-                                entity.isSelected = false;
-                                selectorItemView.selectedItems.remove(entity);
+                                selectorItemView.removeSelectedItem(entity);
                             }
                         } else {
                             SelectorEntity entity = selectorItemView.selectorEntityStack.lastElement().get(0);
                             if (entity.id.startsWith(SelectorItemView.allId)) {
-                                entity.isSelected = false;
-                                selectorItemView.selectedItems.remove(entity);
+                                if (entity.isSelected) {
+                                    selectorItemView.removeSelectedItem(entity);
+                                }
                             }
                         }
                     }
@@ -163,21 +158,83 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
                         TipsUtil.show(this, "您最多只能选择" + selectorItemView.maxSelected + "项");
                         return;
                     }
+                    doSelected(true);
                     selectorEntity.isSelected = true;
-                    selectorItemView.selectedItems.add(selectorEntity);
+                    addSelectedItem(selectorEntity);
                 }
-                needRefresh = true;
                 refreshUI();
                 if (selectorItemView.singleSelected) {
                     sure();
                 }
             }
         } else if (parent.getId() == R.id.myListView) {
-            selectorEntity = selectedAdapter.getItem(position);
-            selectorEntity.isSelected = false;
-            selectorItemView.selectedItems.remove(selectorEntity);
-            needRefresh = true;
+            SelectorEntity[] selectorEntitys = selectedAdapter.getItem(position);
+            selectorItemView.removeSelectedItem(selectorEntitys[0]);
             refreshUI();
+        }
+    }
+
+    private void doSelected(boolean isAdd) {
+        int size = selectorItemView.curSelectedItems.length;
+        if (size > 0) {
+            for (int i=0;i<size;++i) {
+                if (selectorItemView.curSelectedItems[i] != null) {
+                    if (i == size - 1) {
+                        selectorItemView.curSelectedItems[0].isSelected = isAdd;
+                    } else {
+                        if (isAdd) {
+                            selectorItemView.curSelectedItems[i].selectedNum++;
+                        } else {
+                            selectorItemView.curSelectedItems[i].selectedNum--;
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    public void addSelectedItem(SelectorEntity selectorEntity) {
+        SelectorEntity[] selectorEntities = new SelectorEntity[selectorItemView.getLevelCount()];
+        selectorEntities[0] = selectorEntity;
+        int size = selectorItemView.curSelectedItems.length;
+        if (size == 2) {
+            selectorEntities[1] = selectorItemView.curSelectedItems[0];
+        }
+        if (size == 3) {
+            selectorEntities[2] = selectorItemView.curSelectedItems[0];
+            selectorEntities[1] = selectorItemView.curSelectedItems[1];
+        }
+        selectorItemView.selectedItems.add(selectorEntities);
+    }
+
+    // 单选的时候 先移出上一个
+    private void removePre() {
+        int size = selectorItemView.selectedItems.get(0).length;
+        if (size > 0) {
+            for (int i=0;i<size;++i) {
+                if (selectorItemView.selectedItems.get(0)[i] != null) {
+                    if (i == 0) {
+                        selectorItemView.selectedItems.get(0)[i].isSelected = false;
+                    } else {
+                        selectorItemView.selectedItems.get(0)[i].selectedNum--;
+                    }
+                }
+            }
+        }
+        selectorItemView.selectedItems.remove(0);
+    }
+
+    // 选择不限
+    private void selectedAll() {
+        int size = selectorItemView.curSelectedItems.length;
+        if (size == 2) {
+            selectorItemView.curSelectedItems[0].selectedNum = 0;
+        }
+        if (size == 3) {
+            selectorItemView.curSelectedItems[0].selectedNum -= selectorItemView.curSelectedItems[1].selectedNum;
+            selectorItemView.curSelectedItems[1].selectedNum = 0;
         }
     }
 
@@ -198,10 +255,8 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         } else if (v.getId() == R.id.btn_right) {
             sure();
         } else if (v.getId() == R.id.imgExpand) {
-            SelectorEntity selectorEntity = selectorItemView.selectedItems.get(0);
-            selectorEntity.isSelected = false;
-            selectorItemView.selectedItems.remove(0);
-            needRefresh = true;
+            SelectorEntity[] selectorEntitys = selectorItemView.selectedItems.get(0);
+            selectorItemView.removeSelectedItem(selectorEntitys[0]);
             refreshUI();
         }
     }
@@ -221,26 +276,6 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
         selectorAdapter.notifyDataSetChanged();
     }
 
-    // 刷新选中数目
-    private void refreshSelectedNum() {
-        if (level < selectorItemView.getLevelCount() - 1) {
-            for (int j=0; j<selectorAdapter.getCount();++j) {
-                SelectorEntity selectorEntity = selectorAdapter.getItem(j);
-                if (selectorEntity.array != null && selectorItemView.selectedItems != null) {
-                    int count = 0;
-                    int size = selectorItemView.selectedItems.size();
-                    for (int i=0;i<size;++i) {
-                        SelectorEntity temp = selectorItemView.selectedItems.get(i);
-                        if (temp.parentId.equals(SelectorItemView.allId+SelectorItemView.parentSpitStr+selectorEntity.id)) {
-                            count++;
-                        }
-                    }
-                    selectorEntity.selectedNum = count;
-                }
-            }
-        }
-    }
-
     @Override
     protected void back()
     {
@@ -248,9 +283,6 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
             sure();
         } else {
             selectorItemView.selectorEntityStack.pop();
-            if (needRefresh) {
-                setResult(RESULT_OK);
-            }
             super.back();
         }
     }
@@ -298,7 +330,7 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
     {
         if (selectorItemView.singleSelected) {
             if (selectorItemView.selectedItems != null && selectorItemView.selectedItems.size() > 0) {
-                tvSelected.setText(selectorItemView.selectedItems.get(0).getAllName());
+                tvSelected.setText(selectorItemView.selectedItems.get(0)[0].getAllName());
                 imgExpand.setImageResource(R.drawable.selector_delete);
                 imgExpand.setOnClickListener(this);
             } else {
@@ -311,14 +343,6 @@ public class SelectorActivity extends BaseActivity implements AdapterView.OnItem
             } else {
                 tvSelected.setText("0/" + selectorItemView.maxSelected);
             }
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (RESULT_OK == resultCode && requestCode == 111) {
-            refreshSelectedNum();
         }
     }
 }

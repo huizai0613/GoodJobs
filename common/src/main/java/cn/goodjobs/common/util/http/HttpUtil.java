@@ -31,6 +31,7 @@ import java.util.Stack;
 
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.activity.resume.MyResumeActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.IntentUtil;
@@ -355,7 +356,7 @@ public class HttpUtil
                             }
                             responseHandler.onSuccess(tag, jsonObject.get("data"));
                         } else {
-                            int errorCode = jsonObject.getInt("errorCode");
+                            final int errorCode = jsonObject.getInt("errorCode");
                             if (errorCode == 404) {
                                 // 用户服务端掉线
                                 if (GoodJobsApp.getInstance().isLogin()) {
@@ -367,6 +368,23 @@ public class HttpUtil
                             } else if (errorCode == 20002) {
                                 // 蓝领交友信息不完整
                                 IntentUtil.toLanlingPersonalActivity(ScreenManager.getScreenManager().currentActivity());
+                            } else if (errorCode == 10016 || errorCode == 10059) {
+                                // 蓝领、全职简历不完善
+                                LoadingDialog.hide();
+                                requstEntityStack.pop();
+                                AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, jsonObject.getString("errorMessage"), true, "去完善", "先看看", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent();
+                                        if (errorCode == 10016) {
+                                            intent.setClass(ScreenManager.getScreenManager().currentActivity(), MyResumeActivity.class);
+                                        } else {
+                                            intent.setClassName(ScreenManager.getScreenManager().currentActivity(), "cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity");
+                                        }
+                                        ScreenManager.getScreenManager().currentActivity().startActivity(intent);
+                                    }
+                                }, null);
+                                return;
                             }
                             LoadingDialog.hide();
                             requstEntityStack.pop();
