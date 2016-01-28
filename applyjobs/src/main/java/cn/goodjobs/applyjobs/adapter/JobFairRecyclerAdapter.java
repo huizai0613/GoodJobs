@@ -93,9 +93,9 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
             }
         }
         if (count == 1) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_fair_title, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_fair_title, null);
         } else if (count == 0) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_jobfair_content, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_jobfair_content, null);
         }
 
         holder.tv = (TextView) convertView.findViewById(R.id.tv_jobfair_title);
@@ -105,7 +105,7 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
         for (int i = 0; i < headerPosition.size(); i++) {
             if (position == Integer.parseInt(headerPosition.get(i))) {
                 isHeader = true;
-                holder.tv.setOnClickListener(new View.OnClickListener() {
+                convertView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, HeaderDetailsActivity.class);
@@ -123,7 +123,7 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
             }
         }
         if (!isHeader) {
-            holder.tv.setOnClickListener(new View.OnClickListener() {
+            convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, JobNewsDetailsActivity.class);
