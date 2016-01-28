@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Stack;
 
 import cn.goodjobs.common.R;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.StringUtil;
 
 /**
@@ -33,7 +34,8 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     private String[] keys;
 
     public Stack<List<SelectorEntity>> selectorEntityStack; // 保存要显示的数据
-    public List<SelectorEntity> selectedItems; // 已经选中的数据
+    public List<SelectorEntity[]> selectedItems; // 已经选中的数据
+    public SelectorEntity[] curSelectedItems; //当前正在选择列表
     public static String spitStr = ";";
     public static String parentSpitStr = "#";
     public boolean isInit; //是否初始化
@@ -50,8 +52,6 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     {
         super(context);
         this.setOnClickListener(this);
-        selectorEntityStack = new Stack<List<SelectorEntity>>();
-        selectedItems = new ArrayList<SelectorEntity>();
     }
 
     private void initView(AttributeSet attrs)
@@ -101,9 +101,13 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     {
         if (!isInit) {
             selectorEntityStack = new Stack<List<SelectorEntity>>();
-            selectedItems = new ArrayList<SelectorEntity>();
+            selectedItems = new ArrayList<SelectorEntity[]>();
+            curSelectedItems = new SelectorEntity[keys.length];
             JSONArray jsonArray = (JSONArray) JsonMetaUtil.getObject(keys[0]);
             selectorEntityStack.add(initWithJSONOArray(null, allId, "", jsonArray, 1));
+            if (keys.length > 1 && !singleSelected) {
+                checkSelectedData();
+            }
             isInit = true;
         }
     }
@@ -119,7 +123,9 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             SelectorEntity selectorEntity2 = new SelectorEntity(parentId, "不限", parentId, parantName);
             if (selectorIds.contains(spitStr + parentId.replaceAll(allId + parentSpitStr, "") + spitStr)) {
                 selectorEntity2.isSelected = true;
-                selectedItems.add(selectorEntity2); // 不限被选中
+                SelectorEntity[] selectorEntitys = new SelectorEntity[keys.length];
+                selectorEntitys[0] = selectorEntity2;
+                selectedItems.add(selectorEntitys); // 不限被选中
             }
             selectorEntityList.add(selectorEntity2);
         }
@@ -143,7 +149,9 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             } else {
                 if (selectorIds.contains(spitStr + id1 + spitStr)) {
                     selectorEntity.isSelected = true;
-                    selectedItems.add(selectorEntity);
+                    SelectorEntity[] selectorEntitys = new SelectorEntity[keys.length];
+                    selectorEntitys[0] = selectorEntity;
+                    selectedItems.add(selectorEntitys);
                     count++;
                 }
             }
@@ -151,8 +159,29 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         }
         if (parantEntity != null && count > 0) {
             parantEntity.selectedNum = count;
+            LogUtil.info("selectedItems.size()-1:=" + (selectedItems.size() - 1));
+            LogUtil.info("keys.length - keyIndex:=" + (keys.length - keyIndex));
+            selectedItems.get(selectedItems.size()-1)[keys.length - keyIndex + 1] = parantEntity;
         }
         return selectorEntityList;
+    }
+
+    // 检测已经选择的数据是否正确
+    private void checkSelectedData() {
+        int size = selectedItems.size();
+        SelectorEntity[] selectorEntities = null;
+        if (size > 0) {
+            // 有被选中的项
+            for (int i=size-1;i>=0;--i) {
+                SelectorEntity[] temp = selectedItems.get(i);
+                for (int j=0;j<keys.length;++j) {
+                    if (temp[j] == null) {
+                        temp[j] = selectorEntities[j];
+                    }
+                }
+                selectorEntities = temp;
+            }
+        }
     }
 
     public void setSelectorIds(String selectorIds)
@@ -183,8 +212,11 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         if (selectedItems == null || selectedItems.size() == 0) {
             return;
         }
-        for (SelectorEntity selectorEntity : selectedItems) {
-            selectorEntity.isSelected = false;
+        for (SelectorEntity[] selectorEntitys : selectedItems) {
+            for (SelectorEntity selectorEntity : selectorEntitys) {
+                selectorEntity.isSelected = false;
+                selectorEntity.selectedNum = 0;
+            }
         }
         selectedItems.clear();
         setText("");
@@ -199,14 +231,14 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        for (SelectorEntity selectorEntity : selectedItems) {
+        for (SelectorEntity[] selectorEntitys : selectedItems) {
             if (sb.length() > 0) {
                 sb.append(spitStr);
             }
-            if (selectorEntity.id.startsWith(allId)) {
-                sb.append(selectorEntity.parentId);
+            if (selectorEntitys[0].id.startsWith(allId)) {
+                sb.append(selectorEntitys[0].parentId);
             } else {
-                sb.append(selectorEntity.id);
+                sb.append(selectorEntitys[0].id);
             }
         }
         return sb.toString();
@@ -227,11 +259,11 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        for (SelectorEntity selectorEntity : selectedItems) {
+        for (SelectorEntity[] selectorEntitys: selectedItems) {
             if (sb.length() > 0) {
                 sb.append(spitStr);
             }
-            sb.append(selectorEntity.parentId.split(parentSpitStr)[1]);
+            sb.append(selectorEntitys[0].parentId.split(parentSpitStr)[1]);
         }
         return sb.toString();
     }
@@ -245,26 +277,43 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         }
         StringBuilder sb = new StringBuilder();
         StringBuilder id = new StringBuilder();
-        for (SelectorEntity selectorEntity : selectedItems) {
+        for (SelectorEntity[] selectorEntitys: selectedItems) {
             if (sb.length() > 0) {
                 sb.append(" ");
             }
             if (id.length() > 0) {
                 id.append(spitStr);
             }
-            if (selectorEntity.id.startsWith(allId)) {
-                if (StringUtil.isEmpty(selectorEntity.parentName)) {
-                    sb.append(selectorEntity.name);
+            if (selectorEntitys[0].id.startsWith(allId)) {
+                if (StringUtil.isEmpty(selectorEntitys[0].parentName)) {
+                    sb.append(selectorEntitys[0].name);
                 } else {
-                    sb.append(selectorEntity.parentName);
+                    sb.append(selectorEntitys[0].parentName);
                 }
             } else {
-                sb.append(selectorEntity.name);
+                sb.append(selectorEntitys[0].name);
             }
-            id.append(selectorEntity.id);
+            id.append(selectorEntitys[0].id);
         }
         setTag(id.toString());
         setText(sb.toString());
         return sb.toString();
+    }
+
+    public void removeSelectedItem(SelectorEntity selectorEntity) {
+        for (SelectorEntity[] selectorEntitys: selectedItems) {
+            if (selectorEntitys[0] == selectorEntity) {
+                int size = selectorEntitys.length;
+                for (int i=0;i<size;++i) {
+                    if (i == 0) {
+                        selectorEntitys[0].isSelected = false;
+                    } else {
+                        selectorEntitys[i].selectedNum--;
+                    }
+                }
+                selectedItems.remove(selectorEntitys);
+                return;
+            }
+        }
     }
 }

@@ -8,6 +8,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 import cn.goodjobs.common.GoodJobsApp;
@@ -133,13 +135,13 @@ public class RegisterActivity extends BaseActivity {
             btnVerCode.setEnabled(false);
             mHandler.post(verCodeRun);
         } else if (tag.equals(URLS.API_USER_REGISTERNEW)) {
+            JSONObject jsonObject = (JSONObject) data;
             TipsUtil.show(this, "注册成功");
-            LoginInfo loginInfo = GoodJobsApp.getInstance().getLoginInfo();
-            if (loginInfo == null) {
-                loginInfo = new LoginInfo();
-            }
-            loginInfo.userName = itemOldMobile.getText();
+            LoginInfo loginInfo = new LoginInfo(itemOldMobile.getText().toString().trim(), itemPassword.getText().toString().trim(),
+                    true, System.currentTimeMillis(), jsonObject.optString("userUserID"));
             SharedPrefUtil.saveObjectToLoacl("loginInfo", loginInfo);
+            SharedPrefUtil.saveDataToLoacl("isLogin", true);
+            SharedPrefUtil.saveDataToLoacl(this, "mobileTips", true);
             setResult(RESULT_OK);
             finish();
         }

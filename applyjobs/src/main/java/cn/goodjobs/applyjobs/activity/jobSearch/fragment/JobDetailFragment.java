@@ -140,110 +140,111 @@ public class JobDetailFragment extends BaseViewPagerFragment
 
     public void setData(JSONObject dataJson)
     {
-        activity.getCacheData().put(id, dataJson);
-        JSONArray treatmentArr = dataJson.optJSONArray("treatmentArr");
-        if (treatmentArr != null && treatmentArr.length() > 0) {
-            jobBrightBox.setVisibility(View.VISIBLE);
-            jobBright.removeAllViews();
-            ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.leftMargin = 5;
-            lp.rightMargin = 5;
-            lp.topMargin = 5;
-            lp.bottomMargin = 5;
-            for (int i = 0; i < treatmentArr.length(); i++) {
-                TextView view = new TextView(mActivity);
-                view.setText(treatmentArr.optString(i));
-                view.setGravity(Gravity.CENTER);
-                view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
-                view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
-                view.setHeight(DensityUtil.dip2px(mActivity, 25));
-                view.setBackgroundResource(R.drawable.bright_bg);
-                view.setTextColor(getResources().getColor(R.color.main_color));
-                jobBright.addView(view, lp);
+        if (getActivity() != null) {
+            activity.getCacheData().put(id, dataJson);
+            JSONArray treatmentArr = dataJson.optJSONArray("treatmentArr");
+            if (treatmentArr != null && treatmentArr.length() > 0) {
+                jobBrightBox.setVisibility(View.VISIBLE);
+                jobBright.removeAllViews();
+                ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.leftMargin = 5;
+                lp.rightMargin = 5;
+                lp.topMargin = 5;
+                lp.bottomMargin = 5;
+                for (int i = 0; i < treatmentArr.length(); i++) {
+                    TextView view = new TextView(mActivity);
+                    view.setText(treatmentArr.optString(i));
+                    view.setGravity(Gravity.CENTER);
+                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
+                    view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
+                    view.setHeight(DensityUtil.dip2px(mActivity, 25));
+                    view.setBackgroundResource(R.drawable.bright_bg);
+                    view.setTextColor(getResources().getColor(R.color.main_color));
+                    jobBright.addView(view, lp);
+                }
             }
-        }
-        setStrng2Bab(jobBelong, "部门: ", dataJson.optString("deptName"));
-        setStrng2Bab(jobSalary, "月薪: ", dataJson.optString("salary"));
-        setStrng2Bab(jobWorkTime, "经验: ", dataJson.optString("worktime"));
-        setStrng2Bab(jobDegree, "学历: ", dataJson.optString("degree"));
-        setStrng2Bab(jobAge, "性别: ", dataJson.optString("sex"));
-        setStrng2Bab(jobGender, "年龄: ", dataJson.optString("age"));
-        setStrng2Bab(jobAddress, "地点: ", dataJson.optString("cityName"));
-        memCorpID = dataJson.optInt("memCorpID");
-        jobContent.setText(dataJson.optString("jobDetail"));
-        String other = dataJson.optString("other");
-        if (StringUtil.isEmpty(other)) {
-            jobOtherBox.setVisibility(View.GONE);
-        } else {
-            jobOtherBox.setVisibility(View.VISIBLE);
-            jobOther.setText(other);
-        }
-
-        jobName.setText(dataJson.optString("jobName"));
-        jobCro.setText(dataJson.optString("corpName"));
-
-        final JSONArray list = dataJson.optJSONArray("list");
-
-        if (list != null && list.length() > 0) {
-            jobSimilarBox.removeAllViews();
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < list.length(); i++) {
-                builder.append(list.optJSONObject(i).optInt("jobID") + ",");
+            setStrng2Bab(jobBelong, "部门: ", dataJson.optString("deptName"));
+            setStrng2Bab(jobSalary, "月薪: ", dataJson.optString("salary"));
+            setStrng2Bab(jobWorkTime, "经验: ", dataJson.optString("worktime"));
+            setStrng2Bab(jobDegree, "学历: ", dataJson.optString("degree"));
+            setStrng2Bab(jobAge, "性别: ", dataJson.optString("sex"));
+            setStrng2Bab(jobGender, "年龄: ", dataJson.optString("age"));
+            setStrng2Bab(jobAddress, "地点: ", dataJson.optString("cityName"));
+            memCorpID = dataJson.optInt("memCorpID");
+            jobContent.setText(dataJson.optString("jobDetail"));
+            String other = dataJson.optString("other");
+            if (StringUtil.isEmpty(other)) {
+                jobOtherBox.setVisibility(View.GONE);
+            } else {
+                jobOtherBox.setVisibility(View.VISIBLE);
+                jobOther.setText(other);
             }
-            final String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
-            for (int i = 0; i < list.length(); i++) {
+            jobName.setText(dataJson.optString("jobName"));
+            jobCro.setText(dataJson.optString("corpName"));
 
-                final int curPosition = i;
+            final JSONArray list = dataJson.optJSONArray("list");
 
-                View inflate = View.inflate(mActivity, R.layout.item_jobsearchresult, null);
+            if (list != null && list.length() > 0) {
+                jobSimilarBox.removeAllViews();
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < list.length(); i++) {
+                    builder.append(list.optJSONObject(i).optInt("jobID") + ",");
+                }
+                final String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
-                TextView title = ViewHolderUtil.get(inflate, R.id.item_title);
-                TextView address = ViewHolderUtil.get(inflate, R.id.item_address);
-                TextView name = ViewHolderUtil.get(inflate, R.id.item_name);
-                BabushkaText salary = ViewHolderUtil.get(inflate, R.id.item_salary);
-                TextView time = ViewHolderUtil.get(inflate, R.id.item_time);
-                CheckBox check = ViewHolderUtil.get(inflate, R.id.item_check);
+                for (int i = 0; i < list.length(); i++) {
 
-                final JSONObject item = list.optJSONObject(i);
+                    final int curPosition = i;
 
-                title.setText(item.optString("jobName"));
-                address.setText(item.optString("jobCity"));
-                name.setText(item.optString("corpName"));
-                salary.setText(item.optString("jobName"));
-                time.setText(item.optString("pubDate"));
-                salary.reset();
-                salary.addPiece(new BabushkaText.Piece.Builder("月薪: ")
-                        .textColor(Color.parseColor("#999999"))
-                        .build());
+                    View inflate = View.inflate(mActivity, R.layout.item_jobsearchresult, null);
 
-                // Add the second piece "1.2 mi"
-                salary.addPiece(new BabushkaText.Piece.Builder(item.optString("salary"))
-                        .textColor(Color.parseColor("#ff0000"))
-                        .textSizeRelative(1.0f)
-                        .build());
+                    TextView title = ViewHolderUtil.get(inflate, R.id.item_title);
+                    TextView address = ViewHolderUtil.get(inflate, R.id.item_address);
+                    TextView name = ViewHolderUtil.get(inflate, R.id.item_name);
+                    BabushkaText salary = ViewHolderUtil.get(inflate, R.id.item_salary);
+                    TextView time = ViewHolderUtil.get(inflate, R.id.item_time);
+                    CheckBox check = ViewHolderUtil.get(inflate, R.id.item_check);
+                    check.setVisibility(View.GONE);
+                    final JSONObject item = list.optJSONObject(i);
 
-                salary.display();
+                    title.setText(item.optString("jobName"));
+                    address.setText(item.optString("jobCity"));
+                    name.setText(item.optString("corpName"));
+                    salary.setText(item.optString("jobName"));
+                    time.setText(item.optString("pubDate"));
+                    salary.reset();
+                    salary.addPiece(new BabushkaText.Piece.Builder("月薪: ")
+                            .textColor(Color.parseColor("#999999"))
+                            .build());
+
+                    // Add the second piece "1.2 mi"
+                    salary.addPiece(new BabushkaText.Piece.Builder(item.optString("salary"))
+                            .textColor(Color.parseColor("#ff0000"))
+                            .textSizeRelative(1.0f)
+                            .build());
+
+                    salary.display();
 
 
-                inflate.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v)
+                    inflate.setOnClickListener(new View.OnClickListener()
                     {
-                        HashMap<String, Object> param = new HashMap<>();
-                        param.put("POSITION", curPosition);
-                        param.put("IDS", charSequence);
-                        JumpViewUtil.openActivityAndParam(mActivity, JobDetailActivity.class, param);
-                    }
-                });
+                        @Override
+                        public void onClick(View v)
+                        {
+                            HashMap<String, Object> param = new HashMap<>();
+                            param.put("POSITION", curPosition);
+                            param.put("IDS", charSequence);
+                            JumpViewUtil.openActivityAndParam(mActivity, JobDetailActivity.class, param);
+                        }
+                    });
 
-                jobSimilarBox.addView(inflate, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                    jobSimilarBox.addView(inflate, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                }
+
             }
-
         }
-
     }
 
 

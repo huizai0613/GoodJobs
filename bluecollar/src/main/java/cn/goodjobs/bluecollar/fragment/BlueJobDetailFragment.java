@@ -186,210 +186,211 @@ public class BlueJobDetailFragment extends BaseViewPagerFragment
 
     public void setData(JSONObject dataJson)
     {
-        activity.getCacheData().put(id, dataJson);
-        JSONArray treatmentArr = dataJson.optJSONArray("treatment");
-        if (treatmentArr != null && treatmentArr.length() > 0) {
-            jobBrightBox.setVisibility(View.VISIBLE);
-            jobBright.removeAllViews();
-            ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.leftMargin = 5;
-            lp.rightMargin = 5;
-            lp.topMargin = 5;
-            lp.bottomMargin = 5;
-            for (int i = 0; i < treatmentArr.length(); i++) {
-                String s = treatmentArr.optString(i);
-                if (!StringUtil.isEmpty(s)) {
-                    TextView view = new TextView(mActivity);
-                    view.setText(s);
-                    view.setGravity(Gravity.CENTER);
-                    view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
-                    view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
-                    view.setHeight(DensityUtil.dip2px(mActivity, 25));
-                    view.setBackgroundResource(R.drawable.bright_bg);
-                    view.setTextColor(getResources().getColor(R.color.main_color));
-                    jobBright.addView(view, lp);
+        if (getActivity() != null) {
+            activity.getCacheData().put(id, dataJson);
+            JSONArray treatmentArr = dataJson.optJSONArray("treatment");
+            if (treatmentArr != null && treatmentArr.length() > 0) {
+                jobBrightBox.setVisibility(View.VISIBLE);
+                jobBright.removeAllViews();
+                ViewGroup.MarginLayoutParams lp = new ViewGroup.MarginLayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.leftMargin = 5;
+                lp.rightMargin = 5;
+                lp.topMargin = 5;
+                lp.bottomMargin = 5;
+                for (int i = 0; i < treatmentArr.length(); i++) {
+                    String s = treatmentArr.optString(i);
+                    if (!StringUtil.isEmpty(s)) {
+                        TextView view = new TextView(mActivity);
+                        view.setText(s);
+                        view.setGravity(Gravity.CENTER);
+                        view.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.text_litter));
+                        view.setPadding(DensityUtil.dip2px(mActivity, 10), 0, DensityUtil.dip2px(mActivity, 10), 0);
+                        view.setHeight(DensityUtil.dip2px(mActivity, 25));
+                        view.setBackgroundResource(R.drawable.bright_bg);
+                        view.setTextColor(getResources().getColor(R.color.main_color));
+                        jobBright.addView(view, lp);
+                    }
                 }
             }
-        }
 
 
-        itemCertify.setImageResource(dataJson.optInt("certStatus") == 0 ? R.mipmap.icon_uncertify : R.mipmap.icon_certify);
-        itemVip.setVisibility(dataJson.optInt("blueFlag") == 0 ? View.VISIBLE : View.GONE);
+            itemCertify.setImageResource(dataJson.optInt("certStatus") == 0 ? R.mipmap.icon_uncertify : R.mipmap.icon_certify);
+            itemVip.setVisibility(dataJson.optInt("blueFlag") == 0 ? View.VISIBLE : View.GONE);
 
 
-        setStrng2Bab(jobWorkSalary, "加班补贴: ", dataJson.optString("extraWorkFeeName"));
+            setStrng2Bab(jobWorkSalary, "加班补贴: ", dataJson.optString("extraWorkFeeName"));
 
-        if (StringUtil.isEmpty(dataJson.optString("salaryName"))) {
-            jobSalary.setVisibility(View.GONE);
-            return;
-        }
-        jobSalary.setVisibility(View.VISIBLE);
-        jobSalary.addPiece(new BabushkaText.Piece.Builder("月        薪: ")
-                .textColor(Color.parseColor("#999999"))
-                .build());
-        // Add the second piece "1.2 mi"
-        jobSalary.addPiece(new BabushkaText.Piece.Builder(dataJson.optString("salaryName"))
-                .textColor(Color.parseColor("#ff0000"))
-                .build());
+            if (StringUtil.isEmpty(dataJson.optString("salaryName"))) {
+                jobSalary.setVisibility(View.GONE);
+                return;
+            }
+            jobSalary.setVisibility(View.VISIBLE);
+            jobSalary.addPiece(new BabushkaText.Piece.Builder("月        薪: ")
+                    .textColor(Color.parseColor("#999999"))
+                    .build());
+            // Add the second piece "1.2 mi"
+            jobSalary.addPiece(new BabushkaText.Piece.Builder(dataJson.optString("salaryName"))
+                    .textColor(Color.parseColor("#ff0000"))
+                    .build());
 
-        jobSalary.display();
+            jobSalary.display();
 
-        setStrng2Bab(jobWorkTime, "作息时间: ", dataJson.optString("relaxTime"));
-        setStrng2Bab(jobNum, "招聘人数: ", dataJson.optString("jobOfferNum"));
-        setStrng2Bab(jobRequirement, "职位要求: ", dataJson.optString("jobTypeName"));
-        setStrng2Bab(jobPhone, "联系电话: ", dataJson.optString("phone") + " ");
-        setStrng2Bab(jobTime, "招聘日期: ", dataJson.optString("jobfairDate"));
-        setStrng2Bab(jobAddress, "工作地点: ", dataJson.optString("address"));
-
-
-        lng = dataJson.optString("lng");
-        lat = dataJson.optString("lat");
-        if (!StringUtil.isEmpty(lng) && !StringUtil.isEmpty(lat)) {
-            Drawable iconMap = getResources().getDrawable(R.drawable.mapm);
-            iconMap.setBounds(0, 0, DensityUtil.dip2px(mActivity, 15), DensityUtil.dip2px(mActivity, 15));
-            jobAddress.setCompoundDrawables(null, null, iconMap, null);
-            jobAddress.setOnClickListener(this);
-        }
+            setStrng2Bab(jobWorkTime, "作息时间: ", dataJson.optString("relaxTime"));
+            setStrng2Bab(jobNum, "招聘人数: ", dataJson.optString("jobOfferNum"));
+            setStrng2Bab(jobRequirement, "职位要求: ", dataJson.optString("jobTypeName"));
+            setStrng2Bab(jobPhone, "联系电话: ", dataJson.optString("phone") + " ");
+            setStrng2Bab(jobTime, "招聘日期: ", dataJson.optString("jobfairDate"));
+            setStrng2Bab(jobAddress, "工作地点: ", dataJson.optString("address"));
 
 
-        memCorpID = dataJson.optInt("memCorpID");
-        jobContent.setText(dataJson.optString("jobDetail"));
-        String other = dataJson.optString("other");
-        if (StringUtil.isEmpty(other)) {
-            jobOtherBox.setVisibility(View.GONE);
-        } else {
-            jobOtherBox.setVisibility(View.VISIBLE);
-            jobOther.setText(other);
-        }
-
-        jobName.setText(dataJson.optString("jobName"));
-        jobCro.setText(dataJson.optString("corpName"));
-
-        final JSONArray list = dataJson.optJSONArray("list");
-
-        if (list != null && list.length() > 0) {
-            jobSimilarBox.removeAllViews();
-            StringBuilder builder = new StringBuilder();
-            int length = list.length();
-            if (length > 0) {
-                for (int i = 0; i < length; i++) {
-                    builder.append(list.optJSONObject(i).optString("blueJobID") + ",");
-                }
-                final String charSequence = builder.subSequence(0, builder.length() - 1).toString();
-
-                for (int i = 0; i < list.length(); i++) {
-
-                    final int curPosition = i;
-
-                    View inflate = View.inflate(mActivity, R.layout.item_bluejob, null);
-
-                    ExtendedTouchView itemCheck = ViewHolderUtil.get(inflate, R.id.item_check);
-                    final CheckBox itemC = ViewHolderUtil.get(inflate, R.id.item_c);
-                    TextView item_title = ViewHolderUtil.get(inflate, R.id.item_title);
-                    TextView item_salary = ViewHolderUtil.get(inflate, R.id.item_salary);
-                    TextView item_company_name = ViewHolderUtil.get(inflate, R.id.item_company_name);
-                    TextView item_dis = ViewHolderUtil.get(inflate, R.id.item_dis);
-                    LinearLayout item_treatment_box = ViewHolderUtil.get(inflate, R.id.item_treatment_box);
-                    ImageView item_certify = ViewHolderUtil.get(inflate, R.id.item_certify);
-                    ImageView item_vip = ViewHolderUtil.get(inflate, R.id.item_vip);
-                    TextView item_time = ViewHolderUtil.get(inflate, R.id.item_time);
-
-                    JSONObject data = list.optJSONObject(i);
-
-                    item_title.setText(data.optString("jobName"));
-                    item_salary.setText(data.optString("salaryName"));
-                    item_company_name.setText(data.optString("corpName"));
-                    item_time.setText(data.optString("pubDate"));
-
-                    String mapLng = data.optString("mapLng");
-                    String mapLat = data.optString("mapLat");
-                    String cityName = data.optString("cityName");
-
-                    if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && activity.myLocation != null) {
-                        Drawable iconDis = mActivity.getResources().getDrawable(R.mipmap.icon_bluedis);
-                        iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 18), DensityUtil.dip2px(mActivity, 18));
-                        item_dis.setCompoundDrawables(iconDis, null, null, null);
+            lng = dataJson.optString("lng");
+            lat = dataJson.optString("lat");
+            if (!StringUtil.isEmpty(lng) && !StringUtil.isEmpty(lat)) {
+                Drawable iconMap = getResources().getDrawable(R.drawable.mapm);
+                iconMap.setBounds(0, 0, DensityUtil.dip2px(mActivity, 15), DensityUtil.dip2px(mActivity, 15));
+                jobAddress.setCompoundDrawables(null, null, iconMap, null);
+                jobAddress.setOnClickListener(this);
+            }
 
 
-                        double distance = GeoUtils.
-                                distance(activity.myLocation.latitude, activity.myLocation.longitude, Double.parseDouble(mapLat), Double.parseDouble(mapLng));
-                        item_dis.setText(" " + GeoUtils.friendlyDistance(distance));
-                    } else {
-                        item_dis.setText(cityName);
+            memCorpID = dataJson.optInt("memCorpID");
+            jobContent.setText(dataJson.optString("jobDetail"));
+            String other = dataJson.optString("other");
+            if (StringUtil.isEmpty(other)) {
+                jobOtherBox.setVisibility(View.GONE);
+            } else {
+                jobOtherBox.setVisibility(View.VISIBLE);
+                jobOther.setText(other);
+            }
 
+            jobName.setText(dataJson.optString("jobName"));
+            jobCro.setText(dataJson.optString("corpName"));
+
+            final JSONArray list = dataJson.optJSONArray("list");
+
+            if (list != null && list.length() > 0) {
+                jobSimilarBox.removeAllViews();
+                StringBuilder builder = new StringBuilder();
+                int length = list.length();
+                if (length > 0) {
+                    for (int i = 0; i < length; i++) {
+                        builder.append(list.optJSONObject(i).optString("blueJobID") + ",");
                     }
+                    final String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
-                    String certStatus = data.optString("certStatus");
-                    String blueFlag = data.optString("blueFlag");
+                    for (int i = 0; i < list.length(); i++) {
+
+                        final int curPosition = i;
+
+                        View inflate = View.inflate(mActivity, R.layout.item_bluejob, null);
+
+                        ExtendedTouchView itemCheck = ViewHolderUtil.get(inflate, R.id.item_check);
+                        final CheckBox itemC = ViewHolderUtil.get(inflate, R.id.item_c);
+                        TextView item_title = ViewHolderUtil.get(inflate, R.id.item_title);
+                        TextView item_salary = ViewHolderUtil.get(inflate, R.id.item_salary);
+                        TextView item_company_name = ViewHolderUtil.get(inflate, R.id.item_company_name);
+                        TextView item_dis = ViewHolderUtil.get(inflate, R.id.item_dis);
+                        LinearLayout item_treatment_box = ViewHolderUtil.get(inflate, R.id.item_treatment_box);
+                        ImageView item_certify = ViewHolderUtil.get(inflate, R.id.item_certify);
+                        ImageView item_vip = ViewHolderUtil.get(inflate, R.id.item_vip);
+                        TextView item_time = ViewHolderUtil.get(inflate, R.id.item_time);
+
+                        JSONObject data = list.optJSONObject(i);
+
+                        item_title.setText(data.optString("jobName"));
+                        item_salary.setText(data.optString("salaryName"));
+                        item_company_name.setText(data.optString("corpName"));
+                        item_time.setText(data.optString("pubDate"));
+
+                        String mapLng = data.optString("mapLng");
+                        String mapLat = data.optString("mapLat");
+                        String cityName = data.optString("cityName");
+
+                        if (!StringUtil.isEmpty(mapLng) && !StringUtil.isEmpty(mapLat) && activity.myLocation != null) {
+                            Drawable iconDis = mActivity.getResources().getDrawable(R.mipmap.icon_bluedis);
+                            iconDis.setBounds(0, 0, DensityUtil.dip2px(mActivity, 18), DensityUtil.dip2px(mActivity, 18));
+                            item_dis.setCompoundDrawables(iconDis, null, null, null);
 
 
-                    if ("1".equals(certStatus)) {
-                        item_certify.setImageResource(R.mipmap.icon_certify);
-                    } else {
-                        item_certify.setImageResource(R.mipmap.icon_uncertify);
-                    }
+                            double distance = GeoUtils.
+                                    distance(activity.myLocation.latitude, activity.myLocation.longitude, Double.parseDouble(mapLat), Double.parseDouble(mapLng));
+                            item_dis.setText(" " + GeoUtils.friendlyDistance(distance));
+                        } else {
+                            item_dis.setText(cityName);
 
-                    if ("0".equals(blueFlag)) {
-                        item_vip.setVisibility(View.VISIBLE);
-                    } else {
-                        item_vip.setVisibility(View.GONE);
-                    }
+                        }
+
+                        String certStatus = data.optString("certStatus");
+                        String blueFlag = data.optString("blueFlag");
 
 
-                    JSONArray treatment = data.optJSONArray("treatment");
-                    item_treatment_box.removeAllViews();
-                    if (treatment != null) {
-                        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        int i1 = DensityUtil.dip2px(mActivity, 1);
-                        for (int j = 0; j < (treatment.length() > 3 ? 3 : treatment.length()); j++) {
-                            String s = treatment.optString(j);
-                            if (!StringUtil.isEmpty(s)) {
-                                TextView item = new TextView(mActivity);
-                                item.setPadding(i1, i1, i1, i1);
-                                item.setBackgroundResource(R.drawable.bg_welfare);
-                                item.setGravity(Gravity.CENTER);
-                                if (j == 2) {
-                                    item.setText("·  ·  ·");
-                                } else {
-                                    item.setText(s);
+                        if ("1".equals(certStatus)) {
+                            item_certify.setImageResource(R.mipmap.icon_certify);
+                        } else {
+                            item_certify.setImageResource(R.mipmap.icon_uncertify);
+                        }
+
+                        if ("0".equals(blueFlag)) {
+                            item_vip.setVisibility(View.VISIBLE);
+                        } else {
+                            item_vip.setVisibility(View.GONE);
+                        }
+
+
+                        JSONArray treatment = data.optJSONArray("treatment");
+                        item_treatment_box.removeAllViews();
+                        if (treatment != null) {
+                            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            int i1 = DensityUtil.dip2px(mActivity, 1);
+                            for (int j = 0; j < (treatment.length() > 3 ? 3 : treatment.length()); j++) {
+                                String s = treatment.optString(j);
+                                if (!StringUtil.isEmpty(s)) {
+                                    TextView item = new TextView(mActivity);
+                                    item.setPadding(i1, i1, i1, i1);
+                                    item.setBackgroundResource(R.drawable.bg_welfare);
+                                    item.setGravity(Gravity.CENTER);
+                                    if (j == 2) {
+                                        item.setText("·  ·  ·");
+                                    } else {
+                                        item.setText(s);
+                                    }
+
+                                    if (j == 1) {
+                                        p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
+                                    }
+
+                                    item.setTextColor(Color.parseColor("#6bbd00"));
+                                    item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_litter));
+                                    item_treatment_box.addView(item, p);
                                 }
-
-                                if (j == 1) {
-                                    p.rightMargin = p.leftMargin = DensityUtil.dip2px(mActivity, 2);
-                                }
-
-                                item.setTextColor(Color.parseColor("#6bbd00"));
-                                item.setTextSize(TypedValue.COMPLEX_UNIT_PX, mActivity.getResources().getDimension(R.dimen.text_litter));
-                                item_treatment_box.addView(item, p);
                             }
                         }
+
+
+                        itemCheck.setVisibility(View.GONE);
+                        itemC.setVisibility(View.GONE);
+
+                        inflate.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+
+                                HashMap<String, Object> param = new HashMap<>();
+                                param.put("POSITION", curPosition);
+                                param.put("IDS", charSequence);
+                                JumpViewUtil.openActivityAndParam(mActivity, BlueJobDetailActivity.class, param);
+                            }
+                        });
+
+
+                        jobSimilarBox.addView(inflate, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                     }
 
-
-                    itemCheck.setVisibility(View.GONE);
-                    itemC.setVisibility(View.GONE);
-
-                    inflate.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-
-                            HashMap<String, Object> param = new HashMap<>();
-                            param.put("POSITION", curPosition);
-                            param.put("IDS", charSequence);
-                            JumpViewUtil.openActivityAndParam(mActivity, BlueJobDetailActivity.class, param);
-                        }
-                    });
-
-
-                    jobSimilarBox.addView(inflate, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 }
-
             }
         }
-
     }
 
 
