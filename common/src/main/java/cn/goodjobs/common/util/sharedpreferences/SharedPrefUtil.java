@@ -12,31 +12,38 @@ import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.SerializeUtil;
 import cn.goodjobs.common.util.StringUtil;
 
-public class SharedPrefUtil {
+public class SharedPrefUtil
+{
 
     public static String sharePref = "goodjobs"; // 默认文件名
 
-    public static void saveDataToLoacl(Context context, String key, Object value) {
+    public static void saveDataToLoacl(Context context, String key, Object value)
+    {
         saveDataToLoacl(context, sharePref, key, value);
     }
 
-    public static void saveDataToLoacl(String key, Object value) {
+    public static void saveDataToLoacl(String key, Object value)
+    {
         saveDataToLoacl(sharePref, key, value);
     }
 
-    public static String getDataFromLoacl(Context context, String key) {
+    public static String getDataFromLoacl(Context context, String key)
+    {
         return getDataFromLoacl(context, sharePref, key);
     }
 
-    public static String getDataFromLoacl(String key) {
+    public static String getDataFromLoacl(String key)
+    {
         return getDataFromLoacl(sharePref, key);
     }
 
-    public static void clearLoaclData(Context context) {
+    public static void clearLoaclData(Context context)
+    {
         clearLoaclData(context, sharePref);
     }
 
-    public static void clearLoaclDataByKey(Context context, String key) {
+    public static void clearLoaclDataByKey(Context context, String key)
+    {
         clearLoaclDataByKey(context, sharePref, key);
     }
 
@@ -47,7 +54,8 @@ public class SharedPrefUtil {
      * @param key
      * @param value
      */
-    public static void saveDataToLoacl(Context context, String sp, String key, Object value) {
+    public static void saveDataToLoacl(Context context, String sp, String key, Object value)
+    {
         // 加密
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
         SharedPreferences.Editor localEditor = settings.edit();
@@ -55,7 +63,8 @@ public class SharedPrefUtil {
         localEditor.commit();
     }
 
-    public static void saveDataToLoacl(String sp, String key, Object value) {
+    public static void saveDataToLoacl(String sp, String key, Object value)
+    {
         // 加密
         SharedPreferences settings = ScreenManager.getScreenManager().currentActivity().getSharedPreferences(sp, 0);
         SharedPreferences.Editor localEditor = settings.edit();
@@ -66,7 +75,8 @@ public class SharedPrefUtil {
     /**
      * 保存对象
      */
-    public static void saveObjectToLoacl(Context context, String sp, String key, Object value) {
+    public static void saveObjectToLoacl(Context context, String sp, String key, Object value)
+    {
         // 加密
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
         SharedPreferences.Editor localEditor = settings.edit();
@@ -78,11 +88,15 @@ public class SharedPrefUtil {
         localEditor.commit();
     }
 
-    public static void saveObjectToLoacl(String key, Object value) {
-        saveObjectToLoacl(ScreenManager.getScreenManager().currentActivity(), sharePref, key, value);
+    public static void saveObjectToLoacl(String key, Object value)
+    {
+        if (ScreenManager.getScreenManager().activityLength() > 0) {
+            saveObjectToLoacl(ScreenManager.getScreenManager().currentActivity(), sharePref, key, value);
+        }
     }
 
-    public static Object getObject(Context context, String sp, String key) {
+    public static Object getObject(Context context, String sp, String key)
+    {
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
         String str = settings.getString(key, "");
         try {
@@ -95,7 +109,8 @@ public class SharedPrefUtil {
         return null;
     }
 
-    public static Object getObject(String key) {
+    public static Object getObject(String key)
+    {
         return getObject(ScreenManager.getScreenManager().currentActivity(), sharePref, key);
     }
 
@@ -105,12 +120,14 @@ public class SharedPrefUtil {
      * @param sp  文件名称
      * @param key
      */
-    public static String getDataFromLoacl(Context context, String sp, String key) {
+    public static String getDataFromLoacl(Context context, String sp, String key)
+    {
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
         return DesEncrypt.getDesString(settings.getString(key, ""));
     }
 
-    public static String getDataFromLoacl(String sp, String key) {
+    public static String getDataFromLoacl(String sp, String key)
+    {
         SharedPreferences settings = ScreenManager.getScreenManager().currentActivity().getSharedPreferences(sp, 0);
         return DesEncrypt.getDesString(settings.getString(key, ""));
     }
@@ -118,7 +135,8 @@ public class SharedPrefUtil {
     /**
      * 清除所有数据
      */
-    public static void clearLoaclData(Context context, String sp) {
+    public static void clearLoaclData(Context context, String sp)
+    {
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
         SharedPreferences.Editor localEditor = settings.edit();
         localEditor.clear().commit();
@@ -127,13 +145,15 @@ public class SharedPrefUtil {
     /**
      * 清除某一条数据
      */
-    public static void clearLoaclDataByKey(Context context, String sp, String key) {
+    public static void clearLoaclDataByKey(Context context, String sp, String key)
+    {
         SharedPreferences settings = context.getSharedPreferences(sp, 0);
         SharedPreferences.Editor localEditor = settings.edit();
         localEditor.remove(key).commit();
     }
 
-    public static Integer getInt(Context context, String... args) {
+    public static Integer getInt(Context context, String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(context, args[0]);
@@ -143,7 +163,8 @@ public class SharedPrefUtil {
         return StringUtil.isEmpty(temp) ? null : Integer.parseInt(temp);
     }
 
-    public static Integer getInt(String... args) {
+    public static Integer getInt(String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(args[0]);
@@ -153,7 +174,8 @@ public class SharedPrefUtil {
         return StringUtil.isEmpty(temp) ? null : Integer.parseInt(temp);
     }
 
-    public static Long getLong(Context context, String... args) {
+    public static Long getLong(Context context, String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(context, args[0]);
@@ -163,7 +185,8 @@ public class SharedPrefUtil {
         return StringUtil.isEmpty(temp) ? null : Long.parseLong(temp);
     }
 
-    public static Long getLong(String... args) {
+    public static Long getLong(String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(args[0]);
@@ -173,7 +196,8 @@ public class SharedPrefUtil {
         return StringUtil.isEmpty(temp) ? null : Long.parseLong(temp);
     }
 
-    public static Boolean getBoolean(Context context, String... args) {
+    public static Boolean getBoolean(Context context, String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(context, args[0]);
@@ -183,7 +207,8 @@ public class SharedPrefUtil {
         return StringUtil.isEmpty(temp) ? null : Boolean.parseBoolean(temp);
     }
 
-    public static Boolean getBoolean(String... args) {
+    public static Boolean getBoolean(String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(args[0]);
@@ -193,7 +218,8 @@ public class SharedPrefUtil {
         return StringUtil.isEmpty(temp) ? null : Boolean.parseBoolean(temp);
     }
 
-    public static JSONObject getJSONObject(Context context, String... args) {
+    public static JSONObject getJSONObject(Context context, String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(context, args[0]);
@@ -208,7 +234,8 @@ public class SharedPrefUtil {
         return null;
     }
 
-    public static JSONObject getJSONObject(String... args) {
+    public static JSONObject getJSONObject(String... args)
+    {
         String temp;
         if (args.length == 1) {
             temp = getDataFromLoacl(args[0]);
@@ -223,7 +250,8 @@ public class SharedPrefUtil {
         return null;
     }
 
-    public static boolean check(String sp, String key) {
+    public static boolean check(String sp, String key)
+    {
         SharedPreferences settings = ScreenManager.getScreenManager().currentActivity().getSharedPreferences(sp, 0);
         return settings.contains(key);
     }

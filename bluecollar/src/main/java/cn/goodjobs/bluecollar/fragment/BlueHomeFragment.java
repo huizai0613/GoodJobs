@@ -59,6 +59,7 @@ import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.ExtendedTouchView;
 import cn.goodjobs.common.view.LoadingDialog;
+import cn.goodjobs.common.view.empty.EmptyLayout;
 import cn.goodjobs.common.view.highlight.HighLight;
 import cn.goodjobs.common.view.searchItem.SelectorItemView;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
@@ -86,6 +87,7 @@ public class BlueHomeFragment extends BaseFragment
     private BlueCollarActivity activity;
     private boolean isLoadSuccess;
     private HighLight mHightLight;
+    private EmptyLayout error_layout;
 
 
     @Subscriber(tag = URLS.JOB_bluehome_login)
@@ -114,10 +116,10 @@ public class BlueHomeFragment extends BaseFragment
         }
     }
 
-    private void getDataFromServer()
+    public void getDataFromServer()
     {
-        LoadingDialog.showDialog(getActivity());
-
+//        LoadingDialog.showDialog(getActivity());
+        error_layout.setErrorType(EmptyLayout.NETWORK_LOADING);
         HashMap<String, Object> param = new HashMap<>();
         if (myLocation != null) {
             param.put("lat", myLocation.latitude);
@@ -172,14 +174,14 @@ public class BlueHomeFragment extends BaseFragment
         return view;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser)
-    {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !isLoadSuccess) {
-            getDataFromServer();
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser)
+//    {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser && !isLoadSuccess) {
+//
+//        }
+//    }
 
     @Override
     public void onDestroy()
@@ -189,9 +191,25 @@ public class BlueHomeFragment extends BaseFragment
     }
 
     @Override
+    public void onFailure(int statusCode, String tag)
+    {
+        super.onFailure(statusCode, tag);
+        error_layout.setErrorType(EmptyLayout.NETWORK_ERROR);
+
+    }
+
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage)
+    {
+        super.onError(errorCode, tag, errorMessage);
+        error_layout.setErrorType(EmptyLayout.NETWORK_ERROR);
+    }
+
+    @Override
     public void onSuccess(String tag, Object data)
     {
         super.onSuccess(tag, data);
+        error_layout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         isLoadSuccess = true;
         jsonObject = (JSONObject) data;
         activity.setCurSelectJobCate(jsonObject.optString("getBlueFunID"));
@@ -223,7 +241,7 @@ public class BlueHomeFragment extends BaseFragment
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
                         if (blue_first == null || !blue_first)
-                        showTipMask(inflate);
+                            showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
                 }
@@ -369,7 +387,7 @@ public class BlueHomeFragment extends BaseFragment
                 int screenW = DensityUtil.getScreenW(mActivity);
 //                int width = historyLayout.getWidth();
                 int itemW = 0;
-                int padding = (int) getResources().getDimension(R.dimen.padding_small);
+                int padding = (int) mActivity.getResources().getDimension(R.dimen.padding_small);
 //                if (width == 0) {
                 itemW = (screenW - 4 * padding) / 3;
 //                } else {
@@ -454,6 +472,7 @@ public class BlueHomeFragment extends BaseFragment
 
 
         blueSearchBut = view.findViewById(R.id.blue_search_but);
+        error_layout = (EmptyLayout) view.findViewById(R.id.error_layout);
         historyLayout = (LinearLayout) view.findViewById(R.id.historyLayout);
         historyLayout2 = (LinearLayout) view.findViewById(R.id.historyLayout2);
         jobBox = (LinearLayout) view.findViewById(R.id.job_box);
@@ -461,7 +480,15 @@ public class BlueHomeFragment extends BaseFragment
         applyjobBut = view.findViewById(R.id.applyjob_but);
         applyjobBut.setOnClickListener(this);
         tipLayout.setOnClickListener(this);
-
+        error_layout.setOnLayoutClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                getDataFromServer();
+            }
+        });
+        getDataFromServer();
     }
 
 

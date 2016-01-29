@@ -3,17 +3,22 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color">
 
+    <include
+        android:id="@+id/top"
+        layout="@layout/topbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/top"
         android:orientation="vertical">
 
-        <include layout="@layout/topbar" />
-
         <ScrollView
+            android:id="@+id/sv_campus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,8 +86,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/padding_small"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/padding_small">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="3dip"
@@ -130,4 +134,11 @@
             android:scaleType="fitEnd"
             android:src="@drawable/tip_change" />
     </RelativeLayout>
+
+    <cn.goodjobs.common.view.empty.EmptyLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top"
+        android:visibility="gone"></cn.goodjobs.common.view.empty.EmptyLayout>
 </RelativeLayout>

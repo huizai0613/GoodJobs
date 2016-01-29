@@ -6,12 +6,12 @@
               android:orientation="vertical">
 
     <LinearLayout
-        android:background="@drawable/list_item_bg"
         android:layout_width="match_parent"
         android:layout_height="80dip"
-        android:paddingRight="@dimen/padding_small"
-        android:paddingLeft="@dimen/padding_small"
+        android:background="@drawable/list_item_bg"
         android:orientation="horizontal"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
         android:paddingTop="@dimen/padding_small">
 
         <cn.goodjobs.common.view.ExtendedTouchView
