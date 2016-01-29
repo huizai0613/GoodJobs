@@ -114,7 +114,7 @@ public class BlueHomeFragment extends BaseFragment
         }
     }
 
-    private void getDataFromServer()
+    public void getDataFromServer()
     {
         LoadingDialog.showDialog(getActivity());
 
@@ -223,7 +223,7 @@ public class BlueHomeFragment extends BaseFragment
                     if (i == 0) {
                         Boolean blue_first = SharedPrefUtil.getBoolean(mActivity, "blue_first");
                         if (blue_first == null || !blue_first)
-                        showTipMask(inflate);
+                            showTipMask(inflate);
                         SharedPrefUtil.saveDataToLoacl("blue_first", true);
                     }
                 }
@@ -369,7 +369,7 @@ public class BlueHomeFragment extends BaseFragment
                 int screenW = DensityUtil.getScreenW(mActivity);
 //                int width = historyLayout.getWidth();
                 int itemW = 0;
-                int padding = (int) getResources().getDimension(R.dimen.padding_small);
+                int padding = (int) mActivity.getResources().getDimension(R.dimen.padding_small);
 //                if (width == 0) {
                 itemW = (screenW - 4 * padding) / 3;
 //                } else {

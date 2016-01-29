@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.goodjobs.bluecollar">
+<manifest package="cn.goodjobs.bluecollar"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -8,41 +8,43 @@
         <activity
             android:name=".activity.BlueCollarActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.makefriend.AddTrendActivity"
-            android:label="@string/title_activity_add_trend" />
+            android:label="@string/title_activity_add_trend"/>
         <activity
             android:name=".activity.InfoCenter.ItemResumeActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".activity.InfoCenter.ResumeMoreActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"/>
         <activity
             android:name=".activity.BlueSearchActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BlueJobSearchResultActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.InfoCenter.ItemCheckActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.InfoCenter.ItemApplyActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.InfoCenter.ItemCollectActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BlueJobDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BlueComplainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.BlueJobCompanyDetailActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.makefriend.MakeFriendPersonalInfoActivity"
             android:label="@string/title_activity_make_friend_personal_info"
