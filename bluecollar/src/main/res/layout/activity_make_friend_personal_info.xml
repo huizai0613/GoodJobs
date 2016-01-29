@@ -1,55 +1,64 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:listitem="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:listitem="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     android:orientation="vertical">
 
-    <include layout="@layout/actionbar"/>
+    <include layout="@layout/actionbar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="@dimen/padding_small"
-                android:background="@color/white">
-                <View style="@style/line"/>
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <View style="@style/line" />
+
                 <RelativeLayout
                     android:id="@+id/headPhotoLayout"
                     android:layout_width="match_parent"
                     android:layout_height="70dip"
-                    android:clickable="true"
-                    android:background="@drawable/list_item_bg">
+                    android:background="@drawable/list_item_bg"
+                    android:clickable="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <View
                             android:layout_width="@dimen/padding_default"
-                            android:layout_height="2dip"/>
+                            android:layout_height="2dip" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/padding_small"
                             android:text="头像"
                             android:textColor="@color/main_color"
-                            android:textSize="@dimen/text_default"/>
+                            android:textSize="@dimen/text_default" />
+
                         <View
-                            android:layout_marginRight="8dip"
                             android:layout_width="0.5dip"
                             android:layout_height="14dip"
-                            android:visibility="invisible"
-                            android:background="@color/light_color"/>
+                            android:layout_marginRight="8dip"
+                            android:background="@color/light_color"
+                            android:visibility="invisible" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -61,52 +70,60 @@
                             android:layout_height="54dip"
                             fresco:actualImageScaleType="focusCrop"
                             fresco:fadeDuration="300"
-                            fresco:roundedCornerRadius="27dp"
                             fresco:placeholderImage="@drawable/img_personal_default"
-                            fresco:placeholderImageScaleType="fitCenter"/>
+                            fresco:placeholderImageScaleType="fitCenter"
+                            fresco:roundedCornerRadius="27dp" />
 
                         <ImageView
                             android:id="@+id/imgArrow"
                             style="@style/right_arrow_base"
-                            android:layout_marginRight="@dimen/padding_default"/>
+                            android:layout_marginRight="@dimen/padding_default" />
                     </LinearLayout>
+
                     <View
-                        android:layout_marginLeft="12dip"
+                        style="@style/line"
                         android:layout_alignParentBottom="true"
-                        style="@style/line"/>
+                        android:layout_marginLeft="12dip" />
                 </RelativeLayout>
+
                 <cn.goodjobs.common.view.searchItem.InputItemView
                     android:id="@+id/itemName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    listitem:tvtitle="昵称"
+                    listitem:hint="请输入昵称"
                     listitem:showHLine="false"
-                    listitem:hint="请输入昵称"/>
+                    listitem:tvtitle="昵称" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/list_item_height"
                     android:background="@drawable/list_item_bg">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <View
                             android:layout_width="@dimen/padding_default"
-                            android:layout_height="2dip"/>
+                            android:layout_height="2dip" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/padding_small"
                             android:text="性别"
                             android:textColor="@color/main_color"
-                            android:textSize="@dimen/text_default"/>
+                            android:textSize="@dimen/text_default" />
+
                         <View
-                            android:layout_marginRight="8dip"
                             android:layout_width="0.5dip"
                             android:layout_height="14dip"
-                            android:visibility="invisible"
-                            android:background="@color/light_color"/>
+                            android:layout_marginRight="8dip"
+                            android:background="@color/light_color"
+                            android:visibility="invisible" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -116,68 +133,74 @@
                             android:id="@+id/sexGroup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:checkedButton="@+id/radioMan"
                             android:layout_marginRight="@dimen/padding_small"
+                            android:checkedButton="@+id/radioMan"
                             android:orientation="horizontal">
+
                             <RadioButton
                                 android:id="@+id/radioMan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="男"
-                                android:textSize="@dimen/text_small"
-                                android:textColor="@color/main_color"/>
+                                android:textColor="@color/main_color"
+                                android:textSize="@dimen/text_small" />
+
                             <RadioButton
                                 android:id="@+id/radioWuman"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:text="女"
-                                android:textSize="@dimen/text_small"
-                                android:textColor="@color/main_color"/>
+                                android:textColor="@color/main_color"
+                                android:textSize="@dimen/text_small" />
                         </RadioGroup>
 
                         <ImageButton
                             android:layout_width="18dip"
                             android:layout_height="18dip"
-                            android:src="@drawable/icon_clear"
-                            android:scaleType="fitCenter"
-                            android:padding="2dip"
-                            android:background="@color/transparent"
                             android:layout_marginRight="@dimen/padding_default"
-                            android:visibility="invisible"/>
+                            android:background="@color/transparent"
+                            android:padding="2dip"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_clear"
+                            android:visibility="invisible" />
                     </LinearLayout>
+
                     <View
-                        android:layout_marginLeft="12dip"
+                        style="@style/line"
                         android:layout_alignParentBottom="true"
-                        style="@style/line"/>
+                        android:layout_marginLeft="12dip" />
                 </RelativeLayout>
+
                 <cn.goodjobs.common.view.searchItem.SearchItemView
                     android:id="@+id/itemBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    listitem:tvtitle="出生日期"
-                    listitem:hint="请选择出生日期"/>
+                    listitem:hint="请选择出生日期"
+                    listitem:tvtitle="出生日期" />
+
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
                     android:id="@+id/itemAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    listitem:tvtitle="现居住地"
-                    listitem:source="jobloc_pro;jobloc_city;jobloc_district"
                     listitem:hint="请选择现居住地"
-                    listitem:showLine="false"/>
-                <View style="@style/line"/>
+                    listitem:showLine="false"
+                    listitem:source="jobloc_pro;jobloc_city;jobloc_district"
+                    listitem:tvtitle="现居住地" />
+
+                <View style="@style/line" />
             </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
                 android:layout_margin="@dimen/padding_default"
+                android:background="@drawable/button_bg"
+                android:onClick="doSave"
                 android:text="保存修改"
                 android:textColor="@color/white"
-                android:onClick="doSave"
-                android:textSize="@dimen/text_default"
-                android:background="@drawable/button_bg"/>
+                android:textSize="@dimen/text_default" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

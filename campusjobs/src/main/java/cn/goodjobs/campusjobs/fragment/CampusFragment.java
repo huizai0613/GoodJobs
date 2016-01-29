@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,6 +35,7 @@ import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.MyListView;
+import cn.goodjobs.common.view.empty.EmptyLayout;
 import cn.goodjobs.common.view.searchItem.JsonMetaUtil;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
@@ -42,6 +44,8 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
  */
 public class CampusFragment extends BaseListFragment {
 
+    private EmptyLayout emptyLayout;
+    private ScrollView sv;
     private EditText etSearch;
     private MyListView lv_campus;
     private CampusAdapter adapter;
@@ -61,6 +65,8 @@ public class CampusFragment extends BaseListFragment {
     public void initView(View view) {
         setTopTitle(view, "校园招聘");
         changeLeftBg(view, R.mipmap.icon_campus);
+        sv = (ScrollView) view.findViewById(R.id.sv_campus);
+        emptyLayout = (EmptyLayout) view.findViewById(R.id.error_layout);
         lv_campus = (MyListView) view.findViewById(R.id.lv_campus);
         adViewPager = (AutoScrollViewPager) view.findViewById(R.id.adViewPager);
         etSearch = (EditText) view.findViewById(R.id.etSearch);
@@ -74,23 +80,30 @@ public class CampusFragment extends BaseListFragment {
         if (tipChange == null || tipChange) {
             tipLayout.setVisibility(View.VISIBLE);
         }
+
+        emptyLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        HttpUtil.post(URLS.API_JOB_CampusIndex, this);
+
+        emptyLayout.setOnLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDataFronServer();
+            }
+        });
     }
 
-    // 当fragment可见时调用
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (!isSuccess) {
-                LoadingDialog.showDialog(getActivity());
-                HttpUtil.post(URLS.API_JOB_CampusIndex, this);
-            }
-        }
+    protected void getDataFronServer() {
+        super.getDataFronServer();
+        emptyLayout.setErrorType(EmptyLayout.NETWORK_LOADING);
+        HttpUtil.post(URLS.API_JOB_CampusIndex, this);
     }
 
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
+        sv.setVisibility(View.VISIBLE);
+        emptyLayout.setVisibility(View.GONE);
         JSONObject object = (JSONObject) data;
         JSONArray array = object.optJSONArray("list");
         adapter.appendToList(array);
@@ -101,11 +114,17 @@ public class CampusFragment extends BaseListFragment {
     @Override
     public void onFailure(int statusCode, String tag) {
         super.onFailure(statusCode, tag);
+        LoadingDialog.hide();
+        if (emptyLayout != null)
+            emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
+        LoadingDialog.hide();
+        if (emptyLayout != null)
+            emptyLayout.setErrorType(EmptyLayout.NETWORK_ERROR);
     }
 
     @Override
