@@ -33,6 +33,8 @@
         android:layout_toRightOf="@id/btn_left"
         android:gravity="center_vertical"
         android:singleLine="true"
+        android:clickable="true"
+        android:onClick="toModule"
         android:text="标题"
         android:textColor="@color/white"
         android:textSize="@dimen/text_default"

@@ -25,7 +25,7 @@ public class AlertDialogUtil {
     public static void show(Context context, String title, String msg, boolean hasCancel, String okText,
                      String cancelText, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener cancelListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setIcon(R.drawable.ic_36);
+//        builder.setIcon(R.drawable.ic_36);
         builder.setTitle(title);
         builder.setMessage(msg);
         builder.setPositiveButton(okText, okListener);
@@ -38,7 +38,7 @@ public class AlertDialogUtil {
     public static void show(Context context, int title, String msg, boolean hasCancel, String okText,
                      String cancelText, DialogInterface.OnClickListener okListener, DialogInterface.OnClickListener cancelListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setIcon(R.drawable.ic_36);
+//        builder.setIcon(R.drawable.ic_36);
         builder.setTitle(title);
         builder.setMessage(msg);
         builder.setPositiveButton(okText, okListener);

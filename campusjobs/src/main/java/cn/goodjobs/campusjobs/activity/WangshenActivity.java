@@ -23,7 +23,7 @@ public class WangshenActivity extends BasePersonalListActivity implements Adapte
         resIDs = new int[]{R.id.tvTitle, R.id.tvAddress, R.id.tvContent, R.id.tvTime};
         keys = new String[]{"jobName", "cityName", "corpName", "applyDate"};
         super.onCreate(savedInstanceState);
-        mListView.setOnItemClickListener(this);
+//        mListView.setOnItemClickListener(this);
     }
 
     @Override

@@ -207,7 +207,7 @@ public class CrashHandler implements UncaughtExceptionHandler
 // 创建一个文件夹对象，赋值为外部存储器的目录
                 File sdcardDir = Environment.getExternalStorageDirectory();
 // 得到一个路径，内容是sdcard的文件夹路径和名字
-                String path = sdcardDir.getPath() + "/shequ/crash/";
+                String path = sdcardDir.getPath() + "/goodjobs/crash/";
 // String path = "/sdcard/KanKan/pic/";
                 File dir = new File(path);
                 if (!dir.exists()) {
