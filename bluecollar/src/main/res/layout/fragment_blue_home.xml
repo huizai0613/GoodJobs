@@ -87,10 +87,10 @@
                     android:id="@+id/historyLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/padding_small"
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:paddingBottom="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_small"
                     android:visibility="gone"></LinearLayout>
 
                 <TextView
@@ -137,15 +137,22 @@
         android:id="@+id/tipLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
         android:background="#aa000000"
+        android:clickable="true"
         android:visibility="invisible">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/tip_change"
             android:layout_marginRight="4dip"
             android:layout_marginTop="8dip"
-            android:scaleType="fitEnd"/>
+            android:scaleType="fitEnd"
+            android:src="@drawable/tip_change"/>
     </RelativeLayout>
+
+
+    <cn.goodjobs.common.view.empty.EmptyLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></cn.goodjobs.common.view.empty.EmptyLayout>
 </RelativeLayout>

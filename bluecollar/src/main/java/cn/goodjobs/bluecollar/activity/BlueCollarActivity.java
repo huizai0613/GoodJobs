@@ -33,7 +33,8 @@ import cn.goodjobs.common.view.CustomViewPager;
  * 蓝领主界面
  */
 
-public class BlueCollarActivity extends BaseActivity {
+public class BlueCollarActivity extends BaseActivity
+{
 
     private long backTime = 2000;
     private long curTime;
@@ -43,30 +44,35 @@ public class BlueCollarActivity extends BaseActivity {
     public ArrayList<BaseFragment> fragmentList;
 
 
-    public void setCurSelectJobCate(String curSelectJobCate) {
+    public void setCurSelectJobCate(String curSelectJobCate)
+    {
         ((BlueJobFragment) fragmentList.get(1)).setSelectCate(curSelectJobCate);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Lanling.toString()); // 保存当前模块为默认模块
-
         UmengUpdateAgent.update(this); // 检测版本更新
     }
 
+
     @Override
-    protected int getLayoutID() {
+    protected int getLayoutID()
+    {
         return R.layout.activity_blue_collar;
     }
 
     @Override
-    protected void initWeightClick() {
+    protected void initWeightClick()
+    {
 
     }
 
     @Override
-    protected void initWeight() {
+    protected void initWeight()
+    {
         btnFooter1 = (LinearLayout) findViewById(R.id.btnFooter1);
         btnFooter2 = (LinearLayout) findViewById(R.id.btnFooter2);
         btnFooter3 = (LinearLayout) findViewById(R.id.btnFooter3);
@@ -94,16 +100,19 @@ public class BlueCollarActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
+    protected void initData()
+    {
 
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void onNewIntent(Intent intent)
+    {
         super.onNewIntent(intent);
         int pageIndex = intent.getIntExtra("pageIndex", 0);
         if (pageIndex == 0) {
             onClick(btnFooter1);
+            ((BlueHomeFragment) fragmentList.get(0)).getDataFromServer();
         } else if (pageIndex == 3) {
             onClick(btnFooter4);
             ((BlueInfoCenterFragment) fragmentList.get(3)).getDataFromServer();
@@ -111,7 +120,8 @@ public class BlueCollarActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
         String defaultModule = SharedPrefUtil.getDataFromLoacl("defaultModule"); //默认打开的模块
         if (!StringUtil.isEmpty(defaultModule) && Constant.module.Lanling.toString().equals(defaultModule)) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -130,7 +140,8 @@ public class BlueCollarActivity extends BaseActivity {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         super.onClick(v);
         btnFooter.setSelected(false);
         if (v.getId() == R.id.btnFooter1) {
@@ -150,7 +161,8 @@ public class BlueCollarActivity extends BaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == LoginActivity.LOGIN_REQUEST_CODE) {

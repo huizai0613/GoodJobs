@@ -129,7 +129,7 @@ public class BaseFragment extends Fragment implements HttpResponseHandler, View.
                 if (jsonObject.has("width")) {
                     adScale = jsonObject.optDouble("width") / jsonObject.optDouble("height");
                 }
-                SimpleDraweeView simpleDraweeView = (SimpleDraweeView) LayoutInflater.from(getActivity()).inflate(R.layout.simpledraweeview, null);
+                SimpleDraweeView simpleDraweeView = (SimpleDraweeView) LayoutInflater.from(mActivity).inflate(R.layout.simpledraweeview, null);
                 String imageUrl = jsonObject.optString("image");
                 Uri uri = Uri.parse(imageUrl);
                 if (imageUrl.endsWith(".gif") || imageUrl.endsWith(".GIF")) {

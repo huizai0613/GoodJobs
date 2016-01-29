@@ -372,9 +372,11 @@ public class HttpUtil
                                 // 蓝领、全职简历不完善
                                 LoadingDialog.hide();
                                 requstEntityStack.pop();
-                                AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, jsonObject.getString("errorMessage"), true, "去完善", "先看看", new DialogInterface.OnClickListener() {
+                                AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, jsonObject.getString("errorMessage"), true, "去完善", "先看看", new DialogInterface.OnClickListener()
+                                {
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    public void onClick(DialogInterface dialog, int which)
+                                    {
                                         Intent intent = new Intent();
                                         if (errorCode == 10016) {
                                             intent.setClass(ScreenManager.getScreenManager().currentActivity(), MyResumeActivity.class);
@@ -470,7 +472,7 @@ public class HttpUtil
     public static DisplayMetrics getDisplayMetrics()
     {
         DisplayMetrics displayMetrix = new DisplayMetrics();
-        WindowManager wm = ((WindowManager) ScreenManager.getScreenManager().currentActivity().getSystemService(Context.WINDOW_SERVICE));
+        WindowManager wm = ((WindowManager) GoodJobsApp.getInstance().getSystemService(Context.WINDOW_SERVICE));
         wm.getDefaultDisplay().getMetrics(displayMetrix);
         return displayMetrix;
     }
