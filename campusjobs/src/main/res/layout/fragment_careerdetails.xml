@@ -30,9 +30,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small">
 
+                <TextView
+                    android:id="@+id/tv_fairClick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/padding_default"
+                    android:text="171"
+                    android:textColor="@color/light_color"
+                    android:textSize="@dimen/text_small" />
+
+                <ImageView
+                    android:id="@+id/iv_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dip"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/tv_fairClick"
+                    android:src="@mipmap/view" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/iv_check"
                     android:orientation="horizontal">
 
                     <TextView
@@ -80,23 +100,6 @@
                         android:textSize="@dimen/text_small" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_fairClick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/padding_default"
-                    android:text="171"
-                    android:textColor="@color/light_color"
-                    android:textSize="@dimen/text_small" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dip"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/tv_fairClick"
-                    android:src="@mipmap/view" />
 
             </RelativeLayout>
 
