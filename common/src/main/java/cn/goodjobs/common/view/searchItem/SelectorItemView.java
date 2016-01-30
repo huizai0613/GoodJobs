@@ -21,8 +21,7 @@ import cn.goodjobs.common.util.StringUtil;
  * Created by 王刚 on 2015/12/17 0017.
  * 公共数据选择
  */
-public class SelectorItemView extends SearchItemView implements View.OnClickListener
-{
+public class SelectorItemView extends SearchItemView implements View.OnClickListener {
 
     public String sourceStr; // 数据源，多个数据源以|分隔
     public String selectorIds; //选中ids
@@ -41,21 +40,18 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     public boolean isInit; //是否初始化
     public static String allId = "-1"; // 默认不限的id
 
-    public SelectorItemView(Context context, AttributeSet attrs)
-    {
+    public SelectorItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(attrs);
         this.setOnClickListener(this);
     }
 
-    public SelectorItemView(Context context)
-    {
+    public SelectorItemView(Context context) {
         super(context);
         this.setOnClickListener(this);
     }
 
-    private void initView(AttributeSet attrs)
-    {
+    private void initView(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.listitem, 0, 0);
         sourceStr = a.getString(R.styleable.listitem_source);
         keys = sourceStr.split(";");
@@ -82,23 +78,20 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         SelectorActivity.selectorItemView = this;
         Intent intent = new Intent(getContext(), SelectorActivity.class);
         getContext().startActivity(intent);
     }
 
-    public void setKeys(String... keys)
-    {
+    public void setKeys(String... keys) {
         this.keys = keys;
     }
 
     /**
      * 公共数据初始化
      */
-    public void init()
-    {
+    public void init() {
         if (!isInit) {
             selectorEntityStack = new Stack<List<SelectorEntity>>();
             selectedItems = new ArrayList<SelectorEntity[]>();
@@ -112,8 +105,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         }
     }
 
-    private List<SelectorEntity> initWithJSONOArray(SelectorEntity parantEntity, String parentId, String parantName, JSONArray jsonArray, int keyIndex)
-    {
+    private List<SelectorEntity> initWithJSONOArray(SelectorEntity parantEntity, String parentId, String parantName, JSONArray jsonArray, int keyIndex) {
         JSONObject jsonObject = null;
         if (keyIndex < keys.length) {
             jsonObject = (JSONObject) JsonMetaUtil.getObject(keys[keyIndex]);
@@ -126,6 +118,10 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
                 SelectorEntity[] selectorEntitys = new SelectorEntity[keys.length];
                 selectorEntitys[0] = selectorEntity2;
                 selectedItems.add(selectorEntitys); // 不限被选中
+                if (parantEntity != null) {
+                    parantEntity.selectedNum = 1;
+                    selectedItems.get(selectedItems.size() - 1)[keys.length - keyIndex + 1] = parantEntity;
+                }
             }
             selectorEntityList.add(selectorEntity2);
         }
@@ -144,7 +140,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
                 } else {
                     parantName1 = jsonObject1.optString("name");
                 }
-                selectorEntity.array = initWithJSONOArray(selectorEntity,allId + parentSpitStr + id1, parantName1, jsonArray1, keyIndex + 1);
+                selectorEntity.array = initWithJSONOArray(selectorEntity, allId + parentSpitStr + id1, parantName1, jsonArray1, keyIndex + 1);
                 count += selectorEntity.selectedNum;
             } else {
                 if (selectorIds.contains(spitStr + id1 + spitStr)) {
@@ -161,7 +157,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             parantEntity.selectedNum = count;
             LogUtil.info("selectedItems.size()-1:=" + (selectedItems.size() - 1));
             LogUtil.info("keys.length - keyIndex:=" + (keys.length - keyIndex));
-            selectedItems.get(selectedItems.size()-1)[keys.length - keyIndex + 1] = parantEntity;
+            selectedItems.get(selectedItems.size() - 1)[keys.length - keyIndex + 1] = parantEntity;
         }
         return selectorEntityList;
     }
@@ -172,10 +168,10 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         SelectorEntity[] selectorEntities = null;
         if (size > 0) {
             // 有被选中的项
-            for (int i=size-1;i>=0;--i) {
+            for (int i = size - 1; i >= 0; --i) {
                 SelectorEntity[] temp = selectedItems.get(i);
-                for (int j=0;j<keys.length;++j) {
-                    if (temp[j] == null) {
+                for (int j = 0; j < keys.length; ++j) {
+                    if (temp[j] == null && selectorEntities[j] != null) {
                         temp[j] = selectorEntities[j];
                     }
                 }
@@ -184,8 +180,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         }
     }
 
-    public void setSelectorIds(String selectorIds)
-    {
+    public void setSelectorIds(String selectorIds) {
         setTag(selectorIds);
         clear();
         if (!StringUtil.isEmpty(selectorIds)) {
@@ -206,8 +201,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     /**
      * 清空选择
      */
-    public void clear()
-    {
+    public void clear() {
         isInit = false;
         if (selectedItems == null || selectedItems.size() == 0) {
             return;
@@ -222,8 +216,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         setText("");
     }
 
-    public String getSelectorIds()
-    {
+    public String getSelectorIds() {
         if (!isInit && !StringUtil.isEmpty(sID)) {
             return sID;
         }
@@ -245,13 +238,11 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     }
 
 
-    public void setSpID(String spID)
-    {
+    public void setSpID(String spID) {
         this.spID = spID;
     }
 
-    public String getSelectorPraentIds()
-    {
+    public String getSelectorPraentIds() {
         if (!isInit && !StringUtil.isEmpty(spID)) {
             return spID;
         }
@@ -259,7 +250,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
             return "";
         }
         StringBuilder sb = new StringBuilder();
-        for (SelectorEntity[] selectorEntitys: selectedItems) {
+        for (SelectorEntity[] selectorEntitys : selectedItems) {
             if (sb.length() > 0) {
                 sb.append(spitStr);
             }
@@ -268,8 +259,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         return sb.toString();
     }
 
-    public String getSelectorName()
-    {
+    public String getSelectorName() {
         if (selectedItems == null || selectedItems.size() == 0) {
             setTag("");
             setText("");
@@ -277,7 +267,7 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
         }
         StringBuilder sb = new StringBuilder();
         StringBuilder id = new StringBuilder();
-        for (SelectorEntity[] selectorEntitys: selectedItems) {
+        for (SelectorEntity[] selectorEntitys : selectedItems) {
             if (sb.length() > 0) {
                 sb.append(" ");
             }
@@ -301,10 +291,10 @@ public class SelectorItemView extends SearchItemView implements View.OnClickList
     }
 
     public void removeSelectedItem(SelectorEntity selectorEntity) {
-        for (SelectorEntity[] selectorEntitys: selectedItems) {
+        for (SelectorEntity[] selectorEntitys : selectedItems) {
             if (selectorEntitys[0] == selectorEntity) {
                 int size = selectorEntitys.length;
-                for (int i=0;i<size;++i) {
+                for (int i = 0; i < size; ++i) {
                     if (i == 0) {
                         selectorEntitys[0].isSelected = false;
                     } else {
