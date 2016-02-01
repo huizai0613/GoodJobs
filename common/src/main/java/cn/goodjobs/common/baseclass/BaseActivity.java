@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.UmengRegistrar;
 
 import org.json.JSONObject;
 
@@ -26,7 +25,6 @@ import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
-import cn.goodjobs.common.view.empty.EmptyLayout;
 
 /**
  * Created by 王刚 on 2015/12/14 0014.
@@ -44,6 +42,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         initData();
         initWeight();
         initWeightClick();
+
+        LogUtil.info("youmeng_token="+ UmengRegistrar.getRegistrationId(this));
     }
 
     @Override

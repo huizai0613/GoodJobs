@@ -1,5 +1,6 @@
 package cn.goodjobs.parttimejobs.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -65,6 +66,12 @@ public class PartTimeJobActivity extends BaseListActivity {
         initList();
         mListView.setEmptyView(emptyLayout);
         startRefresh();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Jianzhi.toString()); // 保存当前模块为默认模块
     }
 
     private void initView() {

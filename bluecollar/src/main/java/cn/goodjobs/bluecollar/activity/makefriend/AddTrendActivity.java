@@ -60,7 +60,7 @@ public class AddTrendActivity extends BaseImageUploadActivity {
     @Override
     protected void initWeight() {
         super.initWeight();
-        setTopTitle("添加动态");
+        setTopTitle("发布动态");
         etContent = (EditText) findViewById(R.id.etContent);
         tvCount = (TextView) findViewById(R.id.tvCount);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);

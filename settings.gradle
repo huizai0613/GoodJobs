@@ -1,1 +1,1 @@
-include ':app', ':common', ':applyjobs', ':ptr-lib', ':parttimejobs', ':headhuntingjob', ':campusjobs', ':bluecollar'
+include ':app', ':common', ':applyjobs', ':ptr-lib', ':parttimejobs', ':headhuntingjob', ':campusjobs', ':bluecollar', ':PushSDK'
