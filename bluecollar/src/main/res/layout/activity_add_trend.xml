@@ -57,10 +57,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_margin="@dimen/padding_default"
-        android:text="添加"
+        android:text="发布"
         android:textColor="@color/white"
         android:onClick="doAdd"
         android:textSize="@dimen/text_default"
-        android:background="@drawable/button_bg"/>
+        android:background="@drawable/button_bg" />
 
 </LinearLayout>

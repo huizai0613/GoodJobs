@@ -231,8 +231,9 @@
                 listitem:important="visible"
                 listitem:showHLine="false"
                 listitem:showLine="false"
+                listitem:containAll="true"
                 listitem:singleSelected="false"
-                listitem:source="jobfunc_l1;jobfunc_l2"
+                listitem:source="blueCategoryBig;blueCategorySmall"
                 listitem:tvtitle="想做什么" />
 
 

@@ -363,8 +363,17 @@ public class HttpUtil
                                     // 用户客户端已经登录
                                     // 再次执行登录操作
                                     doLogin();
-                                    return;
+                                } else {
+                                    LoadingDialog.hide();
+                                    requstEntityStack.pop();
+                                    AlertDialogUtil.show(ScreenManager.getScreenManager().currentActivity(), R.string.app_name, "您尚未登录", true, "去登录", "先看看", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            IntentUtil.toLoginActivity();
+                                        }
+                                    }, null);
                                 }
+                                return;
                             } else if (errorCode == 20002) {
                                 // 蓝领交友信息不完整
                                 IntentUtil.toLanlingPersonalActivity(ScreenManager.getScreenManager().currentActivity());

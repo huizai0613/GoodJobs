@@ -1,5 +1,6 @@
 package cn.goodjobs.headhuntingjob.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -54,6 +55,12 @@ public class HeadHuntingActivity extends BaseActivity {
 
     @Override
     protected void initWeightClick() {
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Liepin.toString()); // 保存当前模块为默认模块
     }
 
     @Override

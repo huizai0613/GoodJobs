@@ -140,7 +140,7 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == LoginActivity.LOGIN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Intent intent = new Intent(getActivity(), AddTrendActivity.class);
+            Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
             startActivity(intent);
         }
     }

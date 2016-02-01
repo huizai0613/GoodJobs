@@ -109,6 +109,7 @@ public class BlueCollarActivity extends BaseActivity
     protected void onNewIntent(Intent intent)
     {
         super.onNewIntent(intent);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Lanling.toString()); // 保存当前模块为默认模块
         int pageIndex = intent.getIntExtra("pageIndex", 0);
         if (pageIndex == 0) {
             onClick(btnFooter1);

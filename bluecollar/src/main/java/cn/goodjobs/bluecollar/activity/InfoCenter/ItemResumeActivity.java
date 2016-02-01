@@ -40,6 +40,7 @@ import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.searchItem.InputItemView;
 import cn.goodjobs.common.view.searchItem.SearchItemView;
+import cn.goodjobs.common.view.searchItem.SelectorEntity;
 import cn.goodjobs.common.view.searchItem.SelectorItemView;
 
 /**
@@ -134,7 +135,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 intent.putExtra("sex", sex);
                 intent.putExtra("birthday", birthday);
                 intent.putExtra("cityID", cityID);
-                intent.putExtra("sFunction", sFunction);
+                intent.putExtra("sFunction", sFunction.replaceAll(SelectorItemView.allId + SelectorItemView.parentSpitStr, ""));
                 intent.putExtra("autoSend", autoSend);
                 startActivity(intent);
             } else {
@@ -171,7 +172,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 params.put("sex", sex);
                 params.put("birthday", birthday);
                 params.put("cityID", cityID);
-                params.put("sFunction", sFunction);
+                params.put("sFunction", sFunction.replaceAll(SelectorItemView.allId + SelectorItemView.parentSpitStr, ""));
                 params.put("autoSend", autoSend);
                 LoadingDialog.showDialog(this);
                 HttpUtil.post(URLS.API_JOB_BlueBasicsave, params, this);
@@ -183,7 +184,7 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 params.put("sex", sex);
                 params.put("birthday", birthday);
                 params.put("cityID", cityID);
-                params.put("sFunction", sFunction);
+                params.put("sFunction", sFunction.replaceAll(SelectorItemView.allId + SelectorItemView.parentSpitStr, ""));
                 params.put("autoSend", autoSend);
                 params.put("degree", degree);
                 params.put("ckTime", ckTime);

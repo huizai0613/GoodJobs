@@ -8,11 +8,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+
 import cn.goodjobs.client.R;
 import cn.goodjobs.common.activity.HelpActivity;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.util.AlertDialogUtil;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.ScreenManager;
 import cn.goodjobs.common.util.StringUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
@@ -33,6 +37,19 @@ public class LauncherActivity extends BaseActivity {
         //不显示系统的标题栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // 开启消息推送
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.enable();
+        //开启推送并设置注册的回调处理
+//        mPushAgent.enable(new IUmengRegisterCallback() {
+//
+//            @Override
+//            public void onRegistered(String registrationId) {
+//                //onRegistered方法的参数registrationId即是device_token
+//                LogUtil.info("device_token:"+registrationId);
+//            }
+//        });
 
         try {
             btnSkip = (Button) findViewById(R.id.btnSkip);

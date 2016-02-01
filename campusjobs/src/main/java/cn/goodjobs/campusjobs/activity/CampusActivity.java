@@ -52,6 +52,7 @@ public class CampusActivity extends BaseActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        SharedPrefUtil.saveDataToLoacl("defaultModule", Constant.module.Xiaoyuan.toString()); // 保存当前模块为默认模块
         int pageIndex = intent.getIntExtra("pageIndex", 0);
         if (pageIndex == 0) {
             onClick(btnFooter1);
