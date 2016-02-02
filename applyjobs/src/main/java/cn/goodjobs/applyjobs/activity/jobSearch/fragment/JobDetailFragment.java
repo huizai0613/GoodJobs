@@ -34,6 +34,7 @@ import cn.goodjobs.common.util.ViewHolderUtil;
 import cn.goodjobs.common.util.http.HttpResponseHandler;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.view.BabushkaText;
+import cn.goodjobs.common.view.LoadingDialog;
 import cn.goodjobs.common.view.XCFlowLayout;
 import cn.goodjobs.common.view.empty.EmptyLayout;
 
@@ -310,23 +311,28 @@ public class JobDetailFragment extends BaseViewPagerFragment
                 return;
             HashMap<String, Object> param = new HashMap<>();
             param.put("jobID", id);
+            LoadingDialog.showDialog(mActivity);
             HttpUtil.post(URLS.API_JOB_favorite, param, new HttpResponseHandler()
             {
                 @Override
                 public void onFailure(int statusCode, String tag)
                 {
+                    LoadingDialog.hide();
                     TipsUtil.show(mActivity, "收藏失败");
+
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data)
                 {
+                    LoadingDialog.hide();
                     TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
                 public void onError(int errorCode, String tag, String errorMessage)
                 {
+                    LoadingDialog.hide();
                 }
 
                 @Override
@@ -342,23 +348,27 @@ public class JobDetailFragment extends BaseViewPagerFragment
             HashMap<String, Object> param = new HashMap<>();
             param.put("jobID", id);
             param.put("ft", 2);
+            LoadingDialog.showDialog(mActivity);
             HttpUtil.post(URLS.API_JOB_apply, param, new HttpResponseHandler()
             {
                 @Override
                 public void onFailure(int statusCode, String tag)
                 {
+                    LoadingDialog.hide();
                     TipsUtil.show(mActivity, "简历投递失败");
                 }
 
                 @Override
                 public void onSuccess(String tag, Object data)
                 {
+                    LoadingDialog.hide();
                     TipsUtil.show(mActivity, ((JSONObject) data).optString("message"));
                 }
 
                 @Override
                 public void onError(int errorCode, String tag, String errorMessage)
                 {
+                    LoadingDialog.hide();
                 }
 
                 @Override
