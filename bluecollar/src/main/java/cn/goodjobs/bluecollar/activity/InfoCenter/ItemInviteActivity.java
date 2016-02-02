@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
+import cn.goodjobs.common.util.IntentUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.view.LoadingDialog;
 
@@ -19,6 +20,8 @@ import cn.goodjobs.common.view.LoadingDialog;
 public class ItemInviteActivity extends BaseActivity {
 
     private WebView wv;
+//    private String url = "http://m.chenjun.goodjobs.lab/index.php/module/Blue/action/Attend?for=app"; // 测试地址
+    private String url = "http://m.goodjobs.cn/index.php/module/Blue/action/Attend?for=app"; // 真实地址
 
     @Override
     protected int getLayoutID() {
@@ -35,14 +38,16 @@ public class ItemInviteActivity extends BaseActivity {
         setTopTitle("我要招聘");
         wv = (WebView) findViewById(R.id.wv_invite);
         LoadingDialog.showDialog(this);
-        String url = getIntent().getStringExtra("url");
-        wv.loadUrl(url);//页面请求地址
         WebSettings webSettings = wv.getSettings();
         wv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 LogUtil.info(url);
-                view.loadUrl(url);
+                if (url.endsWith("for=app")) {
+                    view.loadUrl(url);
+                } else {
+                    IntentUtil.toWebActivity(ItemInviteActivity.this, url);
+                }
                 return true;
             }
 
@@ -79,7 +84,7 @@ public class ItemInviteActivity extends BaseActivity {
         webSettings.setSaveFormData(false);
         webSettings.setLoadsImagesAutomatically(true);
         //自适应屏幕
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         webSettings.setLoadWithOverviewMode(true);
         // http请求的时候，模拟为火狐的UA会造成实时公交那边的页面存在问题，所以模拟iPhone的ua来解决这个问题
         String user_agent =
@@ -87,6 +92,7 @@ public class ItemInviteActivity extends BaseActivity {
         webSettings.setUserAgentString(user_agent);
 
 
+        wv.loadUrl(url);//页面请求地址
     }
 
 

@@ -36,6 +36,17 @@ public class IntentUtil {
     }
 
     /**
+     * 调用浏览器打开网页
+     * */
+    public static void toWebActivity(Context context, String url) {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
      * 界面跳转
      * */
     public static void toActivity(Class cls) {

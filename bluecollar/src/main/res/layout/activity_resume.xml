@@ -227,11 +227,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                listitem:containAll="true"
                 listitem:hint="请选择"
                 listitem:important="visible"
                 listitem:showHLine="false"
                 listitem:showLine="false"
-                listitem:containAll="true"
                 listitem:singleSelected="false"
                 listitem:source="blueCategoryBig;blueCategorySmall"
                 listitem:tvtitle="想做什么" />
@@ -303,7 +303,7 @@
                     listitem:important="invisible"
                     listitem:showHLine="false"
                     listitem:singleSelected="true"
-                    listitem:source="jobfunc_l1;jobfunc_l2"
+                    listitem:source="blueCategoryBig;blueCategorySmall"
                     listitem:tvtitle="目前职位" />
 
                 <cn.goodjobs.common.view.searchItem.SelectorItemView
