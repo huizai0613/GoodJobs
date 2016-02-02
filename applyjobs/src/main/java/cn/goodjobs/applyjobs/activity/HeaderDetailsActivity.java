@@ -45,7 +45,11 @@ public class HeaderDetailsActivity extends BaseListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
-        mAdapter = new HeaderDetailsAdapter(this);
+        if (typeID == 0) {
+            mAdapter = new HeaderDetailsAdapter(this, 0);
+        } else if (typeID == 1) {
+            mAdapter = new HeaderDetailsAdapter(this, 1);
+        }
         initList();
         startRefresh();
     }

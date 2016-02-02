@@ -109,6 +109,12 @@ public class JobFairFragment extends BaseFragment implements View.OnClickListene
                 String newstitle = object2.optString("newstitle");
                 String newsdate = object2.optString("newsdate");
                 String typeName = object2.optString("typeName");
+                if (type == 0) {
+                    String newsStartDate = object2.optString("newsStartDate");
+                    String newsCityName = object2.optString("newsCityName");
+                    child.setNewsStartDate(newsStartDate);
+                    child.setNewsCityName(newsCityName);
+                }
                 child.setNewsID(newsID);
                 child.setNewsdate(newsdate);
                 child.setNewstitle(newstitle);
