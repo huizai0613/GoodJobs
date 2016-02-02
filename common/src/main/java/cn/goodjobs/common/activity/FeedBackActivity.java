@@ -89,8 +89,10 @@ public class FeedBackActivity extends BaseActivity {
         super.onSuccess(tag, data);
         if (data instanceof JSONObject) {
             TipsUtil.show(this, ((JSONObject) data).optString("message"));
+            finish();
         } else if (data instanceof String) {
             TipsUtil.show(this, (String) data);
+            finish();
         }
     }
 }

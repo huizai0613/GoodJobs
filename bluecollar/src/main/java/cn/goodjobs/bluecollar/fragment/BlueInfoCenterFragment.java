@@ -25,6 +25,7 @@ import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCheckActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemCollectActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemInviteActivity;
 import cn.goodjobs.bluecollar.activity.InfoCenter.ItemResumeActivity;
+import cn.goodjobs.bluecollar.view.listview.DateUtil;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.activity.LoginActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
@@ -174,7 +175,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
                 intent.setClass(getActivity(), LoginActivity.class);
             } else if (i == R.id.myImageview) {
                 intent.setClass(getActivity(), LoginActivity.class);
-            }  else if (i == R.id.itemSetting) {
+            } else if (i == R.id.itemSetting) {
                 intent.setClassName(getActivity(), "cn.goodjobs.common.activity.personalcenter.UpdateUserInfoActivity");
             } else if (i == R.id.itemJianli) {
                 intent.setClass(getActivity(), ItemResumeActivity.class);
@@ -231,6 +232,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
             setDataToView();
         } else if (tag.equals(URLS.API_JOB_UserUpdate)) {
             TipsUtil.show(getActivity(), (String) data);
+            tvTime.setText("更新时间  :  " + DateUtil.getToday());
         } else if (tag.equals(URLS.API_JOB_BlueuserEntrustcv)) {
             if (isEntrust) {
                 tvEntrust.setText("委托投递");
@@ -239,7 +241,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
             } else {
                 tvEntrust.setText("取消委托");
                 isEntrust = true;
-                AlertDialogUtil.show(getActivity(), "委托投递", "委托投递设置成功！\n  7天内，系统根据您的求职意向针对合适岗位自动投递简历！请保持手机畅通。", false, "我知道了", null, null, null);
+                AlertDialogUtil.show(getActivity(), "委托投递", ((JSONObject) data).optString("message"), false, "我知道了", null, null, null);
             }
         }
     }
@@ -250,6 +252,7 @@ public class BlueInfoCenterFragment extends BaseFragment {
     }
 
     @Override
+
     public void onError(int errorCode, String tag, String errorMessage) {
         super.onError(errorCode, tag, errorMessage);
     }
