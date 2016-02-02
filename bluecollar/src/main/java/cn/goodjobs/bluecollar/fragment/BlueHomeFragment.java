@@ -229,9 +229,16 @@ public class BlueHomeFragment extends BaseFragment
             int length = data.length();
             if (length > 0) {
                 StringBuilder builder = new StringBuilder();
+                ArrayList<Integer> selectID = new ArrayList<>();
                 for (int i = 0; i < length; i++) {
-                    builder.append(data.optJSONObject(i).optInt("blueJobID") + ",");
+                    int blueJobID = data.optJSONObject(i).optInt("blueJobID");
+                    if (selectJobIds.contains((Integer) blueJobID)) {
+                        selectID.add(blueJobID);
+                    }
+                    builder.append(blueJobID + ",");
                 }
+                selectJobIds.clear();
+                selectJobIds.addAll(selectID);
                 String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
                 for (int i = 0; i < length; i++) {
@@ -332,8 +339,7 @@ public class BlueHomeFragment extends BaseFragment
                 }
             }
         }
-
-
+        itemC.setChecked(selectJobIds.contains((Integer) data.optInt("blueJobID")));
         itemCheck.setOnClickListener(new View.OnClickListener()
         {
             @Override
