@@ -18,17 +18,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import cn.goodjobs.applyjobs.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.Constant;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.DensityUtil;
+import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.UMShareUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
@@ -110,8 +121,8 @@ public class JobNewsDetailsActivity extends BaseActivity {
                                 drawable = Drawable.createFromStream(
                                         url.openStream(), null);
                                 drawable.setBounds(0, 0,
-                                        drawable.getMinimumWidth(),
-                                        drawable.getMinimumWidth());
+                                        DensityUtil.dip2px(JobNewsDetailsActivity.this, drawable.getIntrinsicWidth()),
+                                        DensityUtil.dip2px(JobNewsDetailsActivity.this, drawable.getIntrinsicHeight()));
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {
@@ -120,6 +131,7 @@ public class JobNewsDetailsActivity extends BaseActivity {
                             return drawable;
                         }
                     };
+
                     CharSequence test = Html.fromHtml(object.optString("newscontent"), imageGetter, null);
                     msg.what = 1;
                     msg.obj = test;
@@ -152,5 +164,6 @@ public class JobNewsDetailsActivity extends BaseActivity {
         UMShareUtil.setShareText(this, Constant.SHARE_NEWS, tv_title.getText().toString(), getIntent().getIntExtra("newsid", 0) + "");
         UMShareUtil.getUMSocialService().openShare(this, false);
     }
+
 }
 
