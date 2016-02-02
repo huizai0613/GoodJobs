@@ -239,6 +239,7 @@ public class BlueHomeFragment extends BaseFragment
                 }
                 selectJobIds.clear();
                 selectJobIds.addAll(selectID);
+                applyjobBut.setVisibility(selectJobIds.size()>0?View.VISIBLE:View.GONE);
                 String charSequence = builder.subSequence(0, builder.length() - 1).toString();
 
                 for (int i = 0; i < length; i++) {
