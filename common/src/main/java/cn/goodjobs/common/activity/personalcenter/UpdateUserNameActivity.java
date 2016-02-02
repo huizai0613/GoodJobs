@@ -12,6 +12,7 @@ import cn.goodjobs.common.R;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.entity.LoginInfo;
+import cn.goodjobs.common.util.AlertDialogUtil;
 import cn.goodjobs.common.util.TipsUtil;
 import cn.goodjobs.common.util.http.HttpUtil;
 import cn.goodjobs.common.util.sharedpreferences.SharedPrefUtil;
@@ -61,7 +62,7 @@ public class UpdateUserNameActivity extends BaseActivity {
         params.put("memberName", itemNewUserName.getText());
         params.put("password", itemPass.getText());
         LoadingDialog.showDialog(this);
-        HttpUtil.post(URLS.API_USER_USERNAMEEDIT, params, this);
+        HttpUtil.post(URLS.API_USER_USERNAMEEDIT, URLS.API_USER_USERNAMEEDIT, params, this, 10030);
     }
 
     @Override
@@ -77,6 +78,14 @@ public class UpdateUserNameActivity extends BaseActivity {
         } else if (tag.equals(URLS.API_USER_UserChangename)) {
             itemUserName.setHint(((JSONObject) data).optString("memberName"));
             itemUserName.setEditable(false);
+        }
+    }
+
+    @Override
+    public void onError(int errorCode, String tag, String errorMessage) {
+        super.onError(errorCode, tag, errorMessage);
+        if (errorCode == 10030) {
+            AlertDialogUtil.show(this, errorMessage, "员名称只能包含英文字母、阿拉伯数字、下划线、实点及@符合，长度不能为零。");
         }
     }
 }

@@ -41,6 +41,7 @@ public class LauncherActivity extends BaseActivity {
         // 开启消息推送
         PushAgent mPushAgent = PushAgent.getInstance(this);
         mPushAgent.enable();
+        mPushAgent.setDebugMode(true);
         //开启推送并设置注册的回调处理
 //        mPushAgent.enable(new IUmengRegisterCallback() {
 //

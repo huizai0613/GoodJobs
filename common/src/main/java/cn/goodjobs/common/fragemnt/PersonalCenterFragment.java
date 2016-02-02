@@ -32,6 +32,7 @@ import cn.goodjobs.common.activity.personalcenter.PersonalLookActivity;
 import cn.goodjobs.common.baseclass.BaseFragment;
 import cn.goodjobs.common.baseclass.choosepic.BaseImageUploadFragment;
 import cn.goodjobs.common.constants.URLS;
+import cn.goodjobs.common.util.DateUtil;
 import cn.goodjobs.common.util.ImageUtil;
 import cn.goodjobs.common.util.LogUtil;
 import cn.goodjobs.common.util.TipsUtil;
@@ -134,6 +135,7 @@ public class PersonalCenterFragment extends BaseImageUploadFragment {
         } else if (tag.equals(URLS.API_USER_UPDATE)) {
             // 简历刷新
             TipsUtil.show(getActivity(), data+"");
+            tvUpdatetime.setText("更新时间：" + DateUtil.getToday("yyyy-MM-dd"));
         } else if (tag.equals(URLS.API_CV_PHOTO)) {
             JSONObject jsonObject = (JSONObject) data;
             TipsUtil.show(getActivity(), jsonObject.optString("message"));

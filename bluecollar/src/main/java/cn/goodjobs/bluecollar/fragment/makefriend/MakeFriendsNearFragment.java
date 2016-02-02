@@ -71,7 +71,7 @@ public class MakeFriendsNearFragment extends BaseListFragment implements Adapter
         super.getDataFronServer();
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("page", page);
-        params.put("serType", "near");
+//        params.put("serType", "near");
         params.put("pageTime", pageTime);
         if (myLocation == null) {
             myLocation = (MyLocation) SharedPrefUtil.getObject("location");
