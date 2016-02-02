@@ -18,6 +18,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 import cn.goodjobs.bluecollar.R;
 import cn.goodjobs.bluecollar.view.upload.UploadImageAdapter;
 import cn.goodjobs.bluecollar.view.upload.UploadImageView;
+import cn.goodjobs.common.AndroidBUSBean;
 import cn.goodjobs.common.GoodJobsApp;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.baseclass.BaseImageUploadActivity;
@@ -139,6 +141,8 @@ public class ItemResumeActivity extends BaseImageUploadActivity {
                 intent.putExtra("autoSend", autoSend);
                 startActivity(intent);
             } else {
+                AndroidBUSBean androidBUSBean = new AndroidBUSBean(AndroidBUSBean.STATUSREFRESH);
+                EventBus.getDefault().post(androidBUSBean, URLS.JOB_bluehome_login);
                 TipsUtil.show(this, ((JSONObject) data).optString("message"));
             }
         } else if (tag.equals(URLS.API_JOB_CvPhotosave)) {

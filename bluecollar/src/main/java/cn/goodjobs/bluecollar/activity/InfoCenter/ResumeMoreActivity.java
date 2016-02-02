@@ -6,10 +6,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
 
 import java.util.HashMap;
 
 import cn.goodjobs.bluecollar.R;
+import cn.goodjobs.common.AndroidBUSBean;
 import cn.goodjobs.common.baseclass.BaseActivity;
 import cn.goodjobs.common.constants.URLS;
 import cn.goodjobs.common.util.TipsUtil;
@@ -94,6 +96,8 @@ public class ResumeMoreActivity extends BaseActivity {
     @Override
     public void onSuccess(String tag, Object data) {
         super.onSuccess(tag, data);
+        AndroidBUSBean androidBUSBean = new AndroidBUSBean(AndroidBUSBean.STATUSREFRESH);
+        EventBus.getDefault().post(androidBUSBean, URLS.JOB_bluehome_login);
         TipsUtil.show(this, ((JSONObject) data).optString("message"));
     }
 }
