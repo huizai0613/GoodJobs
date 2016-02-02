@@ -1,5 +1,8 @@
 package cn.goodjobs.common.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by wanggang on 2016/1/20 0020.
  */
@@ -34,5 +37,10 @@ public class DateUtil {
             sb.append(dates[2]);
         }
         return Long.parseLong(sb.toString());
+    }
+
+    public static String getToday(String format) {
+        Calendar calendar = Calendar.getInstance();// 此时打印它获取的是系统当前时间
+        return new SimpleDateFormat(format).format(calendar.getTime());
     }
 }

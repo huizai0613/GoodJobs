@@ -103,11 +103,12 @@ public class HttpUtil {
         syClient.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
-    public static void post(String url, final HttpResponseHandler responseHandler) {
+
+    public static void post(String url, HttpResponseHandler responseHandler) {
         post(url, url, null, responseHandler);
     }
 
-    public static void post(String url, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler) {
+    public static void post(String url, Map<String, Object> paramsMap, HttpResponseHandler responseHandler) {
         post(url, url, paramsMap, responseHandler);
     }
 
@@ -246,9 +247,12 @@ public class HttpUtil {
      * @param url             请求的url
      * @param tag             请求标志，默认为当前url
      * @param paramsMap       请求参数
+     * @param noTipsCode      请求参数,过滤此状态码提示信息
      * @param responseHandler 请求回调
      */
-    public static void post(String url, final String tag, Map<String, Object> paramsMap, final HttpResponseHandler responseHandler) {
+
+    public static void post(String url, final String tag, Map<String, Object> paramsMap,
+                            final HttpResponseHandler responseHandler, final int... noTipsCode) {
         // 首先检测网络连接
         if (!ConnecStatus.isNetworkAvailable(ScreenManager.getScreenManager().currentActivity())) {
             responseHandler.onFailure(NETERROR, tag);
@@ -371,7 +375,9 @@ public class HttpUtil {
                             }
                             LoadingDialog.hide();
                             requstEntityStack.pop();
-                            TipsUtil.show(ScreenManager.getScreenManager().currentActivity(), jsonObject.getString("errorMessage"));
+                            if (!checkErrorCode(errorCode, noTipsCode)) {
+                                TipsUtil.show(ScreenManager.getScreenManager().currentActivity(), jsonObject.getString("errorMessage"));
+                            }
                             responseHandler.onError(errorCode, tag, jsonObject.getString("errorMessage"));
                         }
                     } catch (JSONException e) {
@@ -390,6 +396,17 @@ public class HttpUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean checkErrorCode(int errorCode, int... noTipsCode) {
+        if (noTipsCode != null) {
+            for (int eCode : noTipsCode) {
+                if (eCode == errorCode) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -35,6 +35,7 @@ public class BasePersonalListActivity extends BaseListActivity {
     protected String[] keys;
     protected String idKey; // id对应的key
     protected String paramKey;
+    protected String delTips = "删除后无法恢复，您确定删除吗？";
     protected HashMap<String, String> strMap; // 字段转义
     protected PersonalListAdapter.TextStatus textStatus; // 字段状态选择
 
@@ -136,7 +137,7 @@ public class BasePersonalListActivity extends BaseListActivity {
                 TipsUtil.show(this, "请至少选择一项删除");
                 return;
             }
-            AlertDialogUtil.show(this, R.string.app_name, "删除后无法恢复，您确定删除吗？", true, "确定", "取消", new DialogInterface.OnClickListener() {
+            AlertDialogUtil.show(this, R.string.app_name, delTips, true, "确定", "取消", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     HashMap<String, Object> params = new HashMap<String, Object>();

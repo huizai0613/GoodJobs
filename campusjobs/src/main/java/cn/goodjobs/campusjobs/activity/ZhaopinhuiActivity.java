@@ -25,6 +25,7 @@ public class ZhaopinhuiActivity extends BasePersonalListActivity implements Adap
         delUrl = URLS.API_JOB_Jobfairfollow;
         idKey = "fairID";
         paramKey = "fairID";
+        delTips = "您确定取消关注吗？";
         resIDs = new int[]{R.id.tvTitle, R.id.tvTime, R.id.tvAddress};
         keys = new String[]{"corpName", "schoolAddress", "pubDate"};
         super.onCreate(savedInstanceState);

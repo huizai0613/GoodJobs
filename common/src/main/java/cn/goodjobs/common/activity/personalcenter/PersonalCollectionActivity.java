@@ -27,7 +27,7 @@ public class PersonalCollectionActivity extends BasePersonalListActivity impleme
         resIDs = new int[]{R.id.tvJobname, R.id.tvAddress, R.id.tvCompany, R.id.tvStatus, R.id.tvTime};
         keys = new String[]{"jobName", "cityName", "corpName", "applyName", "saveDate"};
         textStatus = new PersonalListAdapter.TextStatus(new String[]{"jobStatus", "applyStatus"},
-                new int[]{0, 3}, new String[]{"2", "0"});
+                new int[]{0, 3}, new String[]{"2", "2"});
         super.onCreate(savedInstanceState);
         mListView.setOnItemClickListener(this);
     }

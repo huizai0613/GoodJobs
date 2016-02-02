@@ -101,6 +101,10 @@ public class AlertDialogUtil {
         show(context, R.string.app_name, msg, false, "确定", "", null, null);
     }
 
+    public static void show(Context context, String title, String msg) {
+        show(context, title, msg, false, "确定", "", null, null);
+    }
+
     public static void show(Context context, int title, String msg, boolean hasCancel, String okText,
                                    String cancelText, final DialogInterface.OnClickListener okListener, final DialogInterface.OnClickListener cancelListener) {
         LinearLayout dialogview = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.layout_dialog, null);
