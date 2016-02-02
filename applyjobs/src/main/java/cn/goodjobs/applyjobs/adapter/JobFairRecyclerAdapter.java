@@ -28,6 +28,8 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
     private int CHILD_VIEW = 0;
     private List<String> headerPosition = new ArrayList<String>();
     private List<String> content = new ArrayList<String>();
+    private List<String> time = new ArrayList<String>();
+    private List<String> place = new ArrayList<String>();
     private List<String> id = new ArrayList<String>();
     private List<JobfairGroup> group_list;
     private List<JobFairChild> child_list;
@@ -50,9 +52,15 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
             count = count + isHeader(i);
             headerPosition.add(String.valueOf(count));
             content.add(group_list.get(i).getName());
+            time.add(group_list.get(i).getName());
+            place.add(group_list.get(i).getName());
             id.add(group_list.get(i).getCatalogID());
             for (int j = 0; j < group_list.get(i).getList().size(); j++) {
                 content.add(group_list.get(i).getList().get(j).getNewstitle());
+                if (type == 0) {
+                    time.add(group_list.get(i).getList().get(j).getNewsStartDate());
+                    place.add(group_list.get(i).getList().get(j).getNewsCityName());
+                }
                 id.add(group_list.get(i).getList().get(j).getNewsID());
             }
         }
@@ -94,13 +102,24 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
         }
         if (count == 1) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_fair_title, null);
+            holder.tv = (TextView) convertView.findViewById(R.id.tv_jobfair_title);
+            convertView.setTag(holder);
+            holder.tv.setText(content.get(position));
         } else if (count == 0) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_jobfair_content, null);
-        }
+            holder.tv = (TextView) convertView.findViewById(R.id.tv_jobfair_title);
+            holder.tvTime = (TextView) convertView.findViewById(R.id.tv_jobfair_time);
+            holder.tvPlace = (TextView) convertView.findViewById(R.id.tv_jobfair_place);
+            holder.tv.setText(content.get(position));
+            convertView.setTag(holder);
+            if (type == 0) {
+                holder.tvTime.setVisibility(View.VISIBLE);
+                holder.tvPlace.setVisibility(View.VISIBLE);
+                holder.tvTime.setText(time.get(position));
+                holder.tvPlace.setText(place.get(position));
+            }
 
-        holder.tv = (TextView) convertView.findViewById(R.id.tv_jobfair_title);
-        convertView.setTag(holder);
-        holder.tv.setText(content.get(position));
+        }
         isHeader = false;
         for (int i = 0; i < headerPosition.size(); i++) {
             if (position == Integer.parseInt(headerPosition.get(i))) {
@@ -149,7 +168,7 @@ public class JobFairRecyclerAdapter extends BaseAdapter {
 
     public class MyViewHolder {
 
-        private TextView tv;
+        private TextView tv, tvTime, tvPlace;
     }
 
 }

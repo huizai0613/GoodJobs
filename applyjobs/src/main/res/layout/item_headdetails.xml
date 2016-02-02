@@ -16,19 +16,65 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/padding_small" />
 
-        <TextView
-            android:id="@+id/tv_jobfair_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/iv_arrow"
-            android:padding="@dimen/padding_small"
-            android:text="提高面试"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/text_small" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_jobfair_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_small"
+                android:paddingTop="@dimen/padding_small"
+                android:text="大型招聘会"
+                android:textColor="@color/main_color"
+                android:textSize="@dimen/text_small" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_jobfair_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_small"
+                    android:text="2015-12-31"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_jobfair_title"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/tv_jobfair_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_small"
+                    android:text="安徽省合肥市庐阳区"
+                    android:textColor="@color/main_color"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
-    <View style="@style/line" />
+    <View
+        style="@style/line"
+        android:layout_marginTop="@dimen/padding_small" />
+
 
 </LinearLayout>

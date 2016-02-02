@@ -7,7 +7,7 @@ public class URLS {
     // 公共数据
     public final static String API_COMMON_META = "common/meta";  // 公共数据
     public final static String FOOTER = "Ehr/Footer";  // 企业底部公司电话和地址
-    public final static String API_JOB_Newindex = "/Info/Newindex";  // 招聘会首页
+    public final static String API_JOB_Newindex = "Info/Newindex";  // 招聘会首页
     public final static String API_JOB_Learning = "Info/Learning";  // 培训首页
     public final static String API_JOB_appoint = "info/learnappoint";  // 预约
     public final static String API_JOB_consult = "info/learnconsult";  // 资询电话
