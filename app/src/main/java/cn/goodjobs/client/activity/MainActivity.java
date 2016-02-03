@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity {
         menuEntity.padding = DensityUtil.dip2px(this, 24);
         menuEntity.scale = 0.6f;
         menuEntity.title = "全职招聘";
-        menuEntity.content = "30000家企业、80000热招职位任你搜索，总有一款适合你 ";
+        menuEntity.content = "三百六十行，行行出状元！海量招聘职位，总有一款适合你！";
         menuEntity.toClass = "cn.goodjobs.applyjobs.activity.ApplyJobsActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 55);
         menuEntity.imgH = DensityUtil.dip2px(this, 46);
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity {
         menuEntity.padding = DensityUtil.dip2px(this, 24);
         menuEntity.scale = 0.4f;
         menuEntity.title = "蓝领招聘";
-        menuEntity.content = "站着工作，你的辛勤付出必有丰厚回报。";
+        menuEntity.content = "没有固定工位，照样成就理想生活";
         menuEntity.toClass = "cn.goodjobs.bluecollar.activity.BlueCollarActivity";
         menuEntity.imgW = DensityUtil.dip2px(this, 40);
         menuEntity.imgH = DensityUtil.dip2px(this, 66);
