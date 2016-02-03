@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -188,7 +189,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                     }
 
 
-                    jobType.setValue(jobOneCate, joTwoCate, parentPos, childPos, new int[index]);
+                    jobType.setValue(jobOneCate, joTwoCate, parentPos, childPos, new int[index + 1]);
 
                     break;
                 case UpdateDataTaskUtils.MOREDATA:
@@ -265,6 +266,9 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
     private ArrayList<List<JSONObject>> jopTypeChild;
     private View applyjobBut;
     private String cepage;
+    private TextView keyworld;
+    private View clear_key;
+    private View keyworldBox;
 
 
     @Override
@@ -387,7 +391,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
 
                 } catch (Exception e) {
                     itemJobfuncId = "";
-                }finally {
+                } finally {
                     startRefresh();
                 }
 
@@ -443,6 +447,9 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         mAdapter = new BlueJobSearchResultAdapter(this, this);
         initList();
         etvMenu = (ExpandTabView) findViewById(R.id.etv_menu);
+        keyworld = (TextView) findViewById(R.id.keyworld);
+        keyworldBox = findViewById(R.id.keyworld_box);
+        clear_key = findViewById(R.id.clear_key);
         applyjobBut = findViewById(R.id.applyjob_but);
 
         cityInfo = new TwoLevelMenuView(mcontext);
@@ -492,6 +499,24 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
                 startRefresh();
             }
         }, 500);
+
+        if (StringUtil.isEmpty(searchKeyWorld)) {
+            keyworldBox.setVisibility(View.GONE);
+        } else {
+            keyworldBox.setVisibility(View.VISIBLE);
+            keyworld.setText("关键字 : "+searchKeyWorld);
+            clear_key.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    keyworldBox.setVisibility(View.GONE);
+                    searchKeyWorld = "";
+                    startRefresh();
+                }
+            });
+
+        }
     }
 
     @Override
@@ -607,6 +632,7 @@ public class BlueJobSearchResultActivity extends BaseListActivity implements OnG
         itemWorktimeId = getIntent().getStringExtra("itemWorktimeId");
         itemDegreeId = getIntent().getStringExtra("itemDegreeId");
         itemBenefitId = getIntent().getStringExtra("itemBenefitId");
+
 
         String id = getIntent().getStringExtra("itemAddressId");
 
