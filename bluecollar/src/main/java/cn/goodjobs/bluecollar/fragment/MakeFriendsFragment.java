@@ -144,7 +144,7 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
                 Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
                 startActivity(intent);
             } else if (requestCode == 131){
-                makeFriendsGuanzhuFragment.refresh();
+                makeFriendsGuanzhuFragment.doRefresh();
             }
         }
     }

@@ -97,7 +97,7 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
         }
     }
 
-    public void refresh() {
+    public void doRefresh() {
         if(!isLoad) {
             loadView();
             isLoad=true;
