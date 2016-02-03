@@ -192,7 +192,6 @@ public class LoginActivity extends BaseActivity {
             AndroidBUSBean androidBUSBean = new AndroidBUSBean(AndroidBUSBean.STATUSREFRESH);
             EventBus.getDefault().post(androidBUSBean, URLS.JOB_bluehome_login);
         }
-
         finish();
     }
 

@@ -22,6 +22,26 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    // 配置多渠道包
+//    productFlavors {
+//
+//        goodjobs_360 {}
+//        goodjobs_91 {}
+//        goodjobs_lenovomm {}
+//        goodjobs_hiapk {}
+//        goodjobs_xiaomi {}
+//        goodjobs_qq {}
+//        goodjobs {}
+//        goodjobs_mumayi {}
+//        goodjobs_baidu {}
+//        goodjobs_wandoujia {}
+//
+//        productFlavors.all { flavor ->
+//            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//        }
+//
+//    }
 }
 
 dependencies {
