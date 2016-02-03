@@ -641,9 +641,9 @@ public class HttpUtil {
         return "";
     }
 
-    public static void cancelRequest() {
+    public static void cancelRequest(Context context) {
         if (client != null) {
-            client.cancelAllRequests(true);
+            client.cancelRequests(context, true);
         }
     }
 }

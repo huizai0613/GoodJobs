@@ -134,7 +134,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     }
 
     protected void back() {
-        HttpUtil.cancelRequest(); // 返回上级界面前取消当前界面的网络请求
+        HttpUtil.cancelRequest(this); // 返回上级界面前取消当前界面的网络请求
         hideSoftInputFromWindow();
         finish();
     }
