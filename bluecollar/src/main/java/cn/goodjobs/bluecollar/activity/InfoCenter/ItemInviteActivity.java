@@ -20,7 +20,7 @@ import cn.goodjobs.common.view.LoadingDialog;
 public class ItemInviteActivity extends BaseActivity {
 
     private WebView wv;
-//    private String url = "http://m.chenjun.goodjobs.lab/index.php/module/Blue/action/Attend?for=app"; // 测试地址
+    //    private String url = "http://m.chenjun.goodjobs.lab/index.php/module/Blue/action/Attend?for=app"; // 测试地址
     private String url = "http://m.goodjobs.cn/index.php/module/Blue/action/Attend?for=app"; // 真实地址
 
     @Override
