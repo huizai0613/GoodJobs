@@ -43,7 +43,7 @@
                 listitem:important="invisible"
                 listitem:showHLine="false"
                 listitem:source="cktime"
-                listitem:tvtitle="目前情况" />
+                listitem:tvtitle="到岗时间" />
 
             <cn.goodjobs.common.view.searchItem.SelectorItemView
                 android:id="@+id/itemSalary"

@@ -65,7 +65,7 @@ public class GoodJobsSettingActivity extends BaseActivity {
         itemFeedBack = (SearchItemView) findViewById(R.id.itemFeedBack);
         itemClear = (SearchItemView) findViewById(R.id.itemClear);
         itemCheck = (SearchItemView) findViewById(R.id.itemCheck);
-        itemCheck.setHint("当前版本：V" + HttpUtil.getPackageInfo().versionName);
+        itemCheck.setHint("当前版本：v" + HttpUtil.getPackageInfo().versionName);
         itemHelp = (SearchItemView) findViewById(R.id.itemHelp);
         itemAbout = (SearchItemView) findViewById(R.id.itemAbout);
         itemClear.setHint(getCacheSize());
