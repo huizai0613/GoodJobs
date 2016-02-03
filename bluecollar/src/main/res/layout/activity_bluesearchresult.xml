@@ -18,6 +18,43 @@
         />
 
     <RelativeLayout
+        android:background="@color/bg_color"
+        android:id="@+id/keyworld_box"
+        android:layout_width="match_parent"
+        android:layout_height="30dip">
+
+        <TextView
+            android:id="@+id/keyworld"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="30dip"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/padding_bottom"
+            android:paddingTop="@dimen/padding_bottom"
+            android:singleLine="true"
+            android:text="关键字:"
+            android:textColor="@color/main_color"
+            android:textSize="@dimen/text_small"/>
+
+        <ImageView
+            android:id="@+id/clear_key"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="5dip"
+            android:src="@drawable/icon_clear"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/line"
+        />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
