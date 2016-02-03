@@ -75,7 +75,7 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        startActivityForResult(intent, LoginActivity.LOGIN_REQUEST_CODE);
+                        startActivityForResult(intent, 131);
                     }
                 }, new DialogInterface.OnClickListener() {
                     @Override
@@ -95,6 +95,15 @@ public class MakeFriendsGuanzhuFragment extends BaseListFragment implements Adap
             }
             needRefresh = false;
         }
+    }
+
+    public void refresh() {
+        if(!isLoad) {
+            loadView();
+            isLoad=true;
+        }
+        startRefresh();
+        getDataFronServer();
     }
 
     private void loadView() {

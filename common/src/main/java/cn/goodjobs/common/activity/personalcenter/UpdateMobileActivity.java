@@ -63,6 +63,7 @@ public class UpdateMobileActivity extends BaseActivity {
         LoadingDialog.showDialog(this);
         HttpUtil.post(URLS.API_USER_UserChangename, this);
 
+        changImageCode();
     }
 
     public void changeVerCode(View view) {
@@ -128,7 +129,6 @@ public class UpdateMobileActivity extends BaseActivity {
             finish();
         } else if (tag.equals(URLS.API_USER_UserChangename)) {
             itemOldMobile.setText(((JSONObject) data).optString("mobile"));
-            changImageCode();
         }
     }
 

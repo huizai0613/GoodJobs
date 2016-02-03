@@ -52,9 +52,9 @@ public class HttpUtil {
     public static final String INFO = "INFO";
     public static final int NETERROR = 9008;
 
-    public static final String HOST = "220.178.31.125:3721";
+//    public static final String HOST = "220.178.31.125:3721";
 
-    //            private final static String HOST = "app.goodjobs.cn";
+    private final static String HOST = "app.goodjobs.cn";
     public static final String BASE_URL = "http://" + HOST + "/";
 
     public static String APP_API_KEY = "xinANrenCaiWangIsGoodJobS";

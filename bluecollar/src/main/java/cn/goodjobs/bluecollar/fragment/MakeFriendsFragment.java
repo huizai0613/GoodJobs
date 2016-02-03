@@ -139,9 +139,13 @@ public class MakeFriendsFragment extends BaseFragment implements ViewPager.OnPag
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LoginActivity.LOGIN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
-            startActivity(intent);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == LoginActivity.LOGIN_REQUEST_CODE) {
+                Intent intent = new Intent(getActivity(), PersonalInfoActivity.class);
+                startActivity(intent);
+            } else if (requestCode == 131){
+                makeFriendsGuanzhuFragment.refresh();
+            }
         }
     }
 
