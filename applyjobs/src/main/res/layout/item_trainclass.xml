@@ -15,10 +15,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/padding_small"
-            android:padding="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
             android:text="芜湖校第40期"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
+            android:textSize="@dimen/text_small" />
 
         <TextView
             android:id="@+id/tv_classname"
@@ -28,10 +29,11 @@
             android:layout_toLeftOf="@id/tv_classplace"
             android:ellipsize="end"
             android:maxLines="1"
-            android:padding="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
             android:text="国家人力资源管理师一级"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
+            android:textSize="@dimen/text_small" />
 
     </RelativeLayout>
 
@@ -47,7 +49,7 @@
             android:padding="@dimen/padding_small"
             android:text="2016-2-27开班"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
+            android:textSize="@dimen/text_small" />
 
         <TextView
             android:id="@+id/tv_classupdate"
@@ -58,7 +60,7 @@
             android:padding="@dimen/padding_small"
             android:text="2016年05月"
             android:textColor="@color/main_color"
-            android:textSize="@dimen/text_default" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <View style="@style/line" />
