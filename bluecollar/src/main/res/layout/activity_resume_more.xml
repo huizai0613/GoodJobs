@@ -76,8 +76,8 @@
                 listitem:hint="请选择"
                 listitem:important="invisible"
                 listitem:showHLine="false"
-                listitem:singleSelected="false"
-                listitem:source="jobfunc_l1;jobfunc_l2"
+                listitem:singleSelected="true"
+                listitem:source="blueCategoryBig;blueCategorySmall"
                 listitem:tvtitle="目前职位" />
 
             <cn.goodjobs.common.view.searchItem.SelectorItemView
